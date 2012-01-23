@@ -62,6 +62,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Communicator.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="DataClasses\Group.cs" />
+    <Compile Include="DataClasses\Image.cs" />
+    <Compile Include="DataClasses\Me.cs" />
+    <Compile Include="DataClasses\Message.cs" />
+    <Compile Include="DataClasses\User.cs" />
+    <Compile Include="DataMaster.cs" />
+    <Compile Include="DataPackets\Ping.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -97,6 +106,7 @@
     <Resource Include="PanoramaBackground.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
