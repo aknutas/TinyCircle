@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-
+using GEETHREE.DataClasses;
 
 namespace GEETHREE
 {
@@ -21,12 +21,15 @@ namespace GEETHREE
         public MainViewModel()
         {
             this.Items = new ObservableCollection<ItemViewModel>();
+            this.Users = new ObservableCollection<User>();
+            this.Groups = new ObservableCollection<Group>();
         }
-
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<ItemViewModel> Items { get; private set; }
+        public ObservableCollection<User> Users { get; private set; }
+        public ObservableCollection<Group> Groups { get; private set; }
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
