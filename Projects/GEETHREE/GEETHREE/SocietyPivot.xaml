@@ -48,7 +48,7 @@
                 </ListBox>
             </controls:PivotItem>
         </controls:Pivot>
-        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="details" VerticalAlignment="Top" Width="468" Visibility="Visible" Opacity="1" Background="Black">
+        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="details" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1" Background="Black">
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="detailsNameTextBlock" Text="Name" Style="{StaticResource PhoneTextExtraLargeStyle}" />
             
             <TextBox Canvas.Left="73" Canvas.Top="473" Height="71" Name="textBox1" Text="" Width="349" />

@@ -36,7 +36,7 @@ namespace GEETHREE
             }
         }
 
-        private void Groups_ListBox_Tap(object sender, GestureEventArgs e)
+        private void Groups_ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedGroup = (Group) groupsListBox.SelectedItem;
             detailsNameTextBlock.Text = selectedGroup.GroupName.ToString();
@@ -44,8 +44,8 @@ namespace GEETHREE
             details.Visibility = System.Windows.Visibility.Visible;
             
         }
-        
-        private void Users_ListBox_Tap(object sender, GestureEventArgs e)
+
+        private void Users_ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedUser = (User)usersListBox.SelectedItem;
             detailsNameTextBlock.Text = selectedUser.UserName.ToString();
