@@ -7,13 +7,22 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:GEETHREE.DataClasses"
+
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
+    shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}">
+
+    <phone:PhoneApplicationPage.Resources>
+        
+        <local:AppSettings x:Key="appSettings"></local:AppSettings>
+        
+    </phone:PhoneApplicationPage.Resources>
+    
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -93,16 +102,16 @@
                                 
                         <StackPanel Width="410" Height="446">
                         <TextBlock Height="30" Name="textBlock1" Text=" Alias" />
-                        <TextBox Height="71" Name="txt_Settings_alias" Text="Anonymous" Width="460" />
+                        <TextBox Height="71" Name="txt_Settings_alias" Text="{Binding Path=AliasSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Width="460" />
                        
                         <TextBlock Height="30" Name="textBlock2" Text="Avatar" />
                         <Grid>
-                            <Image Height="103" Name="img_Settings_avatar" Stretch="Fill" Width="111" Source="/GEETHREE;component/Resources/anonymous.png" Tap="img_Settings_avatar_Tap" Margin="91,-1,209,1" />
+                            <Image Height="103" Name="img_Settings_avatar" Stretch="Fill" Width="111"  Tap="img_Settings_avatar_Tap" Margin="91,-1,209,1" DataContext="{Binding}" />
                             <Image Height="80" Name="img_Settings_camera" Stretch="Fill" Source="/GEETHREE;component/Resources/camera.png" Margin="248,10,81,0" VerticalAlignment="Top" Tap="img_Settings_camera_Tap" />
 
                         </Grid>
-                        <toolkit:ToggleSwitch Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" />
-                        <toolkit:ToggleSwitch Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" />
+                        <toolkit:ToggleSwitch Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowProfileInfoSetting, Mode=TwoWay}" />
+                        <toolkit:ToggleSwitch Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowSharedUploadsSetting, Mode=TwoWay}"/>
                     </StackPanel>
                  </StackPanel>
                         

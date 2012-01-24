@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using System.Windows.Media.Imaging;
 
 
 namespace GEETHREE
@@ -29,6 +30,10 @@ namespace GEETHREE
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
 
+            DataClasses.AppSettings appSetting = new DataClasses.AppSettings();            
+            img_Settings_avatar.Source = new BitmapImage(new Uri(appSetting.AvatarSetting, UriKind.Relative));
+           
+
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
             photoChooserTask = new PhotoChooserTask();
             photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
@@ -46,6 +51,7 @@ namespace GEETHREE
             {
                 App.ViewModel.LoadData();
             }
+
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -60,6 +66,7 @@ namespace GEETHREE
         {
             try
             {
+               
                 photoChooserTask.Show();
             }
             catch (System.InvalidOperationException ex)
@@ -87,12 +94,19 @@ namespace GEETHREE
         {
             if (e.TaskResult == TaskResult.OK)
             {
+                //image1.Source = new BitmapImage(new Uri(e.OriginalFileName));
+                
+               // MessageBox.Show(e.OriginalFileName.ToString());
 
 
                 //Code to display the photo on the page in an image control named myImage.
                 System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
                 bmp.SetSource(e.ChosenPhoto);
                 img_Settings_avatar.Source = bmp;
+
+                //Write to isolated storage
+                //DataClasses.AppSettings appSetting = new DataClasses.AppSettings();
+                //appSetting.AvatarSetting = e.OriginalFileName;
             }
         }
 
@@ -106,6 +120,10 @@ namespace GEETHREE
                 System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
                 bmp.SetSource(e.ChosenPhoto);
                 img_Settings_avatar.Source = bmp;
+
+                //Write to isolated storage
+                DataClasses.AppSettings appSetting = new DataClasses.AppSettings();
+                appSetting.AvatarSetting = e.OriginalFileName.ToString();
             }
         }
 
