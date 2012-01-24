@@ -46,7 +46,7 @@
                     <!--Replace rectangle with image-->
                     <StackPanel Width="300">
                         <Button Content="Users" Height="72" Margin="134,345,0,0" Name="button1" Width="160" Click="button1_Click" />
-                        <Button Content="Groups" Height="72" HorizontalAlignment="Left" Margin="134,0,0,219" Name="button2" VerticalAlignment="Bottom" Width="160" />
+                        <Button Content="Groups" Height="72" HorizontalAlignment="Left" Margin="134,0,0,219" Name="button2" VerticalAlignment="Bottom" Width="160" Click="button2_Click" />
                     </StackPanel>
                 </StackPanel>
 

@@ -18,11 +18,11 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="GEETHREE - SOCIAL">
+        <controls:Pivot Title="GEETHREE - SOCIAL" Name="socialpivots">
             <!--Pivot item one-->
-            <controls:PivotItem Header="People">
+            <controls:PivotItem Header="People" Name="PeoplePivot">
                 <!--Double line list with text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Users}" Tap="ListBox_Tap">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Users}" Tap="Users_ListBox_Tap" Name="usersListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
@@ -35,8 +35,8 @@
             </controls:PivotItem>
 
             <!--Pivot item two-->
-            <controls:PivotItem Header="Groups">
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="ListBox_Tap_1">
+            <controls:PivotItem Header="Groups" Name="GroupsPivot">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="Groups_ListBox_Tap" Name="groupsListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
@@ -48,9 +48,12 @@
                 </ListBox>
             </controls:PivotItem>
         </controls:Pivot>
-        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="details" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1" Background="Black">
-            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="textBlock1" Text="TextBlock" />
-            <TextBox Canvas.Left="6" Canvas.Top="183" Height="71" Name="textBox1" Text="TextBox" Width="460" />
+        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="details" VerticalAlignment="Top" Width="468" Visibility="Visible" Opacity="1" Background="Black">
+            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="detailsNameTextBlock" Text="Name" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+            
+            <TextBox Canvas.Left="73" Canvas.Top="473" Height="71" Name="textBox1" Text="" Width="349" />
+            <TextBlock Canvas.Left="34" Canvas.Top="179" Height="144" Name="detailsDescriptionText" Text="" Width="413" />
+            <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="button1" Width="229" />
         </Canvas>
     </Grid>
 
