@@ -11,16 +11,18 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded" BackKeyPress="PhoneApplicationPage_BackKeyPress">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="MY APPLICATION">
+        <controls:Pivot Title="GEETHREE - SOCIAL">
             <!--Pivot item one-->
             <controls:PivotItem Header="People">
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Users}">
+                <!--Double line list with text wrapping-->
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Users}" Tap="ListBox_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
@@ -34,8 +36,7 @@
 
             <!--Pivot item two-->
             <controls:PivotItem Header="Groups">
-
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="ListBox_Tap_1">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
@@ -45,9 +46,12 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
             </controls:PivotItem>
         </controls:Pivot>
+        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="details" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1" Background="Black">
+            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="textBlock1" Text="TextBlock" />
+            <TextBox Canvas.Left="6" Canvas.Top="183" Height="71" Name="textBox1" Text="TextBox" Width="460" />
+        </Canvas>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
