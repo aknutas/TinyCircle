@@ -28,3 +28,4 @@ C:\G3\Projects\GEETHREE\GEETHREE\Bin\Debug\Microsoft.Phone.Controls.xml
 C:\G3\Projects\GEETHREE\GEETHREE\obj\Debug\GEETHREE.dll
 C:\G3\Projects\GEETHREE\GEETHREE\obj\Debug\GEETHREE.pdb
 C:\G3\Projects\GEETHREE\GEETHREE\obj\Debug\XapCacheFile.xml
+C:\G3\Projects\GEETHREE\GEETHREE\obj\Debug\SocietyPivot.g.i.cs

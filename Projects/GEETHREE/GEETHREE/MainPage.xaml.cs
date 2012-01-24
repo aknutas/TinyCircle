@@ -33,5 +33,10 @@ namespace GEETHREE
                 App.ViewModel.LoadData();
             }
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
+        }
     }
 }
