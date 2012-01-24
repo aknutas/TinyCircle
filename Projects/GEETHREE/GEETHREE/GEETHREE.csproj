@@ -113,6 +113,7 @@
     </Content>
     <Resource Include="PanoramaBackground.png" />
     <Resource Include="Resources\anonymous.png" />
+    <Resource Include="Resources\camera.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

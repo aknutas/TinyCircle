@@ -94,8 +94,13 @@
                         <StackPanel Width="410" Height="446">
                         <TextBlock Height="30" Name="textBlock1" Text=" Alias" />
                         <TextBox Height="71" Name="txt_Settings_alias" Text="Anonymous" Width="460" />
+                       
                         <TextBlock Height="30" Name="textBlock2" Text="Avatar" />
-                        <Image Height="103" Name="img_Settings_avatar" Stretch="Fill" Width="111" Source="/GEETHREE;component/Resources/anonymous.png" />
+                        <Grid>
+                            <Image Height="103" Name="img_Settings_avatar" Stretch="Fill" Width="111" Source="/GEETHREE;component/Resources/anonymous.png" Tap="img_Settings_avatar_Tap" Margin="91,-1,209,1" />
+                            <Image Height="80" Name="img_Settings_camera" Stretch="Fill" Source="/GEETHREE;component/Resources/camera.png" Margin="248,10,81,0" VerticalAlignment="Top" Tap="img_Settings_camera_Tap" />
+
+                        </Grid>
                         <toolkit:ToggleSwitch Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" />
                         <toolkit:ToggleSwitch Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" />
                     </StackPanel>
