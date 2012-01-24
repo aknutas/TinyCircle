@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
+using System.IO.IsolatedStorage;
 
 
 namespace GEETHREE
@@ -20,7 +21,7 @@ namespace GEETHREE
     {
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;
-
+        DataClasses.AppSettings appSetting = new DataClasses.AppSettings();
         // Constructor
         public MainPage()
         {
@@ -30,9 +31,18 @@ namespace GEETHREE
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
 
-            DataClasses.AppSettings appSetting = new DataClasses.AppSettings();            
-            img_Settings_avatar.Source = new BitmapImage(new Uri(appSetting.AvatarSetting, UriKind.Relative));
-           
+            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (myIsolatedStorage.FileExists("Avatar.jpg"))
+                {
+                    img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
+                }
+                else
+                {
+                    img_Settings_avatar.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/anonymous.png", UriKind.Relative));
+                }
+            }
+            
 
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
             photoChooserTask = new PhotoChooserTask();
@@ -89,24 +99,18 @@ namespace GEETHREE
         }
 
         //browses for the photos and gets the picture in imagebox after selection
-
         void photoChooserTask_Completed(object sender, PhotoResult e)
         {
             if (e.TaskResult == TaskResult.OK)
             {
-                //image1.Source = new BitmapImage(new Uri(e.OriginalFileName));
+                //Write image to isolated storage
+                appSetting.SaveToIsolatedStorage(e.ChosenPhoto, "Avatar.jpg");
+
+          
+                //display image on imagebox from isolated storage
+                img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
+
                 
-               // MessageBox.Show(e.OriginalFileName.ToString());
-
-
-                //Code to display the photo on the page in an image control named myImage.
-                System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
-                bmp.SetSource(e.ChosenPhoto);
-                img_Settings_avatar.Source = bmp;
-
-                //Write to isolated storage
-                //DataClasses.AppSettings appSetting = new DataClasses.AppSettings();
-                //appSetting.AvatarSetting = e.OriginalFileName;
             }
         }
 
@@ -115,15 +119,15 @@ namespace GEETHREE
         {
             if (e.TaskResult == TaskResult.OK)
             {
+                //Write image to isolated storage
+                appSetting.SaveToIsolatedStorage(e.ChosenPhoto, "Avatar.jpg");
 
-                //Code to display the photo on the page in an image control named myImage.
-                System.Windows.Media.Imaging.BitmapImage bmp = new System.Windows.Media.Imaging.BitmapImage();
-                bmp.SetSource(e.ChosenPhoto);
-                img_Settings_avatar.Source = bmp;
+                //display image on imagebox from isolated storage
+                img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
+               
 
-                //Write to isolated storage
-                DataClasses.AppSettings appSetting = new DataClasses.AppSettings();
-                appSetting.AvatarSetting = e.OriginalFileName.ToString();
+               
+                
             }
         }
 
