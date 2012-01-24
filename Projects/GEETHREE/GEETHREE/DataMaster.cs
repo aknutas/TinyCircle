@@ -71,6 +71,25 @@ namespace GEETHREE
             }
         }
 
+        public List<Message> getAllMessages()
+        {
+            lock (db)
+            {
+                var qres = from Message message in db.Users select message;
+                List<Message> returnList = new List<Message>(qres);
+                return returnList;
+            }
+        }
+
+        public void storeMessage(Message message)
+        {
+            lock (db)
+            {
+                db.Messages.InsertOnSubmit(message);
+                db.SubmitChanges();
+            }
+        }
+
     }
 
 }
