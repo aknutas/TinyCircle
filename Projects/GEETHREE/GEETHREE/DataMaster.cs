@@ -38,7 +38,6 @@ namespace GEETHREE
     public class DataMaster
     {
         G3DataContext db;
-        private Mutex mutex;
 
         public DataMaster()
         {
@@ -53,16 +52,25 @@ namespace GEETHREE
             }
         }
 
-        public List<User> getAllUsers(){
-            var qres = from User user in db.Users select user;
-            List<User> returnList = new List<User>(qres);
-            return returnList;
+        public List<User> getAllUsers()
+        {
+            lock (db)
+            {
+                var qres = from User user in db.Users select user;
+                List<User> returnList = new List<User>(qres);
+                return returnList;
+            }
         }
 
-        public void storeUser(User user){
-            db.Users.InsertOnSubmit(user);
-            db.SubmitChanges();
+        public void storeUser(User user)
+        {
+            lock (db)
+            {
+                db.Users.InsertOnSubmit(user);
+                db.SubmitChanges();
+            }
         }
 
     }
+
 }
