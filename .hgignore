@@ -1,3 +1,4 @@
 syntax: glob
 Projects/GEETHREE/GEETHREE/Bin/**
 Projects/GEETHREE/GEETHREE/obj/**
+.DS_Store
