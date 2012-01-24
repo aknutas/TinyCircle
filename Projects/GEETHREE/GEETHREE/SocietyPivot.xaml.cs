@@ -21,9 +21,9 @@ namespace GEETHREE
             DataContext = App.ViewModel;
         }
 
+        // ** aks data from view model
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
@@ -35,7 +35,7 @@ namespace GEETHREE
             details.Visibility = System.Windows.Visibility.Visible;
         }
 
-        // must navigate back to the pivot page from details page, not back to panorama page
+        // ** must navigate back to the pivot page from details page, not back to panorama page
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (details.Visibility == System.Windows.Visibility.Visible)
