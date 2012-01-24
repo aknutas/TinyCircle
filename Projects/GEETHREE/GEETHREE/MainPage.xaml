@@ -13,7 +13,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -86,19 +86,21 @@
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="Settings">
                 <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
-                                <StackPanel Width="311">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                    
+                 
+                                
+                        <StackPanel Width="410" Height="446">
+                        <TextBlock Height="30" Name="textBlock1" Text=" Alias" />
+                        <TextBox Height="71" Name="txt_Settings_alias" Text="Anonymous" Width="460" />
+                        <TextBlock Height="30" Name="textBlock2" Text="Avatar" />
+                        <Image Height="103" Name="img_Settings_avatar" Stretch="Fill" Width="111" Source="/GEETHREE;component/Resources/anonymous.png" />
+                        <toolkit:ToggleSwitch Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" />
+                        <toolkit:ToggleSwitch Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" />
+                    </StackPanel>
+                 </StackPanel>
+                        
             </controls:PanoramaItem>
 
 
