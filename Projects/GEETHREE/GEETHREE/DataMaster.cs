@@ -16,6 +16,7 @@ using Microsoft.Phone.Data.Linq;
 using Microsoft.Phone.Data.Linq.Mapping;
 using GEETHREE.DataClasses;
 using System.Collections.Generic;
+using System.Threading;
 
 
 namespace GEETHREE
@@ -37,6 +38,7 @@ namespace GEETHREE
     public class DataMaster
     {
         G3DataContext db;
+        private Mutex mutex;
 
         public DataMaster()
         {
@@ -59,6 +61,7 @@ namespace GEETHREE
 
         public void storeUser(User user){
             db.Users.InsertOnSubmit(user);
+            db.SubmitChanges();
         }
 
     }

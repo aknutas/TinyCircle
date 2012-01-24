@@ -35,6 +35,7 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        [Column]
         private string _userName;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
@@ -56,6 +57,7 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        [Column]
         private string _description;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
