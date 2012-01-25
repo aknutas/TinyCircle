@@ -64,7 +64,8 @@
                     </ListBox>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,0" Height="193" Width="422" Grid.RowSpan="2">
                     <StackPanel Width="410" Height="194">
-                       <Button Content="Users" Height="72" Margin="0,0,0,0" Name="button1" Width="160" Click="button1_Click" />
+                            <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <Button Content="Users" Height="72" Margin="0,0,0,0" Name="button1" Width="160" Click="button1_Click" />
                        <Button Content="Groups" Height="72" Margin="0,0,0,0" Name="button2" Width="160" Click="button2_Click" />
                     </StackPanel>
                 </StackPanel>

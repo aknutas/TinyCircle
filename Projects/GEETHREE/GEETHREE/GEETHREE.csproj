@@ -82,6 +82,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Networking\MessageHandler.cs" />
+    <Compile Include="Pages\ComposeMessagePage.xaml.cs">
+      <DependentUpon>ComposeMessagePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MessagesPage.xaml.cs">
       <DependentUpon>MessagesPage.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="Pages\ComposeMessagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\MessagesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -139,6 +146,7 @@
     <Resource Include="Resources\camera.png" />
     <Resource Include="Resources\appbar.cancel.rest.png" />
     <Content Include="Resources\appbar.add.rest.png" />
+    <Content Include="Resources\appbar.favs.addto.rest.png" />
     <Content Include="Resources\appbar.feature.settings.rest.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -147,6 +155,8 @@
     <Resource Include="Resources\appbar.download.rest.png" />
     <Resource Include="Resources\appbar.edit.rest.png" />
     <Content Include="Resources\appbar.feature.email.rest.png" />
+    <Resource Include="Resources\add.png" />
+    <Resource Include="Resources\appbar.new.rest.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />
