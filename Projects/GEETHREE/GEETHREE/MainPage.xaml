@@ -13,8 +13,6 @@
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728" 
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
 
-    
-
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -38,7 +36,7 @@
             </controls:Panorama.Background>
  
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="Some Page">
+            <controls:PanoramaItem Header="Activity">
                 <!--Double line list with text wrapping-->
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
                     <ListBox.ItemTemplate>
@@ -55,14 +53,13 @@
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
             <controls:PanoramaItem Header="Society">
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                    <!--Replace rectangle with image-->
-                    <StackPanel Width="300">
-                        <Button Content="Users" Height="72" Margin="134,345,0,0" Name="button1" Width="160" Click="button1_Click" />
-                        <Button Content="Groups" Height="72" HorizontalAlignment="Left" Margin="134,0,0,219" Name="button2" VerticalAlignment="Bottom" Width="160" Click="button2_Click" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="427" Width="422">
+                    <StackPanel Width="410" Height="136">
+                        <Button Content="Users" Height="72" Margin="0,0,0,0" Name="button1" Width="160" Click="button1_Click" />
+                        <Button Content="Groups" Height="72" Margin="0,0,0,0" Name="button2" Width="160" Click="button2_Click" />
                     </StackPanel>
                 </StackPanel>
-
               
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="Messages">
