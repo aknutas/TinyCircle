@@ -64,6 +64,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataClasses\FileMaster.cs" />
     <Compile Include="Networking\Commands.cs" />
     <Compile Include="Networking\CommunicationHandler.cs" />
     <Compile Include="Communicator.cs" />

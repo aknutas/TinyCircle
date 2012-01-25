@@ -21,7 +21,6 @@ namespace GEETHREE
         //Variables
         private DataMaster dm;
         private Communicator cm;
-        private DataClasses.AppSettings appSetting;
 
         //Update view callback list
         private SettingsPage settingspage;
@@ -31,16 +30,16 @@ namespace GEETHREE
         private static Controller instance;
 
         //Private constructor, no external access!
-        //Don't touch this if you really don't know (esp. to public)
+        //Don't change this if you really don't know (especially visibility to public)
         private Controller() {
             dm = new DataMaster();
             cm = new Communicator(dm);
-            appSetting = new DataClasses.AppSettings();
+            // TODO Elegant callbacks
             // callbackList = new List<PhoneApplicationPage>();
         }
 
         //Get us the singleton instance
-        //This either!!
+        //Don't touch this either (I know you want to)
         public static Controller Instance
         {
             get
@@ -82,7 +81,7 @@ namespace GEETHREE
             {
                 if (myIsolatedStorage.FileExists("Avatar.jpg"))
                 {
-                    return appSetting.ReadFromIsolatedStorage("Avatar.jpg");
+                    return dm.fm.readImageFromFile("Avatar.jpg");
                 }
                 else
                 {
@@ -93,14 +92,14 @@ namespace GEETHREE
 
         public void changeCurrentAvatar(System.IO.Stream newAvatar)
         {
-            appSetting.SaveToIsolatedStorage(newAvatar, "Avatar.jpg");
+            dm.fm.saveImageToFile(newAvatar, "Avatar.jpg");
             refreshAvatars();
         }
 
         public string getCurrentAlias()
         {
             
-            return appSetting.AliasSetting;
+            return dm.appSetting.AliasSetting;
         }
     }
 }

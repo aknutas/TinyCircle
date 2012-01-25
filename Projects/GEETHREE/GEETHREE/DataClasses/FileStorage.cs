@@ -20,8 +20,10 @@ using Microsoft.Phone;
 namespace GEETHREE.DataClasses
 {
 
-    public class AppSettings
+    public class FileStorage
     {
+        PhotoChooserTask photoChooserTask;
+        CameraCaptureTask cameraCaptureTask;
 
         // Our isolated storage settings
         IsolatedStorageSettings settings;
@@ -30,21 +32,64 @@ namespace GEETHREE.DataClasses
         const string AliasSettingKeyName = "CheckBoxSetting";
         const string ShowProfileInfoSettingKeyName = "ListBoxSetting";
         const string ShowSharedUploadsSettingKeyName = "RadioButton1Setting";
+        
+
 
         // The default value of our settings
         const string AliasSettingDefault = "Anonymous";
         const bool ShowProfileInfoSettingDefault = false;
         const bool ShowSharedUploadsSettingDefault = false;
+       
 
+        
         /// <summary>
         /// Constructor that gets the application settings.
         /// </summary>
 
-        public AppSettings()
+
+        public FileStorage()
         {
             // Get the settings for this application.
             settings = IsolatedStorageSettings.ApplicationSettings;
+
+            // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
+            photoChooserTask = new PhotoChooserTask();
+            photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
+
+            //Cameracapturetask : initializes the task object, and identifies the method to run after the user completes the task.
+            cameraCaptureTask = new CameraCaptureTask();
+            cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
         }
+
+        //browses for the photos and gets the picture in imagebox after selection
+
+        void photoChooserTask_Completed(object sender, PhotoResult e)
+        {
+            if (e.TaskResult == TaskResult.OK)
+            {
+
+
+                //Write image to isolated storage
+                //appSetting.SaveToIsolatedStorage(e.ChosenPhoto, "Avatar.jpg");
+
+
+                //display image on imagebox from isolated storage
+                //img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
+            }
+        }
+
+        //Captures the picture using the camera and gets the picture in the imagebox 
+        void cameraCaptureTask_Completed(object sender, PhotoResult e)
+        {
+            if (e.TaskResult == TaskResult.OK)
+            {
+
+                
+            }
+        }
+
+
+
 
         /// <summary>
         /// Update a setting value for our application. If the setting does not
@@ -128,6 +173,8 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        
+
         /// <summary>
         /// Property to get and set a ShowProfileInfo(toggleSwitch1) Setting Key.
         /// </summary>
@@ -164,6 +211,44 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
+
+        /// <summary>
+        /// Function to save avatar image to isolated storage
+        /// </summary>
+        public void SaveToIsolatedStorage(Stream imageStream, string fileName) 
+        { 
+            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) 
+            { 
+                if (myIsolatedStorage.FileExists(fileName)) 
+                { 
+                    myIsolatedStorage.DeleteFile(fileName); 
+                } 
+                IsolatedStorageFileStream fileStream = myIsolatedStorage.CreateFile(fileName); 
+                BitmapImage bitmap = new BitmapImage(); 
+                bitmap.SetSource(imageStream); 
+                WriteableBitmap wb = new WriteableBitmap(bitmap); 
+                wb.SaveJpeg(fileStream, wb.PixelWidth, wb.PixelHeight, 0, 85); fileStream.Close(); 
+            } 
+        }
+
+        /// <summary>
+        /// Function to read avatar image from isolated storage
+        /// </summary>
+        public WriteableBitmap ReadFromIsolatedStorage(string fileName)
+        {    
+            WriteableBitmap bitmap = new WriteableBitmap(200,200);    
+            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())    
+            {        
+                using (IsolatedStorageFileStream fileStream = myIsolatedStorage.OpenFile(fileName, FileMode.Open, FileAccess.Read))        
+                {            
+                    // Decode the JPEG stream.             
+                    bitmap = PictureDecoder.DecodeJpeg(fileStream);        
+                }    
+            }    
+            return bitmap;
+        }
+
+
     }
 
 }
