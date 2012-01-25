@@ -78,5 +78,10 @@ namespace GEETHREE
               
             }
         }
+
+        private void image1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            details.Visibility = System.Windows.Visibility.Collapsed; 
+        }
     }
 }
