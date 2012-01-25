@@ -14,7 +14,7 @@
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded" BackKeyPress="PhoneApplicationPage_BackKeyPress">
-
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
@@ -55,6 +55,7 @@
             <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="button1" Width="229" />
             <Image Canvas.Left="386" Canvas.Top="0" Height="81" Name="image1" Stretch="Fill" Width="83" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="image1_Tap" />
         </Canvas>
+
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
