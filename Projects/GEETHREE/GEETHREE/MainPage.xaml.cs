@@ -56,14 +56,14 @@ namespace GEETHREE
         {
 
             string parameter = "toPeople";
-            NavigationService.Navigate(new Uri(string.Format("/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
             //NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             string parameter = "toGroups";
-            NavigationService.Navigate(new Uri(string.Format("/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
             //NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
         }
 
@@ -73,6 +73,11 @@ namespace GEETHREE
         
 
         private void txt_Base_Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
+        }
+
+        private void appbar_settings_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
         }

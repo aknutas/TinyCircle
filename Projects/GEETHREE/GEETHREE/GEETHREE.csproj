@@ -81,7 +81,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SocietyPivot.xaml.cs">
+    <Compile Include="Pages\SocietyPivot.xaml.cs">
       <DependentUpon>SocietyPivot.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ItemViewModel.cs" />
@@ -104,7 +104,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SocietyPivot.xaml">
+    <Page Include="Pages\SocietyPivot.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +123,14 @@
     <Resource Include="PanoramaBackground.png" />
     <Resource Include="Resources\anonymous.png" />
     <Resource Include="Resources\camera.png" />
+    <Content Include="Resources\appbar.feature.settings.rest.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\appbar.feature.camera.rest.png" />
+    <Resource Include="Resources\appbar.delete.rest.png" />
+    <Resource Include="Resources\appbar.download.rest.png" />
+    <Resource Include="Resources\appbar.edit.rest.png" />
+    <Resource Include="Resources\appbar.feature.email.rest.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />
