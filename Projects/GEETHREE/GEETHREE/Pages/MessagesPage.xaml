@@ -18,6 +18,9 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Title="Messages">
+        	<controls:Pivot.Background>
+        		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
+        	</controls:Pivot.Background>
             <!--Pivot item one-->
             <controls:PivotItem Header="Inbox">
                 <Grid/>

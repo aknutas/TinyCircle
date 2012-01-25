@@ -159,6 +159,7 @@
     <Resource Include="Resources\add.png" />
     <Resource Include="Resources\appbar.new.rest.png" />
     <Resource Include="Resources\panorama.jpg" />
+    <Resource Include="Resources\pivot2.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

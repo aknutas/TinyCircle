@@ -28,7 +28,7 @@
     	</Grid.ColumnDefinitions>
  
         <!--Panorama control-->
-        <controls:Panorama Title=".">
+        <controls:Panorama Title="   ">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>
