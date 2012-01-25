@@ -24,13 +24,13 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
  
         <!--Panorama control-->
-        <controls:Panorama Title="GEETHREE">
+        <controls:Panorama Title=".">
             <controls:Panorama.Background>
-                <ImageBrush ImageSource="Resources/PanoramaBackground.png"/>
+                <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>
  
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="Activity">
+            <controls:PanoramaItem Header="Activity" Foreground="#FF9BC0D3">
                 <!--Double line list with text wrapping-->
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
                     <ListBox.ItemTemplate>
@@ -46,7 +46,7 @@
  
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="Society">
+            <controls:PanoramaItem Header="Society" Foreground="#FF9BC0D3">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200" />
@@ -71,7 +71,7 @@
                 </StackPanel>
             </Grid>  
             </controls:PanoramaItem>
-            <controls:PanoramaItem Header="Messages">
+            <controls:PanoramaItem Header="Messages" Foreground="#FF9BC0D3">
                 <!--Double line list with image placeholder and text wrapping-->
                 <Grid>
                     <Grid.RowDefinitions>
@@ -95,7 +95,7 @@
                     </StackPanel>
                 </Grid>
             </controls:PanoramaItem>
-            <controls:PanoramaItem Header="Shared">
+            <controls:PanoramaItem Header="Shared" Foreground="#FF9BC0D3">
                 <!--Double line list with image placeholder and text wrapping-->
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
                     <ListBox.ItemTemplate>
@@ -113,7 +113,7 @@
             </controls:PanoramaItem>
             
             
-            <controls:PanoramaItem Header="Base">
+            <controls:PanoramaItem Header="Base" Foreground="#FF9BC0D3">
                 <!--Double line list with image placeholder and text wrapping-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
