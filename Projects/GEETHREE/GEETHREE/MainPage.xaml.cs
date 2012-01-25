@@ -19,39 +19,22 @@ namespace GEETHREE
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        PhotoChooserTask photoChooserTask;
-        CameraCaptureTask cameraCaptureTask;
-        DataClasses.AppSettings appSetting = new DataClasses.AppSettings();
+        Controller ctrl;
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+            ctrl = Controller.Instance;
+            ctrl.registerAvatarUpdates(this);
+
+            refreshAvatar();
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-
-            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                if (myIsolatedStorage.FileExists("Avatar.jpg"))
-                {
-                    img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
-                }
-                else
-                {
-                    img_Settings_avatar.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/anonymous.png", UriKind.Relative));
-                }
-            }
-            
-
-            // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
-            photoChooserTask = new PhotoChooserTask();
-            photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
-
-            //Cameracapturetask : initializes the task object, and identifies the method to run after the user completes the task.
-            cameraCaptureTask = new CameraCaptureTask();
-            cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
-
+            //txt_Base_Alias.Text = appSetting.AliasSetting;
+           
         }
 
         // Load data for the ViewModel Items
@@ -62,6 +45,11 @@ namespace GEETHREE
                 App.ViewModel.LoadData();
             }
 
+        }
+
+        public void refreshAvatar()
+        {
+            img_Base_Avatar.Source = ctrl.getCurrentAvatar();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -82,63 +70,11 @@ namespace GEETHREE
         
        
 
-        private void img_Settings_avatar_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        
+
+        private void txt_Base_Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            try
-            {
-               
-                photoChooserTask.Show();
-            }
-            catch (System.InvalidOperationException ex)
-            {
-                MessageBox.Show("An error occurred.");
-            }
-        }
-
-        private void img_Settings_camera_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            try
-            {
-                cameraCaptureTask.Show();
-            }
-            catch (System.InvalidOperationException ex)
-            {
-                MessageBox.Show("An error occurred.");
-            }
-
-        }
-
-        //browses for the photos and gets the picture in imagebox after selection
-        void photoChooserTask_Completed(object sender, PhotoResult e)
-        {
-            if (e.TaskResult == TaskResult.OK)
-            {
-                //Write image to isolated storage
-                appSetting.SaveToIsolatedStorage(e.ChosenPhoto, "Avatar.jpg");
-
-          
-                //display image on imagebox from isolated storage
-                img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
-
-                
-            }
-        }
-
-        //Captures the picture using the camera and gets the picture in the imagebox 
-        void cameraCaptureTask_Completed(object sender, PhotoResult e)
-        {
-            if (e.TaskResult == TaskResult.OK)
-            {
-                //Write image to isolated storage
-                appSetting.SaveToIsolatedStorage(e.ChosenPhoto, "Avatar.jpg");
-
-                //display image on imagebox from isolated storage
-                img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
-               
-
-               
-                
-            }
+            NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
         }
 
     }

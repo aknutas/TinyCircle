@@ -28,9 +28,9 @@ namespace GEETHREE
             : base(connectionString)
         { }
 
-        public Table<Group> Groups;
-        public Table<DataClasses.Image> Images;
-        public Table<Me> Me;
+        // public Table<Group> Groups;
+        // public Table<DataClasses.Image> Images;
+        // public Table<Me> Me;
         public Table<Message> Messages;
         public Table<User> Users;
     }
