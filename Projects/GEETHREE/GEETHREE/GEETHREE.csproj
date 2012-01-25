@@ -64,8 +64,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands.cs" />
-    <Compile Include="CommunicationHandler.cs" />
+    <Compile Include="Networking\Commands.cs" />
+    <Compile Include="Networking\CommunicationHandler.cs" />
     <Compile Include="Communicator.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="DataClasses\AppSettings.cs" />
@@ -76,11 +76,14 @@
     <Compile Include="DataClasses\User.cs" />
     <Compile Include="DataMaster.cs" />
     <Compile Include="DataPackets\Ping.cs" />
-    <Compile Include="DiagnosticsHelper.cs" />
+    <Compile Include="Networking\DiagnosticsHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MessageHandler.cs" />
+    <Compile Include="Networking\MessageHandler.cs" />
+    <Compile Include="Pages\MessagesPage.xaml.cs">
+      <DependentUpon>MessagesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -88,8 +91,8 @@
     <Compile Include="Pages\SocietyPivot.xaml.cs">
       <DependentUpon>SocietyPivot.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UdpAnySourceMulticastChannel.cs" />
-    <Compile Include="UdpPacketReceivedEventArgs.cs" />
+    <Compile Include="Networking\UdpAnySourceMulticastChannel.cs" />
+    <Compile Include="Networking\UdpPacketReceivedEventArgs.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
@@ -106,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="Pages\MessagesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,7 +133,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="PanoramaBackground.png" />
+    <Resource Include="Resources\PanoramaBackground.png" />
     <Resource Include="Resources\anonymous.png" />
     <Resource Include="Resources\camera.png" />
     <Content Include="Resources\appbar.feature.settings.rest.png">
@@ -136,7 +143,7 @@
     <Resource Include="Resources\appbar.delete.rest.png" />
     <Resource Include="Resources\appbar.download.rest.png" />
     <Resource Include="Resources\appbar.edit.rest.png" />
-    <Resource Include="Resources\appbar.feature.email.rest.png" />
+    <Content Include="Resources\appbar.feature.email.rest.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

@@ -83,5 +83,15 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
         }
 
+        private void appbar_messages_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+        }
+
+        private void txt_Base_Messages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+        }
+
     }
 }
