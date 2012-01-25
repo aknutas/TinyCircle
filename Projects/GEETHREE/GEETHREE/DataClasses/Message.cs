@@ -34,13 +34,13 @@ namespace GEETHREE.DataClasses
             {
             }
         }
-
-        [Column]
+       
         private string _header;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns></returns>
+        [Column]
         public string Header
         {
             get
@@ -57,12 +57,12 @@ namespace GEETHREE.DataClasses
             }
         }
 
-        [Column]
         private string _textContent;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns></returns>
+        [Column]
         public string TextContent 
         {
             get
@@ -78,9 +78,10 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-        [Column]
+
         private string _senderid;
 
+        [Column]
         public string SenderID
         {
             get
@@ -96,9 +97,10 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-        [Column]
+
         private string _receiverid;
 
+        [Column]
         public string ReceiverID
         {
             get
@@ -114,9 +116,10 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-        [Column]
+        
         private byte[] _hash;
 
+        [Column]
         public byte[] Hash
         {
             get
@@ -132,10 +135,10 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-
-        [Column]
+       
         private bool _privatemessage;
 
+        [Column]
         public bool PrivateMessage
         {
             get
