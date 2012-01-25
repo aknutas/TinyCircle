@@ -20,6 +20,21 @@ namespace GEETHREE.DataClasses
     [Table]
     public class User : INotifyPropertyChanged
     {
+
+        public User(string userID, IPEndPoint endPoint)
+        {
+            UserEndPoint = endPoint;
+            UserID = userID;
+            IsSynchronized = false;
+        }
+        public User(string username, string description)
+        {
+            UserEndPoint = null;
+            _userName = username;
+            IsSynchronized = false;
+            _description = description;
+        }
+
         // Define ID: private field, public property, and database column.
         private int _userDbId;
 
@@ -57,6 +72,7 @@ namespace GEETHREE.DataClasses
             }
         }
 
+
         [Column]
         private string _description;
         /// <summary>
@@ -78,6 +94,29 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
+
+        [Column]
+        private string _userid;
+        public string UserID
+        {
+            get
+            {
+                return _userid;
+            }
+            set
+            {
+                if (value != _userid)
+                {
+                    _userid = value;
+                    NotifyPropertyChanged("UserID");
+                }
+            }
+        }
+
+        public IPEndPoint UserEndPoint { get; set; }
+        public bool IsSynchronized { get; set; }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

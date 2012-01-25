@@ -64,6 +64,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands.cs" />
+    <Compile Include="CommunicationHandler.cs" />
     <Compile Include="Communicator.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="DataClasses\AppSettings.cs" />
@@ -74,9 +76,11 @@
     <Compile Include="DataClasses\User.cs" />
     <Compile Include="DataMaster.cs" />
     <Compile Include="DataPackets\Ping.cs" />
+    <Compile Include="DiagnosticsHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessageHandler.cs" />
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -84,6 +88,8 @@
     <Compile Include="Pages\SocietyPivot.xaml.cs">
       <DependentUpon>SocietyPivot.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UdpAnySourceMulticastChannel.cs" />
+    <Compile Include="UdpPacketReceivedEventArgs.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>

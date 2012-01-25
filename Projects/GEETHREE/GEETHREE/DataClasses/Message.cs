@@ -78,6 +78,81 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
+        [Column]
+        private string _senderid;
+
+        public string SenderID
+        {
+            get
+            {
+                return _senderid;
+            }
+            set
+            {
+                if (value != _senderid)
+                {
+                    _senderid = value;
+                    NotifyPropertyChanged("SenderID");
+                }
+            }
+        }
+        [Column]
+        private string _receiverid;
+
+        public string ReceiverID
+        {
+            get
+            {
+                return _receiverid;
+            }
+            set
+            {
+                if (value != _receiverid)
+                {
+                    _receiverid = value;
+                    NotifyPropertyChanged("ReceiverID");
+                }
+            }
+        }
+        [Column]
+        private byte[] _hash;
+
+        public byte[] Hash
+        {
+            get
+            {
+                return _hash;
+            }
+            set
+            {
+                if (value != _hash)
+                {
+                    _hash = value;
+                    NotifyPropertyChanged("Hash");
+                }
+            }
+        }
+
+        [Column]
+        private bool _privatemessage;
+
+        public bool PrivateMessage
+        {
+            get
+            {
+                return _privatemessage;
+            }
+            set
+            {
+                if (value != _privatemessage)
+                {
+                    _privatemessage = value;
+                    NotifyPropertyChanged("PrivateMessage");
+                }
+            }
+        }
+ 
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {
