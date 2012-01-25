@@ -136,7 +136,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="panorama.jpg" />
     <Resource Include="Resources\PanoramaBackground.png" />
     <Resource Include="Resources\anonymous.png" />
     <Resource Include="Resources\camera.png" />
@@ -149,6 +148,7 @@
     <Resource Include="Resources\appbar.download.rest.png" />
     <Resource Include="Resources\appbar.edit.rest.png" />
     <Content Include="Resources\appbar.feature.email.rest.png" />
+    <Resource Include="Resources\panorama.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

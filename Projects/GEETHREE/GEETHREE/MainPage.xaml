@@ -30,7 +30,7 @@
         <!--Panorama control-->
         <controls:Panorama Title="   " Grid.ColumnSpan="2">
             <controls:Panorama.Background>
-                <ImageBrush ImageSource="panorama.jpg"/>
+                <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>
  
             <!--Panorama item one-->
