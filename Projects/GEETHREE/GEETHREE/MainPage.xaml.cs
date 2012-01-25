@@ -93,5 +93,10 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
         }
 
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+        }
+
     }
 }

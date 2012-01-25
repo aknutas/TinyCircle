@@ -72,19 +72,27 @@
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="Messages">
                 <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
-                                <StackPanel Width="311">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="270" />
+                        <RowDefinition Height="135" />
+                    </Grid.RowDefinitions>
+                    <ListBox Grid.Row="0" Margin="0,0,8,0" ItemsSource="{Binding Items}" Width="412">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,17" Width="432" Height="78">
                                     <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                                     <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,0" Height="193" Width="422" Grid.RowSpan="2">
+                        <StackPanel Width="410" Height="194">
+                            <Button Content="Messages" Height="71" Name="button3" Width="160" Click="button3_Click" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="Shared">
                 <!--Double line list with image placeholder and text wrapping-->
