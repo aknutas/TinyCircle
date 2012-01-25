@@ -66,7 +66,17 @@ namespace GEETHREE
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
+
+            string parameter = "toPeople";
+            NavigationService.Navigate(new Uri(string.Format("/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+            //NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            string parameter = "toGroups";
+            NavigationService.Navigate(new Uri(string.Format("/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+            //NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
         }
 
         

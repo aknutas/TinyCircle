@@ -32,7 +32,7 @@ namespace GEETHREE.DataClasses
         const string AliasSettingKeyName = "CheckBoxSetting";
         const string ShowProfileInfoSettingKeyName = "ListBoxSetting";
         const string ShowSharedUploadsSettingKeyName = "RadioButton1Setting";
-        const string AvatarSettingKeyName = "AvatarSetting";
+        
 
 
         // The default value of our settings

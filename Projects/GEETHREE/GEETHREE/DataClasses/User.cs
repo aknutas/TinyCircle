@@ -9,11 +9,32 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
+using Microsoft.Phone.Data.Linq;
+using Microsoft.Phone.Data.Linq.Mapping;
+using System.Collections.Generic;
 
 namespace GEETHREE.DataClasses
 {
+    [Table]
     public class User : INotifyPropertyChanged
     {
+        // Define ID: private field, public property, and database column.
+        private int _userDbId;
+
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int userDbId
+        {
+            get
+            {
+                return _userDbId;
+            }
+            set
+            {
+            }
+        }
+
         private string _userName;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.

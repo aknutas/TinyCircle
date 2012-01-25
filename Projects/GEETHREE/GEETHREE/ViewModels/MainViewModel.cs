@@ -83,10 +83,10 @@ namespace GEETHREE
 
             this.Users.Add(new User() { UserName = "Tommi", Description = "Having fun at codecamp." });
             this.Users.Add(new User() { UserName = "Antti", Description = "Description 2" });
-            this.Users.Add(new User() { UserName = "Biushal", Description = "Description 3" });
+            this.Users.Add(new User() { UserName = "Bishal", Description = "Description 3" });
             this.Users.Add(new User() { UserName = "Another Tommi", Description = "Description 4" });
             this.Users.Add(new User() { UserName = "Anni", Description = "Description 5" });
-            this.Groups.Add(new Group() { GroupName = ".NET Code CAmp 2012", Description= "It is not necessary to wear long-sleeved underwear here." });
+            this.Groups.Add(new Group() { GroupName = ".NET Code Camp", Description= "It is not necessary to wear long-sleeved underwear here." });
             this.Groups.Add(new Group() { GroupName = "Commlab", Description = "We are commlab" });
             this.Groups.Add(new Group() { GroupName = "SWE", Description = "We are from Sweden" });
             this.IsDataLoaded = true;
