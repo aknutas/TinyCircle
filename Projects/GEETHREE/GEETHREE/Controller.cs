@@ -96,5 +96,11 @@ namespace GEETHREE
             appSetting.SaveToIsolatedStorage(newAvatar, "Avatar.jpg");
             refreshAvatars();
         }
+
+        public string getCurrentAlias()
+        {
+            
+            return appSetting.AliasSetting;
+        }
     }
 }

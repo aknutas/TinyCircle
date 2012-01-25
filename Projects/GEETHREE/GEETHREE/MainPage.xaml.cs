@@ -50,6 +50,7 @@ namespace GEETHREE
         public void refreshAvatar()
         {
             img_Base_Avatar.Source = ctrl.getCurrentAvatar();
+            txt_Base_Alias.Text = ctrl.getCurrentAlias();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
