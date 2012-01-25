@@ -143,7 +143,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\PanoramaBackgroundold.png" />
     <Resource Include="Resources\anonymous.png" />
     <Resource Include="Resources\camera.png" />
     <Resource Include="Resources\appbar.cancel.rest.png" />
