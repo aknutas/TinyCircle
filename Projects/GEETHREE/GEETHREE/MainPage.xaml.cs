@@ -85,7 +85,7 @@ namespace GEETHREE
 
         private void appbar_messages_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
         private void txt_Base_Messages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -95,7 +95,7 @@ namespace GEETHREE
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
     }

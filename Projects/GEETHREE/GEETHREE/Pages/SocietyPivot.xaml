@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -48,26 +48,38 @@
                 </ListBox>
             </controls:PivotItem>
         </controls:Pivot>
-        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="details" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1" Background="Black">
+        <!-- This canvas is for sending messages  -->
+        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="details" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1">
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="detailsNameTextBlock" Text="Name" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-            <TextBox Canvas.Left="73" Canvas.Top="473" Height="71" Name="textBox1" Text="" Width="349" />
-            <TextBlock Canvas.Left="34" Canvas.Top="179" Height="144" Name="detailsDescriptionText" Text="" Width="413" />
-            <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="button1" Width="229" />
-            <Image Canvas.Left="386" Canvas.Top="0" Height="81" Name="image1" Stretch="Fill" Width="83" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="image1_Tap" />
+            <TextBox Canvas.Left="73" Canvas.Top="473" Height="71" Name="detailsCanvasTextBox" Text="" Width="349" />
+            <TextBlock Canvas.Left="34" Canvas.Top="179" Height="144" Name="detailsDescriptionText" Text="" Width="413" TextWrapping="Wrap" />
+            <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="detailsCanvasButton" Width="229" />
+            <Image Canvas.Left="386" Canvas.Top="0" Height="81" Name="detailsCanvasExitImage" Stretch="Fill" Width="83" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="detailsCanvasExitImage_Tap" />
+            <Canvas.Background>
+                <ImageBrush ImageSource="/GEETHREE;component/Resources/PanoramaBackground.png" />
+            </Canvas.Background>
+        </Canvas>
+        <!-- This canvas is for adding friends and joining groups --> 
+        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="addOrJoinCanvas" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1">
+            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="addOrJoinCanvasTextBlock" Text="Type friend's Id" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+            <TextBox Canvas.Left="34" Canvas.Top="196" Height="71" Name="addOrJoinCanvasTextBox" Text="" Width="349" />
+            <Button Canvas.Left="90" Canvas.Top="313" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" />
+            <Image Canvas.Left="386" Canvas.Top="0" Height="81" Name="addOrJoinCanvasExitImageExit" Stretch="Fill" Width="83" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="addOrJoinCanvasExitImageExit_Tap" />
+            <Canvas.Background>
+                <ImageBrush ImageSource="/GEETHREE;component/Resources/PanoramaBackground.png" />
+            </Canvas.Background>
         </Canvas>
 
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" x:Name="Social_app_bar">
+            <shell:ApplicationBarIconButton x:Name="appbar_addFriendButton" IconUri="/Resources/appbar.add.rest.png" Text="Add Friend" Click="appbar_addFriendButton_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbar_joinGroupButton" IconUri="/Resources/appbar.favs.addto.rest.png" Text="Join Group" Click="appbar_joinGroupButton_Click" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
     
 </phone:PhoneApplicationPage>

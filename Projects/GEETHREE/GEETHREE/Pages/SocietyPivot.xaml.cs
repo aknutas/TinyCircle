@@ -24,6 +24,7 @@ namespace GEETHREE
         {
             InitializeComponent();
             DataContext = App.ViewModel;
+
         }
        
 
@@ -34,6 +35,7 @@ namespace GEETHREE
             {
                 App.ViewModel.LoadData();
             }
+            
         }
 
         private void Groups_ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -41,7 +43,11 @@ namespace GEETHREE
             selectedGroup = (Group) groupsListBox.SelectedItem;
             detailsNameTextBlock.Text = selectedGroup.GroupName.ToString();
             detailsDescriptionText.Text = selectedGroup.Description.ToString();
+            //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Collapsed;
+            detailsCanvasButton.Content = "Send Message";
             details.Visibility = System.Windows.Visibility.Visible;
+            ApplicationBar.IsVisible = false;
+
             
         }
 
@@ -50,7 +56,10 @@ namespace GEETHREE
             selectedUser = (User)usersListBox.SelectedItem;
             detailsNameTextBlock.Text = selectedUser.UserName.ToString();
             detailsDescriptionText.Text = selectedUser.Description.ToString();
+            //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
+            detailsCanvasButton.Content = "Send Message";
             details.Visibility = System.Windows.Visibility.Visible;
+            ApplicationBar.IsVisible = false;
             
         }
 
@@ -59,8 +68,15 @@ namespace GEETHREE
         {
             if (details.Visibility == System.Windows.Visibility.Visible)
             {
-                details.Visibility = System.Windows.Visibility.Collapsed;        
-            
+                details.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true; 
+            }
+            if (addOrJoinCanvas.Visibility == System.Windows.Visibility.Visible)
+            {
+                addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true;
             }
         }
         // ** When navigated to pivot page, choose which page to display first
@@ -79,9 +95,34 @@ namespace GEETHREE
             }
         }
 
-        private void image1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void appbar_addFriendButton_Click(object sender, EventArgs e)
+        {
+            addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
+            addOrJoinCanvasTextBlock.Text = "Type friends ID:";
+            addOrJoinCanvasButton.Content = "Add";
+            ApplicationBar.IsVisible = false;
+        }
+
+
+
+        private void appbar_joinGroupButton_Click(object sender, EventArgs e)
+        {
+            addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
+            addOrJoinCanvasTextBlock.Text = "Type group's name:";
+            addOrJoinCanvasButton.Content = "Join";
+            ApplicationBar.IsVisible = false;
+        }
+
+        private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             details.Visibility = System.Windows.Visibility.Collapsed;
+            ApplicationBar.IsVisible = true;
+        }
+
+        private void addOrJoinCanvasExitImageExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            ApplicationBar.IsVisible = true;
         }
     }
 }
