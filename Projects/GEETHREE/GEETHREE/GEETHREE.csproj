@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Communicator.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="DataClasses\AppSettings.cs" />
     <Compile Include="DataClasses\Group.cs" />
     <Compile Include="DataClasses\Image.cs" />
     <Compile Include="DataClasses\Me.cs" />
