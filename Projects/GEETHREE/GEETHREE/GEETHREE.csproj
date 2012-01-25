@@ -138,6 +138,7 @@
     <Resource Include="Resources\anonymous.png" />
     <Resource Include="Resources\camera.png" />
     <Resource Include="Resources\appbar.cancel.rest.png" />
+    <Content Include="Resources\appbar.add.rest.png" />
     <Content Include="Resources\appbar.feature.settings.rest.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
