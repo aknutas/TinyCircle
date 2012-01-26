@@ -304,7 +304,7 @@ namespace GEETHREE
         }
         private void OnBroadcastMessageReceived(string sender, string receiver, string message, string hash)
         {
-            EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
+            EventHandler<MessageEventArgs> handler = this.BroadcastMessageReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
 
@@ -312,6 +312,11 @@ namespace GEETHREE
             {
                 handler(this, new MessageEventArgs(message, sender, receiver, storedHash));
             }
+        }
+
+        public void SendToAll(Message msg)
+        {
+            this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.ReceiverID, msg.TextContent, msg.Hash);
         }
         DispatcherTimer _dt;
         private void StartKeepAlive()
