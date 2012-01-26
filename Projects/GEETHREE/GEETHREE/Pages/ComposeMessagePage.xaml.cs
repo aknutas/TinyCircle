@@ -25,6 +25,8 @@ namespace GEETHREE.Pages
         {
             
             InitializeComponent();
+           
+            txt_compose_error_label.Text = "";
             DataContext = App.ViewModel;
 
             ctrl = Controller.Instance;
@@ -43,6 +45,24 @@ namespace GEETHREE.Pages
             cameraCaptureTask = new CameraCaptureTask();
             cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
 
+        }
+
+        //check for message to store to draft
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if ((txt_compose_message.Text != "") && (txt_compose_message.Text != "Type your message here..."))
+            {
+
+                // **  ...get the message saving the draft.
+                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
+
+                if (m == MessageBoxResult.OK)
+                {
+                    //write code for storing this message to draft
+
+                }
+
+            }
         }
 
         private void image1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -80,6 +100,13 @@ namespace GEETHREE.Pages
         private void ApplicationBarIconButton_Click_2(object sender, EventArgs e)
         {
             // ** ... communicate with networker to create a packet and send it ...
+            if (txt_compose_message.Text == "" || txt_compose_message.Text == "Type your message here...")
+            {
+                txt_compose_error_label.Text = "Please provide the message!";
+            }
+            else
+            {
+
             Message msg =new Message();
             msg.TextContent=txt_compose_message.Text;
             msg.SenderID=Controller.Instance.getCurrentUserID();
@@ -87,7 +114,10 @@ namespace GEETHREE.Pages
             msg.PrivateMessage=false;
             msg.outgoing=true;
             Controller.Instance.mh.SendMessage(msg);
-            MessageBox.Show("Message sent.");
+                MessageBox.Show("Message sent.");
+                txt_compose_message.Text = "";
+                txt_compose_error_label.Text = "";
+            }
         }
 
         //browses for the photos and gets the picture in imagebox after selection

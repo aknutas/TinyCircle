@@ -46,6 +46,8 @@ namespace GEETHREE
             detailsDescriptionText.Text = selectedGroup.Description.ToString();
             //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Collapsed;
             detailsCanvasButton.Content = "Send Message";
+            detailsCanvasTextBox.Text = "";
+            txt_details_error_label.Text = "";
             details.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
 
@@ -59,6 +61,8 @@ namespace GEETHREE
             detailsDescriptionText.Text = selectedUser.Description.ToString();
             //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
             detailsCanvasButton.Content = "Send Message";
+            detailsCanvasTextBox.Text = "";
+            txt_details_error_label.Text = "";
             details.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
             
@@ -69,7 +73,24 @@ namespace GEETHREE
         {
             if (details.Visibility == System.Windows.Visibility.Visible)
             {
+                if (detailsCanvasTextBox.Text != "")
+                {
+
+                    // **  ...get the message saving the draft.
+                    var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
+
+                    if (m == MessageBoxResult.OK)
+                    {
+                        //write code for storing this message to draft
+
+                    }
+
+                }
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
+                
+                
                 ApplicationBar.IsVisible = true;
                 e.Cancel = true; 
             }
@@ -77,6 +98,8 @@ namespace GEETHREE
             {
                 addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
                 ApplicationBar.IsVisible = true;
+                txt_addorjoin_errorMessage.Text = "";
+                addOrJoinCanvasTextBox.Text = "";
                 e.Cancel = true;
             }
         }
@@ -98,6 +121,8 @@ namespace GEETHREE
 
         private void appbar_addFriendButton_Click(object sender, EventArgs e)
         {
+            txt_addorjoin_errorMessage.Text = "";
+            addOrJoinCanvasTextBox.Text = "";
             addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
             addOrJoinCanvasTextBlock.Text = "Type friends ID:";
             addOrJoinCanvasButton.Content = "Add";
@@ -108,6 +133,8 @@ namespace GEETHREE
 
         private void appbar_joinGroupButton_Click(object sender, EventArgs e)
         {
+            txt_addorjoin_errorMessage.Text = "";
+            addOrJoinCanvasTextBox.Text = "";
             addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
             addOrJoinCanvasTextBlock.Text = "Type group's name:";
             addOrJoinCanvasButton.Content = "Join";
@@ -116,37 +143,95 @@ namespace GEETHREE
 
         private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            if (detailsCanvasTextBox.Text != "")
+            {
+
+                 // **  ...get the message saving the draft.
+                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
+
+                if (m == MessageBoxResult.OK)
+                {
+                   //write code for storing this message to draft
+
+                }
+
+            }
+
+            detailsCanvasTextBox.Text = "";
+            txt_details_error_label.Text = "";
             details.Visibility = System.Windows.Visibility.Collapsed;
+
             ApplicationBar.IsVisible = true;
         }
 
         private void addOrJoinCanvasExitImageExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            txt_addorjoin_errorMessage.Text = "";
+            addOrJoinCanvasTextBox.Text = "";
             ApplicationBar.IsVisible = true;
         }
 
         private void addOrJoinCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            
+
             if (addOrJoinCanvasTextBlock.Text == "Type group's name:")
             {
-                // ** ask the network controller to join the group
-                MessageBox.Show("You have joined a group\n " + selectedGroup.GroupName.ToString());
+                if (addOrJoinCanvasTextBox.Text == "")
+                {
+                    txt_addorjoin_errorMessage.Text = "Please provide a group name!";
+                }
+                else
+                {
+                    // ** ask the network controller to join the group
+                    MessageBox.Show("You have joined a group\n " + addOrJoinCanvasTextBox.Text);
+
+                    addOrJoinCanvasTextBox.Text = "";
+                    txt_addorjoin_errorMessage.Text = "";
+                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                    ApplicationBar.IsVisible = true;
+
+                }
+
             }
             if (addOrJoinCanvasTextBlock.Text == "Type friends ID:")
             {
-                // ** ask the nedwork controller to add a friend
+                if (addOrJoinCanvasTextBox.Text == "")
+                {
+                    txt_addorjoin_errorMessage.Text = "Please provide a friend ID!";
+                }
+                else
+                {
+                    // ** ask the nedwork controller to add a friend
 
-                MessageBox.Show("You and " + selectedUser.UserName + "\n are now friends.");
+                    MessageBox.Show("You and " + addOrJoinCanvasTextBox.Text + "\n are now friends.");
+                    addOrJoinCanvasTextBox.Text = "";
+                    txt_addorjoin_errorMessage.Text = "";
+                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                    ApplicationBar.IsVisible = true;
+
+                }
             }  
         }
 
         private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
-            // ask the controller to send message here
+            if (detailsCanvasTextBox.Text == "")
+            {
+                txt_details_error_label.Text = "Message Field is empty!";
+            }
+            else
+            {
+                // ask the controller to send message here
 
-            MessageBox.Show("Message successfully sent.");
+                MessageBox.Show("Message successfully sent.");
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
+                details.Visibility = System.Windows.Visibility.Collapsed;
+
+                ApplicationBar.IsVisible = true;
+            }
         }
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived()

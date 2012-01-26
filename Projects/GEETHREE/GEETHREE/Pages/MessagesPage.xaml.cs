@@ -31,6 +31,7 @@ namespace GEETHREE.Pages
         private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            ApplicationBar.IsVisible = true;
         }
 
         private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -76,14 +77,113 @@ namespace GEETHREE.Pages
                 ApplicationBar.IsVisible = true;
                 e.Cancel = true;
             }
-            if (messageCanvas.Visibility == System.Windows.Visibility.Visible)
+            if (details.Visibility == System.Windows.Visibility.Visible)
             {
-                messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
-                ApplicationBar.IsVisible = true;
+                if (detailsCanvasTextBox.Text != "")
+                {
+
+                    // **  ...get the message saving the draft.
+                    var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
+
+                    if (m == MessageBoxResult.OK)
+                    {
+                        //write code for storing this message to draft
+
+                    }
+
+                }
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
+                details.Visibility = System.Windows.Visibility.Collapsed;
+                messageCanvas.Visibility = System.Windows.Visibility.Visible;
+
+
                 e.Cancel = true;
             }
         }
-        // ** some kind of popup needed to announce about the message that is just arrived
+
+        private void appbar_Message_Compose_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
+        }
+
+        
+        
+        private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            detailsNameTextBlock.Text = "NAME";
+            detailsDescriptionText.Text = "Description";
+            //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
+            detailsCanvasButton.Content = "Send Message";
+            detailsCanvasTextBox.Text = "";
+            txt_details_error_label.Text = "";
+            details.Visibility = System.Windows.Visibility.Visible;
+            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (detailsCanvasTextBox.Text != "")
+            {
+
+                // **  ...get the message saving the draft.
+                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
+
+                if (m == MessageBoxResult.OK)
+                {
+                    //write code for storing this message to draft
+
+                }
+
+            }
+
+            detailsCanvasTextBox.Text = "";
+            txt_details_error_label.Text = "";
+            details.Visibility = System.Windows.Visibility.Collapsed;
+            messageCanvas.Visibility = System.Windows.Visibility.Visible;
+
+            
+        }
+        private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (detailsCanvasTextBox.Text == "")
+            {
+                txt_details_error_label.Text = "Message Field is empty!";
+            }
+            else
+            {
+                // ask the controller to send message here
+
+                MessageBox.Show("Message successfully sent.");
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
+                details.Visibility = System.Windows.Visibility.Collapsed;
+                messageCanvas.Visibility = System.Windows.Visibility.Visible;
+
+               
+            }
+        }
+
+        private void detailsCanvasButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (detailsCanvasTextBox.Text == "")
+            {
+                txt_details_error_label.Text = "Message Field is empty!";
+            }
+            else
+            {
+                // ask the controller to send message here
+
+                MessageBox.Show("Message successfully sent.");
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
+                details.Visibility = System.Windows.Visibility.Collapsed;
+                messageCanvas.Visibility = System.Windows.Visibility.Visible;
+
+
+            }
+        }
+             // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived()
         {
             // **  ...get the message from datamaster and display it in canvas.
@@ -98,5 +198,6 @@ namespace GEETHREE.Pages
         }
 
 
+       
     }
 }

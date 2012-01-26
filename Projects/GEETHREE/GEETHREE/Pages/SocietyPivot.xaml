@@ -18,7 +18,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="GEETHREE - SOCIAL" Name="socialpivots">
+        <controls:Pivot Title="My Society" Name="socialpivots">
         	<controls:Pivot.Background>
         		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
         	</controls:Pivot.Background>
@@ -28,8 +28,8 @@
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Users}" Tap="Users_ListBox_Tap" Name="usersListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <StackPanel Margin="0,0,0,30" Width="432" Height="78">
+                                <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
                         </DataTemplate>
@@ -42,8 +42,8 @@
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="Groups_ListBox_Tap" Name="groupsListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                            <StackPanel Margin="0,0,0,30" Width="432" Height="78">
+                                <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
                         </DataTemplate>
@@ -53,13 +53,14 @@
         </controls:Pivot>
         <!-- This canvas is for sending messages  -->
         <Canvas Height="700" HorizontalAlignment="Left" Name="details" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1">
+               Visibility="Collapsed"  Opacity="1">
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="detailsNameTextBlock" Text="Name" 
                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
-            <TextBox Canvas.Left="73" Canvas.Top="473" Height="71" Name="detailsCanvasTextBox" Text="" Width="349" />
-            <TextBlock Canvas.Left="34" Canvas.Top="179" Height="144" Name="detailsDescriptionText" Text="" Width="413" TextWrapping="Wrap" />
-            <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="detailsCanvasButton" Width="229" Tap="detailsCanvasButton_Tap" />
+           <TextBox  Canvas.Left="67" Canvas.Top="279" Height="224" Name="detailsCanvasTextBox" Text="" Width="349" TextWrapping="Wrap" OpacityMask="#70000000"/>
+            <TextBlock Canvas.Left="34" Canvas.Top="179" Height="94" Name="detailsDescriptionText" Text="" Width="413" TextWrapping="Wrap" />
+            <Button Canvas.Left="123" Canvas.Top="509" Content="Send message" Height="71" Name="detailsCanvasButton" Width="229" Tap="detailsCanvasButton_Tap" />
             <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="detailsCanvasExitImage" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="detailsCanvasExitImage_Tap" />
+            <TextBlock Canvas.Left="87" Canvas.Top="590" Height="30" Name="txt_details_error_label" Text="" Width="317" Foreground="#FFF80A0A"  />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
             </Canvas.Background>
@@ -67,10 +68,12 @@
         <!-- This canvas is for adding friends and joining groups --> 
         <Canvas Height="700" HorizontalAlignment="Left" Name="addOrJoinCanvas" VerticalAlignment="Top" Width="480" 
                 Visibility="Collapsed" Opacity="1">
+            
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="addOrJoinCanvasTextBlock" Text="Type friend's Id" Style="{StaticResource PhoneTextExtraLargeStyle}" />
             <TextBox Canvas.Left="34" Canvas.Top="196" Height="71" Name="addOrJoinCanvasTextBox" Text="" Width="349" />
             <Button Canvas.Left="90" Canvas.Top="313" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" Tap="addOrJoinCanvasButton_Tap" />
             <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="addOrJoinCanvasExitImageExit" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="addOrJoinCanvasExitImageExit_Tap" />
+            <TextBlock Canvas.Left="51" Canvas.Top="482" Height="30" Name="txt_addorjoin_errorMessage" Text="" Width="332" Foreground="#FFF80A0A" />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
             </Canvas.Background>
@@ -79,7 +82,7 @@
 
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" x:Name="Social_app_bar" BackgroundColor="#46000000">
+        <shell:ApplicationBar  IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" >
             <shell:ApplicationBarIconButton x:Name="appbar_addFriendButton" IconUri="/Resources/appbar.add.rest.png" Text="Add Friend" Click="appbar_addFriendButton_Click" />
             <shell:ApplicationBarIconButton x:Name="appbar_joinGroupButton" IconUri="/Resources/appbar.favs.addto.rest.png" Text="Join Group" Click="appbar_joinGroupButton_Click" />
             <shell:ApplicationBar.MenuItems>

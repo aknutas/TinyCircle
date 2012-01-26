@@ -176,6 +176,11 @@ namespace GEETHREE
             App.ViewModel.AddNewMessage();
         }
 
+        private void txt_Base_Help_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
+        }
+
        
 
         
