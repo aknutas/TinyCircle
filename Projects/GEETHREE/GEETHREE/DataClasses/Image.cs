@@ -35,6 +35,19 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        private long _photoFileName();
+
+        [Column]
+        public long photoFileName
+        {
+            get
+            {
+                return _photoDbId;
+            }
+            set
+            {
+            }
+        }
 
     }
 }

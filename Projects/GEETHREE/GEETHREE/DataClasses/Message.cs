@@ -34,7 +34,7 @@ namespace GEETHREE.DataClasses
             {
             }
         }
-       
+
         private string _header;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
@@ -63,7 +63,7 @@ namespace GEETHREE.DataClasses
         /// </summary>
         /// <returns></returns>
         [Column]
-        public string TextContent 
+        public string TextContent
         {
             get
             {
@@ -75,6 +75,25 @@ namespace GEETHREE.DataClasses
                 {
                     _textContent = value;
                     NotifyPropertyChanged("TextContent");
+                }
+            }
+        }
+
+        private bool _outgoing;
+
+        [Column]
+        public bool outgoing
+        {
+            get
+            {
+                return _outgoing;
+            }
+            set
+            {
+                if (value != _outgoing)
+                {
+                    _outgoing = value;
+                    NotifyPropertyChanged("outgoing");
                 }
             }
         }
@@ -116,7 +135,7 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-        
+
         private byte[] _hash;
 
         [Column]
@@ -135,7 +154,7 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-       
+
         private bool _privatemessage;
 
         [Column]
@@ -154,7 +173,33 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
- 
+
+        //Associations with parent (user)
+
+        // Entity reference, to identify the user "storage" table
+        private EntityRef<User> _user;
+
+        // Internal column for the associated ToDoCategory ID value
+        [Column]
+        internal int _userId;
+
+        // Association, to describe the relationship between this key and that "storage" table
+        [Association(Storage = "_user", ThisKey = "_userId", OtherKey = "userDbId", IsForeignKey = true)]
+        public User user
+        {
+            get { return _user.Entity; }
+            set
+            {
+                _user.Entity = value;
+
+                if (value != null)
+                {
+                    _userId = value.userDbId;
+                }
+
+                NotifyPropertyChanged("user");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

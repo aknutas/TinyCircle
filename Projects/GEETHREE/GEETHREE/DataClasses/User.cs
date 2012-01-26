@@ -113,6 +113,16 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        // Define the entity set for the collection side of the relationship.
+        private EntitySet<Message> _messages;
+
+        [Association(Storage = "_message", OtherKey = "_userId", ThisKey = "userDbId")]
+        public EntitySet<Message> messages
+        {
+            get { return this._messages; }
+            set { this._messages.Assign(value); }
+        }
+
         public IPEndPoint UserEndPoint { get; set; }
         public bool IsSynchronized { get; set; }
 
