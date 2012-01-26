@@ -116,7 +116,7 @@ namespace GEETHREE.DataClasses
         // Define the entity set for the collection side of the relationship.
         private EntitySet<Message> _messages;
 
-        [Association(Storage = "_message", OtherKey = "_userId", ThisKey = "userDbId")]
+        [Association(Storage = "_messages", OtherKey = "_userId", ThisKey = "userDbId")]
         public EntitySet<Message> messages
         {
             get { return this._messages; }
