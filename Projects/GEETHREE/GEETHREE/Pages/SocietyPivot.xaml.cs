@@ -16,14 +16,16 @@ namespace GEETHREE
 {
     public partial class SocietyPivot : PhoneApplicationPage
     {
-
+        private Controller ctrl;
         private Group selectedGroup = null;
         private User selectedUser = null;
+       
         public SocietyPivot()
         {
             InitializeComponent();
             DataContext = App.ViewModel;
-
+            ctrl = Controller.Instance;
+            ctrl.registerCurrentPage(this, "society");
         }
        
 

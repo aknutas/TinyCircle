@@ -22,8 +22,8 @@
         		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
         	</controls:Pivot.Background>
             <!--Pivot item one-->
-            <controls:PivotItem Header="BC Msg">
-                <ListBox Name="ReveicedMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="ReveicedMessages_Tap">
+            <controls:PivotItem Header="Broadcast">
+                <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
@@ -35,9 +35,9 @@
                 </ListBox>
             </controls:PivotItem>
                       
-            <!--Pivot item 3-->
-            <controls:PivotItem Header="Sent">
-                <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding Messages}" Tap="SentMessages_Tap">
+            <!--Pivot item 2-->
+            <controls:PivotItem Header="Private">
+                <ListBox Name="ReceivedPrivateMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedPrivateMessages}" Tap="PrivateMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
@@ -48,10 +48,23 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
-            
+
+            <!--Pivot item 3-->
+            <controls:PivotItem Header="Sent">
+                <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding SentMessages}" Tap="SentMessages_Tap">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
+                                <TextBlock Text="{Binding Header}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding TextContent}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PivotItem>
             <!--Pivot item 4-->
             <controls:PivotItem Header="Drafts">
-                <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding Messages}" Tap="DraftMessages_Tap">
+                <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding DraftMessages}" Tap="DraftMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">

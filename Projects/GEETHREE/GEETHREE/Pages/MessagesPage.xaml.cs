@@ -17,11 +17,15 @@ namespace GEETHREE.Pages
     public partial class MessagesPage : PhoneApplicationPage
     {
         private Message selectedMessage = null;
-        private Controller c = null;
+        private Controller ctrl;
         public MessagesPage()
         {
             InitializeComponent();
             DataContext = App.ViewModel;
+
+            ctrl = Controller.Instance;
+            ctrl.registerCurrentPage(this, "messages");
+
         }
 
         private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -29,18 +33,19 @@ namespace GEETHREE.Pages
             messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
         }
 
-        private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            selectedMessage = (Message)SentMessages.SelectedItem;
+            selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
+            messageCanvasSenderTextBlock.Text = selectedMessage.SenderID;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
         }
-
-        private void ReveicedMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            selectedMessage = (Message)ReveicedMessages.SelectedItem;
+            selectedMessage = (Message)SentMessages.SelectedItem;
+            messageCanvasSenderTextBlock.Text = selectedMessage.ReceiverID;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
@@ -54,6 +59,12 @@ namespace GEETHREE.Pages
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
+        }
+
+        private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        { 
+        
+        
         }
 
         // ** must navigate back to the pivot page from details page, not back to panorama page
@@ -80,9 +91,12 @@ namespace GEETHREE.Pages
 
             if (m == MessageBoxResult.OK)
             {
-                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+                // already on this page, so don't need to navigate anywhere
+                //NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
 
             }
         }
+
+
     }
 }

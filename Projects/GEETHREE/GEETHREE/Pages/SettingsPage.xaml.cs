@@ -32,7 +32,7 @@ namespace GEETHREE.Pages
             appSettings = new DataClasses.AppSettings();
 
             ctrl.registerAvatarUpdates(this);
-
+            ctrl.registerCurrentPage(this, "settings");
             refreshAvatar();
 
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task

@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
+using GEETHREE.DataClasses;
 
 
 
@@ -29,6 +30,7 @@ namespace GEETHREE
             
             ctrl = Controller.Instance;
             ctrl.registerAvatarUpdates(this);
+            ctrl.registerCurrentPage(this, "main");
 
             refreshAvatar();
 
@@ -99,6 +101,32 @@ namespace GEETHREE
         //Database debug button
         private void button4_Click(object sender, RoutedEventArgs e)
         {
+            User u = new User("Anni", "This is Anni");
+            ctrl.dm.storeNewUser(u);
+            u = new User("Thomster", "This is Tommi.");
+            ctrl.dm.storeNewUser(u);
+            u = new User("Bishal", "This is Bishal.");
+            ctrl.dm.storeNewUser(u);
+            u = new User("Antti", "This is antti.");
+            ctrl.dm.storeNewUser(u);
+            u = new User("Tommi K", "This is Tommi K.");
+            ctrl.dm.storeNewUser(u);
+
+            Group g = new Group();
+            g.GroupName = ".NET Codecamp";
+            g.Description = "Here we are still coding at 0:55.";
+
+            g.GroupName = "Commlab";
+            g.Description = "We are commlab.";
+
+            g.GroupName = "SWE";
+            g.Description = "We are from Sweden";
+
+
+            //ctrl.dm.storeNewGroup(g);
+
+
+            /*
             DataClasses.Message msg = new DataClasses.Message();
             msg.TextContent = "Pli";
             msg.outgoing = true;
@@ -110,7 +138,7 @@ namespace GEETHREE
             ctrl.dm.storeNewMessage(msg2);
 
             List<DataClasses.Message> msgList = ctrl.dm.getAllMessages();
-            System.Diagnostics.Debug.WriteLine(msgList.Count);
+            System.Diagnostics.Debug.WriteLine(msgList.Count);*/
         }
 
         private void txt_mySociety_MySociety_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -141,6 +169,11 @@ namespace GEETHREE
         private void txt_messages_Header_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            App.ViewModel.AddNewMessage();
         }
 
        
