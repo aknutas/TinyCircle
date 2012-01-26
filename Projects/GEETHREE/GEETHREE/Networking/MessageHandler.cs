@@ -60,7 +60,10 @@ namespace GEETHREE
             {
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
                 msg.outgoing = false;
+                App.ViewModel.ReceivedPrivateMessages.Add(msg);
             }
+            else
+                
             dm.storeNewMessage(msg);
         }
         public void BroadcastMessageReceived(object sender, MessageEventArgs e)
@@ -75,7 +78,7 @@ namespace GEETHREE
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
             dm.storeNewMessage(msg);
-
+            App.ViewModel.ReceivedBroadcastMessages.Add(msg);
         }
         public void NewConnectionFound(object sender, ConnectionEventArgs e)
         {

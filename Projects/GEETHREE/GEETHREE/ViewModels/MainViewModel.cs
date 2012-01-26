@@ -25,7 +25,8 @@ namespace GEETHREE
             this.Groups = new ObservableCollection<Group>();
             this.Messages = new ObservableCollection<Message>();
             this.SendMessages = new ObservableCollection<Message>();
-            this.ReceivedMessages = new ObservableCollection<Message>();
+            this.ReceivedPrivateMessages = new ObservableCollection<Message>();
+            this.ReceivedBroadcastMessages = new ObservableCollection<Message>();
         }
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -36,7 +37,8 @@ namespace GEETHREE
         public ObservableCollection<Message> Messages { get; private set;}
 
         public ObservableCollection<Message> SendMessages { get; private set; }
-        public ObservableCollection<Message> ReceivedMessages { get; private set; }
+        public ObservableCollection<Message> ReceivedPrivateMessages { get; private set; }
+        public ObservableCollection<Message> ReceivedBroadcastMessages { get; private set; }
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>

@@ -209,7 +209,7 @@ namespace GEETHREE
                         break;
                 }               
             }
-            else if (messageParts.Length == 5 && messageParts[0] == Commands.PrivateMessage)
+            else if (messageParts.Length == 5)
             {
                 switch (messageParts[0])
                 {
