@@ -28,9 +28,9 @@ namespace GEETHREE
             : base(connectionString)
         { }
 
-        // public Table<Group> Groups;
-        // public Table<DataClasses.Image> Images;
-        // public Table<Me> Me;
+        public Table<Group> Groups;
+        public Table<DataClasses.Image> Images;
+        public Table<Me> Me;
         public Table<Message> Messages;
         public Table<User> Users;
     }
@@ -43,13 +43,11 @@ namespace GEETHREE
         public DataMaster()
         {
             // Create the database if it does not yet exist.
-            using (db = new G3DataContext("isostore:/G3DB.sdf"))
+            db = new G3DataContext("isostore:/G3DB.sdf");
+            if (db.DatabaseExists() == false)
             {
-                if (db.DatabaseExists() == false)
-                {
-                    // Create the database.
-                    db.CreateDatabase();
-                }
+                // Create the database.
+                db.CreateDatabase();
             }
             fm = new FileMaster();
         }
@@ -64,7 +62,7 @@ namespace GEETHREE
             }
         }
 
-        public void storeUser(User user)
+        public void storeNewUser(User user)
         {
             lock (db)
             {
@@ -77,19 +75,37 @@ namespace GEETHREE
         {
             lock (db)
             {
-                var qres = from Message message in db.Users select message;
+                var qres = from Message message in db.Messages select message;
                 List<Message> returnList = new List<Message>(qres);
                 return returnList;
             }
         }
 
-        public void storeMessage(Message message)
+        public void storeNewMessage(Message message)
         {
             lock (db)
             {
                 db.Messages.InsertOnSubmit(message);
                 db.SubmitChanges();
             }
+        }
+
+        public void updateChanges()
+        {
+            lock (db)
+            {
+                db.SubmitChanges();
+            }
+        }
+
+        public void refreshObjects(List<Object> updateList)
+        {
+            db.Refresh(RefreshMode.OverwriteCurrentValues, updateList);
+        }
+
+        public void refreshObjects(Object updateObject)
+        {
+            db.Refresh(RefreshMode.OverwriteCurrentValues, updateObject);
         }
 
     }

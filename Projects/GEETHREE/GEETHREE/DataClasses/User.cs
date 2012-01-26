@@ -40,6 +40,11 @@ namespace GEETHREE.DataClasses
             }
             set
             {
+                if (_userDbId != value)
+                {
+                    _userDbId = value;
+                    NotifyPropertyChanged("userDbId");
+                }
             }
         }
 

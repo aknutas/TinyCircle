@@ -19,7 +19,7 @@ namespace GEETHREE
     public class Controller
     {
         //Variables
-        private DataMaster dm;
+        public DataMaster dm;
         private DataClasses.AppSettings appSetting;
         private Communicator cm;
 

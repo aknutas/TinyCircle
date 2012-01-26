@@ -33,6 +33,11 @@ namespace GEETHREE.DataClasses
             }
             set
             {
+                if (_groupDbId != value)
+                {
+                    _groupDbId = value;
+                    NotifyPropertyChanged("groupDbId");
+                }
             }
         }
 
