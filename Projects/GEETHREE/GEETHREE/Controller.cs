@@ -28,9 +28,13 @@ namespace GEETHREE
         //Update view callback list
         private SettingsPage settingspage;
         private MainPage mainpage;
-        private ComposeMessagePage composeMessagePage;
-        private MessagesPage messagePage;
-        private SocietyPivot societyPivot;
+
+
+        private PhoneApplicationPage currentPage;
+        private string currentPageName;
+        //private ComposeMessagePage composeMessagePage;
+        //private MessagesPage messagePage;
+        //private SocietyPivot societyPivot;
 
         //Singleton instance
         private static Controller instance;
@@ -125,9 +129,60 @@ namespace GEETHREE
 
             return appSetting.UserIDSetting;
         }
+        public void registerCurrentPage(PhoneApplicationPage pap, string pageName)
+        {
+            currentPageName = pageName;
+            if (pageName == "main")
+            {
+                currentPage = (MainPage)pap; 
+            }
+            else if (pageName == "compose")
+            {
+                currentPage = (ComposeMessagePage)pap;
+            }
+            else if (pageName == "messages")
+            {
+                currentPage = (MessagesPage)pap;
+            }
+            else if (pageName == "society")
+            {
+                currentPage = (SocietyPivot)pap;
+            }
+            else if (pageName == "settings")
+            {
+                currentPage = (SettingsPage)pap;
+            }
+        
+        }
+
+
         public void notifyViewAboutMessage()
-        { 
-            
+        {
+            if (currentPageName == "main")
+            {
+                MainPage mp = (MainPage)currentPage;
+                mp.messageArrived();
+            }
+            else if (currentPageName == "compose")
+            {
+                ComposeMessagePage cmp = (ComposeMessagePage)currentPage;
+                cmp.messageArrived();
+            }
+            else if (currentPageName == "messages")
+            {
+                MessagesPage msgp = (MessagesPage)currentPage;
+                msgp.messageArrived();
+            }
+            else if (currentPageName == "society")
+            {
+                SocietyPivot sp = (SocietyPivot)currentPage;
+                sp.messageArrived();
+            }
+            else if(currentPageName == "settings")
+            {
+                SettingsPage settp = (SettingsPage)currentPage;
+                settp.messageArrived();
+            }
         
         }
 
