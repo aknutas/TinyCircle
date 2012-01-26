@@ -64,10 +64,12 @@
             </controls:PivotItem>
         </controls:Pivot>
         <!-- This canvas is for sending messages  -->
-        <Canvas Height="800" HorizontalAlignment="Left" Margin="12,0,0,0" Name="messageCanvas" VerticalAlignment="Top" Width="480" Visibility="Collapsed" Opacity="1">
-            <TextBlock Canvas.Left="7" Canvas.Top="81" Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+        <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" Visibility="Collapsed" Opacity="1">
+            <TextBlock Canvas.Left="7" Canvas.Top="81" Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
+                       Style="{StaticResource PhoneTextExtraLargeStyle}" />
             <TextBlock Canvas.Left="23" Canvas.Top="224" Height="243" Name="messageCanvasMessageContent" Text="Content" Width="426" TextWrapping="Wrap" />
-            <Image Canvas.Left="386" Canvas.Top="0" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />
+            <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" 
+                   Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />
             <TextBlock Canvas.Left="23" Canvas.Top="173" Height="30" Name="messageCanvasMessageHeader" Text="Header" Width="426" />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
@@ -77,7 +79,7 @@
 
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" BackgroundColor="#46000000">
             <shell:ApplicationBarIconButton x:Name="appbar_Message_Compose" IconUri="/Resources/appbar.add.rest.png" Text="New"/>
             <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
             
