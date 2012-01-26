@@ -24,7 +24,7 @@ namespace GEETHREE.DataClasses
     {
 
         // Our isolated storage settings
-        IsolatedStorageSettings settings;
+        public IsolatedStorageSettings settings { get; private set; }
 
         // The isolated storage key names of our settings
         const string AliasSettingKeyName = "CheckBoxSetting";
