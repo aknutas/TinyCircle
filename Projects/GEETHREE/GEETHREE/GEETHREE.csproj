@@ -79,6 +79,7 @@
     <Compile Include="DataClasses\User.cs" />
     <Compile Include="DataMaster.cs" />
     <Compile Include="DataPackets\Ping.cs" />
+    <Compile Include="Networking\Connection.cs" />
     <Compile Include="Networking\DiagnosticsHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

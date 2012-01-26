@@ -9,7 +9,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Collections.ObjectModel;
 using GEETHREE.DataClasses;
+using GEETHREE.Networking;
 
 namespace GEETHREE
 {
@@ -50,6 +52,8 @@ namespace GEETHREE
         /// The id of this user.
         /// </summary>
         private string _userID;
+        public ObservableCollection<Connection> Connections { get; private set; }
+       
 
         public CommunicationHandler()
         {
@@ -67,6 +71,7 @@ namespace GEETHREE
             // So, if everyone sends a message to the multicast group, we are guaranteed that this 
             // player (receiver) has been sent a multicast packet by the opponent. 
             StartKeepAlive();
+            this.Connections = new ObservableCollection<Connection>();
         }
 
         /// <summary>
@@ -179,10 +184,10 @@ namespace GEETHREE
                 switch (messageParts[0])
                 {
                     case Commands.Join:
-                        OnUserJoined(new User(messageParts[1], e.Source));
+                        OnUserJoined(new Connection(messageParts[1], e.Source));
                         break;
                     case Commands.Leave:
-                        OnUserLeft(new User(messageParts[1], e.Source));
+                        OnUserLeft(new Connection(messageParts[1], e.Source));
                         break;
                     default:
                         break;
@@ -212,12 +217,12 @@ namespace GEETHREE
         /// Handle a player joining the multicast group.
         /// </summary>
         /// <param name="playerInfo">The player.</param>
-        private void OnUserJoined(User userInfo)
+        private void OnUserJoined(Connection userInfo)
         {
             bool add = true;
             int numberAdded = 0;
 
-            foreach (User pi in App.ViewModel.Users)
+            foreach (Connection pi in this.Connections)
             {
                 if (pi.UserID == userInfo.UserID)
                 {
@@ -232,7 +237,7 @@ namespace GEETHREE
             if (add)
             {
                 numberAdded++;
-                App.ViewModel.Users.Add(userInfo);
+                this.Connections.Add(userInfo);
             }
 
             // If any new players have been added, send out our join message again
@@ -248,15 +253,15 @@ namespace GEETHREE
         /// Handle a player leaving the multicast group.
         /// </summary>
         /// <param name="playerInfo">The player.</param>
-        private void OnUserLeft(User userInfo)
+        private void OnUserLeft(Connection userInfo)
         {
             if (userInfo.UserID != _userID)
             {
-                foreach (User pi in App.ViewModel.Users)
+                foreach (Connection pi in this.Connections)
                 {
                     if (pi.UserID == userInfo.UserID)
                     {
-                        App.ViewModel.Users.Remove(pi);
+                        this.Connections.Remove(pi);
                         break;
                     }
                 }
