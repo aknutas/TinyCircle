@@ -35,7 +35,7 @@ namespace GEETHREE.DataClasses
             }
         }
 
-        private long _photoFileName();
+        private long _photoFileName;
 
         [Column]
         public long photoFileName
