@@ -41,6 +41,7 @@
                 </toolkit:ListPicker>
                
                 <TextBox Height="323" Name="txt_compose_message" Text="Type your message here..." Width="460" Tap="txt_compose_message_Tap" MaxWidth="440" TextWrapping="Wrap" />
+                <Image Height="180" Name="attachedImage" Stretch="Fill" Width="290" />
             </StackPanel>
         </Grid>
     </Grid>
@@ -48,11 +49,10 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="/Resources/appbar.feature.camera.rest.png" Text="Take pic" Click="ApplicationBarIconButton_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Resources/appbar.add.rest.png" Text="Browse pic" Click="ApplicationBarIconButton_Click_1" />
+            <shell:ApplicationBarIconButton IconUri="/Resources/appbar.feature.email.rest.png" Text="Send msg" Click="ApplicationBarIconButton_Click_2" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

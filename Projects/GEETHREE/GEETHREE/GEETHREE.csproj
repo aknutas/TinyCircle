@@ -155,7 +155,7 @@
     <Content Include="Resources\appbar.feature.settings.rest.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\appbar.feature.camera.rest.png" />
+    <Content Include="Resources\appbar.feature.camera.rest.png" />
     <Resource Include="Resources\appbar.delete.rest.png" />
     <Resource Include="Resources\appbar.download.rest.png" />
     <Resource Include="Resources\appbar.edit.rest.png" />
