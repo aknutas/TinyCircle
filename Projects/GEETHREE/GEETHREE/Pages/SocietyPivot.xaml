@@ -56,7 +56,7 @@
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="detailsNameTextBlock" Text="Name" Style="{StaticResource PhoneTextExtraLargeStyle}" />
             <TextBox Canvas.Left="73" Canvas.Top="473" Height="71" Name="detailsCanvasTextBox" Text="" Width="349" />
             <TextBlock Canvas.Left="34" Canvas.Top="179" Height="144" Name="detailsDescriptionText" Text="" Width="413" TextWrapping="Wrap" />
-            <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="detailsCanvasButton" Width="229" />
+            <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="detailsCanvasButton" Width="229" Tap="detailsCanvasButton_Tap" />
             <Image Canvas.Left="386" Canvas.Top="0" Height="81" Name="detailsCanvasExitImage" Stretch="Fill" Width="83" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="detailsCanvasExitImage_Tap" />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/PanoramaBackground.png" />
@@ -66,7 +66,7 @@
         <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="addOrJoinCanvas" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1">
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="addOrJoinCanvasTextBlock" Text="Type friend's Id" Style="{StaticResource PhoneTextExtraLargeStyle}" />
             <TextBox Canvas.Left="34" Canvas.Top="196" Height="71" Name="addOrJoinCanvasTextBox" Text="" Width="349" />
-            <Button Canvas.Left="90" Canvas.Top="313" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" />
+            <Button Canvas.Left="90" Canvas.Top="313" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" Tap="addOrJoinCanvasButton_Tap" />
             <Image Canvas.Left="386" Canvas.Top="0" Height="81" Name="addOrJoinCanvasExitImageExit" Stretch="Fill" Width="83" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="addOrJoinCanvasExitImageExit_Tap" />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/PanoramaBackground.png" />

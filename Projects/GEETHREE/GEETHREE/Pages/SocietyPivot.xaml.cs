@@ -19,7 +19,6 @@ namespace GEETHREE
 
         private Group selectedGroup = null;
         private User selectedUser = null;
-        
         public SocietyPivot()
         {
             InitializeComponent();
@@ -123,6 +122,29 @@ namespace GEETHREE
         {
             addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
             ApplicationBar.IsVisible = true;
+        }
+
+        private void addOrJoinCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (addOrJoinCanvasTextBlock.Text == "Type group's name:")
+            {
+                // ** ask the network controller to join the group
+                MessageBox.Show("You have joined a group\n " + selectedGroup.GroupName.ToString());
+            }
+            if (addOrJoinCanvasTextBlock.Text == "Type friends ID:")
+            {
+                // ** ask the nedwork controller to add a friend
+
+                MessageBox.Show("You and " + selectedUser.UserName + "\n are now friends.");
+            }  
+        }
+
+        private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            
+            // ask the controller to send message here
+
+            MessageBox.Show("Message successfully sent.");
         }
     }
 }
