@@ -17,6 +17,7 @@ using Microsoft.Phone.Data.Linq.Mapping;
 using GEETHREE.DataClasses;
 using System.Collections.Generic;
 using System.Threading;
+using System.IO.IsolatedStorage;
 
 
 namespace GEETHREE
@@ -39,6 +40,7 @@ namespace GEETHREE
     {
         private G3DataContext db;
         public FileMaster fm;
+        private DataClasses.AppSettings settings;
 
         public DataMaster()
         {
@@ -50,6 +52,7 @@ namespace GEETHREE
                 db.CreateDatabase();
             }
             fm = new FileMaster();
+            settings = new DataClasses.AppSettings();
         }
 
         public List<User> getAllUsers()
@@ -81,6 +84,16 @@ namespace GEETHREE
             }
         }
 
+        public List<Message> getSendableMessages()
+        {
+            lock (db)
+            {
+                var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
+                List<Message> returnList = new List<Message>(qres);
+                return returnList;
+            }
+        }
+
         public void storeNewMessage(Message message)
         {
             lock (db)
@@ -88,6 +101,21 @@ namespace GEETHREE
                 db.Messages.InsertOnSubmit(message);
                 db.SubmitChanges();
             }
+        }
+
+        public void storeNewMessage(List<Message> messages)
+        {
+            lock (db)
+            {
+                db.Messages.InsertAllOnSubmit(messages);
+                db.SubmitChanges();
+            }
+        }
+
+        public void deleteMessage(Message message)
+        {
+            db.Messages.DeleteOnSubmit(message);
+            db.SubmitChanges();
         }
 
         public void updateChanges()
