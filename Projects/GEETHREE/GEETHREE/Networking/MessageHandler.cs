@@ -17,7 +17,7 @@ namespace GEETHREE
     /// <summary>
     /// MessageHandler class handles the storaging and transmitting of messages. 
     /// </summary>
-    public class MessageHandler
+    public class MessageHandler : IDisposable
     {
         /// <summary>
         /// List of messages for local user
@@ -119,5 +119,12 @@ namespace GEETHREE
                 this.cm.NewConnection -= new EventHandler<ConnectionEventArgs>(NewConnectionFound);
             }
         }
+
+        #region IDisposable Implementation
+        public void Dispose()
+        {
+            UnregisterEvents();
+        }
+        #endregion
     }
 }
