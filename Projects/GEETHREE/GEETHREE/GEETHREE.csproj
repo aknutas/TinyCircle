@@ -146,6 +146,10 @@
     <Resource Include="Resources\anonymous.png" />
     <Resource Include="Resources\camera.png" />
     <Resource Include="Resources\appbar.cancel.rest.png" />
+    <Resource Include="g3aicon_173x173.png" />
+    <Resource Include="g3aicon_200x200.png" />
+    <Resource Include="g3aicon_62x62.png" />
+    <Resource Include="g3aicon_99x99.png" />
     <Content Include="Resources\appbar.add.rest.png" />
     <Content Include="Resources\appbar.favs.addto.rest.png" />
     <Content Include="Resources\appbar.feature.settings.rest.png">
