@@ -33,7 +33,7 @@
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>
             
-            <controls:PanoramaItem Header="Base" Foreground="#FF9BC0D3">
+            <controls:PanoramaItem Header="Spotlight" Foreground="#FF9BC0D3">
                 <!--Double line list with image placeholder and text wrapping-->
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">

@@ -35,5 +35,10 @@ namespace GEETHREE.Pages
           
         
         }
+
+        private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+        }
     }
 }

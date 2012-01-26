@@ -68,7 +68,7 @@
         <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="messageCanvas" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1">
             <TextBlock Canvas.Left="7" Canvas.Top="81" Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" Style="{StaticResource PhoneTextExtraLargeStyle}" />
             <TextBlock Canvas.Left="23" Canvas.Top="224" Height="243" Name="messageCanvasMessageContent" Text="Content" Width="426" TextWrapping="Wrap" />
-            <Image Canvas.Left="386" Canvas.Top="0" Height="80" Name="detailsCanvasExitImage" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="detailsCanvasExitImage_Tap" />
+            <Image Canvas.Left="386" Canvas.Top="0" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />
             <TextBlock Canvas.Left="23" Canvas.Top="173" Height="30" Name="messageCanvasMessageHeader" Text="Header" Width="426" />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
