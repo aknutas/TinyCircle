@@ -59,7 +59,7 @@
             <Button Canvas.Left="116" Canvas.Top="572" Content="Send message" Height="71" Name="detailsCanvasButton" Width="229" Tap="detailsCanvasButton_Tap" />
             <Image Canvas.Left="386" Canvas.Top="0" Height="80" Name="detailsCanvasExitImage" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="detailsCanvasExitImage_Tap" />
             <Canvas.Background>
-                <ImageBrush ImageSource="/GEETHREE;component/Resources/PanoramaBackground.png" />
+                <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
             </Canvas.Background>
         </Canvas>
         <!-- This canvas is for adding friends and joining groups --> 
@@ -69,10 +69,9 @@
             <Button Canvas.Left="90" Canvas.Top="313" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" Tap="addOrJoinCanvasButton_Tap" />
             <Image Canvas.Left="386" Canvas.Top="0" Height="80" Name="addOrJoinCanvasExitImageExit" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="addOrJoinCanvasExitImageExit_Tap" />
             <Canvas.Background>
-                <ImageBrush ImageSource="/GEETHREE;component/Resources/PanoramaBackground.png" />
+                <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
             </Canvas.Background>
         </Canvas>
-
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->

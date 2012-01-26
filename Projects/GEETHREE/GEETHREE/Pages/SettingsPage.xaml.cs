@@ -44,6 +44,8 @@ namespace GEETHREE.Pages
             cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
         }
 
+       
+
         public void refreshAvatar(){
             img_Settings_avatar.Source = ctrl.getCurrentAvatar();
         }
@@ -91,6 +93,19 @@ namespace GEETHREE.Pages
             {
                 //Write image to isolated storage
                 ctrl.changeCurrentAvatar(e.ChosenPhoto);
+            }
+        }
+
+        // ** some kind of popup needed to announce about the message that is just arrived
+        public void messageArrived()
+        {
+            // **  ...get the message from datamaster and display it in canvas.
+            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+
+            if (m == MessageBoxResult.OK)
+            {
+                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+
             }
         }
     }

@@ -36,7 +36,7 @@
                     <TextBox Height="70" Name="txt_compose_receipient" Text="" Width="379" HorizontalAlignment="Left" />
                     <Image Height="44" HorizontalAlignment="Right" Margin="0,6,6,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="49" Source="/GEETHREE;component/Resources/add.png" Tap="image1_Tap" />
                 </Grid>
-                <toolkit:ListPicker  Name="listPicker1" Visibility="Collapsed" SelectionChanged="listPicker1_SelectionChanged" Width="200" >
+                <toolkit:ListPicker  Name="receiverListPicker" Visibility="Collapsed" SelectionChanged="receiverListPicker_SelectionChanged" Width="200" >
                                  
                 </toolkit:ListPicker>
                
@@ -45,7 +45,6 @@
             </StackPanel>
         </Grid>
     </Grid>
- 
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
