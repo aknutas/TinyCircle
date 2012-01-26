@@ -21,8 +21,8 @@ namespace GEETHREE
         //Variables
         public DataMaster dm;
         private DataClasses.AppSettings appSetting;
-        private MessageHandler mh;
-        private CommunicationHandler cm;
+        public MessageHandler mh;
+        public CommunicationHandler cm;
         private Random r;
 
         //Update view callback list

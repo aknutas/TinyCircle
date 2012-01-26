@@ -40,44 +40,66 @@ namespace GEETHREE
         {
             this.dm = dm;
             this.cm = cm;
+            RegisterEvents();
         }
 
         public void PrivateMessageReceived(object sender, MessageEventArgs e)
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine(" Private message received" + e.TextContent);
 
-#endif
+            System.Diagnostics.Debug.WriteLine(" Private message received " + e.TextContent);
+            Message msg = new Message();
+            msg.PrivateMessage = true;
+            msg.Hash = e.Hash;
+            msg.ReceiverID = e.Receiver;
+            msg.SenderID = e.Sender;
+            msg.TextContent = e.TextContent;
+            msg.outgoing = true;
+            
+
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
-#if DEBUG
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
-
-#endif
+                msg.outgoing = false;
             }
+            dm.storeNewMessage(msg);
         }
         public void BroadcastMessageReceived(object sender, MessageEventArgs e)
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine("Broadcast message received" + e.TextContent);
 
-#endif
+            System.Diagnostics.Debug.WriteLine("Broadcast message received " + e.TextContent);
+            Message msg = new Message();
+            msg.PrivateMessage = false;
+            msg.Hash = e.Hash;
+            msg.ReceiverID = e.Receiver;
+            msg.SenderID = e.Sender;
+            msg.TextContent = e.TextContent;
+            msg.outgoing = true;
+            dm.storeNewMessage(msg);
+
         }
         public void NewConnectionFound(object sender, ConnectionEventArgs e)
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine("Got new connection" + e.UserId);
 
-#endif
+            System.Diagnostics.Debug.WriteLine("Got new connection " + e.UserId);
+
+            //Spambot --- Send all saved messages to new user 
+            
         }
         public void Synchronize(User info)
         {
             //How do we synchonize the messages?
            
         }
+        public void SendMessage(Message msg)
+        {
+            byte[] temphash={0,0};
+            msg.Hash = temphash;
+            this.cm.SendToAll(msg);
+        }
 
         /// <summary>
         /// Register for events on communication
+        /// </summary>
         private void RegisterEvents()
         {
 

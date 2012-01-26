@@ -79,6 +79,13 @@ namespace GEETHREE.Pages
         private void ApplicationBarIconButton_Click_2(object sender, EventArgs e)
         {
             // ** ... communicate with networker to create a packet and send it ...
+            Message msg =new Message();
+            msg.TextContent=txt_compose_message.Text;
+            msg.SenderID=Controller.Instance.getCurrentUserID();
+            msg.ReceiverID="0";
+            msg.PrivateMessage=false;
+            msg.outgoing=true;
+            Controller.Instance.mh.SendMessage(msg);
             MessageBox.Show("Message sent.");
         }
 
