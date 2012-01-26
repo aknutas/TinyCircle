@@ -28,6 +28,9 @@ namespace GEETHREE
         //Update view callback list
         private SettingsPage settingspage;
         private MainPage mainpage;
+        private ComposeMessagePage composeMessagePage;
+        private MessagesPage messagePage;
+        private SocietyPivot societyPivot;
 
         //Singleton instance
         private static Controller instance;
@@ -122,5 +125,13 @@ namespace GEETHREE
 
             return appSetting.UserIDSetting;
         }
+        public void notifyViewAboutMessage()
+        { 
+            
+        
+        }
+
+
+
     }
 }
