@@ -39,7 +39,6 @@ namespace GEETHREE
     {
         private G3DataContext db;
         public FileMaster fm;
-        public DataClasses.AppSettings appSetting;
 
         public DataMaster()
         {
@@ -52,7 +51,6 @@ namespace GEETHREE
                     db.CreateDatabase();
                 }
             }
-            appSetting = new DataClasses.AppSettings();
             fm = new FileMaster();
         }
 

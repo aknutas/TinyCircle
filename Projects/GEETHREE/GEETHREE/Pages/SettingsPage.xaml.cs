@@ -22,11 +22,14 @@ namespace GEETHREE.Pages
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;
         Controller ctrl;
+        DataClasses.AppSettings appSettings; 
 
         public SettingsPage()
         {
             InitializeComponent();
             ctrl = Controller.Instance;
+
+            appSettings = new DataClasses.AppSettings();
 
             ctrl.registerAvatarUpdates(this);
 
@@ -78,12 +81,6 @@ namespace GEETHREE.Pages
             {
                 //Write image to isolated storage
                 ctrl.changeCurrentAvatar(e.ChosenPhoto);
-
-                //appSetting.SaveToIsolatedStorage(e.ChosenPhoto, "Avatar.jpg");
-
-                //display image on imagebox from isolated storage
-                //img_Settings_avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
-               // img_Base_Avatar.Source = appSetting.ReadFromIsolatedStorage("Avatar.jpg");
             }
         }
 

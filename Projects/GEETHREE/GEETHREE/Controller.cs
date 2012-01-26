@@ -20,6 +20,7 @@ namespace GEETHREE
     {
         //Variables
         private DataMaster dm;
+        private DataClasses.AppSettings appSetting;
         private Communicator cm;
 
         //Update view callback list
@@ -34,6 +35,8 @@ namespace GEETHREE
         private Controller() {
             dm = new DataMaster();
             cm = new Communicator(dm);
+            appSetting = new DataClasses.AppSettings();
+
             // TODO Elegant callbacks
             // callbackList = new List<PhoneApplicationPage>();
         }
@@ -99,7 +102,7 @@ namespace GEETHREE
         public string getCurrentAlias()
         {
             
-            return dm.appSetting.AliasSetting;
+            return appSetting.AliasSetting;
         }
     }
 }
