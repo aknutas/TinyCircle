@@ -318,6 +318,11 @@ namespace GEETHREE
         {
             this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.ReceiverID, msg.TextContent, msg.Hash);
         }
+        public void SendTo(Message msg, IPEndPoint endpoint)
+        {
+            this.Channel.SendTo(endpoint, Commands.BroadcastMessageFormat, msg.SenderID, msg.ReceiverID, msg.TextContent, msg.Hash);
+        }
+
         DispatcherTimer _dt;
         private void StartKeepAlive()
         {
