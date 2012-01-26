@@ -19,18 +19,11 @@ namespace GEETHREE
     /// </summary>
     public class MessageHandler : IDisposable
     {
-        /// <summary>
-        /// List of messages for local user
-        /// </summary>
-        public static ObservableCollection<Message> MyPrivateMessages = new ObservableCollection<Message>();
-        /// <summary>
-        /// List of broadcast messages the local user wants to see
-        /// </summary>
-        public static ObservableCollection<Message> MyBroadcastMessages = new ObservableCollection<Message>();
+       
         /// <summary>
         /// List of other messages to be sent forward
         /// </summary>
-        public static ObservableCollection<Message> TransitMessages = new ObservableCollection<Message>();
+        public ObservableCollection<Message> TransitMessages { get; private set; }
 
         private DataMaster dm;
         private CommunicationHandler cm;
@@ -40,6 +33,7 @@ namespace GEETHREE
         {
             this.dm = dm;
             this.cm = cm;
+            this.TransitMessages = new ObservableCollection<Message>();
             RegisterEvents();
         }
 
@@ -63,7 +57,8 @@ namespace GEETHREE
                 App.ViewModel.ReceivedPrivateMessages.Add(msg);
             }
             else
-                
+                this.TransitMessages.Add(msg);
+
             dm.storeNewMessage(msg);
         }
         public void BroadcastMessageReceived(object sender, MessageEventArgs e)
@@ -79,6 +74,7 @@ namespace GEETHREE
             msg.outgoing = true;
             dm.storeNewMessage(msg);
             App.ViewModel.ReceivedBroadcastMessages.Add(msg);
+            this.TransitMessages.Add(msg);
         }
         public void NewConnectionFound(object sender, ConnectionEventArgs e)
         {
@@ -87,6 +83,7 @@ namespace GEETHREE
 
             //Spambot --- Send all saved messages to new user 
             
+
         }
         public void Synchronize(User info)
         {
