@@ -59,9 +59,10 @@ namespace GEETHREE
         {
             if (details.Visibility == System.Windows.Visibility.Visible)
             {
-                details.Visibility = System.Windows.Visibility.Collapsed;        
-            
+                details.Visibility = System.Windows.Visibility.Collapsed;
+                e.Cancel = true;
             }
+            
         }
         // ** When navigated to pivot page, choose which page to display first
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)

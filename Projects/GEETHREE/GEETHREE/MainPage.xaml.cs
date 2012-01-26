@@ -68,11 +68,6 @@ namespace GEETHREE
             //NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
         }
 
-        
-       
-
-        
-
         private void txt_Base_Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
