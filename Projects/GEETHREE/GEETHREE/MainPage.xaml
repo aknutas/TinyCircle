@@ -33,21 +33,31 @@
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>
             
-            <controls:PanoramaItem Header="Spotlight" Foreground="#FF9BC0D3">
+            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
                 <!--Double line list with image placeholder and text wrapping-->
+                <ListBox Margin="0,0,0,0">
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
 
 
-                    <StackPanel Width="410" Height="446">
-                        <TextBlock Name="txt_Base_Alias" Text=" Alias" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                        <Image Height="99" Name="img_Base_Avatar" Stretch="Fill" Width="99" />
-                        <TextBlock Name="txt_Base_Messages" Text=" Messages" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Messages_Tap" />
+                    <TextBlock  Name="txt_Base_Alias" Text="Alias" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />
 
-                        <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" />
-                        <Button Content="Database Debug" Height="71" Name="button4" Width="160" Click="button4_Click" />
+
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
+
+
+                        <StackPanel Width="410" Height="446">
+                            <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" />
+                            <TextBlock Name="txt_Base_Messages" Text=" Messages" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Messages_Tap" Foreground="#FF9BC0D3"/>
+
+                            <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" Foreground="#FF9BC0D3"/>
+                            <TextBlock Name="txt_Base_Help" Text=" Help" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_Base_Help_Tap" />
+                            <Button Content="Database Debug" Height="71" Name="button4" Width="160" Click="button4_Click" />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+
+                </ListBox>
+                
 
             </controls:PanoramaItem>
 
@@ -68,7 +78,7 @@
                         <ListBox.ItemTemplate>
 
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
                                     <!--Replace rectangle with image-->
 
                                     <StackPanel Width="311">
@@ -91,19 +101,19 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="95" />
                             <RowDefinition Height="55" />
-                            <RowDefinition Height="150" />
+                            <RowDefinition Height="230" />
                             <RowDefinition Height="55" />
-                            <RowDefinition Height="150" />
+                            <RowDefinition Height="230" />
                             <RowDefinition Height="55" />
                             
                         </Grid.RowDefinitions>
                         <TextBlock  Name="txt_mySociety_MySociety" Grid.Row="0" Text="My Society" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_MySociety_Tap" />
                         <TextBlock  Name="txt_mySociety_People" Grid.Row="1" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_People_Tap" />
 
-                        <ListBox Grid.Row="2" Margin="0,0,8,0" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" >
+                        <ListBox Grid.Row="2" Margin="0,0,0,0" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Margin="0,0,0,0" Width="432" Height="78">
+                                    <StackPanel Margin="0,0,0,17" Width="432" Height="78">
                                         <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                         <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </StackPanel>
@@ -111,10 +121,10 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                         <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_Groups_Tap" />
-                        <ListBox Grid.Row="4" Margin="0,0,8,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
+                        <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Margin="0,0,0,0" Width="432" Height="78">
+                                    <StackPanel Margin="0,0,0,17" Width="432" Height="78">
                                         <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                         <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </StackPanel>
@@ -175,7 +185,7 @@
 
                                 <StackPanel Width="311">
                                         <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,10" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>

@@ -88,6 +88,9 @@
     <Compile Include="Pages\ComposeMessagePage.xaml.cs">
       <DependentUpon>ComposeMessagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MessagesPage.xaml.cs">
       <DependentUpon>MessagesPage.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Pages\ComposeMessagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
