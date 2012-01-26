@@ -93,6 +93,34 @@ namespace GEETHREE
             }
         }
 
+        public List<Group> getAllGroups()
+        {
+            lock (db)
+            {
+                var qres = from Group grps in db.Groups select grps;
+                List<Group> returnList = new List<Group>(qres);
+                return returnList;
+            }
+        }
+
+        public void storeNewGroup(Group group)
+        {
+            lock (db)
+            {
+                db.Groups.InsertOnSubmit(group);
+                db.SubmitChanges();
+            }
+        }
+
+        public void deleteGroup(Group group)
+        {
+            lock (db)
+            {
+                db.Groups.DeleteOnSubmit(group);
+                db.SubmitChanges();
+            }
+        }
+
         public List<Message> getSendableMessages()
         {
             lock (db)
