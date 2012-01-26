@@ -29,7 +29,7 @@ namespace GEETHREE.Pages
             foreach (User u in App.ViewModel.Users)
             {
             
-                listPicker1.Items.Add(u.UserName);
+                receiverListPicker.Items.Add(u.UserName);
             
             }
 
@@ -46,13 +46,13 @@ namespace GEETHREE.Pages
 
         private void image1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            listPicker1.Visibility = System.Windows.Visibility.Visible;
+            receiverListPicker.Visibility = System.Windows.Visibility.Visible;
         }
 
-        private void listPicker1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void receiverListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txt_compose_receipient.Text = listPicker1.SelectedItem.ToString();
-            listPicker1.Visibility = System.Windows.Visibility.Collapsed;
+            txt_compose_receipient.Text = receiverListPicker.SelectedItem.ToString();
+            receiverListPicker.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void txt_compose_message_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -111,6 +111,18 @@ namespace GEETHREE.Pages
 
                 //Write image to isolated storage
                 //ctrl.changeCurrentAvatar(e.ChosenPhoto);
+            }
+        }
+        // ** some kind of popup needed to announce about the message that is just arrived
+        public void messageArrived()
+        {
+            // **  ...get the message from datamaster and display it in canvas.
+            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+
+            if (m == MessageBoxResult.OK)
+            {
+                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+
             }
         }
 

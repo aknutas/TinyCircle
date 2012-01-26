@@ -32,7 +32,27 @@
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>
- 
+            
+            <controls:PanoramaItem Header="Base" Foreground="#FF9BC0D3">
+                <!--Double line list with image placeholder and text wrapping-->
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
+
+
+                    <StackPanel Width="410" Height="446">
+                        <TextBlock Name="txt_Base_Alias" Text=" Alias" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                        <Image Height="99" Name="img_Base_Avatar" Stretch="Fill" Width="99" />
+                        <TextBlock Name="txt_Base_Messages" Text=" Messages" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Messages_Tap" />
+
+                        <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" />
+                        <Button Content="Database Debug" Height="71" Name="button4" Width="160" />
+                    </StackPanel>
+                </StackPanel>
+
+            </controls:PanoramaItem>
+
+
+
             <!--Panorama item one-->
             <controls:PanoramaItem Header="Activity" Foreground="#FF9BC0D3">
                 <!--Double line list with text wrapping-->
@@ -117,28 +137,12 @@
             </controls:PanoramaItem>
             
             
-            <controls:PanoramaItem Header="Base" Foreground="#FF9BC0D3">
-                <!--Double line list with image placeholder and text wrapping-->
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
-                     
-                    
-                    <StackPanel Width="410" Height="446">
-                        <TextBlock Name="txt_Base_Alias" Text=" Alias" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                        <Image Height="99" Name="img_Base_Avatar" Stretch="Fill" Width="99" />
-                        <TextBlock Name="txt_Base_Messages" Text=" Messages" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Messages_Tap" />
-
-                        <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" />
-                       
-                    </StackPanel>
-                </StackPanel>
-
-            </controls:PanoramaItem>
         </controls:Panorama>
      
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" Mode="Minimized">
             <shell:ApplicationBarIconButton x:Name="appbar_settings" IconUri="/Resources/appbar.feature.settings.rest.png" Text="Settings" Click="appbar_settings_Click" />
             <shell:ApplicationBarIconButton x:Name="appbar_messages" IconUri="/Resources/appbar.feature.email.rest.png" Text="Messages" Click="appbar_messages_Click" />
             <shell:ApplicationBar.MenuItems>

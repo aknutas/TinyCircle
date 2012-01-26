@@ -18,6 +18,7 @@ namespace GEETHREE.Pages
         public MessagesPage()
         {
             InitializeComponent();
+            DataContext = App.ViewModel;
         }
     }
 }

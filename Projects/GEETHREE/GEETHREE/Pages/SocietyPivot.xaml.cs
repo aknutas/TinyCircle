@@ -146,5 +146,17 @@ namespace GEETHREE
 
             MessageBox.Show("Message successfully sent.");
         }
+        // ** some kind of popup needed to announce about the message that is just arrived
+        public void messageArrived()
+        {
+            // **  ...get the message from datamaster and display it in canvas.
+            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+
+            if (m == MessageBoxResult.OK)
+            {
+                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+
+            }
+        }
     }
 }
