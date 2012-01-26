@@ -131,10 +131,11 @@ namespace GEETHREE
             this.Groups.Add(new Group() { GroupName = "Commlab", Description = "We are commlab" });
             this.Groups.Add(new Group() { GroupName = "SWE", Description = "We are from Sweden" });
 
-            this.Messages.Add(new Message(){Header = "hello there", TextContent = "plaa plaa plaa plaa plaa plaa "});
-            this.Messages.Add(new Message() { Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
-            this.Messages.Add(new Message() { Header = "hello there3", TextContent = "plaa plaa plaa plaa plaa plaa3 " });
-            this.Messages.Add(new Message() { Header = "hello there4", TextContent = "plaa plaa plaa plaa plaa plaa4 " });
+            this.ReceivedBroadcastMessages.Add(new Message() {TextContent = "Hello there, we are coding .NET" });
+            //this.ReceivedBroadcastMessages.Add(new Message() { Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
+            //this.ReceivedBroadcastMessages.Add(new Message() { Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
+            //this.ReceivedBroadcastMessages.Add(new Message() { Header = "hello there3", TextContent = "plaa plaa plaa plaa plaa plaa3 " });
+            //this.ReceivedBroadcastMessages.Add(new Message() { Header = "hello there4", TextContent = "plaa plaa plaa plaa plaa plaa4 " });
             this.IsDataLoaded = true;
         }
 

@@ -17,6 +17,7 @@ namespace GEETHREE.Pages
     public partial class MessagesPage : PhoneApplicationPage
     {
         private Message selectedMessage = null;
+        private Controller c = null;
         public MessagesPage()
         {
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace GEETHREE.Pages
         private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)SentMessages.SelectedItem;
-            messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+            //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
@@ -40,7 +41,7 @@ namespace GEETHREE.Pages
         private void ReveicedMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)ReveicedMessages.SelectedItem;
-            messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+            //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
@@ -49,7 +50,7 @@ namespace GEETHREE.Pages
         private void DraftMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)DraftMessages.SelectedItem;
-            messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+            //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
@@ -69,6 +70,18 @@ namespace GEETHREE.Pages
                 messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
                 ApplicationBar.IsVisible = true;
                 e.Cancel = true;
+            }
+        }
+        // ** some kind of popup needed to announce about the message that is just arrived
+        public void messageArrived()
+        {
+            // **  ...get the message from datamaster and display it in canvas.
+            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+
+            if (m == MessageBoxResult.OK)
+            {
+                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+
             }
         }
     }
