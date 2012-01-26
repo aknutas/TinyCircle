@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
+using System.Text;
 using GEETHREE.DataClasses;
 using GEETHREE.Networking;
 
@@ -53,7 +54,21 @@ namespace GEETHREE
         /// </summary>
         private string _userID;
         public ObservableCollection<Connection> Connections { get; private set; }
-       
+
+        /// <summary>
+        /// Occurs when a private message is received.
+        /// </summary>
+        public event EventHandler<MessageEventArgs> PrivateMessageReceived;
+
+        /// <summary>
+        /// Occurs when a broadcast message is received.
+        /// </summary>
+        public event EventHandler<MessageEventArgs> BroadcastMessageReceived;
+
+        /// <summary>
+        /// Occurs when a broadcast message is received.
+        /// </summary>
+        public event EventHandler<ConnectionEventArgs> NewConnection;
 
         public CommunicationHandler()
         {
@@ -238,6 +253,12 @@ namespace GEETHREE
             {
                 numberAdded++;
                 this.Connections.Add(userInfo);
+                EventHandler<ConnectionEventArgs> handler = this.NewConnection;
+
+                if (handler != null)
+                {
+                    handler(this, new ConnectionEventArgs(userInfo.UserID));
+                }
             }
 
             // If any new players have been added, send out our join message again
@@ -270,14 +291,26 @@ namespace GEETHREE
         private void OnPrivateMessageReceived(string sender, string receiver, string message, string hash)
         {
             //Message msg = new Message(sender, receiver, message, hash, true);
-            
+            EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] storedHash = UE.GetBytes(hash);
+
+            if (handler != null)
+            {
+                handler(this, new MessageEventArgs(message, sender, receiver, storedHash));
+            }
             //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
         }
         private void OnBroadcastMessageReceived(string sender, string receiver, string message, string hash)
         {
-            //Message msg = new Message(sender, receiver, message, hash, false);
-            
-            //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
+            EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] storedHash = UE.GetBytes(hash);
+
+            if (handler != null)
+            {
+                handler(this, new MessageEventArgs(message, sender, receiver, storedHash));
+            }
         }
         DispatcherTimer _dt;
         private void StartKeepAlive()

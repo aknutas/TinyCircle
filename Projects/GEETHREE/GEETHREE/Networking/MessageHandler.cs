@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using GEETHREE.DataClasses;
+using GEETHREE.Networking;
 
 namespace GEETHREE
 {
@@ -31,23 +32,64 @@ namespace GEETHREE
         /// </summary>
         public static ObservableCollection<Message> TransitMessages = new ObservableCollection<Message>();
 
-        public void PrivateMessageReceived(Message msg)
+        private DataMaster dm;
+        private CommunicationHandler cm;
+
+        //Public constructor
+        public MessageHandler(DataMaster dm, CommunicationHandler cm)
         {
-            //Is the message for me?
-            //Can we forward the message?
+            this.dm = dm;
+            this.cm = cm;
+        }
+
+        public void PrivateMessageReceived(object sender, MessageEventArgs e)
+        {
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine(" Private message received" + e.TextContent);
+
+#endif
 
         }
-        public void BroadcastMessageReceived(Message msg)
+        public void BroadcastMessageReceived(object sender, MessageEventArgs e)
         {
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine("Broadcast message received" + e.TextContent);
+
+#endif
         }
-        public void NewConnectionFound(User info)
+        public void NewConnectionFound(object sender, ConnectionEventArgs e)
         {
-            //Can we forward some stored messages?
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine("Got new connection" + e.UserId);
+
+#endif
         }
         public void Synchronize(User info)
         {
             //How do we synchonize the messages?
            
+        }
+
+        /// <summary>
+        /// Register for events on communication
+        private void RegisterEvents()
+        {
+
+            this.cm.PrivateMessageReceived += new EventHandler<MessageEventArgs>(PrivateMessageReceived);
+            this.cm.BroadcastMessageReceived += new EventHandler<MessageEventArgs>(BroadcastMessageReceived);
+            this.cm.NewConnection += new EventHandler<ConnectionEventArgs>(NewConnectionFound);
+        }
+        /// <summary>
+        /// Unregister for events on communication
+        /// </summary>
+        private void UnregisterEvents()
+        {
+            if (this.cm != null)
+            {
+                this.cm.PrivateMessageReceived -= new EventHandler<MessageEventArgs>(PrivateMessageReceived);
+                this.cm.BroadcastMessageReceived -= new EventHandler<MessageEventArgs>(BroadcastMessageReceived);
+                this.cm.NewConnection -= new EventHandler<ConnectionEventArgs>(NewConnectionFound);
+            }
         }
     }
 }
