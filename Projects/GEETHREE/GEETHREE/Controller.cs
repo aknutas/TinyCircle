@@ -23,6 +23,7 @@ namespace GEETHREE
         private DataClasses.AppSettings appSetting;
         private MessageHandler mh;
         private CommunicationHandler cm;
+        private Random r;
 
         //Update view callback list
         private SettingsPage settingspage;
@@ -34,12 +35,12 @@ namespace GEETHREE
         //Private constructor, no external access!
         //Don't change this if you really don't know (especially visibility to public)
         private Controller() {
+            r = new Random();
             dm = new DataMaster();
             appSetting = new DataClasses.AppSettings();
             cm = new CommunicationHandler(this);
             mh = new MessageHandler(dm, cm);
             
-
             // TODO Elegant callbacks
             // callbackList = new List<PhoneApplicationPage>();
         }
@@ -100,6 +101,11 @@ namespace GEETHREE
         {
             dm.fm.saveImageToFile(newAvatar, "Avatar.jpg");
             refreshAvatars();
+        }
+
+        public String getNextRandomNumName()
+        {
+            return r.Next().ToString();
         }
 
         public string getCurrentAlias()
