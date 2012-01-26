@@ -98,13 +98,30 @@ namespace GEETHREE
         public void messageArrived()
         {
             // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
             if (m == MessageBoxResult.OK)
             {
                 NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
                 
             }
+        }
+
+        //Database debug button
+        private void button4_Click(object sender, RoutedEventArgs e)
+        {
+            DataClasses.Message msg = new DataClasses.Message();
+            msg.TextContent = "Pli";
+            msg.outgoing = true;
+            ctrl.dm.storeNewMessage(msg);
+
+            DataClasses.Message msg2 = new DataClasses.Message();
+            msg2.TextContent = "Pla";
+            msg2.outgoing = true;
+            ctrl.dm.storeNewMessage(msg2);
+
+            List<DataClasses.Message> msgList = ctrl.dm.getAllMessages();
+            System.Diagnostics.Debug.WriteLine(msgList.Count);
         }
     }
 }

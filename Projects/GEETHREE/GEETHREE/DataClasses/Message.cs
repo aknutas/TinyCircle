@@ -32,7 +32,19 @@ namespace GEETHREE.DataClasses
             }
             set
             {
+                if (_msgDbId != value)
+                {
+                    _msgDbId = value;
+                    NotifyPropertyChanged("msgDbId");
+                }
             }
+        }
+
+        //Default constructor
+
+        public Message()
+        {
+            this.user = null;
         }
 
         private string _header;
@@ -181,7 +193,7 @@ namespace GEETHREE.DataClasses
 
         // Internal column for the associated ToDoCategory ID value
         [Column]
-        internal int _userId;
+        internal int? _userId;
 
         // Association, to describe the relationship between this key and that "storage" table
         [Association(Storage = "_user", ThisKey = "_userId", OtherKey = "userDbId", IsForeignKey = true)]

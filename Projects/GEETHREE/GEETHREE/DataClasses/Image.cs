@@ -32,20 +32,30 @@ namespace GEETHREE.DataClasses
             }
             set
             {
+                if (_photoDbId != value)
+                {
+                    _photoDbId = value;
+                    //NotifyPropertyChanged("meDbId");
+                }
             }
         }
 
-        private long _photoFileName;
+        private string _photoFileName;
 
         [Column]
-        public long photoFileName
+        public string photoFileName
         {
             get
             {
-                return _photoDbId;
+                return _photoFileName;
             }
             set
             {
+                if (_photoFileName != value)
+                {
+                    _photoFileName = value;
+                    //NotifyPropertyChanged("photoFileName");
+                }
             }
         }
 

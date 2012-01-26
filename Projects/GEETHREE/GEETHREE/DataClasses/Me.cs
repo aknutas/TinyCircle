@@ -31,6 +31,11 @@ namespace GEETHREE.DataClasses
             }
             set
             {
+                if (_meDbId != value)
+                {
+                    _meDbId = value;
+                    //NotifyPropertyChanged("meDbId");
+                }
             }
         }
 
