@@ -13,6 +13,7 @@ using System.Data.Linq.Mapping;
 using Microsoft.Phone.Data.Linq;
 using Microsoft.Phone.Data.Linq.Mapping;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 
 namespace GEETHREE.DataClasses
 {
@@ -40,6 +41,11 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        public Image()
+        {
+            photoFileName = "img" + Controller.Instance.getNextRandomNumName() + ".gim";
+        }
+
         private string _photoFileName;
 
         [Column]
@@ -57,6 +63,13 @@ namespace GEETHREE.DataClasses
                     //NotifyPropertyChanged("photoFileName");
                 }
             }
+        }
+
+        public BitmapSource Bitmap
+        {
+            //TODO read the files and return them
+            get { return null; }
+            set { }
         }
 
     }

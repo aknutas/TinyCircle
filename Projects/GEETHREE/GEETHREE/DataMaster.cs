@@ -74,6 +74,15 @@ namespace GEETHREE
             }
         }
 
+        public void deleteUser(User user)
+        {
+            lock (db)
+            {
+                db.Users.DeleteOnSubmit(user);
+                db.SubmitChanges();
+            }
+        }
+
         public List<Message> getAllMessages()
         {
             lock (db)
@@ -89,6 +98,16 @@ namespace GEETHREE
             lock (db)
             {
                 var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
+                List<Message> returnList = new List<Message>(qres);
+                return returnList;
+            }
+        }
+
+        public List<Message> getSentMessages()
+        {
+            lock (db)
+            {
+                var qres = from Message message in db.Messages where message.outgoing == true select message;
                 List<Message> returnList = new List<Message>(qres);
                 return returnList;
             }
@@ -134,6 +153,16 @@ namespace GEETHREE
         public void refreshObjects(Object updateObject)
         {
             db.Refresh(RefreshMode.OverwriteCurrentValues, updateObject);
+        }
+
+        public void storeNewImage(DataClasses.Image image)
+        {
+
+        }
+
+        public void getImages()
+        {
+
         }
 
     }
