@@ -18,6 +18,7 @@ namespace GEETHREE.Pages
 {
     public partial class ComposeMessagePage : PhoneApplicationPage
     {
+        Controller ctrl;
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;
         public ComposeMessagePage()
@@ -25,14 +26,14 @@ namespace GEETHREE.Pages
             
             InitializeComponent();
             DataContext = App.ViewModel;
-            
+
+            ctrl = Controller.Instance;
+            ctrl.registerCurrentPage(this, "compose");
+ 
             foreach (User u in App.ViewModel.Users)
             {
-            
                 receiverListPicker.Items.Add(u.UserName);
-            
             }
-
 
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
             photoChooserTask = new PhotoChooserTask();

@@ -30,8 +30,8 @@ namespace GEETHREE
             this.Items = new ObservableCollection<ItemViewModel>();
             this.Users = new ObservableCollection<User>();
             this.Groups = new ObservableCollection<Group>();
-            this.Messages = new ObservableCollection<Message>();
-            this.SendMessages = new ObservableCollection<Message>();
+            this.DraftMessages = new ObservableCollection<Message>();
+            this.SentMessages = new ObservableCollection<Message>();
             this.ReceivedPrivateMessages = new ObservableCollection<Message>();
             this.ReceivedBroadcastMessages = new ObservableCollection<Message>();
         }
@@ -45,7 +45,8 @@ namespace GEETHREE
         public ObservableCollection<Message> Messages { get; private set;}
         public ObservableCollection<Message> SendableMessages { get; private set; }
 
-        public ObservableCollection<Message> SendMessages { get; private set; }
+        public ObservableCollection<Message> DraftMessages { get; private set; }
+        public ObservableCollection<Message> SentMessages { get; private set; }
         public ObservableCollection<Message> ReceivedPrivateMessages { get; private set; }
         public ObservableCollection<Message> ReceivedBroadcastMessages { get; private set; }
 
@@ -79,8 +80,16 @@ namespace GEETHREE
         /// <summary>
         /// Creates and adds a few ItemViewModel objects into the Items collection.
         /// </summary>
+        /// 
+        public void AddNewMessage()
+        {
+            this.ReceivedBroadcastMessages.Add(new Message() { Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
+            c.notifyViewAboutMessage();
+        }
+
         public void LoadData()
         {
+            // getting messages from controller
             //msgList = c.dm.getAllMessages();
 
             //foreach (Message m in msgList)
