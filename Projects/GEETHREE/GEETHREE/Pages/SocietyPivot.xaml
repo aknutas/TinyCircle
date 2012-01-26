@@ -19,6 +19,9 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Title="GEETHREE - SOCIAL" Name="socialpivots">
+        	<controls:Pivot.Background>
+        		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
+        	</controls:Pivot.Background>
             <!--Pivot item one-->
             <controls:PivotItem Header="People" Name="PeoplePivot">
                 <!--Double line list with text wrapping-->
