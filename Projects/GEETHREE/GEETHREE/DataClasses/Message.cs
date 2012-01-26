@@ -224,4 +224,22 @@ namespace GEETHREE.DataClasses
         }
 
     }
+    /// <summary>
+    /// Eventargs for events regarding messages received
+    /// </summary>
+    public class MessageEventArgs : EventArgs
+    {
+        public string TextContent { get; set; }
+        public string Sender { get; set; }
+        public string Receiver{ get; set; }
+        public byte[] Hash { get; set; }
+
+        public MessageEventArgs(string textContent, string sender, string receiver, byte[] hash)
+        {
+            this.TextContent = textContent;
+            this.Sender = sender;
+            this.Receiver = receiver;
+            this.Hash = hash;
+        }
+    }
 }
