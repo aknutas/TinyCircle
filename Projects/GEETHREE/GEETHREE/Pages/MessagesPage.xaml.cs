@@ -23,22 +23,53 @@ namespace GEETHREE.Pages
             DataContext = App.ViewModel;
         }
 
-        private void MessagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            selectedMessage = (Message)MessagesListBox.SelectedItem;
+            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+        }
 
+        private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            selectedMessage = (Message)SentMessages.SelectedItem;
             messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
-
-          
-        
         }
 
-        private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ReveicedMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            selectedMessage = (Message)ReveicedMessages.SelectedItem;
+            messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+            messageCanvas.Visibility = System.Windows.Visibility.Visible;
+            ApplicationBar.IsVisible = false;
+        }
+
+        private void DraftMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            selectedMessage = (Message)DraftMessages.SelectedItem;
+            messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+            messageCanvas.Visibility = System.Windows.Visibility.Visible;
+            ApplicationBar.IsVisible = false;
+        }
+
+        // ** must navigate back to the pivot page from details page, not back to panorama page
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (messageCanvas.Visibility == System.Windows.Visibility.Visible)
+            {
+                messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true;
+            }
+            if (messageCanvas.Visibility == System.Windows.Visibility.Visible)
+            {
+                messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true;
+            }
         }
     }
 }

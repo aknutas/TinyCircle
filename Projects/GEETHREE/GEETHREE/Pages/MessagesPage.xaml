@@ -23,27 +23,26 @@
         	</controls:Pivot.Background>
             <!--Pivot item one-->
             <controls:PivotItem Header="Inbox">
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                <ListBox Name="ReveicedMessages" Margin="0,0,-12,0" ItemsSource="{Binding Messages}" Tap="ReveicedMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding Header}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding TextContent}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
-
                       
             <!--Pivot item 3-->
             <controls:PivotItem Header="Sent">
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding Messages}" Tap="SentMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding Header}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding TextContent}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -52,12 +51,12 @@
             
             <!--Pivot item 4-->
             <controls:PivotItem Header="Drafts">
-                <ListBox Name="MessagesListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="MessagesListBox_SelectionChanged">
+                <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding Messages}" Tap="DraftMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding Header}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding Header}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -65,7 +64,7 @@
             </controls:PivotItem>
         </controls:Pivot>
         <!-- This canvas is for sending messages  -->
-        <Canvas Height="768" HorizontalAlignment="Left" Margin="12,0,0,0" Name="messageCanvas" VerticalAlignment="Top" Width="468" Visibility="Collapsed" Opacity="1">
+        <Canvas Height="800" HorizontalAlignment="Left" Margin="12,0,0,0" Name="messageCanvas" VerticalAlignment="Top" Width="480" Visibility="Collapsed" Opacity="1">
             <TextBlock Canvas.Left="7" Canvas.Top="81" Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" Style="{StaticResource PhoneTextExtraLargeStyle}" />
             <TextBlock Canvas.Left="23" Canvas.Top="224" Height="243" Name="messageCanvasMessageContent" Text="Content" Width="426" TextWrapping="Wrap" />
             <Image Canvas.Left="386" Canvas.Top="0" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />

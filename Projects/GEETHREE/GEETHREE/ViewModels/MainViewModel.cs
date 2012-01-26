@@ -24,6 +24,8 @@ namespace GEETHREE
             this.Users = new ObservableCollection<User>();
             this.Groups = new ObservableCollection<Group>();
             this.Messages = new ObservableCollection<Message>();
+            this.SendMessages = new ObservableCollection<Message>();
+            this.ReceivedMessages = new ObservableCollection<Message>();
         }
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -32,6 +34,9 @@ namespace GEETHREE
         public ObservableCollection<User> Users { get; private set; }
         public ObservableCollection<Group> Groups { get; private set; }
         public ObservableCollection<Message> Messages { get; private set;}
+
+        public ObservableCollection<Message> SendMessages { get; private set; }
+        public ObservableCollection<Message> ReceivedMessages { get; private set; }
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
@@ -94,7 +99,9 @@ namespace GEETHREE
             this.Groups.Add(new Group() { GroupName = "SWE", Description = "We are from Sweden" });
 
             this.Messages.Add(new Message(){Header = "hello there", TextContent = "plaa plaa plaa plaa plaa plaa "});
-
+            this.Messages.Add(new Message() { Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
+            this.Messages.Add(new Message() { Header = "hello there3", TextContent = "plaa plaa plaa plaa plaa plaa3 " });
+            this.Messages.Add(new Message() { Header = "hello there4", TextContent = "plaa plaa plaa plaa plaa plaa4 " });
             this.IsDataLoaded = true;
         }
 
