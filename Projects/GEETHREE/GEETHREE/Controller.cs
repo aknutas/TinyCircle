@@ -21,7 +21,8 @@ namespace GEETHREE
         //Variables
         private DataMaster dm;
         private DataClasses.AppSettings appSetting;
-        private Communicator cm;
+        private MessageHandler mh;
+        private CommunicationHandler cm;
 
         //Update view callback list
         private SettingsPage settingspage;
@@ -34,8 +35,10 @@ namespace GEETHREE
         //Don't change this if you really don't know (especially visibility to public)
         private Controller() {
             dm = new DataMaster();
-            cm = new Communicator(dm);
             appSetting = new DataClasses.AppSettings();
+            cm = new CommunicationHandler(this);
+            mh = new MessageHandler(dm, cm);
+            
 
             // TODO Elegant callbacks
             // callbackList = new List<PhoneApplicationPage>();
@@ -103,6 +106,15 @@ namespace GEETHREE
         {
             
             return appSetting.AliasSetting;
+        }
+        public void changeCurrentUserID(string id)
+        {
+            appSetting.UserIDSetting = id;
+        }
+        public string getCurrentUserID()
+        {
+
+            return appSetting.UserIDSetting;
         }
     }
 }

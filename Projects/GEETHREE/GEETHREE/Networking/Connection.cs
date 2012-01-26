@@ -25,4 +25,17 @@ namespace GEETHREE.Networking
         public IPEndPoint UserEndPoint { get; set; }
         public bool IsSynchronized { get; set; }
     }
+
+    /// <summary>
+    /// Eventargs for events regarding connections
+    /// </summary>
+    public class ConnectionEventArgs : EventArgs
+    {
+        public string UserId { get; set; }
+       
+        public ConnectionEventArgs(string userid)
+        {
+            this.UserId = userid;
+        }
+    }
 }

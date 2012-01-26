@@ -28,11 +28,13 @@ namespace GEETHREE.DataClasses
 
         // The isolated storage key names of our settings
         const string AliasSettingKeyName = "CheckBoxSetting";
+        const string UserIDSettingKeyName = "UserIDSetting";
         const string ShowProfileInfoSettingKeyName = "ListBoxSetting";
         const string ShowSharedUploadsSettingKeyName = "RadioButton1Setting";
 
         // The default value of our settings
         const string AliasSettingDefault = "Anonymous";
+        const string UserIDSettingDefault = "00000";
         const bool ShowProfileInfoSettingDefault = false;
         const bool ShowSharedUploadsSettingDefault = false;
 
@@ -122,6 +124,23 @@ namespace GEETHREE.DataClasses
             set
             {
                 if (AddOrUpdateValue(AliasSettingKeyName, value))
+                {
+                    Save();
+                }
+            }
+        }
+        /// <summary>
+        /// Property to get and set a Alias Setting Key.
+        /// </summary>
+        public string UserIDSetting
+        {
+            get
+            {
+                return GetValueOrDefault<string>(UserIDSettingKeyName, UserIDSettingDefault);
+            }
+            set
+            {
+                if (AddOrUpdateValue(UserIDSettingKeyName, value))
                 {
                     Save();
                 }
