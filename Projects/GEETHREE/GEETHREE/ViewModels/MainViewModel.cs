@@ -18,8 +18,15 @@ namespace GEETHREE
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private Controller c;
+        private List<Message> msgList;
+        private List<User> usrList;
+        private List<Message> sendableMsgList;
+
+
         public MainViewModel()
         {
+            c = Controller.Instance;
             this.Items = new ObservableCollection<ItemViewModel>();
             this.Users = new ObservableCollection<User>();
             this.Groups = new ObservableCollection<Group>();
@@ -32,9 +39,11 @@ namespace GEETHREE
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<ItemViewModel> Items { get; private set; }
+        
         public ObservableCollection<User> Users { get; private set; }
         public ObservableCollection<Group> Groups { get; private set; }
         public ObservableCollection<Message> Messages { get; private set;}
+        public ObservableCollection<Message> SendableMessages { get; private set; }
 
         public ObservableCollection<Message> SendMessages { get; private set; }
         public ObservableCollection<Message> ReceivedPrivateMessages { get; private set; }
@@ -72,6 +81,28 @@ namespace GEETHREE
         /// </summary>
         public void LoadData()
         {
+            //msgList = c.dm.getAllMessages();
+
+            //foreach (Message m in msgList)
+            //{
+            //    this.Messages.Add(m);
+            //}
+
+            //usrList = c.dm.getAllUsers();
+
+            //foreach (User u in usrList)
+            //{
+            //    this.Users.Add(u);
+            //}
+
+            //sendableMsgList = c.dm.getSendableMessages();
+
+            //foreach (Message m in sendableMsgList)
+            //{
+            //    this.SendableMessages.Add(m);
+            
+            //}
+
             // Sample data; replace with real data
             this.Items.Add(new ItemViewModel() { LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
