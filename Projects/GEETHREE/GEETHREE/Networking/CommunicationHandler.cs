@@ -70,7 +70,7 @@ namespace GEETHREE
         /// </summary>
         public event EventHandler<ConnectionEventArgs> NewConnection;
 
-        public CommunicationHandler()
+        public CommunicationHandler(Controller cm)
         {
             this.Channel = new UdpAnySourceMulticastChannel(GROUP_ADDRESS, GROUP_PORT);
 
@@ -87,6 +87,7 @@ namespace GEETHREE
             // player (receiver) has been sent a multicast packet by the opponent. 
             StartKeepAlive();
             this.Connections = new ObservableCollection<Connection>();
+            this.Join(cm.getCurrentUserID());
         }
 
         /// <summary>

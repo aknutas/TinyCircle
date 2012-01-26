@@ -48,7 +48,13 @@ namespace GEETHREE
             System.Diagnostics.Debug.WriteLine(" Private message received" + e.TextContent);
 
 #endif
+            if (e.Receiver == Controller.Instance.getCurrentUserID())
+            {
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
 
+#endif
+            }
         }
         public void BroadcastMessageReceived(object sender, MessageEventArgs e)
         {
