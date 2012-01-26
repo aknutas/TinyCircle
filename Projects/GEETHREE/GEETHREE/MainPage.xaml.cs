@@ -15,16 +15,18 @@ using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
 
 
+
 namespace GEETHREE
 {
     public partial class MainPage : PhoneApplicationPage
     {
         Controller ctrl;
-
+        
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+            
             ctrl = Controller.Instance;
             ctrl.registerAvatarUpdates(this);
 
@@ -35,7 +37,7 @@ namespace GEETHREE
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             //txt_Base_Alias.Text = appSetting.AliasSetting;
             
-           
+          
         }
 
         // Load data for the ViewModel Items
@@ -54,20 +56,7 @@ namespace GEETHREE
             txt_Base_Alias.Text = ctrl.getCurrentAlias();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-
-            string parameter = "toPeople";
-            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
-            //NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
-        }
-
-        private void button2_Click(object sender, RoutedEventArgs e)
-        {
-            string parameter = "toGroups";
-            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
-            //NavigationService.Navigate(new Uri("/SocietyPivot.xaml", UriKind.Relative));
-        }
+      
 
         private void txt_Base_Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -123,5 +112,39 @@ namespace GEETHREE
             List<DataClasses.Message> msgList = ctrl.dm.getAllMessages();
             System.Diagnostics.Debug.WriteLine(msgList.Count);
         }
+
+        private void txt_mySociety_MySociety_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            string parameter = "toPeople";
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+        }
+
+        private void txt_mySociety_People_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            string parameter = "toPeople";
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+        }
+
+        private void txt_mySociety_Groups_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            string parameter = "toGroups";
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+        }
+
+        private void txt_mySociety_morePeopleGroups_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
+            string parameter = "toPeople";
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+        }
+
+        private void txt_messages_Header_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+        }
+
+       
+
+        
     }
 }

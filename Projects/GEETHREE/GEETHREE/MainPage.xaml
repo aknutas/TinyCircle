@@ -54,92 +54,141 @@
 
 
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="Activity" Foreground="#FF9BC0D3">
+            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
                 <!--Double line list with text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <ListBox Margin="0,0,0,0">
+
+
+
+                    <TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />
+
+
+
+                    <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}">
+                        <ListBox.ItemTemplate>
+
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                    <!--Replace rectangle with image-->
+
+                                    <StackPanel Width="311">
+                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
                 </ListBox>
             </controls:PanoramaItem>
  
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="Society" Foreground="#FF9BC0D3">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="200" />
-                        <RowDefinition Height="135" />
-                    </Grid.RowDefinitions>
-                    <ListBox Grid.Row="0" Margin="0,0,8,0" ItemsSource="{Binding Items}" Width="412">
+            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
+                <ListBox Margin="0,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="95" />
+                            <RowDefinition Height="55" />
+                            <RowDefinition Height="150" />
+                            <RowDefinition Height="55" />
+                            <RowDefinition Height="150" />
+                            <RowDefinition Height="55" />
+                            
+                        </Grid.RowDefinitions>
+                        <TextBlock  Name="txt_mySociety_MySociety" Grid.Row="0" Text="My Society" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_MySociety_Tap" />
+                        <TextBlock  Name="txt_mySociety_People" Grid.Row="1" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_People_Tap" />
+
+                        <ListBox Grid.Row="2" Margin="0,0,8,0" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,0" Width="432" Height="78">
+                                        <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_Groups_Tap" />
+                        <ListBox Grid.Row="4" Margin="0,0,8,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,0" Width="432" Height="78">
+                                        <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Name="txt_mySociety_morePeopleGroups" Grid.Row="5" Text="more people and groups" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_morePeopleGroups_Tap" />
+
+                        
+                    </Grid>
+                </ListBox>
+                
+            </controls:PanoramaItem>
+            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
+                <!--Double line list with image placeholder and text wrapping-->
+                <ListBox Margin="0,0,0,0">
+
+
+
+                    <TextBlock  Name="txt_messages_Header" Text="Messages" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_messages_Header_Tap" />
+
+
+
+                    <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}" Tap="txt_messages_Header_Tap">
                         <ListBox.ItemTemplate>
+
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                    <!--Replace rectangle with image-->
+
+                                    <StackPanel Width="311">
+                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,0" Height="193" Width="422" Grid.RowSpan="2">
-                    <StackPanel Width="410" Height="194">
-                            <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                            <Button Content="Users" Height="72" Margin="0,0,0,0" Name="button1" Width="160" Click="button1_Click" />
-                       <Button Content="Groups" Height="72" Margin="0,0,0,0" Name="button2" Width="160" Click="button2_Click" />
-                    </StackPanel>
-                </StackPanel>
-            </Grid>  
+
+                </ListBox>
             </controls:PanoramaItem>
-            <controls:PanoramaItem Header="Messages" Foreground="#FF9BC0D3">
+            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
                 <!--Double line list with image placeholder and text wrapping-->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="270" />
-                        <RowDefinition Height="135" />
-                    </Grid.RowDefinitions>
-                    <ListBox Grid.Row="0" Margin="0,0,8,0" ItemsSource="{Binding Items}" Width="412">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,0" Height="193" Width="422" Grid.RowSpan="2">
-                        <StackPanel Width="410" Height="194">
-                            <Button Content="Messages" Height="71" Name="button3" Width="160" Click="button3_Click" />
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-            </controls:PanoramaItem>
-            <controls:PanoramaItem Header="Shared" Foreground="#FF9BC0D3">
-                <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
+                <ListBox Margin="0,0,0,0">
+                
+
+
+                <TextBlock  Text="Shared" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />
+                        
+
+
+                        <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}">
+                      <ListBox.ItemTemplate>
+                        
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
                                 <!--Replace rectangle with image-->
+
                                 <StackPanel Width="311">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                     <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+                </ListBox>
+                    
                 </ListBox>
             </controls:PanoramaItem>
             
             
 
         </controls:Panorama>
-     
+       
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" Mode="Minimized">
