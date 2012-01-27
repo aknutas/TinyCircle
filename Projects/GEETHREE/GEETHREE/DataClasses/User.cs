@@ -21,9 +21,25 @@ namespace GEETHREE.DataClasses
     public class User : INotifyPropertyChanged
     {
 
-        
+        //Constructors
+        public User()
+        {
+            // Assign handlers for the add and remove operations, respectively.
+            _messages = new EntitySet<Message>(
+                new Action<Message>(this.attach_User),
+                new Action<Message>(this.detach_User)
+                );
+        }
+
         public User(string username, string description)
         {
+            // Assign handlers for the add and remove operations, respectively.
+            _messages = new EntitySet<Message>(
+                new Action<Message>(this.attach_User),
+                new Action<Message>(this.detach_User)
+                );
+
+            //Assigments
             UserName = username;
             Description = description;
         }
@@ -121,8 +137,17 @@ namespace GEETHREE.DataClasses
             set { this._messages.Assign(value); }
         }
 
-        
+        // Called during an add operation
+        private void attach_User(Message msg)
+        {
+            msg.user = this;
+        }
 
+        // Called during a remove operation
+        private void detach_User(Message msg)
+        {
+            msg.user = null;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

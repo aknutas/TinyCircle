@@ -101,43 +101,42 @@ namespace GEETHREE
         //Database debug button
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            //User u = new User("Anni", "This is Anni");
-            //u.UserID = "555";
-            //ctrl.dm.storeNewUser(u);
+            User u = new User("Anni", "This is Anni");
+            u.UserID = "555";
+            ctrl.dm.storeNewUser(u);
 
-            //u = new User("Thomster", "This is Tommi.");
-            //u.UserID = "556";
-            //ctrl.dm.storeNewUser(u);
+            u = new User("Thomster", "This is Tommi.");
+            u.UserID = "556";
+            ctrl.dm.storeNewUser(u);
             
-            //u = new User("Bishal", "This is Bishal.");
-            //u.UserID = "557";
-            //ctrl.dm.storeNewUser(u);
+            u = new User("Bishal", "This is Bishal.");
+            u.UserID = "557";
+            ctrl.dm.storeNewUser(u);
             
-            //u = new User("Antti", "This is antti.");
-            //u.UserID = "558";
-            //ctrl.dm.storeNewUser(u);
+            u = new User("Antti", "This is antti.");
+            u.UserID = "558";
+            ctrl.dm.storeNewUser(u);
             
-            //u = new User("Tommi K", "This is Tommi K.");
-            //u.UserID = "559";
-            //ctrl.dm.storeNewUser(u);
+            u = new User("Tommi K", "This is Tommi K.");
+            u.UserID = "559";
+            ctrl.dm.storeNewUser(u);
 
             Group g = new Group();
             g.GroupName = ".NET Codecamp";
             g.Description = "Here we are still coding at 0:55.";
             ctrl.dm.storeNewGroup(g);
 
+            g = new Group();
             g.GroupName = "Commlab";
             g.Description = "We are commlab.";
             ctrl.dm.storeNewGroup(g);
 
+            g = new Group();
             g.GroupName = "SWE";
             g.Description = "We are from Sweden";
             ctrl.dm.storeNewGroup(g);
 
-
-            //ctrl.dm.storeNewGroup(g);
-
-
+            //Old debug code
             /*
             DataClasses.Message msg = new DataClasses.Message();
             msg.TextContent = "Pli";
