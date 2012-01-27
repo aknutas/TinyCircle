@@ -173,6 +173,18 @@ namespace GEETHREE
             }
         }
 
+        public void resetDataBase() {
+            lock (db)
+            {
+                var qres = from Group grps in db.Groups select grps;
+                foreach (var grp in qres)
+                {
+                    db.Groups.DeleteOnSubmit(grp);
+                }
+                // TODO messages, users
+            }
+        }
+
         public void refreshObjects(List<Object> updateList)
         {
             db.Refresh(RefreshMode.OverwriteCurrentValues, updateList);
@@ -183,11 +195,13 @@ namespace GEETHREE
             db.Refresh(RefreshMode.OverwriteCurrentValues, updateObject);
         }
 
+        //TODO
         public void storeNewImage(DataClasses.Image image)
         {
 
         }
 
+        //TODO
         public void getImages()
         {
 
