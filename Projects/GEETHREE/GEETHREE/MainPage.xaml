@@ -52,8 +52,6 @@
 
                             <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" Foreground="#FF9BC0D3"/>
                             <TextBlock Name="txt_Base_Help" Text=" Help" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_Base_Help_Tap" />
-                            <Button Content="Database Debug" Height="71" Name="button4" Width="160" Click="button4_Click" />
-                        <Button Content="Button" Height="71" Name="button1" Width="160" Click="button1_Click" />
                         </StackPanel>
                     </StackPanel>
 
@@ -202,12 +200,12 @@
        
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" Mode="Minimized">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="50" BackgroundColor="#46000000" Mode="Default">
             <shell:ApplicationBarIconButton x:Name="appbar_settings" IconUri="/Resources/appbar.feature.settings.rest.png" Text="Settings" Click="appbar_settings_Click" />
             <shell:ApplicationBarIconButton x:Name="appbar_messages" IconUri="/Resources/appbar.feature.email.rest.png" Text="Messages" Click="appbar_messages_Click" />
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="Init DB" Click="menuItem1_Click" />
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="Clear Db" Click="menuItem2_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
