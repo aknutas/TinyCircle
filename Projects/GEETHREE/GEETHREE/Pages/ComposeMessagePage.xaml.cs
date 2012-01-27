@@ -126,8 +126,17 @@ namespace GEETHREE.Pages
             msg.TextContent=txt_compose_message.Text;
             msg.SenderID=Controller.Instance.getCurrentUserID();
             msg.SenderAlias = Controller.Instance.getCurrentAlias();
-            msg.ReceiverID="0";
-            msg.PrivateMessage=false;
+            if (txt_compose_receipient.Text == "")
+            {
+                msg.ReceiverID = "0";
+                msg.PrivateMessage = false;
+            }
+            else
+            {
+                msg.ReceiverID = txt_compose_receipient.Text;
+                msg.PrivateMessage = true;
+            }
+            
             msg.outgoing=true;
             App.ViewModel.SentMessages.Add(msg);
             Controller.Instance.mh.SendMessage(msg);

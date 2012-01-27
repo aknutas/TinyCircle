@@ -46,29 +46,29 @@ namespace GEETHREE.Pages
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
         }
-        private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            selectedMessage = (Message)SentMessages.SelectedItem;
-            messageCanvasSenderTextBlock.Text = selectedMessage.ReceiverID;
-            //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
-            messageCanvas.Visibility = System.Windows.Visibility.Visible;
-            ApplicationBar.IsVisible = false;
-        }
+        //private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    selectedMessage = (Message)SentMessages.SelectedItem;
+        //    messageCanvasSenderTextBlock.Text = selectedMessage.ReceiverID;
+        //    //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+        //    messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+        //    messageCanvas.Visibility = System.Windows.Visibility.Visible;
+        //    ApplicationBar.IsVisible = false;
+        //}
 
-        private void DraftMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            selectedMessage = (Message)DraftMessages.SelectedItem;
-            //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
-            messageCanvas.Visibility = System.Windows.Visibility.Visible;
-            ApplicationBar.IsVisible = false;
-        }
+        //private void DraftMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    selectedMessage = (Message)DraftMessages.SelectedItem;
+        //    //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+        //    messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+        //    messageCanvas.Visibility = System.Windows.Visibility.Visible;
+        //    ApplicationBar.IsVisible = false;
+        //}
 
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
-            messageCanvasSenderTextBlock.Text = selectedMessage.SenderID;
+            messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
@@ -214,6 +214,10 @@ namespace GEETHREE.Pages
                 msg.ReceiverID = replyID;
                 msg.PrivateMessage = true;
                 msg.outgoing = true;
+
+                // ** add to sent messages collection
+                App.ViewModel.SentMessages.Add(msg);
+
                 Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
 
