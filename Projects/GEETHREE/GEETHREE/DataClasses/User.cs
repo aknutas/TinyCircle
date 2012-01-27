@@ -24,8 +24,8 @@ namespace GEETHREE.DataClasses
         
         public User(string username, string description)
         {
-            _userName = username;
-            _description = description;
+            UserName = username;
+            Description = description;
         }
 
         // Define ID: private field, public property, and database column.
