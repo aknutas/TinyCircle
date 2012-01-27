@@ -14,12 +14,15 @@ using Microsoft.Phone.Data.Linq;
 using Microsoft.Phone.Data.Linq.Mapping;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace GEETHREE.DataClasses
 {
     [Table]
     public class Image
     {
+        //Private variables
+        private Stream toBeSavedStream;
 
         // Define ID: private field, public property, and database column.
         private int _photoDbId;
@@ -41,9 +44,20 @@ namespace GEETHREE.DataClasses
             }
         }
 
-        public Image()
+        //We really need the image stream, so no constructing without that one
+        private Image()
+        {
+        }
+
+        public Image(Stream istream)
         {
             photoFileName = "img" + Controller.Instance.getNextRandomNumName() + ".gim";
+
+            //No nulls!
+            if (istream == null)
+                throw new ArgumentNullException();
+
+            this.toBeSavedStream = istream;
         }
 
         private string _photoFileName;
@@ -68,8 +82,14 @@ namespace GEETHREE.DataClasses
         public BitmapSource Bitmap
         {
             //TODO read the files and return them
-            get { return null; }
-            set { }
+            get { return Controller.Instance.dm.fm.readImageFromFile(photoFileName); }
+            private set { }
+        }
+
+        public void saveBitmapFromStream()
+        {
+            Controller.Instance.dm.fm.saveImageToFile(toBeSavedStream, photoFileName);
+            toBeSavedStream = null;
         }
 
     }
