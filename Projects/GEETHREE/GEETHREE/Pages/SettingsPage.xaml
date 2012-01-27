@@ -39,22 +39,25 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
-        <StackPanel Height="582" HorizontalAlignment="Left" Margin="24,13,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="431" Grid.Row="1" >
-            <TextBlock  Name="textBlock1" Text="Alias" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-            <TextBox Height="74" Name="txt_Settings_alias" Text="{Binding Path=AliasSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Width="437" />
+        <ListBox Grid.Row="1" Margin="0,0,0,0">
+            <StackPanel  HorizontalAlignment="Left" Margin="24,13,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="431" Grid.Row="1" >
+                <TextBlock  Name="textBlock1" Text="Alias" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                <TextBox Height="74" Name="txt_Settings_alias" Text="{Binding Path=AliasSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Width="437" />
+                <TextBlock  Name="textBlock3" Text="UserID" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                <TextBox Height="74" Name="txt_Settings_userid" Text="{Binding Path=UserIDSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Width="437" />
 
-            <TextBlock Name="textBlock2" Text="Avatar" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-            <Grid Height="140">
-                <Image Name="img_Settings_avatar" Stretch="Fill" Tap="img_Settings_avatar_Tap" Margin="105,6,201,10" DataContext="{Binding}" />
-                <Image Height="71" Name="img_Settings_camera" Stretch="Fill" Source="/GEETHREE;component/Resources/camera.png" Margin="299,30,0,0" VerticalAlignment="Top" Tap="img_Settings_camera_Tap" HorizontalAlignment="Left" Width="67" />
+                <TextBlock Name="textBlock2" Text="Avatar" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+                <Grid Height="140">
+                    <Image Name="img_Settings_avatar" Stretch="Fill" Tap="img_Settings_avatar_Tap" Margin="105,6,201,10" DataContext="{Binding}" />
+                    <Image Height="71" Name="img_Settings_camera" Stretch="Fill" Source="/GEETHREE;component/Resources/camera.png" Margin="299,30,0,0" VerticalAlignment="Top" Tap="img_Settings_camera_Tap" HorizontalAlignment="Left" Width="67" />
 
-            </Grid>
-            
-            <toolkit:ToggleSwitch Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowProfileInfoSetting, Mode=TwoWay}" />
-            <toolkit:ToggleSwitch Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowSharedUploadsSetting, Mode=TwoWay}"/>
+                </Grid>
 
-        </StackPanel>
+                <toolkit:ToggleSwitch Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowProfileInfoSetting, Mode=TwoWay}" />
+                <toolkit:ToggleSwitch Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowSharedUploadsSetting, Mode=TwoWay}"/>
+
+            </StackPanel>
+        </ListBox>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

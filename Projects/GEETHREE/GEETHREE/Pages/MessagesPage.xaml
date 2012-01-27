@@ -22,7 +22,7 @@
         		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
         	</controls:Pivot.Background>
             <!--Pivot item one-->
-            <controls:PivotItem Header="Broadcast">
+            <controls:PivotItem Header="Broadcasts">
                 <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>

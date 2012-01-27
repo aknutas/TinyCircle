@@ -111,7 +111,7 @@ namespace GEETHREE.Pages
         
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            detailsNameTextBlock.Text = "NAME";
+            detailsNameTextBlock.Text = messageCanvasSenderTextBlock.Text;
             detailsDescriptionText.Text = "Description";
             //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
             detailsCanvasButton.Content = "Send Message";
