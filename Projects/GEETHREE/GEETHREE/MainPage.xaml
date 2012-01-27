@@ -81,8 +81,8 @@
                                     <!--Replace rectangle with image-->
 
                                     <StackPanel Width="311">
-                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding LineThree}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
@@ -140,13 +140,7 @@
             <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
                 <!--Double line list with image placeholder and text wrapping-->
                 <ListBox Margin="0,0,0,0">
-
-
-
                     <TextBlock  Name="txt_messages_Header" Text="Messages" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_messages_Header_Tap" />
-
-
-
                     <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}" Tap="txt_messages_Header_Tap">
                         <ListBox.ItemTemplate>
 
