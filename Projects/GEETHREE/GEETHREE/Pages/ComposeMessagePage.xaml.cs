@@ -58,7 +58,19 @@ namespace GEETHREE.Pages
 
                 if (m == MessageBoxResult.OK)
                 {
+
                     //write code for storing this message to draft
+                    Message msg = new Message();
+                    msg.TextContent = txt_compose_message.Text;
+                    msg.SenderID = Controller.Instance.getCurrentUserID();
+                    msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                    //msg.ReceiverID = replyID;
+                    //msg.PrivateMessage = true;
+                    //msg.outgoing = true;
+
+                    // ** add the messages to the draftmessages collection
+                    App.ViewModel.DraftMessages.Add(msg);
+                   
 
                 }
 
@@ -72,8 +84,11 @@ namespace GEETHREE.Pages
 
         private void receiverListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txt_compose_receipient.Text = receiverListPicker.SelectedItem.ToString();
-            receiverListPicker.Visibility = System.Windows.Visibility.Collapsed;
+            if (receiverListPicker.SelectedItem != null)
+            {
+                txt_compose_receipient.Text = receiverListPicker.SelectedItem.ToString();
+                receiverListPicker.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         private void txt_compose_message_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -114,6 +129,7 @@ namespace GEETHREE.Pages
             msg.ReceiverID="0";
             msg.PrivateMessage=false;
             msg.outgoing=true;
+            App.ViewModel.SentMessages.Add(msg);
             Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
                 txt_compose_message.Text = "";

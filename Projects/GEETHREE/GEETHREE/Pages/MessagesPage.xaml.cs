@@ -141,9 +141,20 @@ namespace GEETHREE.Pages
                 if (m == MessageBoxResult.OK)
                 {
                     //write code for storing this message to draft
+                    //write code for storing this message to draft
+                    Message msg = new Message();
+
+                    msg.TextContent = detailsCanvasTextBox.Text;
+                    msg.SenderID = Controller.Instance.getCurrentUserID();
+                    msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                    //msg.ReceiverID = replyID;
+                    //msg.PrivateMessage = true;
+                    //msg.outgoing = true;
+
+                    // ** add the messages to the draftmessages collection
+                    App.ViewModel.DraftMessages.Add(msg);
 
                 }
-
             }
 
             detailsCanvasTextBox.Text = "";
@@ -169,6 +180,10 @@ namespace GEETHREE.Pages
                 msg.ReceiverID = replyID;
                 msg.PrivateMessage = true;
                 msg.outgoing = true;
+
+                // ** add to sent messages collection
+                App.ViewModel.SentMessages.Add(msg);
+                
                 Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
 
