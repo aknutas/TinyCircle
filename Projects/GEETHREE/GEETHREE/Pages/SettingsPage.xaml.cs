@@ -28,8 +28,7 @@ namespace GEETHREE.Pages
         {
             InitializeComponent();
             ctrl = Controller.Instance;
-
-            appSettings = new DataClasses.AppSettings();
+            appSettings = ctrl.appSetting;
 
             ctrl.registerAvatarUpdates(this);
             ctrl.registerCurrentPage(this, "settings");

@@ -19,10 +19,10 @@ using Microsoft.Phone;
 
 namespace GEETHREE.DataClasses
 {
+     
 
     public class AppSettings
     {
-
         // Our isolated storage settings
         public IsolatedStorageSettings settings { get; private set; }
 
@@ -126,6 +126,8 @@ namespace GEETHREE.DataClasses
                 if (AddOrUpdateValue(AliasSettingKeyName, value))
                 {
                     Save();
+                    //Kinda slow, but safe(r)
+                    Controller.Instance.refreshAvatars();
                 }
             }
         }

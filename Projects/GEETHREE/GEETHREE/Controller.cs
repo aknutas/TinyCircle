@@ -20,7 +20,7 @@ namespace GEETHREE
     {
         //Variables
         public DataMaster dm;
-        private DataClasses.AppSettings appSetting;
+        public DataClasses.AppSettings appSetting { get; private set; }
         public MessageHandler mh;
         public CommunicationHandler cm;
         private Random r;
@@ -70,7 +70,9 @@ namespace GEETHREE
         //All kinds of cool and useful public functions (put your stuff here, I love you for it) -Antti
         public void refreshAvatars() {
             if (settingspage != null)
-                settingspage.refreshAvatar();
+            {
+                settingspage.refreshAvatar();   
+            }
             if (mainpage != null)
                 mainpage.refreshAvatar();
         }
@@ -120,6 +122,7 @@ namespace GEETHREE
             
             return appSetting.AliasSetting;
         }
+
         public void changeCurrentUserID(string id)
         {
             appSetting.UserIDSetting = id;
