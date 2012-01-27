@@ -181,7 +181,22 @@ namespace GEETHREE
                 {
                     db.Groups.DeleteOnSubmit(grp);
                 }
-                // TODO messages, users
+
+                var qres3 = from User usr in db.Users select usr;
+                foreach (var usr in qres3)
+                {
+                    db.Users.DeleteOnSubmit(usr);
+                }
+                db.SubmitChanges();
+                qres = null;
+                qres3 = null;
+
+                var qres2 = from Message msg in db.Messages select msg;
+                foreach (var msg in qres2)
+                {
+                    db.Messages.DeleteOnSubmit(msg);
+                }
+                db.SubmitChanges();
             }
         }
 
