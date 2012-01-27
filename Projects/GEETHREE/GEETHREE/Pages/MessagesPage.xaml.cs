@@ -63,8 +63,13 @@ namespace GEETHREE.Pages
         }
 
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        { 
-        
+        {
+            selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
+            messageCanvasSenderTextBlock.Text = selectedMessage.SenderID;
+            //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+            messageCanvas.Visibility = System.Windows.Visibility.Visible;
+            ApplicationBar.IsVisible = false;
         
         }
 
