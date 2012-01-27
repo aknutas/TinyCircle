@@ -209,15 +209,15 @@ namespace GEETHREE
                         break;
                 }               
             }
-            else if (messageParts.Length == 5)
+            else if (messageParts.Length == 6)
             {
                 switch (messageParts[0])
                 {
                     case Commands.PrivateMessage:
-                        OnPrivateMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4]);
+                        OnPrivateMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5]);
                         break;
                     case Commands.BroadcastMessage:
-                        OnBroadcastMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4]);
+                        OnBroadcastMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5]);
                         break;
                     default:
                         break;
@@ -289,7 +289,7 @@ namespace GEETHREE
                 }
             }
         }
-        private void OnPrivateMessageReceived(string sender, string receiver, string message, string hash)
+        private void OnPrivateMessageReceived(string sender, string senderalias, string receiver, string message, string hash)
         {
             //Message msg = new Message(sender, receiver, message, hash, true);
             EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
@@ -298,11 +298,11 @@ namespace GEETHREE
 
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, receiver, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, storedHash));
             }
             //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
         }
-        private void OnBroadcastMessageReceived(string sender, string receiver, string message, string hash)
+        private void OnBroadcastMessageReceived(string sender, string senderalias, string receiver, string message, string hash)
         {
             EventHandler<MessageEventArgs> handler = this.BroadcastMessageReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
@@ -310,13 +310,16 @@ namespace GEETHREE
 
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, receiver, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, storedHash));
             }
         }
 
         public void SendToAll(Message msg)
         {
-            this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.ReceiverID, msg.TextContent, msg.Hash);
+            if(msg.PrivateMessage==false)
+            this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+            else
+                this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
         }
         public void SendTo(Message msg, string id)
         {

@@ -18,6 +18,7 @@ namespace GEETHREE.Pages
     {
         private Message selectedMessage = null;
         private Controller ctrl;
+        string replyID="";
         public MessagesPage()
         {
             InitializeComponent();
@@ -36,10 +37,12 @@ namespace GEETHREE.Pages
 
         private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
-            messageCanvasSenderTextBlock.Text = selectedMessage.SenderID;
+            messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+            replyID = selectedMessage.SenderID;
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
         }
@@ -111,6 +114,7 @@ namespace GEETHREE.Pages
         
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            
             detailsNameTextBlock.Text = messageCanvasSenderTextBlock.Text;
             detailsDescriptionText.Text = "Description";
             //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
@@ -153,8 +157,17 @@ namespace GEETHREE.Pages
             else
             {
                 // ask the controller to send message here
+                Message msg = new Message();
+                msg.TextContent = detailsCanvasTextBox.Text;
+                msg.SenderID = Controller.Instance.getCurrentUserID();
+                msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                msg.ReceiverID = replyID;
+                msg.PrivateMessage = true;
+                msg.outgoing = true;
+                Controller.Instance.mh.SendMessage(msg);
+                MessageBox.Show("Message sent.");
 
-                MessageBox.Show("Message successfully sent.");
+               
                 detailsCanvasTextBox.Text = "";
                 txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
@@ -173,6 +186,16 @@ namespace GEETHREE.Pages
             else
             {
                 // ask the controller to send message here
+                // ask the controller to send message here
+                Message msg = new Message();
+                msg.TextContent = detailsCanvasTextBox.Text;
+                msg.SenderID = Controller.Instance.getCurrentUserID();
+                msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                msg.ReceiverID = replyID;
+                msg.PrivateMessage = true;
+                msg.outgoing = true;
+                Controller.Instance.mh.SendMessage(msg);
+                MessageBox.Show("Message sent.");
 
                 MessageBox.Show("Message successfully sent.");
                 detailsCanvasTextBox.Text = "";

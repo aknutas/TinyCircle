@@ -129,6 +129,25 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        private string _senderalias;
+
+        [Column]
+        public string SenderAlias
+        {
+            get
+            {
+                return _senderalias;
+            }
+            set
+            {
+                if (value != _senderalias)
+                {
+                    _senderalias = value;
+                    NotifyPropertyChanged("SenderAlias");
+                }
+            }
+        }
+
         private string _receiverid;
 
         [Column]
@@ -231,13 +250,15 @@ namespace GEETHREE.DataClasses
     {
         public string TextContent { get; set; }
         public string Sender { get; set; }
+        public string SenderAlias { get; set; }
         public string Receiver{ get; set; }
         public byte[] Hash { get; set; }
 
-        public MessageEventArgs(string textContent, string sender, string receiver, byte[] hash)
+        public MessageEventArgs(string textContent, string sender, string senderalias, string receiver, byte[] hash)
         {
             this.TextContent = textContent;
             this.Sender = sender;
+            this.SenderAlias = senderalias;
             this.Receiver = receiver;
             this.Hash = hash;
         }
