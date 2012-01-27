@@ -188,12 +188,12 @@ namespace GEETHREE.DataClasses
 
         //Associations with parent (user)
 
-        // Entity reference, to identify the user "storage" table
-        private EntityRef<User> _user;
-
-        // Internal column for the associated ToDoCategory ID value
+        // Internal column for the associated User ID value
         [Column]
         internal int? _userId;
+
+        // Entity reference, to identify the user "storage" table
+        private EntityRef<User> _user;
 
         // Association, to describe the relationship between this key and that "storage" table
         [Association(Storage = "_user", ThisKey = "_userId", OtherKey = "userDbId", IsForeignKey = true)]
