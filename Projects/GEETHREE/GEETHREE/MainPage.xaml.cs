@@ -98,60 +98,6 @@ namespace GEETHREE
             }
         }
 
-        //Database debug button
-        private void button4_Click(object sender, RoutedEventArgs e)
-        {
-            User u = new User("Anni", "This is Anni");
-            u.UserID = "555";
-            ctrl.dm.storeNewUser(u);
-
-            u = new User("Thomster", "This is Tommi.");
-            u.UserID = "556";
-            ctrl.dm.storeNewUser(u);
-            
-            u = new User("Bishal", "This is Bishal.");
-            u.UserID = "557";
-            ctrl.dm.storeNewUser(u);
-            
-            u = new User("Antti", "This is antti.");
-            u.UserID = "558";
-            ctrl.dm.storeNewUser(u);
-            
-            u = new User("Tommi K", "This is Tommi K.");
-            u.UserID = "559";
-            ctrl.dm.storeNewUser(u);
-
-            Group g = new Group();
-            g.GroupName = ".NET Codecamp";
-            g.Description = "Here we are still coding at 0:55.";
-            ctrl.dm.storeNewGroup(g);
-
-            g = new Group();
-            g.GroupName = "Commlab";
-            g.Description = "We are commlab.";
-            ctrl.dm.storeNewGroup(g);
-
-            g = new Group();
-            g.GroupName = "SWE";
-            g.Description = "We are from Sweden";
-            ctrl.dm.storeNewGroup(g);
-
-            //Old debug code
-            /*
-            DataClasses.Message msg = new DataClasses.Message();
-            msg.TextContent = "Pli";
-            msg.outgoing = true;
-            ctrl.dm.storeNewMessage(msg);
-
-            DataClasses.Message msg2 = new DataClasses.Message();
-            msg2.TextContent = "Pla";
-            msg2.outgoing = true;
-            ctrl.dm.storeNewMessage(msg2);
-
-            List<DataClasses.Message> msgList = ctrl.dm.getAllMessages();
-            System.Diagnostics.Debug.WriteLine(msgList.Count);*/
-        }
-
         private void txt_mySociety_MySociety_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             string parameter = "toPeople";
@@ -182,14 +128,68 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            App.ViewModel.AddNewMessage();
-        }
-
         private void txt_Base_Help_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
+        }
+
+        private void menuItem1_Click(object sender, EventArgs e)
+        {
+            User u = new User("Anni", "This is Anni");
+            u.UserID = "555";
+            ctrl.dm.storeNewUser(u);
+
+            u = new User("Thomster", "This is Tommi.");
+            u.UserID = "556";
+            ctrl.dm.storeNewUser(u);
+
+            u = new User("Bishal", "This is Bishal.");
+            u.UserID = "557";
+            ctrl.dm.storeNewUser(u);
+
+            u = new User("Antti", "This is antti.");
+            u.UserID = "558";
+            ctrl.dm.storeNewUser(u);
+
+            u = new User("Tommi K", "This is Tommi K.");
+            u.UserID = "559";
+            ctrl.dm.storeNewUser(u);
+
+            Group g = new Group();
+            g.GroupName = ".NET Codecamp";
+            g.Description = "Here we are still coding at 0:55.";
+            ctrl.dm.storeNewGroup(g);
+
+            g = new Group();
+            g.GroupName = "Comlab";
+            g.Description = "We are Comlab, the one and the only one.";
+            ctrl.dm.storeNewGroup(g);
+
+            g = new Group();
+            g.GroupName = "SWE";
+            g.Description = "We are from Sweden";
+            ctrl.dm.storeNewGroup(g);
+
+            App.ViewModel.LoadData();
+            //Old debug code
+            /*
+            DataClasses.Message msg = new DataClasses.Message();
+            msg.TextContent = "Pli";
+            msg.outgoing = true;
+            ctrl.dm.storeNewMessage(msg);
+
+            DataClasses.Message msg2 = new DataClasses.Message();
+            msg2.TextContent = "Pla";
+            msg2.outgoing = true;
+            ctrl.dm.storeNewMessage(msg2);
+
+            List<DataClasses.Message> msgList = ctrl.dm.getAllMessages();
+            System.Diagnostics.Debug.WriteLine(msgList.Count);*/
+        }
+
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+            ctrl.dm.resetDataBase();
         }
 
        
