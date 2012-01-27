@@ -110,6 +110,7 @@ namespace GEETHREE.Pages
             Message msg =new Message();
             msg.TextContent=txt_compose_message.Text;
             msg.SenderID=Controller.Instance.getCurrentUserID();
+            msg.SenderAlias = Controller.Instance.getCurrentAlias();
             msg.ReceiverID="0";
             msg.PrivateMessage=false;
             msg.outgoing=true;
