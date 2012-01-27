@@ -159,6 +159,26 @@ namespace GEETHREE
             }
         }
 
+        public void storeNewImage(DataClasses.Image image)
+        {
+            lock (db)
+            {
+                db.Images.InsertOnSubmit(image);
+                db.SubmitChanges();
+            }
+            image.saveBitmapFromStream();
+        }
+
+        public List<DataClasses.Image> getAllImages()
+        {
+            lock (db)
+            {
+                var qres = from DataClasses.Image imgs in db.Images select imgs;
+                List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
+                return returnList;
+            }
+        }
+
         public void deleteMessage(Message message)
         {
             db.Messages.DeleteOnSubmit(message);
@@ -173,7 +193,8 @@ namespace GEETHREE
             }
         }
 
-        public void resetDataBase() {
+        public void resetDataBase()
+        {
             lock (db)
             {
                 var qres = from Group grps in db.Groups select grps;
@@ -208,18 +229,6 @@ namespace GEETHREE
         public void refreshObjects(Object updateObject)
         {
             db.Refresh(RefreshMode.OverwriteCurrentValues, updateObject);
-        }
-
-        //TODO
-        public void storeNewImage(DataClasses.Image image)
-        {
-
-        }
-
-        //TODO
-        public void getImages()
-        {
-
         }
 
     }
