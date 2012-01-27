@@ -42,14 +42,17 @@ namespace GEETHREE
         private void Groups_ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedGroup = (Group) groupsListBox.SelectedItem;
-            detailsNameTextBlock.Text = selectedGroup.GroupName.ToString();
-            detailsDescriptionText.Text = selectedGroup.Description.ToString();
-            //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Collapsed;
-            detailsCanvasButton.Content = "Send Message";
-            detailsCanvasTextBox.Text = "";
-            txt_details_error_label.Text = "";
-            details.Visibility = System.Windows.Visibility.Visible;
-            ApplicationBar.IsVisible = false;
+
+            if (selectedGroup != null)
+            {
+                detailsNameTextBlock.Text = selectedGroup.GroupName.ToString();
+                detailsDescriptionText.Text = selectedGroup.Description.ToString();
+                detailsCanvasButton.Content = "Send Message";
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
+                details.Visibility = System.Windows.Visibility.Visible;
+                ApplicationBar.IsVisible = false;
+            }
 
             
         }
@@ -57,14 +60,17 @@ namespace GEETHREE
         private void Users_ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedUser = (User)usersListBox.SelectedItem;
-            detailsNameTextBlock.Text = selectedUser.UserName.ToString();
-            detailsDescriptionText.Text = selectedUser.Description.ToString();
-            //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
-            detailsCanvasButton.Content = "Send Message";
-            detailsCanvasTextBox.Text = "";
-            txt_details_error_label.Text = "";
-            details.Visibility = System.Windows.Visibility.Visible;
-            ApplicationBar.IsVisible = false;
+            if (selectedUser != null)
+            {
+
+                detailsNameTextBlock.Text = selectedUser.UserName.ToString();
+                detailsDescriptionText.Text = selectedUser.Description.ToString();
+                detailsCanvasButton.Content = "Send Message";
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
+                details.Visibility = System.Windows.Visibility.Visible;
+                ApplicationBar.IsVisible = false;
+            }
             
         }
 
