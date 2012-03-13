@@ -1,0 +1,182 @@
+﻿<mockups:WindowsPhoneChrome 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mockups="clr-namespace:Microsoft.Expression.Prototyping.WindowsPhone.Mockups;assembly=WindowsPhone.Mockups"
+    xmlns:pc="http://schemas.microsoft.com/prototyping/2010/controls"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:pi="http://schemas.microsoft.com/prototyping/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:wp="http://schemas.microsoft.com/prototyping/2010/controls/windowsphone"
+    mc:Ignorable="d"
+    x:Class="GroupRScetch2Screens.Screen_2"
+    x:Name="PhoneChrome">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="OrientationChanged">
+            <i:Interaction.Behaviors>
+                <ei:ConditionBehavior>
+                    <ei:ConditionalExpression>
+                        <ei:ComparisonCondition LeftOperand="{Binding PageOrientation, ElementName=PhoneChrome}"
+                                                RightOperand="Landscape" />
+                    </ei:ConditionalExpression>
+                </ei:ConditionBehavior>
+            </i:Interaction.Behaviors>
+            <mockups:GoToStateAction StateName="Landscape"
+                                     TargetObject="{Binding ElementName=LayoutRoot}"
+                                     TargetName="LayoutRoot" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="OrientationChanged">
+            <i:Interaction.Behaviors>
+                <ei:ConditionBehavior>
+                    <ei:ConditionalExpression>
+                        <ei:ComparisonCondition LeftOperand="{Binding PageOrientation, ElementName=PhoneChrome}"
+                                                RightOperand="Portrait" />
+                    </ei:ConditionalExpression>
+                </ei:ConditionBehavior>
+            </i:Interaction.Behaviors>
+            <mockups:GoToStateAction StateName="Portrait"
+                                     TargetObject="{Binding ElementName=LayoutRoot}"
+                                     TargetName="LayoutRoot" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <mockups:WindowsPhoneChrome.BackButton>
+        <Button Style="{StaticResource Chrome-Button}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <pi:NavigateBackAction />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/AppBarIcons/back.png" />
+        </Button>
+    </mockups:WindowsPhoneChrome.BackButton>
+
+    <mockups:WindowsPhoneChrome.HomeButton>
+        <Button Style="{StaticResource Chrome-Button}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Home" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/AppBarIcons/home.png" />
+        </Button>
+    </mockups:WindowsPhoneChrome.HomeButton>
+
+    <mockups:WindowsPhoneChrome.SearchButton>
+        <Button Style="{StaticResource Chrome-Button}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Search" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/AppBarIcons/search.png" />
+        </Button>
+    </mockups:WindowsPhoneChrome.SearchButton>
+
+    <Grid x:Name="LayoutRoot">
+        <VisualStateManager.CustomVisualStateManager>
+            <ei:ExtendedVisualStateManager />
+        </VisualStateManager.CustomVisualStateManager>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates"
+                              ei:ExtendedVisualStateManager.UseFluidLayout="True">
+                <VisualState x:Name="Portrait" />
+                <VisualState x:Name="Landscape">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(WindowsPhoneChrome.PageOrientation)"
+                                                       Storyboard.TargetName="PhoneChrome">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <mockups:PageOrientation>Landscape</mockups:PageOrientation>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    	<wp:Pivot Margin="8" Title="TinyCircle">
+    		<wp:PivotItem Header="Broadcasts">
+    			<Grid>
+    				<ListBox Margin="0,0,8,0" Style="{StaticResource ListBox-Sketch}">
+    					<ListBoxItem Content="From David: But I must explain to you how..." Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    					<ListBoxItem Content="From Mark: All this mistaken idea of denouncing pleasure..." Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    					<ListBoxItem Content="From Annie: and praising pain was born and I will give you a complete..." Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    					<ListBoxItem Content="From Simon: Account of the system, and expound the actual teachings..." Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    					<ListBoxItem Content="From Felicia: Of the great explorer of the truth, the master-builder of..." Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    				</ListBox>
+    			</Grid>
+    		</wp:PivotItem>
+    		<wp:PivotItem Header="Private Msg">
+    			<Grid Height="632" Width="440">
+    				<ListBox Margin="0,0,8,0" Style="{StaticResource ListBox-Sketch}">
+    					<ListBoxItem Content="From Mark: Can you help me with Scetchflow?" Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    					<ListBoxItem Content="From Alice: I came up with a pretty cool idea..." Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    					<ListBoxItem Content="From David: How is it going?" Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    					<ListBoxItem Content="From Jane: What is happening on the fourth floor?" Margin="0" Style="{StaticResource ListBoxItem-Sketch}" Height="108" FontSize="32">
+    						<i:Interaction.Triggers>
+    							<i:EventTrigger EventName="GotFocus">
+    								<pi:NavigateToScreenAction TargetScreen="GroupRScetch2Screens.Screen_1_3"/>
+    							</i:EventTrigger>
+    						</i:Interaction.Triggers>
+    					</ListBoxItem>
+    				</ListBox>
+    			</Grid>
+    		</wp:PivotItem>
+    		<wp:PivotItem Header="Sent" HorizontalAlignment="Right" Height="100" Margin="0,194,68,0" VerticalAlignment="Top" Width="100"/>
+			
+			
+			
+    		<wp:PivotItem Header="Drafts" HorizontalAlignment="Left" Height="100" Margin="0" VerticalAlignment="Top" Width="100"/>
+    	</wp:Pivot>
+    </Grid>
+</mockups:WindowsPhoneChrome>

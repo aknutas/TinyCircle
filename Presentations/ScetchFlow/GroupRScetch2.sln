@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupRScetch2", "GroupRScetch2\GroupRScetch2.csproj", "{b8107f8f-fdf9-4b2e-947e-5fdb47915b69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupRScetch2Screens", "GroupRScetch2\GroupRScetch2Screens\GroupRScetch2Screens.csproj", "{6d064342-a802-4acb-8205-29ca87e0291b}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8107F8F-FDF9-4B2E-947E-5FDB47915B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8107F8F-FDF9-4B2E-947E-5FDB47915B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8107F8F-FDF9-4B2E-947E-5FDB47915B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8107F8F-FDF9-4B2E-947E-5FDB47915B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D064342-A802-4ACB-8205-29CA87E0291B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D064342-A802-4ACB-8205-29CA87E0291B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D064342-A802-4ACB-8205-29CA87E0291B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D064342-A802-4ACB-8205-29CA87E0291B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
