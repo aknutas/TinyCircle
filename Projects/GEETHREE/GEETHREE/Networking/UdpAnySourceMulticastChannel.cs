@@ -355,6 +355,14 @@ namespace GEETHREE
             {
                 DiagnosticsHelper.SafeShow("An error occurred. Try Again.");
             }
+            else if (socketEx.SocketErrorCode == SocketError.OperationAborted)
+            {
+                // Try to re-join the multi-cast group. 
+                // No retry count has been implemented here. This is left as an exercise.
+                this.IsJoined = false;
+                this.Open();
+               //DiagnosticsHelper.SafeShow(socketEx.Message);
+            }
             else
             {
                 // Just display the message.

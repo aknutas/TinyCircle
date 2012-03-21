@@ -317,7 +317,7 @@ namespace GEETHREE
         public void SendToAll(Message msg)
         {
             if(msg.PrivateMessage==false)
-            this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+                this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
             else
                 this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
         }
