@@ -47,7 +47,7 @@ namespace GEETHREE
             appSetting = new DataClasses.AppSettings();
             cm = new CommunicationHandler(this);
             mh = new MessageHandler(dm, cm);
-            
+
             // TODO Elegant callbacks
             // callbackList = new List<PhoneApplicationPage>();
         }

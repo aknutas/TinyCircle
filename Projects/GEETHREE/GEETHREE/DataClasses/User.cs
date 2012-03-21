@@ -14,6 +14,8 @@ using System.Data.Linq.Mapping;
 using Microsoft.Phone.Data.Linq;
 using Microsoft.Phone.Data.Linq.Mapping;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace GEETHREE.DataClasses
 {
@@ -29,6 +31,7 @@ namespace GEETHREE.DataClasses
                 new Action<Message>(this.attach_User),
                 new Action<Message>(this.detach_User)
                 );
+            CreateNewUserID();
         }
 
         public User(string username, string description)
@@ -147,6 +150,27 @@ namespace GEETHREE.DataClasses
         private void detach_User(Message msg)
         {
             msg.user = null;
+        }
+
+        public static string CreateNewUserID()
+        {
+            string id;
+           
+
+            byte[] mac = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
+            byte[] time = System.BitConverter.GetBytes(System.DateTime.Now.Ticks);
+
+            var source = new List<byte>();
+            source.AddRange(mac);
+            source.AddRange(time);
+
+            HMACSHA256 sha = new HMACSHA256();
+            byte[] hashBytes = sha.ComputeHash(source.ToArray());
+
+            id = Convert.ToBase64String(hashBytes);
+
+
+            return id;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
