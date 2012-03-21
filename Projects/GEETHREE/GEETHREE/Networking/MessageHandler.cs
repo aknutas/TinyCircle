@@ -84,8 +84,10 @@ namespace GEETHREE
             System.Diagnostics.Debug.WriteLine("Got new connection " + e.UserId);
 
             //Spambot --- Send all saved messages to new user 
-            
-
+            for (int i = 1; i < TransitMessages.Count; i++)
+            {
+                this.cm.SendTo(TransitMessages[i], e.UserId);
+            }
         }
         public void Synchronize(User info)
         {
