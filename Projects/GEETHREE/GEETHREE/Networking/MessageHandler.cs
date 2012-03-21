@@ -146,6 +146,14 @@ namespace GEETHREE
             this.cm.SendToAll(msg);
         }
 
+        /// <summary>
+        /// Sending a file with our application:
+        /// - Create a new message with sender and receiver info
+        /// - Convert image to string
+        /// - Add string as textcontent
+        /// - Send using SendFile()
+        /// - Profit?
+        /// </summary>
         public void SendFile(Message msg)
         {
             byte[] temphash = { 0, 0 };
