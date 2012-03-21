@@ -66,9 +66,19 @@ namespace GEETHREE
         public event EventHandler<MessageEventArgs> BroadcastMessageReceived;
 
         /// <summary>
-        /// Occurs when a broadcast message is received.
+        /// Occurs when a file is received.
+        /// </summary>
+        public event EventHandler<MessageEventArgs>FileReceived;
+
+        /// <summary>
+        /// Occurs when a new connection is formed
         /// </summary>
         public event EventHandler<ConnectionEventArgs> NewConnection;
+
+        /// <summary>
+        /// Occurs when a new connection to server is formed
+        /// </summary>
+        public event EventHandler<ServerConnectionEventArgs> NewServerConnection;
 
         public CommunicationHandler(Controller cm)
         {
@@ -219,6 +229,9 @@ namespace GEETHREE
                     case Commands.BroadcastMessage:
                         OnBroadcastMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5]);
                         break;
+                    case Commands.PrivateFileMessage:
+                        OnFileReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5]);
+                        break;
                     default:
                         break;
                 }
@@ -313,6 +326,17 @@ namespace GEETHREE
                 handler(this, new MessageEventArgs(message, sender, senderalias, receiver, storedHash));
             }
         }
+        private void OnFileReceived(string sender, string senderalias, string receiver, string message, string hash)
+        {
+            EventHandler<MessageEventArgs> handler = this.FileReceived;
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] storedHash = UE.GetBytes(hash);
+
+            if (handler != null)
+            {
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, storedHash));
+            }
+        }
 
         public void SendToAll(Message msg)
         {
@@ -321,6 +345,15 @@ namespace GEETHREE
             else
                 this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
         }
+
+        public void SendFileToAll(Message msg)
+        {
+            if (msg.PrivateMessage == false)
+                this.Channel.Send(Commands.PrivateFileMessage, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+            else
+                this.Channel.Send(Commands.PrivateFileMessage, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+        }
+
         public void SendTo(Message msg, string id)
         {
            

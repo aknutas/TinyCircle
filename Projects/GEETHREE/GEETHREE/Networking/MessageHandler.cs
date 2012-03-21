@@ -94,6 +94,26 @@ namespace GEETHREE
             this.TransitMessages.Add(msg);
             Controller.Instance.notifyViewAboutMessage();
         }
+
+        public void FileReceived(object sender, MessageEventArgs e)
+        {
+
+            System.Diagnostics.Debug.WriteLine("File received ");
+            Message msg = new Message();
+            msg.PrivateMessage = false;
+            msg.Hash = e.Hash;
+            msg.ReceiverID = e.Receiver;
+            msg.SenderID = e.Sender;
+            msg.SenderAlias = e.SenderAlias;
+            msg.TextContent = e.TextContent;
+            msg.outgoing = true;
+            dm.storeNewMessage(msg);
+            //Where do we add this and who do we tell?
+            //App.ViewModel.ReceivedBroadcastMessages.Add(msg);
+            //this.TransitMessages.Add(msg);
+            Controller.Instance.notifyViewAboutMessage();
+        }
+
         public void NewConnectionFound(object sender, ConnectionEventArgs e)
         {
 
@@ -105,6 +125,15 @@ namespace GEETHREE
                 this.cm.SendTo(TransitMessages[i], e.UserId);
             }
         }
+
+        public void NewServerConnectionFound(object sender, ServerConnectionEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Got new server connection ");
+
+            
+
+        }
+
         public void Synchronize(User info)
         {
             //How do we synchonize the messages?
@@ -117,6 +146,13 @@ namespace GEETHREE
             this.cm.SendToAll(msg);
         }
 
+        public void SendFile(Message msg)
+        {
+            byte[] temphash = { 0, 0 };
+            msg.Hash = temphash;
+            this.cm.SendFileToAll(msg);
+        }
+
         /// <summary>
         /// Register for events on communication
         /// </summary>
@@ -126,6 +162,7 @@ namespace GEETHREE
             this.cm.PrivateMessageReceived += new EventHandler<MessageEventArgs>(PrivateMessageReceived);
             this.cm.BroadcastMessageReceived += new EventHandler<MessageEventArgs>(BroadcastMessageReceived);
             this.cm.NewConnection += new EventHandler<ConnectionEventArgs>(NewConnectionFound);
+            this.cm.FileReceived += new EventHandler<MessageEventArgs>(FileReceived);
         }
         /// <summary>
         /// Unregister for events on communication

@@ -38,4 +38,12 @@ namespace GEETHREE.Networking
             this.UserId = userid;
         }
     }
+
+    /// <summary>
+    /// Eventargs for events regarding server connections
+    /// </summary>
+    public class ServerConnectionEventArgs : EventArgs
+    {
+        
+    }
 }
