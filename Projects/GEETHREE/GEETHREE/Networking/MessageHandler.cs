@@ -9,8 +9,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using GEETHREE.DataClasses;
 using GEETHREE.Networking;
+
 
 namespace GEETHREE
 {
@@ -35,8 +37,20 @@ namespace GEETHREE
             this.cm = cm;
             this.TransitMessages = new ObservableCollection<Message>();
             RegisterEvents();
+            LoadTransitmessages();
         }
 
+        private void LoadTransitmessages()
+        {
+            this.TransitMessages.Clear();
+            var messages = new List<Message>();
+            messages = dm.getSendableMessages();
+
+            for (int i = 0; i < messages.Count; i++)
+            {
+                this.TransitMessages.Add(messages[i]);
+            }
+        }
         public void PrivateMessageReceived(object sender, MessageEventArgs e)
         {
 
