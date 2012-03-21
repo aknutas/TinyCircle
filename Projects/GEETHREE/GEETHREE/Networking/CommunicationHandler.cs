@@ -219,18 +219,18 @@ namespace GEETHREE
                         break;
                 }               
             }
-            else if (messageParts.Length == 6)
+            else if (messageParts.Length == 9)
             {
                 switch (messageParts[0])
                 {
                     case Commands.PrivateMessage:
-                        OnPrivateMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5]);
+                        OnPrivateMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
                         break;
                     case Commands.BroadcastMessage:
-                        OnBroadcastMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5]);
+                        OnBroadcastMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
                         break;
                     case Commands.PrivateFileMessage:
-                        OnFileReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5]);
+                        OnFileReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
                         break;
                     default:
                         break;
@@ -302,56 +302,59 @@ namespace GEETHREE
                 }
             }
         }
-        private void OnPrivateMessageReceived(string sender, string senderalias, string receiver, string message, string hash)
+        private void OnPrivateMessageReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
         {
             //Message msg = new Message(sender, receiver, message, hash, true);
             EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
 
+            byte[] storedAttachment = UE.GetBytes(attachment);
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, storedAttachment, attachmentfilename, storedHash));
             }
             //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
         }
-        private void OnBroadcastMessageReceived(string sender, string senderalias, string receiver, string message, string hash)
+        private void OnBroadcastMessageReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
         {
             EventHandler<MessageEventArgs> handler = this.BroadcastMessageReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
 
+            byte[] storedAttachment = UE.GetBytes(attachment);
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, storedAttachment, attachmentfilename, storedHash));
             }
         }
-        private void OnFileReceived(string sender, string senderalias, string receiver, string message, string hash)
+        private void OnFileReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
         {
             EventHandler<MessageEventArgs> handler = this.FileReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
 
+            byte[] storedAttachment = UE.GetBytes(attachment);
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, storedAttachment, attachmentfilename, storedHash));
             }
         }
 
         public void SendToAll(Message msg)
         {
-            if(msg.PrivateMessage==false)
-                this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+            if (msg.PrivateMessage == false)
+                this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
             else
-                this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+                this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
         }
 
         public void SendFileToAll(Message msg)
         {
             if (msg.PrivateMessage == false)
-                this.Channel.Send(Commands.PrivateFileMessage, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+                this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
             else
-                this.Channel.Send(Commands.PrivateFileMessage, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.TextContent, msg.Hash);
+                this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
         }
 
         public void SendTo(Message msg, string id)

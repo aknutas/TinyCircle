@@ -96,6 +96,7 @@ namespace GEETHREE
             //grpList.Clear();
             Users.Clear();
             //usrList.Clear();
+           
             grpList = c.dm.getAllGroups();
 
             foreach (Group g in grpList)
@@ -110,7 +111,7 @@ namespace GEETHREE
                 this.Users.Add(u);
             }
 
-
+            
             // Sample data; replace with real data
             this.Items.Add(new ItemViewModel() { LineOne = "runtime one", LineTwo = "How are you doing?", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime two", LineTwo = "We need more members in our team.", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });

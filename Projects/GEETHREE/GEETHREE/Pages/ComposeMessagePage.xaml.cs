@@ -21,6 +21,9 @@ namespace GEETHREE.Pages
         Controller ctrl;
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;
+        string attachmentFlag = "0";
+        string attachmentFileName = "";
+        byte[] attachmentContent;
         public ComposeMessagePage()
         {
             
@@ -138,6 +141,9 @@ namespace GEETHREE.Pages
             }
             
             msg.outgoing=true;
+            msg.Attachmentflag = attachmentFlag;
+            msg.Attachmentfilename = attachmentFileName;
+            msg.Attachment = attachmentContent;
             App.ViewModel.SentMessages.Add(msg);
             Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
@@ -157,8 +163,14 @@ namespace GEETHREE.Pages
 	            bitImage.SetSource(e.ChosenPhoto);
                 attachedImage.Source = bitImage;
 
-                //Write image to isolated storage
-                //ctrl.changeCurrentAvatar(e.ChosenPhoto);
+                attachmentFlag = "1";
+                attachmentFileName = "img001.gim";
+                attachmentContent = new byte[e.ChosenPhoto.Length];
+                e.ChosenPhoto.Position = 0;
+
+                //attacmentContent = ima
+                e.ChosenPhoto.Read(attachmentContent, 0, attachmentContent.Length); 
+             
             }
         }
 
@@ -173,8 +185,16 @@ namespace GEETHREE.Pages
                 bitImage.SetSource(e.ChosenPhoto);
                 attachedImage.Source = bitImage;
 
-                //Write image to isolated storage
-                //ctrl.changeCurrentAvatar(e.ChosenPhoto);
+                attachedImage.Source = bitImage;
+
+                //Convert image to byte array
+
+                attachmentFlag = "1";
+                attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".gim";
+                attachmentContent = new byte[e.ChosenPhoto.Length];
+                e.ChosenPhoto.Position = 0;
+                e.ChosenPhoto.Read(attachmentContent, 0, attachmentContent.Length); 
+            
             }
         }
         // ** some kind of popup needed to announce about the message that is just arrived

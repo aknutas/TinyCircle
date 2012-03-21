@@ -20,6 +20,7 @@ namespace GEETHREE.DataClasses
     [Table]
     public class Message : INotifyPropertyChanged
     {
+
         // Define ID: private field, public property, and database column.
         private int _msgDbId;
 
@@ -87,6 +88,44 @@ namespace GEETHREE.DataClasses
                 {
                     _textContent = value;
                     NotifyPropertyChanged("TextContent");
+                }
+            }
+        }
+
+        private byte[] _attachment;
+
+        [Column]
+        public byte[] Attachment
+        {
+            get
+            {
+                return _attachment;
+            }
+            set
+            {
+                if (value != _attachment)
+                {
+                    _attachment = value;
+                    NotifyPropertyChanged("Attachment");
+                }
+            }
+        }
+
+        private string _attachmentfilename;
+
+        [Column]
+        public string Attachmentfilename
+        {
+            get
+            {
+                return _attachmentfilename;
+            }
+            set
+            {
+                if (value != _attachmentfilename)
+                {
+                    _attachmentfilename = value;
+                    NotifyPropertyChanged("Attachmentfilename");
                 }
             }
         }
@@ -205,6 +244,25 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        private string _attachmentflag;
+
+        [Column]
+        public string Attachmentflag
+        {
+            get
+            {
+                return _attachmentflag;
+            }
+            set
+            {
+                if (value != _attachmentflag)
+                {
+                    _attachmentflag = value;
+                    NotifyPropertyChanged("Attachmentflag");
+                }
+            }
+        }
+
         //Associations with parent (user)
 
         // Internal column for the associated User ID value
@@ -249,14 +307,20 @@ namespace GEETHREE.DataClasses
     public class MessageEventArgs : EventArgs
     {
         public string TextContent { get; set; }
+        public byte[] Attachment { get; set; }
+        public string Attachmentfilename { get; set; }
         public string Sender { get; set; }
         public string SenderAlias { get; set; }
-        public string Receiver{ get; set; }
+        public string Receiver { get; set; }
+        public string Attachmentflag { get; set; }
         public byte[] Hash { get; set; }
 
-        public MessageEventArgs(string textContent, string sender, string senderalias, string receiver, byte[] hash)
+        public MessageEventArgs(string textContent, string sender, string senderalias, string receiver, string attachmentflag, byte[] attachment, string attachmentfilename, byte[] hash)
         {
             this.TextContent = textContent;
+            this.Attachmentflag = attachmentflag;
+            this.Attachment = attachment;
+            this.Attachmentfilename = attachmentfilename;
             this.Sender = sender;
             this.SenderAlias = senderalias;
             this.Receiver = receiver;

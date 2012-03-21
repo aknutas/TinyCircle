@@ -63,7 +63,9 @@ namespace GEETHREE
             msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
-            
+            msg.Attachment = e.Attachment;
+            msg.Attachmentfilename = e.Attachmentfilename;
+            msg.Attachmentflag = e.Attachmentflag;
 
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
@@ -89,6 +91,9 @@ namespace GEETHREE
             msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
+            msg.Attachment = e.Attachment;
+            msg.Attachmentfilename = e.Attachmentfilename;
+            msg.Attachmentflag = e.Attachmentflag;
             dm.storeNewMessage(msg);
             App.ViewModel.ReceivedBroadcastMessages.Add(msg);
             this.TransitMessages.Add(msg);
@@ -107,6 +112,9 @@ namespace GEETHREE
             msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
+            msg.Attachment = e.Attachment;
+            msg.Attachmentfilename = e.Attachmentfilename;
+            msg.Attachmentflag = e.Attachmentflag;
             dm.storeNewMessage(msg);
             //Where do we add this and who do we tell?
             //App.ViewModel.ReceivedBroadcastMessages.Add(msg);

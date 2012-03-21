@@ -86,6 +86,7 @@
                    Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />
             <TextBlock Canvas.Left="23" Canvas.Top="173" Height="30" Name="messageCanvasMessageHeader" Text="" Width="426" />
             <TextBlock Canvas.Left="300" Canvas.Top="487" Height="30" Name="btn_reply" Text="reply to sender" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#FFD6E5D8" Tap="btn_reply_Tap" />
+            <Image Canvas.Left="44" Canvas.Top="487" Height="150" Name="receivedimage" Stretch="Fill" Width="200" />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
             </Canvas.Background>

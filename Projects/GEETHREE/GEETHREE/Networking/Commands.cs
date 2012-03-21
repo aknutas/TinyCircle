@@ -33,8 +33,8 @@ namespace GEETHREE
         public const string JoinFormat = Join + CommandDelimeter + "{0}";
         public const string LeaveFormat = Leave + CommandDelimeter + "{0}";
         public const string ReadyFormat = Ready + CommandDelimeter + "{0}";
-        public const string PrivateMessageFormat = PrivateMessage + CommandDelimeter + "{0}" + CommandDelimeter + "{1}" + CommandDelimeter + "{2}" + CommandDelimeter + "{3}" + CommandDelimeter + "{4}";//senderID + senderAlias + receiverID + message + hash
-        public const string BroadcastMessageFormat = BroadcastMessage + CommandDelimeter + "{0}" + CommandDelimeter + "{1}" + CommandDelimeter + "{2}" + CommandDelimeter + "{3}" + CommandDelimeter + "{4}"; //senderID + senderAlias + receiverID + message + hash
-        public const string PrivateFileMessageFormat = PrivateFileMessage + CommandDelimeter + "{0}" + CommandDelimeter + "{1}" + CommandDelimeter + "{2}" + CommandDelimeter + "{3}" + CommandDelimeter + "{4}";//senderID + senderAlias + receiverID + file contents + hash
+        public const string PrivateMessageFormat = PrivateMessage + CommandDelimeter + "{0}" + CommandDelimeter + "{1}" + CommandDelimeter + "{2}" + CommandDelimeter + "{3}" + CommandDelimeter + "{4}" + CommandDelimeter + "{5}" + CommandDelimeter + "{6}" + CommandDelimeter + "{7}";//senderID + senderAlias + receiverID + attachmentflag + storedAttachment + attachmentfilename + message + hash
+        public const string BroadcastMessageFormat = BroadcastMessage + CommandDelimeter + "{0}" + CommandDelimeter + "{1}" + CommandDelimeter + "{2}" + CommandDelimeter + "{3}" + CommandDelimeter + "{4}" + CommandDelimeter + "{5}" + CommandDelimeter + "{6}" + CommandDelimeter + "{7}"; //senderID + senderAlias + receiverID + attachmentflag + storedAttachment + attachmentfilename + message + hash
+        public const string PrivateFileMessageFormat = PrivateFileMessage + CommandDelimeter + "{0}" + CommandDelimeter + "{1}" + CommandDelimeter + "{2}" + CommandDelimeter + "{3}" + CommandDelimeter + "{4}" + CommandDelimeter + "{5}" + CommandDelimeter + "{6}" + CommandDelimeter + "{7}";//senderID + senderAlias + receiverID + file contents + hash
     }
 }

@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using GEETHREE.DataClasses;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace GEETHREE.Pages
 {
@@ -41,7 +43,15 @@ namespace GEETHREE.Pages
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
             messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString() + " : " + selectedMessage.Attachment.Length.ToString();
+
+            BitmapImage bitImage = new BitmapImage();
+            MemoryStream ms = new MemoryStream(selectedMessage.Attachment, 0, selectedMessage.Attachment.Length);
+            ms.Write(selectedMessage.Attachment, 0, selectedMessage.Attachment.Length);
+            bitImage.SetSource(ms);
+            receivedimage.Source = bitImage;
+
+            
             replyID = selectedMessage.SenderID;
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
