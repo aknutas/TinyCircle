@@ -89,7 +89,7 @@ namespace GEETHREE.Pages
         {
             if (receiverListPicker.SelectedItem != null)
             {
-                txt_compose_receipient.Text = receiverListPicker.SelectedItem.ToString();
+                composeReceipientTextBox.Text = receiverListPicker.SelectedItem.ToString();
                 receiverListPicker.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
@@ -129,14 +129,14 @@ namespace GEETHREE.Pages
             msg.TextContent=txt_compose_message.Text;
             msg.SenderID=Controller.Instance.getCurrentUserID();
             msg.SenderAlias = Controller.Instance.getCurrentAlias();
-            if (txt_compose_receipient.Text == "")
+            if (composeReceipientTextBox.Text == "")
             {
                 msg.ReceiverID = "0";
                 msg.PrivateMessage = false;
             }
             else
             {
-                msg.ReceiverID = txt_compose_receipient.Text;
+                msg.ReceiverID = composeReceipientTextBox.Text;
                 msg.PrivateMessage = true;
             }
             
@@ -197,6 +197,23 @@ namespace GEETHREE.Pages
             
             }
         }
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            try
+            {
+                // ** try to get sender name 
+                recipientTextBlock.Text = NavigationContext.QueryString["sender"];
+
+            }
+            catch
+            { 
+                
+            }
+
+            base.OnNavigatedTo(e);
+        }
+
+
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived()
         {

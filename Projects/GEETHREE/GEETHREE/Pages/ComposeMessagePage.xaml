@@ -12,12 +12,15 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" BackKeyPress="PhoneApplicationPage_BackKeyPress">
-
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot">
+        
+        <!--
     	<Grid.Background>
     		<ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" Stretch="Fill"/>
     	</Grid.Background>
+        -->
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -25,23 +28,23 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="PageTitle" Text="Compose new message" Margin="9,-7,0,0" />
+            <TextBlock x:Name="PageTitle" Text="Compose" Margin="9,-7,0,0" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" Foreground="{StaticResource PhoneAccentBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Height="675" HorizontalAlignment="Left" Margin="9,6,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="441" >
-                <TextBlock Height="30" Name="textBlock1" Text="Recepient : " />
+                <TextBlock Height="30" Name="recipientTextBlock" Text="Recepient : " Width="434" />
                 <Grid >
-                    <TextBox Height="70" Name="txt_compose_receipient" Text="" Width="379" HorizontalAlignment="Left" OpacityMask="#7C000000" />
-                    <Image Height="44" HorizontalAlignment="Right" Margin="0,6,6,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="49" Source="/GEETHREE;component/Resources/add.png" Tap="image1_Tap" />
+                    <TextBox Height="70" Name="composeReceipientTextBox" Text="" Width="363" HorizontalAlignment="Left" OpacityMask="#7C000000" Margin="1,0,0,0" />
+                    <Image Height="70" HorizontalAlignment="Right" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="70" Source="/GEETHREE;component/Resources/add.png" Tap="image1_Tap" />
                 </Grid>
                 <toolkit:ListPicker  Name="receiverListPicker" Visibility="Collapsed" SelectionChanged="receiverListPicker_SelectionChanged" Width="200" >
                                  
                 </toolkit:ListPicker>
                
-                <TextBox Height="323" Name="txt_compose_message" Text="Type your message here..." Width="460" Tap="txt_compose_message_Tap" MaxWidth="440" TextWrapping="Wrap" OpacityMask="#70000000" />
-                <TextBlock Height="30" Name="textBlock2" Text="attachments   " HorizontalAlignment="Right" />
+                <TextBox Height="323" Name="txt_compose_message" Text="Type your message here..." Width="440" Tap="txt_compose_message_Tap" MaxWidth="440" TextWrapping="Wrap" OpacityMask="#70000000" />
+                <TextBlock Height="30" Name="textBlock2" Text="Attachments " HorizontalAlignment="Right" />
                 <Image Height="116" Name="attachedImage" Stretch="Fill" Width="117" HorizontalAlignment="Right" />
                 <TextBlock Height="30" Name="txt_compose_error_label" Text="" Foreground="#FFFB0000" />
             </StackPanel>

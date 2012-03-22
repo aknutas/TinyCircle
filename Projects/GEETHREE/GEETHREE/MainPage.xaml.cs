@@ -31,7 +31,6 @@ namespace GEETHREE
             ctrl = Controller.Instance;
             ctrl.registerAvatarUpdates(this);
             ctrl.registerCurrentPage(this, "main");
-
             refreshAvatar();
 
             // Set the data context of the listbox control to the sample data
@@ -55,7 +54,7 @@ namespace GEETHREE
         public void refreshAvatar()
         {
             img_Base_Avatar.Source = ctrl.getCurrentAvatar();
-            txt_Base_Alias.Text = ctrl.getCurrentAlias();
+            //txt_Base_Alias.Text = ctrl.getCurrentAlias();
         }
 
       
@@ -65,13 +64,23 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
         }
 
+        // ** When user clicks menu bar buttos
+
         private void appbar_settings_Click(object sender, EventArgs e)
         {
+            // ** Go to settings
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
         }
 
         private void appbar_messages_Click(object sender, EventArgs e)
         {
+            // ** go to messages      
+            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+        }
+
+        private void appbar_compose_Click(object sender, EventArgs e)
+        {
+            // ** go to compose
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
@@ -133,6 +142,7 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
         }
 
+        // ** these were just for testing purposes
         private void menuItem1_Click(object sender, EventArgs e)
         {
             User u = new User("Anni", "This is Anni");
