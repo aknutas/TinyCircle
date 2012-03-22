@@ -20,7 +20,8 @@ namespace GEETHREE.Pages
     {
         private Message selectedMessage = null;
         private Controller ctrl;
-        string replyID="";
+        string replyID = "";
+        string replyAlias = "";
         public MessagesPage()
         {
             InitializeComponent();
@@ -44,8 +45,8 @@ namespace GEETHREE.Pages
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
             messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-            
-            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString() ;
+
+            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             byte[] attachmentContent = null;
             if (selectedMessage.Attachmentflag == "1")
             {
@@ -58,9 +59,9 @@ namespace GEETHREE.Pages
                 receivedimage.Source = bitImage;
                 receivedimage.Visibility = Visibility.Visible;
             }
-            
 
-            
+
+
 
             //BitmapImage bitmapImage = new BitmapImage();
             //MemoryStream ms = new MemoryStream(imageBytes);
@@ -68,8 +69,9 @@ namespace GEETHREE.Pages
             //myImageElement.Source = bitmapImage; 
 
 
-            
+
             replyID = selectedMessage.SenderID;
+            replyAlias = selectedMessage.SenderAlias;
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
         }
@@ -107,7 +109,7 @@ namespace GEETHREE.Pages
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
-        
+
         }
 
         // ** must navigate back to the pivot page from details page, not back to panorama page
@@ -150,19 +152,24 @@ namespace GEETHREE.Pages
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
-        
-        
+
+
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
-            detailsNameTextBlock.Text = messageCanvasSenderTextBlock.Text;
-            detailsDescriptionText.Text = "Description";
-            //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
-            detailsCanvasButton.Content = "Send Message";
-            detailsCanvasTextBox.Text = "";
-            txt_details_error_label.Text = "";
-            details.Visibility = System.Windows.Visibility.Visible;
-            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+
+            // ** creating an URL that gives some parameters
+            //string url = string.Format("/Pages/ComposeMessagePage.xaml?sender={0}&sender={1}", messageCanvasSenderTextBlock.Text, messageCanvasSenderTextBlock.Text);
+            string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}",replyAlias,replyID);
+            // ** then navigate to Compose.xaml
+            NavigationService.Navigate(new Uri(url, UriKind.Relative));
+            //detailsNameTextBlock.Text = messageCanvasSenderTextBlock.Text;
+            //detailsDescriptionText.Text = "Description";
+            ////detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
+            //detailsCanvasButton.Content = "Send Message";
+            //detailsCanvasTextBox.Text = "";
+            //txt_details_error_label.Text = "";
+            //details.Visibility = System.Windows.Visibility.Visible;
+            //messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -197,7 +204,7 @@ namespace GEETHREE.Pages
             details.Visibility = System.Windows.Visibility.Collapsed;
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
-            
+
         }
         private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -218,20 +225,20 @@ namespace GEETHREE.Pages
 
                 // ** add to sent messages collection
                 App.ViewModel.SentMessages.Add(msg);
-                
+
                 Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
 
-               
+
                 detailsCanvasTextBox.Text = "";
                 txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
-               
+
             }
         }
-
+        /*
         private void detailsCanvasButton_Click(object sender, RoutedEventArgs e)
         {
             if (detailsCanvasTextBox.Text == "")
@@ -265,7 +272,8 @@ namespace GEETHREE.Pages
 
             }
         }
-             // ** some kind of popup needed to announce about the message that is just arrived
+        */
+        // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived()
         {
             // **  ...get the message from datamaster and display it in canvas.
@@ -280,6 +288,7 @@ namespace GEETHREE.Pages
         }
 
 
-       
+
+
     }
 }
