@@ -15,7 +15,7 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}">
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}" IsEnabled="True">
 
     <phone:PhoneApplicationPage.Resources>
 
@@ -44,7 +44,7 @@
                 <TextBlock  Name="textBlock1" Text="Alias" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
                 <TextBox Height="74" Name="txt_Settings_alias" Text="{Binding Path=AliasSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Width="437" />
                 <TextBlock  Name="textBlock3" Text="UserID" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
-                <TextBox Height="74" Name="txt_Settings_userid" Text="{Binding Path=UserIDSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Width="437" />
+                <TextBox Height="74" Name="txt_Settings_userid"  Text="{Binding Path=UserIDSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Width="437" TextWrapping="Wrap" FontSize="16" IsEnabled="False" />
 
                 <TextBlock Name="textBlock2" Text="Avatar" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
                 <Grid Height="140">

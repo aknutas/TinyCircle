@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 using System.IO;
 using Microsoft.Phone;
+using System.Security.Cryptography;
 
 namespace GEETHREE.DataClasses
 {
@@ -33,8 +34,9 @@ namespace GEETHREE.DataClasses
         const string ShowSharedUploadsSettingKeyName = "RadioButton1Setting";
 
         // The default value of our settings
+        //User newuser = new User();
         const string AliasSettingDefault = "Anonymous";
-        const string UserIDSettingDefault = "00000";
+        string UserIDSettingDefault = "0000";
         const bool ShowProfileInfoSettingDefault = false;
         const bool ShowSharedUploadsSettingDefault = false;
 
@@ -46,6 +48,7 @@ namespace GEETHREE.DataClasses
         {
             // Get the settings for this application.
             settings = IsolatedStorageSettings.ApplicationSettings;
+            UserIDSettingDefault = CreateNewUserID();
         }
 
         /// <summary>
@@ -184,6 +187,28 @@ namespace GEETHREE.DataClasses
                     Save();
                 }
             }
+        }
+
+        public static string CreateNewUserID()
+        {
+            string id;
+
+
+            byte[] mac = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
+            byte[] time = System.BitConverter.GetBytes(System.DateTime.Now.Ticks);
+
+            var source = new List<byte>();
+            source.AddRange(mac);
+            source.AddRange(time);
+
+            HMACSHA256 sha = new HMACSHA256();
+            byte[] hashBytes = sha.ComputeHash(source.ToArray());
+
+            id = Convert.ToBase64String(hashBytes);
+            int a = id.Length;
+
+            System.Console.WriteLine(id);
+            return id;
         }
     }
 

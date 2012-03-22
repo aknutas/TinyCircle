@@ -31,7 +31,7 @@ namespace GEETHREE.DataClasses
                 new Action<Message>(this.attach_User),
                 new Action<Message>(this.detach_User)
                 );
-            CreateNewUserID();
+            //CreateNewUserID();
         }
 
         public User(string username, string description)
@@ -152,26 +152,26 @@ namespace GEETHREE.DataClasses
             msg.user = null;
         }
 
-        public static string CreateNewUserID()
-        {
-            string id;
+        //public static string CreateNewUserID()
+        //{
+        //    string id;
            
 
-            byte[] mac = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
-            byte[] time = System.BitConverter.GetBytes(System.DateTime.Now.Ticks);
+        //    byte[] mac = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
+        //    byte[] time = System.BitConverter.GetBytes(System.DateTime.Now.Ticks);
 
-            var source = new List<byte>();
-            source.AddRange(mac);
-            source.AddRange(time);
+        //    var source = new List<byte>();
+        //    source.AddRange(mac);
+        //    source.AddRange(time);
 
-            HMACSHA256 sha = new HMACSHA256();
-            byte[] hashBytes = sha.ComputeHash(source.ToArray());
+        //    HMACSHA256 sha = new HMACSHA256();
+        //    byte[] hashBytes = sha.ComputeHash(source.ToArray());
 
-            id = Convert.ToBase64String(hashBytes);
+        //    id = Convert.ToBase64String(hashBytes);
 
 
-            return id;
-        }
+        //    return id;
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
