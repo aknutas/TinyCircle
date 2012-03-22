@@ -1,0 +1,24 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IService1" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_IMsgService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://tinycirclews.cloudapp.net/Service1.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IService1"
+                contract="Service1.IService1" name="BasicHttpBinding_IService1" />
+            <endpoint address="http://tinycirclews.cloudapp.net/MsgService.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IMsgService"
+                contract="MsgServiceReference.IMsgService" name="BasicHttpBinding_IMsgService" />
+        </client>
+    </system.serviceModel>
+</configuration>
