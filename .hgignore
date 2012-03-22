@@ -3,3 +3,8 @@ Projects/GEETHREE/GEETHREE/Bin/**
 Projects/GEETHREE/GEETHREE/obj/**
 Projects/GEETHREE/GEETHREE.suo
 .DS_Store
+Projects/TC_WebService/TC_WebService/obj/**
+Projects/TC_WebService/TC_WebService/bin/**
+Projects/TC_WebService/TC_WebService/csx/**
+Projects/TC_WebService/TC_WS/bin/**
+Projects/TC_WebService/TC_WS/obj/**
