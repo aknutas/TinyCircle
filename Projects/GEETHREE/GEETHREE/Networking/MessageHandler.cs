@@ -63,9 +63,10 @@ namespace GEETHREE
             msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
+            msg.Attachmentflag = e.Attachmentflag;
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
-            msg.Attachmentflag = e.Attachmentflag;
+            
 
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {

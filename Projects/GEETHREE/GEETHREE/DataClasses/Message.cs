@@ -92,10 +92,10 @@ namespace GEETHREE.DataClasses
             }
         }
 
-        private byte[] _attachment;
+        private string _attachment;
 
         [Column]
-        public byte[] Attachment
+        public string Attachment
         {
             get
             {
@@ -110,6 +110,25 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
+
+        //private byte[] _attachment;
+
+        //[Column]
+        //public byte[] Attachment
+        //{
+        //    get
+        //    {
+        //        return _attachment;
+        //    }
+        //    set
+        //    {
+        //        if (value != _attachment)
+        //        {
+        //            _attachment = value;
+        //            NotifyPropertyChanged("Attachment");
+        //        }
+        //    }
+        //}
 
         private string _attachmentfilename;
 
@@ -307,7 +326,7 @@ namespace GEETHREE.DataClasses
     public class MessageEventArgs : EventArgs
     {
         public string TextContent { get; set; }
-        public byte[] Attachment { get; set; }
+        public string Attachment { get; set; }
         public string Attachmentfilename { get; set; }
         public string Sender { get; set; }
         public string SenderAlias { get; set; }
@@ -315,7 +334,7 @@ namespace GEETHREE.DataClasses
         public string Attachmentflag { get; set; }
         public byte[] Hash { get; set; }
 
-        public MessageEventArgs(string textContent, string sender, string senderalias, string receiver, string attachmentflag, byte[] attachment, string attachmentfilename, byte[] hash)
+        public MessageEventArgs(string textContent, string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, byte[] hash)
         {
             this.TextContent = textContent;
             this.Attachmentflag = attachmentflag;

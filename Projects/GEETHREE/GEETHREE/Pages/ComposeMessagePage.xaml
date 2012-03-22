@@ -42,7 +42,7 @@
                
                 <TextBox Height="323" Name="txt_compose_message" Text="Type your message here..." Width="460" Tap="txt_compose_message_Tap" MaxWidth="440" TextWrapping="Wrap" OpacityMask="#70000000" />
                 <TextBlock Height="30" Name="textBlock2" Text="attachments   " HorizontalAlignment="Right" />
-                <Image Height="116" Name="attachedImage" Stretch="Fill" Width="117" HorizontalAlignment="Right" />
+                <Image Height="116" Name="attachedImage" Stretch="Fill" Width="117" HorizontalAlignment="Right" Visibility="Collapsed" />
                 <TextBlock Height="30" Name="txt_compose_error_label" Text="" Foreground="#FFFB0000" />
             </StackPanel>
         </Grid>

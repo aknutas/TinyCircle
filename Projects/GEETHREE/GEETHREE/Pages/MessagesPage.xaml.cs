@@ -35,21 +35,38 @@ namespace GEETHREE.Pages
         {
             messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
             ApplicationBar.IsVisible = true;
+            receivedimage.Visibility = Visibility.Collapsed;
         }
 
         private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
+            receivedimage.Visibility = Visibility.Collapsed;
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
             messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString() + " : " + selectedMessage.Attachment.Length.ToString();
+            
+            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString() ;
+            byte[] attachmentContent = null;
+            if (selectedMessage.Attachmentflag == "1")
+            {
 
-            BitmapImage bitImage = new BitmapImage();
-            MemoryStream ms = new MemoryStream(selectedMessage.Attachment, 0, selectedMessage.Attachment.Length);
-            ms.Write(selectedMessage.Attachment, 0, selectedMessage.Attachment.Length);
-            bitImage.SetSource(ms);
-            receivedimage.Source = bitImage;
+                attachmentContent = Convert.FromBase64String(selectedMessage.Attachment);
+                BitmapImage bitImage = new BitmapImage();
+                MemoryStream ms = new MemoryStream(attachmentContent, 0, attachmentContent.Length);
+                ms.Write(attachmentContent, 0, attachmentContent.Length);
+                bitImage.SetSource(ms);
+                receivedimage.Source = bitImage;
+                receivedimage.Visibility = Visibility.Visible;
+            }
+            
+
+            
+
+            //BitmapImage bitmapImage = new BitmapImage();
+            //MemoryStream ms = new MemoryStream(imageBytes);
+            //bitmapImage.SetSource(ms);
+            //myImageElement.Source = bitmapImage; 
+
 
             
             replyID = selectedMessage.SenderID;
@@ -77,9 +94,16 @@ namespace GEETHREE.Pages
 
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            receivedimage.Visibility = Visibility.Collapsed;
             selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
             messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+            byte[] attachmentContent = null;
+            if (selectedMessage.Attachmentflag == "1")
+            {
+
+                attachmentContent = Convert.FromBase64String(selectedMessage.Attachment);
+            }
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
@@ -93,6 +117,7 @@ namespace GEETHREE.Pages
             {
                 messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
                 ApplicationBar.IsVisible = true;
+                receivedimage.Visibility = Visibility.Collapsed;
                 e.Cancel = true;
             }
             if (details.Visibility == System.Windows.Visibility.Visible)
