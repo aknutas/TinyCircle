@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using GEETHREE.DataClasses;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace GEETHREE.Pages
 {
@@ -22,8 +23,9 @@ namespace GEETHREE.Pages
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;
         string attachmentFlag = "0";
-        string attachmentFileName = "";
+        string attachmentFileName = "none";
         byte[] attachmentContent;
+        string attachmentContentstring = "none";
         public ComposeMessagePage()
         {
             
@@ -141,14 +143,32 @@ namespace GEETHREE.Pages
             }
             
             msg.outgoing=true;
+
+
+            if (attachmentFlag == "1")
+            {
+
+                attachmentContentstring = Convert.ToBase64String(attachmentContent);
+            }
+            else
+            {
+                attachmentFileName = "none";
+                attachmentContentstring = "none";
+            }
             msg.Attachmentflag = attachmentFlag;
-            msg.Attachmentfilename = attachmentFileName;
-            msg.Attachment = attachmentContent;
+            msg.Attachmentfilename = attachmentFileName;   
+            msg.Attachment = attachmentContentstring;
             App.ViewModel.SentMessages.Add(msg);
             Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
                 txt_compose_message.Text = "";
                 txt_compose_error_label.Text = "";
+                 attachmentFlag = "0";
+                 attachmentFileName = "none";
+                 attachmentContent = null;
+                 attachmentContentstring = "none";
+                 attachedImage.Visibility = Visibility.Collapsed;
+
             }
         }
 
@@ -160,16 +180,23 @@ namespace GEETHREE.Pages
                 // ...communication with the isolated storage...
 
                 BitmapImage bitImage = new BitmapImage();
+                bitImage.CreateOptions = BitmapCreateOptions.None;
 	            bitImage.SetSource(e.ChosenPhoto);
                 attachedImage.Source = bitImage;
+                attachedImage.Visibility = Visibility.Visible;
 
                 attachmentFlag = "1";
                 attachmentFileName = "img001.gim";
                 attachmentContent = new byte[e.ChosenPhoto.Length];
-                e.ChosenPhoto.Position = 0;
+                e.ChosenPhoto.Position = 0;                
+                e.ChosenPhoto.Read(attachmentContent, 0, attachmentContent.Length);
+               
 
-                //attacmentContent = ima
-                e.ChosenPhoto.Read(attachmentContent, 0, attachmentContent.Length); 
+               
+
+               
+               
+
              
             }
         }
@@ -182,10 +209,11 @@ namespace GEETHREE.Pages
                 // ...communication with the isolated storage...
 
                 BitmapImage bitImage = new BitmapImage();
+                bitImage.CreateOptions = BitmapCreateOptions.None;
                 bitImage.SetSource(e.ChosenPhoto);
                 attachedImage.Source = bitImage;
 
-                attachedImage.Source = bitImage;
+                attachedImage.Visibility = Visibility.Visible;
 
                 //Convert image to byte array
 

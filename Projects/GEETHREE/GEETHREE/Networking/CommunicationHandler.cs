@@ -309,10 +309,10 @@ namespace GEETHREE
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
 
-            byte[] storedAttachment = UE.GetBytes(attachment);
+            //byte[] storedAttachment = UE.GetBytes(attachment);
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, storedAttachment, attachmentfilename, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash));
             }
             //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
         }
@@ -322,10 +322,10 @@ namespace GEETHREE
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
 
-            byte[] storedAttachment = UE.GetBytes(attachment);
+            //byte[] storedAttachment = UE.GetBytes(attachment);
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, storedAttachment, attachmentfilename, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash));
             }
         }
         private void OnFileReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
@@ -334,10 +334,10 @@ namespace GEETHREE
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
 
-            byte[] storedAttachment = UE.GetBytes(attachment);
+            //byte[] storedAttachment = UE.GetBytes(attachment);
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, storedAttachment, attachmentfilename, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash));
             }
         }
 
