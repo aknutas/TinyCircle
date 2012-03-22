@@ -26,56 +26,19 @@
     		<ColumnDefinition Width="0.992*"/>
     		<ColumnDefinition Width="0.008*"/>
     	</Grid.ColumnDefinitions>
- 
         <!--Panorama control-->
-        <controls:Panorama Title="   ">
+        <controls:Panorama Title="TinyCircle">
+            <!--
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
-            </controls:Panorama.Background>
-            
-            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
-                <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,0,0">
-
-
-
-                    <TextBlock  Name="txt_Base_Alias" Text="Alias" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />
-
-
-
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
-
-
-                        <StackPanel Width="410" Height="446">
-                            <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" />
-                            <TextBlock Name="txt_Base_Messages" Text=" Messages" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Messages_Tap" Foreground="#FF9BC0D3"/>
-
-                            <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" Foreground="#FF9BC0D3"/>
-                            <TextBlock Name="txt_Base_Help" Text=" Help" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_Base_Help_Tap" />
-                        </StackPanel>
-                    </StackPanel>
-
-                </ListBox>
-                
-
-            </controls:PanoramaItem>
-
-
-
+            </controls:Panorama.Background>-->
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
+            <controls:PanoramaItem Header="Shouts " Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with text wrapping-->
                 <ListBox Margin="0,0,0,0">
-
-
-
-                    <TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />
-
-
-
+                    <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
                     <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}">
                         <ListBox.ItemTemplate>
-
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
                                     <!--Replace rectangle with image-->
@@ -91,24 +54,24 @@
 
                 </ListBox>
             </controls:PanoramaItem>
- 
+
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
+            <controls:PanoramaItem Header="My Society" Foreground="{StaticResource PhoneAccentBrush}">
                 <ListBox Margin="0,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="95" />
-                            <RowDefinition Height="55" />
-                            <RowDefinition Height="230" />
-                            <RowDefinition Height="55" />
-                            <RowDefinition Height="230" />
+                            <RowDefinition Height="97" />
+                            <RowDefinition Height="39" />
+                            <RowDefinition Height="194" />
+                            <RowDefinition Height="71" />
+                            <RowDefinition Height="264" />
                             <RowDefinition Height="55" />
                             
                         </Grid.RowDefinitions>
-                        <TextBlock  Name="txt_mySociety_MySociety" Grid.Row="0" Text="My Society" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_MySociety_Tap" />
-                        <TextBlock  Name="txt_mySociety_People" Grid.Row="1" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_People_Tap" />
-
+                        <!-- WHAT IS THE REASON WHY PANORAMA'S HEADER IS NOT BEING USED?-->
+                        <!--<TextBlock  Name="txt_mySociety_MySociety" Grid.Row="0" Text="My Society" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_MySociety_Tap" />-->
+                        <TextBlock  Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_People_Tap" Margin="1,5,23,35" />
                         <ListBox Grid.Row="2" Margin="0,0,0,0" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -131,64 +94,30 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                         <TextBlock Name="txt_mySociety_morePeopleGroups" Grid.Row="5" Text="more people and groups" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_morePeopleGroups_Tap" />
-
                         
                     </Grid>
-                </ListBox>
-                
+                </ListBox>     
             </controls:PanoramaItem>
-            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
+
+            <controls:PanoramaItem Header="Alias" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with image placeholder and text wrapping-->
                 <ListBox Margin="0,0,0,0">
-                    <TextBlock  Name="txt_messages_Header" Text="Messages" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_messages_Header_Tap" />
-                    <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}" Tap="txt_messages_Header_Tap">
-                        <ListBox.ItemTemplate>
-
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                    <!--Replace rectangle with image-->
-
-                                    <StackPanel Width="311">
-                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                </ListBox>
-            </controls:PanoramaItem>
-            <controls:PanoramaItem Header="" Foreground="#FF9BC0D3">
-                <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,0,0">
-                
-
-
-                <TextBlock  Text="Shared" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />
-                        
-
-
-                        <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}">
-                      <ListBox.ItemTemplate>
-                        
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
-
-                                <StackPanel Width="311">
-                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,10" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
                     
+                    <!--<TextBlock  Name="txt_Base_Alias" Text="Alias" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
+
+                        <StackPanel Width="410" Height="446">
+                            <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" />
+                            <TextBlock Name="txt_Base_Messages" Text=" Messages" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Messages_Tap" Foreground="#FF9BC0D3"/>
+
+                            <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" Foreground="#FF9BC0D3"/>
+                            <TextBlock Name="txt_Base_Help" Text=" Help" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_Base_Help_Tap" />
+                        </StackPanel>
+                    </StackPanel>
+
                 </ListBox>
             </controls:PanoramaItem>
-            
-            
 
         </controls:Panorama>
        
@@ -197,6 +126,8 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="50" BackgroundColor="#46000000" Mode="Default">
             <shell:ApplicationBarIconButton x:Name="appbar_settings" IconUri="/Resources/appbar.feature.settings.rest.png" Text="Settings" Click="appbar_settings_Click" />
             <shell:ApplicationBarIconButton x:Name="appbar_messages" IconUri="/Resources/appbar.feature.email.rest.png" Text="Messages" Click="appbar_messages_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbar_compose" IconUri="/Resources/appbar.edit.rest.png" Text="Compose" Click="appbar_compose_Click" />
+            
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="Init DB" Click="menuItem1_Click" />
                 <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="Clear Db" Click="menuItem2_Click" />

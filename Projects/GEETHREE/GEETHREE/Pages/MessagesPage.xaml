@@ -17,12 +17,9 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="Messages">
-        	<controls:Pivot.Background>
-        		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
-        	</controls:Pivot.Background>
+        <controls:Pivot Title="" Background="Black">
             <!--Pivot item one-->
-            <controls:PivotItem Header="Broadcasts">
+            <controls:PivotItem Header="Broadcasts" Foreground="{StaticResource PhoneAccentBrush}">
                 <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -36,7 +33,7 @@
             </controls:PivotItem>
                       
             <!--Pivot item 2-->
-            <controls:PivotItem Header="Private">
+            <controls:PivotItem Header="Private" Foreground="{StaticResource PhoneAccentBrush}">
                 <ListBox Name="ReceivedPrivateMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedPrivateMessages}" Tap="PrivateMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -50,7 +47,7 @@
             </controls:PivotItem>
 
             <!--Pivot item 3-->
-            <controls:PivotItem Header="Sent">
+            <controls:PivotItem Header="Sent" Foreground="{StaticResource PhoneAccentBrush}">
                 <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding SentMessages}" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -63,7 +60,7 @@
                 </ListBox>
             </controls:PivotItem>
             <!--Pivot item 4-->
-            <controls:PivotItem Header="Drafts">
+            <controls:PivotItem Header="Drafts" Foreground="{StaticResource PhoneAccentBrush}">
                 <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding DraftMessages}" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -76,29 +73,34 @@
                 </ListBox>
             </controls:PivotItem>
         </controls:Pivot>
-       
+    
         <!-- This canvas is for reading messages  -->
-        <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" Visibility="Collapsed" Opacity="1">
-            <TextBlock Canvas.Left="7" Canvas.Top="81" Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
-                       Style="{StaticResource PhoneTextLargeStyle}" />
-            <TextBlock Canvas.Left="23" Canvas.Top="224" Height="243" Name="messageCanvasMessageContent" Text="Content" Width="426" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+        <!-- if you want to edit it, change Visibility to Visible. By default, all the canvases are collapsed! -->
+        <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" 
+                Visibility="Collapsed" Opacity="1">
+            <TextBlock Canvas.Left="23" Canvas.Top="34" Height="73" Name="messageCanvasSenderTextBlock" Text="Sender" 
+                      Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneFontSizeExtraExtraLarge}" Width="337" />
+            <TextBlock Canvas.Left="23" Canvas.Top="190" Height="277" Name="messageCanvasMessageContent" Text="Content" Width="426" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
             <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" 
                    Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />
             <TextBlock Canvas.Left="23" Canvas.Top="173" Height="30" Name="messageCanvasMessageHeader" Text="" Width="426" />
-            <TextBlock Canvas.Left="300" Canvas.Top="487" Height="30" Name="btn_reply" Text="reply to sender" Style="{StaticResource PhoneTextNormalStyle}" Foreground="#FFD6E5D8" Tap="btn_reply_Tap" />
             <Image Canvas.Left="44" Canvas.Top="487" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" />
+            <Button Canvas.Left="314" Canvas.Top="554" Content="Reply" Height="71" Name="replyToSenderButton" Width="160" Tap="btn_reply_Tap" />
             <Canvas.Background>
                 <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" />
             </Canvas.Background>
         </Canvas>
+        
         <!-- This canvas is for sending messages  -->
+        <!-- This should be replaced by using a ComposePAge.xaml-->
+        <!-- if you want to edit it, change Visibility to Visible. By default, all the canvases are collapsed! -->
         <Canvas Height="700" HorizontalAlignment="Left" Name="details" VerticalAlignment="Top" Width="480" 
                Visibility="Collapsed"  Opacity="1">
-            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="detailsNameTextBlock" Text="Name" 
-                       Style="{StaticResource PhoneTextExtraLargeStyle}" />
-            <TextBox  Canvas.Left="67" Canvas.Top="279" Height="224" Name="detailsCanvasTextBox" Text="" Width="349" TextWrapping="Wrap" OpacityMask="#70000000"/>
+            <TextBlock Canvas.Left="22" Canvas.Top="89" Height="71" Name="detailsNameTextBlock" Text="Name" 
+                       Style="{StaticResource PhoneTextExtraLargeStyle}" Width="144" />
+            <TextBox  Canvas.Left="34" Canvas.Top="166" Height="357" Name="detailsCanvasTextBox" Text="" Width="413" TextWrapping="Wrap" OpacityMask="#70000000"  />
             <TextBlock Canvas.Left="34" Canvas.Top="179" Height="94" Name="detailsDescriptionText" Text="" Width="413" TextWrapping="Wrap" />
-            <Button Canvas.Left="123" Canvas.Top="509" Content="Send message" Height="71" Name="detailsCanvasButton" Width="229" Tap="detailsCanvasButton_Tap" Click="detailsCanvasButton_Click" />
+            <Button Canvas.Left="340" Canvas.Top="530" Content="Send!" Height="71" Name="detailsCanvasButton" Width="107" Tap="detailsCanvasButton_Tap"  />
             <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="detailsCanvasExitImage" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="detailsCanvasExitImage_Tap" />
             <TextBlock Canvas.Left="87" Canvas.Top="590" Height="30" Name="txt_details_error_label" Text="" Width="317" Foreground="#FFF80A0A"  />
             <Canvas.Background>
@@ -107,7 +109,7 @@
         </Canvas>
     </Grid>
 
-    <!--Sample code showing usage of ApplicationBar-->
+    <!--Applicaiton bar of messages pivot page has so far only one button, compose-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" >
             <shell:ApplicationBarIconButton x:Name="appbar_Message_Compose" IconUri="/Resources/appbar.add.rest.png" Text="Compose" Click="appbar_Message_Compose_Click" />

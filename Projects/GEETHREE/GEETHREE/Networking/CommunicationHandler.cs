@@ -365,7 +365,7 @@ namespace GEETHREE
             if (Convert.ToInt32(packetno) == 1)
             {
                 messagecache.Remove(0);
-                messagecache.Insert(messagecache.Length, content.to);
+                messagecache.Insert(messagecache.Length, content);
             }
             else
                 messagecache.Insert(messagecache.Length, content);
