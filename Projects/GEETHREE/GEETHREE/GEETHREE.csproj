@@ -87,6 +87,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Networking\MessageHandler.cs" />
+    <Compile Include="Networking\WebServiceConnector.cs" />
     <Compile Include="Pages\ComposeMessagePage.xaml.cs">
       <DependentUpon>ComposeMessagePage.xaml</DependentUpon>
     </Compile>

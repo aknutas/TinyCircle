@@ -22,6 +22,7 @@ namespace GEETHREE
         public DataMaster dm;
         public DataClasses.AppSettings appSetting { get; private set; }
         public MessageHandler mh;
+        public Networking.WebServiceConnector wcc;
         public CommunicationHandler cm;
         private Random r;
 
@@ -44,6 +45,7 @@ namespace GEETHREE
         private Controller() {
             r = new Random();
             dm = new DataMaster();
+            wcc = new Networking.WebServiceConnector();
             appSetting = new DataClasses.AppSettings();
             cm = new CommunicationHandler(this);
             mh = new MessageHandler(dm, cm);
