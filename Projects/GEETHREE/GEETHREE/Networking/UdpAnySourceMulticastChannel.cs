@@ -187,6 +187,26 @@ namespace GEETHREE
                 Debug.WriteLine("BeginSendToGroup IOE");
             }
         }
+        public void Send(byte[] data)
+        {
+            try
+            {
+                if (this.IsJoined)
+                {
+                    this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                }
+            }
+            catch (SocketException socketEx)
+            {
+
+                // See if we can do something when a SocketException occurs.
+                HandleSocketException(socketEx);
+            }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("BeginSendToGroup IOE");
+            }
+        }
 
         void SendToGroupCallback(IAsyncResult result)
         {

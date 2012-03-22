@@ -26,5 +26,10 @@ namespace GEETHREE
             this.Message = Encoding.UTF8.GetString(data, 0, data.Length);
             this.Source = source;
         }
+        public UdpPacketReceivedEventArgs(string data, IPEndPoint source)
+        {
+            this.Message = data;
+            this.Source = source;
+        }
     }
 }
