@@ -22,6 +22,8 @@ namespace GEETHREE.Pages
         Controller ctrl;
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;
+        string receiverID = "";
+        string receiverAlias = "";
         string attachmentFlag = "0";
         string attachmentFileName = "none";
         byte[] attachmentContent;
@@ -36,12 +38,7 @@ namespace GEETHREE.Pages
 
             ctrl = Controller.Instance;
             ctrl.registerCurrentPage(this, "compose");
- 
-            foreach (User u in App.ViewModel.Users)
-            {
-                receiverListPicker.Items.Add(u.UserName);
-            }
-
+            composeReceipientTextBox.Text = "Shout";
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
             photoChooserTask = new PhotoChooserTask();
             photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
@@ -49,6 +46,8 @@ namespace GEETHREE.Pages
             //Cameracapturetask : initializes the task object, and identifies the method to run after the user completes the task.
             cameraCaptureTask = new CameraCaptureTask();
             cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
+
+            
 
         }
 
@@ -84,16 +83,36 @@ namespace GEETHREE.Pages
 
         private void image1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            receiverListPicker.Visibility = System.Windows.Visibility.Visible;
+            recipientListCanvas.Visibility = Visibility.Visible;
+            PageTitle.Text = "Recepient:";
+            recipientListBox.Items.Clear();
+
+            foreach (User u in App.ViewModel.Users)
+            {
+                recipientListBox.Items.Add(u.UserName);
+                //receiverListPicker.Items.Add(u.UserName);
+            }
+
+            recipientListBox.Visibility = Visibility.Visible;
+
+            //fill the values for receiver alias and receiver ID
+            //receiverID=;
+            //receiverAlias=;
         }
 
-        private void receiverListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void recipientListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (receiverListPicker.SelectedItem != null)
+            if (recipientListBox.SelectedItem != null)
             {
-                composeReceipientTextBox.Text = receiverListPicker.SelectedItem.ToString();
-                receiverListPicker.Visibility = System.Windows.Visibility.Collapsed;
+                composeReceipientTextBox.Text = recipientListBox.SelectedItem.ToString();
+                recipientListBox.Visibility = System.Windows.Visibility.Collapsed;
+                recipientListCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                PageTitle.Text = "Compose";
+                
             }
+            
+
+
         }
 
         private void txt_compose_message_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -131,14 +150,14 @@ namespace GEETHREE.Pages
             msg.TextContent=txt_compose_message.Text;
             msg.SenderID=Controller.Instance.getCurrentUserID();
             msg.SenderAlias = Controller.Instance.getCurrentAlias();
-            if (composeReceipientTextBox.Text == "")
+            if (composeReceipientTextBox.Text == "" && composeReceipientTextBox.Text == "Shout")
             {
-                msg.ReceiverID = "0";
+                msg.ReceiverID = "Shout";
                 msg.PrivateMessage = false;
             }
             else
             {
-                msg.ReceiverID = composeReceipientTextBox.Text;
+                msg.ReceiverID = receiverID;
                 msg.PrivateMessage = true;
             }
             
@@ -163,12 +182,16 @@ namespace GEETHREE.Pages
                 MessageBox.Show("Message sent.");
                 txt_compose_message.Text = "";
                 txt_compose_error_label.Text = "";
+                composeReceipientTextBox.Text = "";
+                receiverAlias = "";
+                receiverID = "";
                  attachmentFlag = "0";
                  attachmentFileName = "none";
                  attachmentContent = null;
                  attachmentContentstring = "none";
                  attachedImage.Visibility = Visibility.Collapsed;
-
+                 image1.Visibility = System.Windows.Visibility.Visible;
+                 composeReceipientTextBox.IsEnabled = true;
             }
         }
 
@@ -230,7 +253,11 @@ namespace GEETHREE.Pages
             try
             {
                 // ** try to get sender name 
-                recipientTextBlock.Text = NavigationContext.QueryString["sender"];
+                receiverAlias = NavigationContext.QueryString["replyalias"];
+                receiverID = NavigationContext.QueryString["replyid"];
+                composeReceipientTextBox.Text = receiverAlias;
+                image1.Visibility = Visibility.Collapsed;
+                composeReceipientTextBox.IsEnabled = false;
 
             }
             catch
@@ -253,6 +280,14 @@ namespace GEETHREE.Pages
                 NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
 
             }
+        }
+
+        private void recipientCanvasExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            recipientListCanvas.Visibility = Visibility.Collapsed;
+            recipientListBox.Visibility = Visibility.Collapsed;
+            PageTitle.Text = "Compose";
+
         }
 
 

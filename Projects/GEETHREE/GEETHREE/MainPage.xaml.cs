@@ -64,7 +64,7 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
         }
 
-        // ** When user clicks menu bar buttos
+        // ** When user clicks menu bar buttons
 
         private void appbar_settings_Click(object sender, EventArgs e)
         {

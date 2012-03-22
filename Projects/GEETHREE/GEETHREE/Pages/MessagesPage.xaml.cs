@@ -20,12 +20,13 @@ namespace GEETHREE.Pages
     {
         private Message selectedMessage = null;
         private Controller ctrl;
-        string replyID="";
-
+        string replyID = "";
+        string replyAlias = "";
         public MessagesPage()
         {
             InitializeComponent();
             DataContext = App.ViewModel;
+
             ctrl = Controller.Instance;
             ctrl.registerCurrentPage(this, "messages");
 
@@ -44,8 +45,8 @@ namespace GEETHREE.Pages
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
             messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
             //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-            
-            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString() ;
+
+            messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             byte[] attachmentContent = null;
             if (selectedMessage.Attachmentflag == "1")
             {
@@ -58,9 +59,9 @@ namespace GEETHREE.Pages
                 receivedimage.Source = bitImage;
                 receivedimage.Visibility = Visibility.Visible;
             }
-            
 
-            
+
+
 
             //BitmapImage bitmapImage = new BitmapImage();
             //MemoryStream ms = new MemoryStream(imageBytes);
@@ -68,8 +69,9 @@ namespace GEETHREE.Pages
             //myImageElement.Source = bitmapImage; 
 
 
-            
+
             replyID = selectedMessage.SenderID;
+            replyAlias = selectedMessage.SenderAlias;
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
         }
@@ -107,7 +109,7 @@ namespace GEETHREE.Pages
             messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
             ApplicationBar.IsVisible = false;
-        
+
         }
 
         // ** must navigate back to the pivot page from details page, not back to panorama page
@@ -145,37 +147,65 @@ namespace GEETHREE.Pages
             }
         }
 
-        // ** User taps the menu button to compose a message.
         private void appbar_Message_Compose_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
-        
-        // ** While vieving a message, a user can reply
-        // ** this should be done by navigating to the Compose.xaml and giving a user info by using parameters for navigation service
+
 
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+
             // ** creating an URL that gives some parameters
-            string url = string.Format("/Pages/ComposeMessagePage.xaml?sender={0}&sender={1}", messageCanvasSenderTextBlock.Text, messageCanvasSenderTextBlock.Text);
+            //string url = string.Format("/Pages/ComposeMessagePage.xaml?sender={0}&sender={1}", messageCanvasSenderTextBlock.Text, messageCanvasSenderTextBlock.Text);
+            string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}",replyAlias,replyID);
             // ** then navigate to Compose.xaml
             NavigationService.Navigate(new Uri(url, UriKind.Relative));
-
-            detailsNameTextBlock.Text = messageCanvasSenderTextBlock.Text;
-            detailsDescriptionText.Text = "Description";
-            //detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
-            detailsCanvasButton.Content = "Send Message";
-            detailsCanvasTextBox.Text = "";
-            txt_details_error_label.Text = "";
-            details.Visibility = System.Windows.Visibility.Visible;
-            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            //detailsNameTextBlock.Text = messageCanvasSenderTextBlock.Text;
+            //detailsDescriptionText.Text = "Description";
+            ////detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
+            //detailsCanvasButton.Content = "Send Message";
+            //detailsCanvasTextBox.Text = "";
+            //txt_details_error_label.Text = "";
+            //details.Visibility = System.Windows.Visibility.Visible;
+            //messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
         }
 
+        private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (detailsCanvasTextBox.Text != "")
+            {
 
-        // ** CANVAS FOR MESSAGE SENDING
+                // **  ...get the message saving the draft.
+                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
 
-        // *** WHY THERE ARE CLICK AND TAP EVENT HANDLERS FOR THIS ? the other can be removed!?
+                if (m == MessageBoxResult.OK)
+                {
+                    //write code for storing this message to draft
+                    //write code for storing this message to draft
+                    Message msg = new Message();
+
+                    msg.TextContent = detailsCanvasTextBox.Text;
+                    msg.SenderID = Controller.Instance.getCurrentUserID();
+                    msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                    //msg.ReceiverID = replyID;
+                    //msg.PrivateMessage = true;
+                    //msg.outgoing = true;
+
+                    // ** add the messages to the draftmessages collection
+                    App.ViewModel.DraftMessages.Add(msg);
+
+                }
+            }
+
+            detailsCanvasTextBox.Text = "";
+            txt_details_error_label.Text = "";
+            details.Visibility = System.Windows.Visibility.Collapsed;
+            messageCanvas.Visibility = System.Windows.Visibility.Visible;
+
+
+        }
         private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             if (detailsCanvasTextBox.Text == "")
@@ -195,22 +225,19 @@ namespace GEETHREE.Pages
 
                 // ** add to sent messages collection
                 App.ViewModel.SentMessages.Add(msg);
-                
+
                 Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
 
-               
+
                 detailsCanvasTextBox.Text = "";
                 txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
-               
+
             }
         }
-
-        // ** THIS IS NOT NEEDED
-        
         /*
         private void detailsCanvasButton_Click(object sender, RoutedEventArgs e)
         {
@@ -246,46 +273,6 @@ namespace GEETHREE.Pages
             }
         }
         */
-
-        // ** User closes the message displaying canvas by clickin it from the upper right corner
-        private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            if (detailsCanvasTextBox.Text != "")
-            {
-
-                // **  ...get the message saving the draft.
-                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
-
-                if (m == MessageBoxResult.OK)
-                {
-                    //write code for storing this message to draft
-                    //write code for storing this message to draft
-                    Message msg = new Message();
-
-                    msg.TextContent = detailsCanvasTextBox.Text;
-                    msg.SenderID = Controller.Instance.getCurrentUserID();
-                    msg.SenderAlias = Controller.Instance.getCurrentAlias();
-                    //msg.ReceiverID = replyID;
-                    //msg.PrivateMessage = true;
-                    //msg.outgoing = true;
-
-                    // ** add the messages to the draftmessages collection
-                    App.ViewModel.DraftMessages.Add(msg);
-
-                }
-            }
-
-            detailsCanvasTextBox.Text = "";
-            txt_details_error_label.Text = "";
-            details.Visibility = System.Windows.Visibility.Collapsed;
-            messageCanvas.Visibility = System.Windows.Visibility.Visible;
-
-
-        }
-
-
-        // ** This function can be called from anywhere to notify the user about the arrived message
-        // ** Now this function is on every phone application page which is probably not the best way to do it
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived()
         {
@@ -298,6 +285,10 @@ namespace GEETHREE.Pages
                 //NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
 
             }
-        }       
+        }
+
+
+
+
     }
 }
