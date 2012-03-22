@@ -125,9 +125,18 @@ namespace GEETHREE
         {
             lock (db)
             {
-                var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
-                List<Message> returnList = new List<Message>(qres);
-                return returnList;
+                //Bubblegum fix for the not existing table bug
+                try
+                {
+                    var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
+                }
+                catch (Exception)
+                {
+                    //If query fails bad, return an empty list
+                    return new List<Message>();
+                }
             }
         }
 
