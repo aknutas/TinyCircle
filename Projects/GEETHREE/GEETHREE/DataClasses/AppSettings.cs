@@ -36,9 +36,10 @@ namespace GEETHREE.DataClasses
         // The default value of our settings
         //User newuser = new User();
         const string AliasSettingDefault = "Anonymous";
-        string UserIDSettingDefault = "0000";
+        const string UserIDSettingDefault = "0000";
         const bool ShowProfileInfoSettingDefault = false;
         const bool ShowSharedUploadsSettingDefault = false;
+        
 
         /// <summary>
         /// Constructor that gets the application settings.
@@ -48,7 +49,10 @@ namespace GEETHREE.DataClasses
         {
             // Get the settings for this application.
             settings = IsolatedStorageSettings.ApplicationSettings;
-            UserIDSettingDefault = CreateNewUserID();
+            if (UserIDSetting == "0000")
+            {
+                UserIDSetting = CreateNewUserID();
+            }
         }
 
         /// <summary>
@@ -204,10 +208,7 @@ namespace GEETHREE.DataClasses
             HMACSHA256 sha = new HMACSHA256();
             byte[] hashBytes = sha.ComputeHash(source.ToArray());
 
-            id = Convert.ToBase64String(hashBytes);
-            int a = id.Length;
-
-            System.Console.WriteLine(id);
+            id = Convert.ToBase64String(hashBytes);           
             return id;
         }
     }
