@@ -18,10 +18,11 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="My Society" Name="socialpivots">
+        <controls:Pivot Title="MY CIRLES" Name="socialpivots" Foreground="{StaticResource PhoneAccentBrush}">
+            <!--
         	<controls:Pivot.Background>
         		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
-        	</controls:Pivot.Background>
+        	</controls:Pivot.Background>-->
             <!--Pivot item one-->
             <controls:PivotItem Header="My Friends" Name="PeoplePivot">
                 <!--Double line list with text wrapping-->

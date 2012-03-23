@@ -97,9 +97,9 @@ namespace GEETHREE
             // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
             if (mainpanorama.SelectedItem == shouts)
                 ctrl.registerPreviousPage(this, "main_shouts");
-            else if (mainpanorama.SelectedItem == alias)
+            else if (mainpanorama.SelectedItem == PanoramaItemAlias)
                 ctrl.registerPreviousPage(this, "main_alias");
-            else if (mainpanorama.SelectedItem == alias)
+            else if (mainpanorama.SelectedItem == society)
                 ctrl.registerPreviousPage(this, "main_society");
             // ** go to compose page
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
@@ -265,7 +265,7 @@ namespace GEETHREE
                 }
                 else if (newparameter.Equals("main_alias"))
                 {
-                    mainpanorama.DefaultItem = alias;
+                    mainpanorama.DefaultItem = PanoramaItemAlias;
                 }
                 else if (newparameter.Equals("main_society"))
                 {
