@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using GEETHREE.DataClasses;
 using System.Collections.Generic;
+using GEETHREE.MsgServiceReference;
 
 namespace GEETHREE.Networking
 {
@@ -30,7 +31,7 @@ namespace GEETHREE.Networking
 
         public void postMessage(string userId, string recipient, string messageText, WebServiceReceiver wr)
         {
-            throw new NotImplementedException();
+            new WSRequest(wr, msgService).handlePostMessage(userId, recipient, messageText);
         }
 
         private class WSRequest
@@ -51,9 +52,30 @@ namespace GEETHREE.Networking
                 msgService.getMyMessagesAsync(userId);
             }
 
+            public void handlePostMessage(string userId, string recipient, string messageText)
+            {
+                msgService.postMessageCompleted += new EventHandler<postMessageCompletedEventArgs>(msgService_postMessageCompleted);
+                msgService.postMessageAsync(recipient, userId, messageText);
+            }
+
+            void msgService_postMessageCompleted(object sender, postMessageCompletedEventArgs e)
+            {
+                wr.webServiceMessageSent(true);
+            }
+
             void msgService_getMyMessagesCompleted(object sender, MsgServiceReference.getMyMessagesCompletedEventArgs e)
             {
-                throw new NotImplementedException();
+                List<Message> returnMsgs = new List<Message>();
+                foreach (WireMessage wmsg in e.Result)
+                {
+                    Message msg = new Message();
+                    msg.ReceiverID = wmsg.recipientUserId;
+                    msg.SenderID = wmsg.senderUserId;
+                    msg.PrivateMessage = true;
+                    returnMsgs.Add(msg);
+                }
+
+                wr.webServiceMessageEvent(returnMsgs);
             }
         }
 
