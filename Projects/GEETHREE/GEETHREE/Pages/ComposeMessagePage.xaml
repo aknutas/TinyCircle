@@ -13,7 +13,7 @@
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" BackKeyPress="PhoneApplicationPage_BackKeyPress">
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Height="910">
         
         <!--
     	<Grid.Background>
@@ -46,19 +46,18 @@
                 <Image Height="116" Name="attachedImage" Stretch="Fill" Width="117" HorizontalAlignment="Right" Visibility="Collapsed" />
                 <TextBlock Height="30" Name="txt_compose_error_label" Text="" Foreground="#FFFB0000" />
             </StackPanel>
-            
-        </Grid>
-        <!-- This canvas is for sending messages  -->
-        <Canvas Height="694" HorizontalAlignment="Left" Name="recipientListCanvas" VerticalAlignment="Top" Width="480" 
-               Visibility="Collapsed"  Opacity="1" Margin="0,3,0,0">
-            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="recipientCanvasTextBlock" Text="" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-            <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="recipientCanvasExit" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="recipientCanvasExit_Tap" />
-            <!--
+            <!-- This canvas is for selecting recepient  -->
+            <Canvas Height="694" HorizontalAlignment="Left" Name="recipientListCanvas" VerticalAlignment="Top" Width="480" 
+               Visibility="Collapsed"  Opacity="1" Margin="0,3,0,0" Background="Black">
+                <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="recipientCanvasTextBlock" Text="" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+                <!--
             <toolkit:ListPicker  Name="receiverListPicker" Visibility="Visible" SelectionChanged="receiverListPicker_SelectionChanged" Width="356" Canvas.Left="53" Canvas.Top="593" Height="73">
 
             </toolkit:ListPicker>-->
-            <ListBox Canvas.Left="23" Canvas.Top="121" Height="457" Name="recipientListBox" Width="432" SelectionChanged="recipientListBox_SelectionChanged" Visibility="Collapsed" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
-        </Canvas>
+                <ListBox Canvas.Left="23" Canvas.Top="121" Height="457" Name="recipientListBox" Width="432" SelectionChanged="recipientListBox_SelectionChanged" Visibility="Collapsed" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
+            </Canvas>
+        </Grid>
+       
 
     </Grid>
 

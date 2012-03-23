@@ -94,6 +94,7 @@ namespace GEETHREE.Pages
             }
 
             recipientListBox.Visibility = Visibility.Visible;
+            ApplicationBar.IsVisible = false;
 
             //fill the values for receiver alias and receiver ID
             //receiverID=;
@@ -108,6 +109,7 @@ namespace GEETHREE.Pages
                 recipientListBox.Visibility = System.Windows.Visibility.Collapsed;
                 recipientListCanvas.Visibility = System.Windows.Visibility.Collapsed;
                 PageTitle.Text = "Compose";
+                ApplicationBar.IsVisible = true;
                 
             }
             
@@ -282,13 +284,13 @@ namespace GEETHREE.Pages
             }
         }
 
-        private void recipientCanvasExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            recipientListCanvas.Visibility = Visibility.Collapsed;
-            recipientListBox.Visibility = Visibility.Collapsed;
-            PageTitle.Text = "Compose";
+        //private void recipientCanvasExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    recipientListCanvas.Visibility = Visibility.Collapsed;
+        //    recipientListBox.Visibility = Visibility.Collapsed;
+        //    PageTitle.Text = "Compose";
 
-        }
+        //}
 
 
     }

@@ -125,7 +125,7 @@
                 Visibility="Collapsed" Opacity="1" Background="Black">
             <TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="CreateUserIDTextBlock" Text="Create UserID" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
-            <TextBlock Canvas.Left="11" Canvas.Top="273" Height="280" Name="CreateUserIDContent" Text="Application wants to create a UserID for this device?" Width="426" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+            <TextBlock Canvas.Left="11" Canvas.Top="273" Height="280" Name="CreateUserIDContent" Text="TinyCircle wants to create a UserID for this device?" Width="426" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
             <Button Canvas.Left="41" Canvas.Top="607" Content="Ok" Height="71" Name="btn_CreateUserID_OK" Width="160" Tap="btn_CreateUserID_OK_Tap" />
             <Button Canvas.Left="236" Canvas.Top="607" Content="Cancel" Height="71" Name="btn_CreateUserID_Cancel" Width="160" Tap="btn_CreateUserID_Cancel_Tap" />
             <Button Canvas.Left="139" Canvas.Top="607" Content="Done" Height="71" Name="btn_CreateUserID_Done" Width="160" Tap="btn_CreateUserID_Done_Tap" Visibility="Collapsed" />
