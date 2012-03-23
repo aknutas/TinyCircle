@@ -59,9 +59,17 @@ namespace GEETHREE
         {
             lock (db)
             {
-                var qres = from User user in db.Users select user;
-                List<User> returnList = new List<User>(qres);
-                return returnList;
+                try
+                {
+                    var qres = from User user in db.Users select user;
+                    List<User> returnList = new List<User>(qres);
+                    return returnList;
+                }
+                catch (Exception)
+                {
+                    //If query fails bad, return an empty list
+                    return new List<User>();
+                }
             }
         }
 
@@ -87,9 +95,17 @@ namespace GEETHREE
         {
             lock (db)
             {
-                var qres = from Message message in db.Messages select message;
-                List<Message> returnList = new List<Message>(qres);
-                return returnList;
+                try
+                {
+                    var qres = from Message message in db.Messages select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
+                }
+                catch (Exception)
+                {
+                    //If query fails bad, return an empty list
+                    return new List<Message>();
+                }
             }
         }
 
@@ -97,9 +113,17 @@ namespace GEETHREE
         {
             lock (db)
             {
-                var qres = from Group grps in db.Groups select grps;
-                List<Group> returnList = new List<Group>(qres);
-                return returnList;
+                try
+                {
+                    var qres = from Group grps in db.Groups select grps;
+                    List<Group> returnList = new List<Group>(qres);
+                    return returnList;
+                }
+                catch (Exception)
+                {
+                    //If query fails bad, return an empty list
+                    return new List<Group>();
+                }
             }
         }
 
@@ -144,9 +168,17 @@ namespace GEETHREE
         {
             lock (db)
             {
-                var qres = from Message message in db.Messages where message.outgoing == true select message;
-                List<Message> returnList = new List<Message>(qres);
-                return returnList;
+                try
+                {
+                    var qres = from Message message in db.Messages where message.outgoing == true select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
+                }
+                catch (Exception)
+                {
+                    //If query fails bad, return an empty list
+                    return new List<Message>();
+                }
             }
         }
 
@@ -182,9 +214,17 @@ namespace GEETHREE
         {
             lock (db)
             {
-                var qres = from DataClasses.Image imgs in db.Images select imgs;
-                List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
-                return returnList;
+                try
+                {
+                    var qres = from DataClasses.Image imgs in db.Images select imgs;
+                    List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
+                    return returnList;
+                }
+                catch (Exception)
+                {
+                    //If query fails bad, return an empty list
+                    return new List<DataClasses.Image>();
+                }
             }
         }
 
