@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GEETHREE.Networking
 {
-    interface WebServiceReceiver
+    public interface WebServiceReceiver
     {
         void webServiceMessageEvent(List<DataClasses.Message> msgList);
 

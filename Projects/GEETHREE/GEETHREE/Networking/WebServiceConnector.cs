@@ -23,17 +23,17 @@ namespace GEETHREE.Networking
             msgService = new MsgServiceReference.MsgServiceClient();
         }
 
-        void getMyMessages(string userId, WebServiceReceiver wr)
+        public void getMyMessages(string userId, WebServiceReceiver wr)
         {
             new WSRequest(wr, msgService).handleGetMyMessages(userId);
         }
 
-        void postMessage(string userId, string recipient, string messageText, WebServiceReceiver wr)
+        public void postMessage(string userId, string recipient, string messageText, WebServiceReceiver wr)
         {
             throw new NotImplementedException();
         }
 
-        public class WSRequest
+        private class WSRequest
         {
             private WebServiceReceiver wr;
             private MsgServiceReference.MsgServiceClient msgService;
