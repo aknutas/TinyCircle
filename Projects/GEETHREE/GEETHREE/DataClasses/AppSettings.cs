@@ -51,7 +51,20 @@ namespace GEETHREE.DataClasses
             settings = IsolatedStorageSettings.ApplicationSettings;
             if (UserIDSetting == "0000")
             {
-                UserIDSetting = CreateNewUserID();
+                var s = MessageBox.Show("Application wants to create a UserID for this device?", "Create UserID", MessageBoxButton.OKCancel);
+                if (s == MessageBoxResult.OK)
+                {
+                    UserIDSetting = CreateNewUserID();
+                    MessageBox.Show(UserIDSetting, "Device UserID", MessageBoxButton.OK);
+                }
+                else
+                {
+                    MessageBox.Show("Thanks for downloading TinyCircle! ", "Quitting TinyCircle!", MessageBoxButton.OK);
+
+
+
+
+                }
             }
         }
 
