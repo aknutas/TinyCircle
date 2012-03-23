@@ -13,10 +13,13 @@ namespace TC_WS
     public interface IMsgService
     {
         [OperationContract]
-        Boolean postMessage(string receiverId, string senderId, string message);
+        Boolean postMessage(string receiverId, string senderId, string message, string appKey);
 
         [OperationContract]
-        List<WireMessage> getMyMessages(string receiverId);
+        List<WireMessage> getMyMessages(string receiverId, string appKey);
+
+        [OperationContract]
+        Boolean ping(string appKey);
     }
 
     [DataContract]

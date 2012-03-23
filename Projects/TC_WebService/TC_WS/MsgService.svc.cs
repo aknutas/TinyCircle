@@ -11,17 +11,22 @@ namespace TC_WS
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "MsgService" in code, svc and config file together.
     public class MsgService : IMsgService
     {
-        public Boolean postMessage(string receiverId, string senderId, string messageText)
+        public const string appkey = "abfaxor";
+
+        public Boolean postMessage(string receiverId, string senderId, string messageText, string appKey)
         {
             if (receiverId == null || messageText == null || senderId == null)
                 throw new ArgumentNullException();
+
+            if (appKey != appkey)
+                throw new InvalidOperationException();
 
             try
             {
                 DataClassesDataContext db = new DataClassesDataContext();
                 Message msgobj = new Message();
                 msgobj.UserID = receiverId;
-                msgobj.MessageText = messageText;
+                msgobj.Payload = messageText;
                 msgobj.SenderID = senderId;
                 db.Messages.InsertOnSubmit(msgobj);
                 db.SubmitChanges();
@@ -33,10 +38,13 @@ namespace TC_WS
             }
         }
 
-        public List<WireMessage> getMyMessages(string receiverId)
+        public List<WireMessage> getMyMessages(string receiverId, string appKey)
         {
             if (receiverId == null)
                 throw new ArgumentNullException();
+
+            if (appKey != appkey)
+                throw new InvalidOperationException();
 
             DataClassesDataContext db = new DataClassesDataContext();
             var qres = from Message message in db.Messages where message.UserID == receiverId select message;
@@ -48,7 +56,7 @@ namespace TC_WS
             {
                 WireMessage wmsg = new WireMessage();
                 wmsg.recipientUserId = dbMsg.UserID;
-                wmsg.msgText = dbMsg.MessageText;
+                wmsg.msgText = dbMsg.Payload;
                 wmsg.senderUserId = dbMsg.SenderID;
                 sendMsg.Add(wmsg);
             }
@@ -57,6 +65,14 @@ namespace TC_WS
             db.SubmitChanges();
 
             return sendMsg;
+        }
+
+        public Boolean ping(string appKey)
+        {
+            if (appKey != appkey)
+                throw new InvalidOperationException();
+
+            return true;
         }
     }
 }

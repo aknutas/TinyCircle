@@ -3,10 +3,9 @@
   <Table Name="dbo.Messages" Member="Messages">
     <Type Name="Message">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
-      <Column Name="MessageText" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="MessageBlob" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="SenderID" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="SenderID" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Payload" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
     </Type>
   </Table>
 </Database>
