@@ -24,8 +24,6 @@ namespace GEETHREE
         private List<Group> grpList;
         private List<Message> sendableMsgList;
 
-
-
         public MainViewModel()
         {
             c = Controller.Instance;
@@ -94,6 +92,7 @@ namespace GEETHREE
         // clear and load data from database to observable collections
         public void LoadData()
         {
+
             Groups.Clear();
             //grpList.Clear();
             Users.Clear();

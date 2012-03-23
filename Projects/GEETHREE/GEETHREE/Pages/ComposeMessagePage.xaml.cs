@@ -173,7 +173,7 @@ namespace GEETHREE.Pages
             msg.TextContent=txt_compose_message.Text;
             msg.SenderID=Controller.Instance.getCurrentUserID();
             msg.SenderAlias = Controller.Instance.getCurrentAlias();
-            if (composeReceipientTextBox.Text == "" && composeReceipientTextBox.Text == "Shout")
+            if (composeReceipientTextBox.Text == "" || composeReceipientTextBox.Text == "Shout")
             {
                 msg.ReceiverID = "Shout";
                 msg.PrivateMessage = false;
