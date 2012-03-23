@@ -25,17 +25,19 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot">
+        <!--
     	<Grid.Background>
     		<ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" Stretch="Fill"/>
-    	</Grid.Background>
+    	</Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="PageTitle" Text="Settings" Margin="9,-7,0,0" />
+            <TextBlock x:Name="PageTitle" Text="Settings" Margin="9,-7,0,0" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" Foreground="{StaticResource PhoneAccentBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -53,8 +55,8 @@
 
                 </Grid>
 
-                <toolkit:ToggleSwitch Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowProfileInfoSetting, Mode=TwoWay}" />
-                <toolkit:ToggleSwitch Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowSharedUploadsSetting, Mode=TwoWay}"/>
+                <toolkit:ToggleSwitch Foreground="{StaticResource PhoneAccentBrush}" Background="{StaticResource PhoneAccentBrush}" Header="Share Profile Information and Feeds" Height="111" Name="tgs_Settings_shareProfileInfo" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowProfileInfoSetting, Mode=TwoWay}" />
+                <toolkit:ToggleSwitch Foreground="{StaticResource PhoneAccentBrush}" Background="{StaticResource PhoneAccentBrush}" Header="Share Uploads" Height="111" Name="tgs_Settings_shareUploads" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowSharedUploadsSetting, Mode=TwoWay}"/>
 
             </StackPanel>
         </ListBox>
