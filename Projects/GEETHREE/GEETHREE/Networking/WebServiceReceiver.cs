@@ -10,5 +10,7 @@ namespace GEETHREE.Networking
         void webServiceMessageEvent(List<DataClasses.Message> msgList);
 
         void webServiceMessageSent(Boolean status);
+
+        void pingFinished(Boolean status);
     }
 }

@@ -7,6 +7,7 @@
         <xs:element minOccurs="0" name="receiverId" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="senderId" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="appKey" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -21,6 +22,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="receiverId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="appKey" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -28,6 +30,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TC_WS" minOccurs="0" name="getMyMessagesResult" nillable="true" type="q1:ArrayOfWireMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="appKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pingResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -19,6 +19,12 @@
   <wsdl:message name="IMsgService_getMyMessages_OutputMessage">
     <wsdl:part name="parameters" element="tns:getMyMessagesResponse" />
   </wsdl:message>
+  <wsdl:message name="IMsgService_ping_InputMessage">
+    <wsdl:part name="parameters" element="tns:ping" />
+  </wsdl:message>
+  <wsdl:message name="IMsgService_ping_OutputMessage">
+    <wsdl:part name="parameters" element="tns:pingResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMsgService">
     <wsdl:operation name="postMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IMsgService/postMessage" message="tns:IMsgService_postMessage_InputMessage" />
@@ -27,6 +33,10 @@
     <wsdl:operation name="getMyMessages">
       <wsdl:input wsaw:Action="http://tempuri.org/IMsgService/getMyMessages" message="tns:IMsgService_getMyMessages_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMsgService/getMyMessagesResponse" message="tns:IMsgService_getMyMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMsgService/ping" message="tns:IMsgService_ping_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMsgService/pingResponse" message="tns:IMsgService_ping_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMsgService" type="tns:IMsgService">
@@ -42,6 +52,15 @@
     </wsdl:operation>
     <wsdl:operation name="getMyMessages">
       <soap:operation soapAction="http://tempuri.org/IMsgService/getMyMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <soap:operation soapAction="http://tempuri.org/IMsgService/ping" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

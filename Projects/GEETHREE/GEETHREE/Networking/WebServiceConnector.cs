@@ -17,27 +17,46 @@ namespace GEETHREE.Networking
     public class WebServiceConnector
     {
         //Variables
-        MsgServiceReference.MsgServiceClient msgService;
+        private string appKey;
+        public Boolean connectionUp { get; set; }
 
         public WebServiceConnector()
         {
-            msgService = new MsgServiceReference.MsgServiceClient();
+            appKey = DataClasses.AppSettings.appKey;
+            connectionUp = false;
+        }
+
+        MsgServiceReference.MsgServiceClient initMs()
+        {
+            return new MsgServiceReference.MsgServiceClient();
         }
 
         public void getMyMessages(string userId, WebServiceReceiver wr)
         {
-            new WSRequest(wr, msgService).handleGetMyMessages(userId);
+            new WSRequest(wr, initMs()).handleGetMyMessages(userId);
         }
 
         public void postMessage(string userId, string recipient, string messageText, WebServiceReceiver wr)
         {
-            new WSRequest(wr, msgService).handlePostMessage(userId, recipient, messageText);
+            new WSRequest(wr, initMs()).handlePostMessage(userId, recipient, messageText);
+        }
+
+        public void testConnection(WebServiceReceiver wr)
+        {
+            new WSRequest(wr, initMs()).handleTestConnection(this, wr);
+        }
+
+        void msgService_pingCompleted(object sender, pingCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private class WSRequest
         {
             private WebServiceReceiver wr;
+            private WebServiceConnector parent;
             private MsgServiceReference.MsgServiceClient msgService;
+            private string appKey = DataClasses.AppSettings.appKey;
 
             public WSRequest(WebServiceReceiver wr, MsgServiceReference.MsgServiceClient msgService)
             {
@@ -49,16 +68,16 @@ namespace GEETHREE.Networking
             {
                 EventHandler<MsgServiceReference.getMyMessagesCompletedEventArgs> eh = new EventHandler<MsgServiceReference.getMyMessagesCompletedEventArgs>(msgService_getMyMessagesCompleted);
                 msgService.getMyMessagesCompleted += eh;
-                msgService.getMyMessagesAsync(userId);
+                msgService.getMyMessagesAsync(userId, appKey);
             }
 
             public void handlePostMessage(string userId, string recipient, string messageText)
             {
                 msgService.postMessageCompleted += new EventHandler<postMessageCompletedEventArgs>(msgService_postMessageCompleted);
-                msgService.postMessageAsync(recipient, userId, messageText);
+                msgService.postMessageAsync(recipient, userId, messageText, appKey);
             }
 
-            void msgService_postMessageCompleted(object sender, postMessageCompletedEventArgs e)
+            private void msgService_postMessageCompleted(object sender, postMessageCompletedEventArgs e)
             {
                 if (e.Result == true)
                     wr.webServiceMessageSent(true);
@@ -66,7 +85,7 @@ namespace GEETHREE.Networking
                     wr.webServiceMessageSent(false);
             }
 
-            void msgService_getMyMessagesCompleted(object sender, MsgServiceReference.getMyMessagesCompletedEventArgs e)
+            private void msgService_getMyMessagesCompleted(object sender, MsgServiceReference.getMyMessagesCompletedEventArgs e)
             {
                 List<Message> returnMsgs = new List<Message>();
                 foreach (WireMessage wmsg in e.Result)
@@ -80,6 +99,27 @@ namespace GEETHREE.Networking
                 }
 
                 wr.webServiceMessageEvent(returnMsgs);
+            }
+
+            public void handleTestConnection(WebServiceConnector webServiceConnector, WebServiceReceiver wr)
+            {
+                parent = webServiceConnector;
+                msgService.pingCompleted += new EventHandler<pingCompletedEventArgs>(msgService_pingCompleted);
+                msgService.pingAsync(appKey);
+            }
+
+            private void msgService_pingCompleted(object sender, pingCompletedEventArgs e)
+            {
+                if (e.Result == true)
+                {
+                    parent.connectionUp = e.Result;
+                    wr.pingFinished(e.Result);
+                }
+                else
+                {
+                    parent.connectionUp = false;
+                    wr.pingFinished(false);
+                }
             }
         }
 

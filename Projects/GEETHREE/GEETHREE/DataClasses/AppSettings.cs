@@ -27,6 +27,9 @@ namespace GEETHREE.DataClasses
         // Our isolated storage settings
         public IsolatedStorageSettings settings { get; private set; }
 
+        //Network access key
+        public const string appKey = "abfaxor";
+
         // The isolated storage key names of our settings
         const string AliasSettingKeyName = "CheckBoxSetting";
         const string UserIDSettingKeyName = "UserIDSetting";

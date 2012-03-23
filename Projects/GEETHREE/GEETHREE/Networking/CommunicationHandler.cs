@@ -439,6 +439,11 @@ namespace GEETHREE
                 System.Diagnostics.Debug.WriteLine("Message sending to server failed");
         }
 
+        void WebServiceReceiver.pingFinished(Boolean status)
+        {
+            throw new NotImplementedException();
+        }
+
         DispatcherTimer _dt;
         private void StartKeepAlive()
         {
