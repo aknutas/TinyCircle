@@ -44,9 +44,9 @@ namespace GEETHREE
         //Don't change this if you really don't know (especially visibility to public)
         private Controller() {
             r = new Random();
-            dm = new DataMaster();
-            wcc = new Networking.WebServiceConnector();
             appSetting = new DataClasses.AppSettings();
+            dm = new DataMaster(appSetting);
+            wcc = new Networking.WebServiceConnector();
             cm = new CommunicationHandler(this);
             mh = new MessageHandler(dm, cm);
 

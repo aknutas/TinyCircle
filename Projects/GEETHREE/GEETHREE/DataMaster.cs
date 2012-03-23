@@ -42,7 +42,7 @@ namespace GEETHREE
         public FileMaster fm;
         private DataClasses.AppSettings settings;
 
-        public DataMaster()
+        public DataMaster(DataClasses.AppSettings settings)
         {
             // Create the database if it does not yet exist.
             db = new G3DataContext("isostore:/G3DB.sdf");
@@ -52,7 +52,7 @@ namespace GEETHREE
                 db.CreateDatabase();
             }
             fm = new FileMaster();
-            settings = new DataClasses.AppSettings();
+            this.settings = settings;
         }
 
         public List<User> getAllUsers()
