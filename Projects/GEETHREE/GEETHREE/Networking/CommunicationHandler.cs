@@ -100,17 +100,9 @@ namespace GEETHREE
             // Register for events on the multicast channel.
             RegisterEvents();
 
-            // Send a message to the multicast group regularly. This is done because
-            // we use UDP unicast messages during the game, sending messages directly to 
-            // our opponent. This uses the BeginSendTo method on UpdAnySourceMulticastClient
-            // and according to the documentation:
-            // "The transmission is only allowed if the address specified in the remoteEndPoint
-            // parameter has already sent a multicast packet to this receiver"
-            // So, if everyone sends a message to the multicast group, we are guaranteed that this 
-            // player (receiver) has been sent a multicast packet by the opponent. 
-            StartKeepAlive();
+            
             this.Connections = new ObservableCollection<Connection>();
-            this.Join(cm.getCurrentUserID());
+            //this.Join(cm.getCurrentUserID());
         }
 
         /// <summary>
@@ -127,6 +119,8 @@ namespace GEETHREE
         /// a friendly name. </remarks>
         public void Join(string playerID)
         {
+            
+
             if (IsJoined)
             {
                 return;
@@ -135,8 +129,23 @@ namespace GEETHREE
             // Store my player name
             _userID = playerID;
 
+            
+
             //Open the connection
             this.Channel.Open();
+
+            // Send a message to the multicast group regularly. This is done because
+            // we use UDP unicast messages during the game, sending messages directly to 
+            // our opponent. This uses the BeginSendTo method on UpdAnySourceMulticastClient
+            // and according to the documentation:
+            // "The transmission is only allowed if the address specified in the remoteEndPoint
+            // parameter has already sent a multicast packet to this receiver"
+            // So, if everyone sends a message to the multicast group, we are guaranteed that this 
+            // player (receiver) has been sent a multicast packet by the opponent. 
+            StartKeepAlive();
+
+            //Try also to get the messages from server
+            GetMessagesFromServer(playerID);
         }
 
         /// <summary>
@@ -415,7 +424,12 @@ namespace GEETHREE
             wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this);
         }
 
+        public void GetMessagesFromServer(string uid)
+        {
+            wsConnection.getMyMessages(uid, this);
+        }
 
+        //Web service callbacks
         void WebServiceReceiver.webServiceMessageEvent(List<DataClasses.Message> msgList)
         {
             EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
