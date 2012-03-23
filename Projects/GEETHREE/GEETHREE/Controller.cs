@@ -185,32 +185,33 @@ namespace GEETHREE
             return previousPageName;
         }
 
-        public void notifyViewAboutMessage()
+        // 
+        public void notifyViewAboutMessage(bool isPrivate)
         {
             if (currentPageName == "main")
             {
                 MainPage mp = (MainPage)currentPage;
-                mp.messageArrived();
+                mp.messageArrived(isPrivate);
             }
             else if (currentPageName == "compose")
             {
                 ComposeMessagePage cmp = (ComposeMessagePage)currentPage;
-                cmp.messageArrived();
+                cmp.messageArrived(isPrivate);
             }
             else if (currentPageName == "messages")
             {
                 MessagesPage msgp = (MessagesPage)currentPage;
-                msgp.messageArrived();
+                msgp.messageArrived(isPrivate);
             }
             else if (currentPageName == "society")
             {
                 SocietyPivot sp = (SocietyPivot)currentPage;
-                sp.messageArrived();
+                sp.messageArrived(isPrivate);
             }
             else if(currentPageName == "settings")
             {
                 SettingsPage settp = (SettingsPage)currentPage;
-                settp.messageArrived();
+                settp.messageArrived(isPrivate);
             }
         
         }

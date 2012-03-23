@@ -230,14 +230,7 @@ namespace GEETHREE.Pages
                 attachmentContent = new byte[e.ChosenPhoto.Length];
                 e.ChosenPhoto.Position = 0;                
                 e.ChosenPhoto.Read(attachmentContent, 0, attachmentContent.Length);
-               
-
-               
-
-               
-               
-
-             
+     
             }
         }
 
@@ -287,7 +280,7 @@ namespace GEETHREE.Pages
 
 
         // ** some kind of popup needed to announce about the message that is just arrived
-        public void messageArrived()
+        public void messageArrived(bool isPrivate)
         {
             // **  ...get the message from datamaster and display it in canvas.
             var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);

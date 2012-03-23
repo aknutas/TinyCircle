@@ -73,7 +73,7 @@ namespace GEETHREE
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
                 msg.outgoing = false;
                 App.ViewModel.ReceivedPrivateMessages.Add(msg);
-                Controller.Instance.notifyViewAboutMessage();
+                Controller.Instance.notifyViewAboutMessage(true);
             }
             else
                 this.TransitMessages.Add(msg);
@@ -98,7 +98,7 @@ namespace GEETHREE
             dm.storeNewMessage(msg);
             App.ViewModel.ReceivedBroadcastMessages.Add(msg);
             this.TransitMessages.Add(msg);
-            Controller.Instance.notifyViewAboutMessage();
+            Controller.Instance.notifyViewAboutMessage(false);
         }
 
         public void FileReceived(object sender, MessageEventArgs e)
@@ -120,7 +120,7 @@ namespace GEETHREE
             //Where do we add this and who do we tell?
             //App.ViewModel.ReceivedBroadcastMessages.Add(msg);
             //this.TransitMessages.Add(msg);
-            Controller.Instance.notifyViewAboutMessage();
+            Controller.Instance.notifyViewAboutMessage(true);
         }
 
         public void NewConnectionFound(object sender, ConnectionEventArgs e)

@@ -83,10 +83,12 @@ namespace GEETHREE
         /// Creates and adds a few ItemViewModel objects into the Items collection.
         /// </summary>
         /// 
+
+        // just some test function
         public void AddNewMessage()
         {
             this.ReceivedBroadcastMessages.Add(new Message() { Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
-            c.notifyViewAboutMessage();
+            c.notifyViewAboutMessage(true);
         }
 
         // clear and load data from database to observable collections

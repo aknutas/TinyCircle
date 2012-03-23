@@ -240,7 +240,7 @@ namespace GEETHREE
             }
         }
         // ** some kind of popup needed to announce about the message that is just arrived
-        public void messageArrived()
+        public void messageArrived(bool isPrivate)
         {
             // **  ...get the message from datamaster and display it in canvas.
             var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);

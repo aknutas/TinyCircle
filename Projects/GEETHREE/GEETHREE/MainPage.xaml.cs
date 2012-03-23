@@ -111,18 +111,7 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
-        // ** some kind of popup needed to announce about the message that is just arrived
-        public void messageArrived()
-        {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
-            if (m == MessageBoxResult.OK)
-            {
-                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
-                
-            }
-        }
 
         private void txt_mySociety_MySociety_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -286,8 +275,19 @@ namespace GEETHREE
             }
         }
 
-       
+        // ** some kind of popup needed to announce about the message that is just arrived
+        public void messageArrived(bool isPrivate)
+        {
+            // **  ...get the message from datamaster and display it in canvas.
+            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
-        
+            if (m == MessageBoxResult.OK)
+            {
+                if (isPrivate == true) // navigate to Messages - whispers
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                else // navigate to messages - shouts
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
+            }
+        }    
     }
 }
