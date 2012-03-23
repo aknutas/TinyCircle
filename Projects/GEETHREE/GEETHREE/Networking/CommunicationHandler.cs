@@ -421,18 +421,24 @@ namespace GEETHREE
 
         public void SendToServer(Message msg)
         {
-            wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this);
+            wsConnection.testConnection(this);
+            if(wsConnection.connectionUp)
+                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this);
         }
 
         public void GetMessagesFromServer(string uid)
         {
-            wsConnection.getMyMessages(uid, this);
+            wsConnection.testConnection(this);
+            if (wsConnection.connectionUp)
+                wsConnection.getMyMessages(uid, this);
         }
 
         //Web service callbacks
         void WebServiceReceiver.webServiceMessageEvent(List<DataClasses.Message> msgList)
         {
             EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
+
+            System.Diagnostics.Debug.WriteLine("Got " + msgList.Count + " messages");
 
             for (int i = 0; i < msgList.Count; i++)
             {
@@ -455,7 +461,11 @@ namespace GEETHREE
 
         void WebServiceReceiver.pingFinished(Boolean status)
         {
-            throw new NotImplementedException();
+            if (status)
+                System.Diagnostics.Debug.WriteLine("Connection to server up and running");
+            else
+                System.Diagnostics.Debug.WriteLine("Connection to server failed");
+            //throw new NotImplementedException();
         }
 
         DispatcherTimer _dt;
