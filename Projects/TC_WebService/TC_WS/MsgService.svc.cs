@@ -64,6 +64,21 @@ namespace TC_WS
             db.Messages.DeleteAllOnSubmit(msgList);
             db.SubmitChanges();
 
+            var uqu = (from User user in db.Users where user.UserID == receiverId select user).Count();
+            if (uqu == 0)
+            {
+                WireMessage wmsg = new WireMessage();
+                wmsg.recipientUserId = receiverId;
+                wmsg.msgText = "Welcome to the TinyCircle messaging service! \n -ADMIN";
+                wmsg.senderUserId = "XXXADMINXXX";
+                sendMsg.Add(wmsg);
+
+                User user = new User();
+                user.UserID = receiverId;
+                db.Users.InsertOnSubmit(user);
+                db.SubmitChanges();
+            }
+
             return sendMsg;
         }
 
