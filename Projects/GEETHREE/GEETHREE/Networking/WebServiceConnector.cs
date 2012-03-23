@@ -8,11 +8,30 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using GEETHREE.DataClasses;
+using System.Collections.Generic;
 
 namespace GEETHREE.Networking
 {
     public class WebServiceConnector
     {
+        //Variables
+        MsgServiceReference.MsgServiceClient msgService;
+
+        WebServiceConnector()
+        {
+            msgService = new MsgServiceReference.MsgServiceClient();
+        }
+
+        List<Message> getMyMessages(string userId)
+        {
+            return null;
+        }
+
+        Boolean postMessage(string userId, string recipient, string messageText)
+        {
+            return true;
+        }
 
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Data;
 
 namespace TC_WS
 {
@@ -12,6 +13,9 @@ namespace TC_WS
     public interface IMsgService
     {
         [OperationContract]
-        void DoWork();
+        Boolean postMessage(string receiverId, string message);
+
+        [OperationContract]
+        DataTable getMyMessages(string receiverId);
     }
 }
