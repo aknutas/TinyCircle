@@ -50,13 +50,19 @@ namespace TC_WS
             bNameColumn.ColumnName = "message";
             returntable.Columns.Add(bNameColumn);
 
+            List<Message> deleteList = new List<Message>();
+
             foreach (Message qitem in qres){
                 DataRow row = returntable.NewRow();
                 row["id"] = qitem.ID;
                 row["userid"] = qitem.UserID;
                 row["message"] = qitem.MessageText;
                 returntable.Rows.Add(row);
+                deleteList.Add(qitem);
             }
+
+            db.Messages.DeleteAllOnSubmit(deleteList);
+            db.SubmitChanges();
 
             return returntable;
         }

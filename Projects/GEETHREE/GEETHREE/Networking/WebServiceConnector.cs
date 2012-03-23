@@ -23,14 +23,38 @@ namespace GEETHREE.Networking
             msgService = new MsgServiceReference.MsgServiceClient();
         }
 
-        List<Message> getMyMessages(string userId)
+        void getMyMessages(string userId, WebServiceReceiver wr)
         {
-            return null;
+            new WSRequest(wr, msgService).handleGetMyMessages(userId);
         }
 
-        Boolean postMessage(string userId, string recipient, string messageText)
+        void postMessage(string userId, string recipient, string messageText, WebServiceReceiver wr)
         {
-            return true;
+            throw new NotImplementedException();
+        }
+
+        public class WSRequest
+        {
+            private WebServiceReceiver wr;
+            private MsgServiceReference.MsgServiceClient msgService;
+
+            public WSRequest(WebServiceReceiver wr, MsgServiceReference.MsgServiceClient msgService)
+            {
+                this.wr = wr;
+                this.msgService = msgService;
+            }
+
+            public void handleGetMyMessages(string userId)
+            {
+                EventHandler<MsgServiceReference.getMyMessagesCompletedEventArgs> eh = new EventHandler<MsgServiceReference.getMyMessagesCompletedEventArgs>(msgService_getMyMessagesCompleted);
+                msgService.getMyMessagesCompleted += eh;
+                msgService.getMyMessagesAsync(userId);
+            }
+
+            void msgService_getMyMessagesCompleted(object sender, MsgServiceReference.getMyMessagesCompletedEventArgs e)
+            {
+                throw new NotImplementedException();
+            }
         }
 
     }
