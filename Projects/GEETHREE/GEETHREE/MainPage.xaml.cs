@@ -22,6 +22,7 @@ namespace GEETHREE
     public partial class MainPage : PhoneApplicationPage
     {
         Controller ctrl;
+        bool createUID = false;
         
         // Constructor
         public MainPage()
@@ -37,6 +38,13 @@ namespace GEETHREE
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             //txt_Base_Alias.Text = appSetting.AliasSetting;
+
+            if (ctrl.getCurrentUserID() == "0000")
+            {
+                UserIDCreateCanvas.Visibility = Visibility.Visible;
+                ApplicationBar.IsVisible = false;
+                createUID = true;
+            }
             
           
         }
@@ -200,6 +208,46 @@ namespace GEETHREE
         private void menuItem2_Click(object sender, EventArgs e)
         {
             ctrl.dm.resetDataBase();
+        }
+
+        private void btn_CreateUserID_OK_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            
+            ctrl.changeCurrentUserID(ctrl.CreateNewUserID());
+            CreateUserIDTextBlock.Text = "UserID : ";
+            CreateUserIDContent.Text = ctrl.getCurrentUserID();
+            btn_CreateUserID_OK.Visibility = Visibility.Collapsed;
+            btn_CreateUserID_Cancel.Visibility = Visibility.Collapsed;
+            btn_CreateUserID_Done.Content = "Done";            
+            btn_CreateUserID_Done.Visibility = Visibility.Visible;
+
+        }
+
+        private void btn_CreateUserID_Cancel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            CreateUserIDTextBlock.Text = "Exiting!!!";
+            CreateUserIDContent.Text ="UserID not created! \nTinyCircle Exits now. You can always come back and create UserID! \n\nThank You!!!";
+            btn_CreateUserID_OK.Visibility = Visibility.Collapsed;
+            btn_CreateUserID_Cancel.Visibility = Visibility.Collapsed;
+            btn_CreateUserID_Done.Content = "Ok";
+            createUID = false;
+            btn_CreateUserID_Done.Visibility = Visibility.Visible;
+        }
+
+        private void btn_CreateUserID_Done_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            UserIDCreateCanvas.Visibility = Visibility.Collapsed;
+            if (createUID == false)
+            {
+
+
+                NavigationService.GoBack();
+            }
+            else
+            {
+                ApplicationBar.IsVisible = true;
+                createUID = true;
+            }
         }
 
        

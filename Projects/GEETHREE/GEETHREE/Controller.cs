@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using GEETHREE.Pages;
 using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
+using System.Security.Cryptography;
 
 namespace GEETHREE
 {
@@ -189,6 +190,25 @@ namespace GEETHREE
                 settp.messageArrived();
             }
         
+        }
+
+        public string CreateNewUserID()
+        {
+            string id;
+
+
+            byte[] mac = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
+            byte[] time = System.BitConverter.GetBytes(System.DateTime.Now.Ticks);
+
+            var source = new List<byte>();
+            source.AddRange(mac);
+            source.AddRange(time);
+
+            HMACSHA256 sha = new HMACSHA256();
+            byte[] hashBytes = sha.ComputeHash(source.ToArray());
+
+            id = Convert.ToBase64String(hashBytes);
+            return id;
         }
 
 

@@ -49,23 +49,7 @@ namespace GEETHREE.DataClasses
         {
             // Get the settings for this application.
             settings = IsolatedStorageSettings.ApplicationSettings;
-            if (UserIDSetting == "0000")
-            {
-                var s = MessageBox.Show("Application wants to create a UserID for this device?", "Create UserID", MessageBoxButton.OKCancel);
-                if (s == MessageBoxResult.OK)
-                {
-                    UserIDSetting = CreateNewUserID();
-                    MessageBox.Show(UserIDSetting, "Device UserID", MessageBoxButton.OK);
-                }
-                else
-                {
-                    MessageBox.Show("Thanks for downloading TinyCircle! ", "Quitting TinyCircle!", MessageBoxButton.OK);
-
-
-
-
-                }
-            }
+            
         }
 
         /// <summary>
@@ -206,24 +190,7 @@ namespace GEETHREE.DataClasses
             }
         }
 
-        public static string CreateNewUserID()
-        {
-            string id;
-
-
-            byte[] mac = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
-            byte[] time = System.BitConverter.GetBytes(System.DateTime.Now.Ticks);
-
-            var source = new List<byte>();
-            source.AddRange(mac);
-            source.AddRange(time);
-
-            HMACSHA256 sha = new HMACSHA256();
-            byte[] hashBytes = sha.ComputeHash(source.ToArray());
-
-            id = Convert.ToBase64String(hashBytes);           
-            return id;
-        }
+       
     }
 
 }
