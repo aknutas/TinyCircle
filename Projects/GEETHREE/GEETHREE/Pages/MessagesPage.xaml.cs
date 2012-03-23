@@ -156,12 +156,47 @@ namespace GEETHREE.Pages
             }
         }
 
+        // ** COMPOSE CLICKED
         private void appbar_Message_Compose_Click(object sender, EventArgs e)
         {
+            // ** ask the controller to register this page as a previous page before going to compose page
+            // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
+            if (messagepivots.SelectedItem == shouts)
+                ctrl.registerPreviousPage(this, "messages_shouts");
+            else if (messagepivots.SelectedItem == whispers)
+                ctrl.registerPreviousPage(this, "messages_whispers");
+            else if (messagepivots.SelectedItem == whispers)
+                ctrl.registerPreviousPage(this, "messages_drafts");
+            else if (messagepivots.SelectedItem == drafts)
+                ctrl.registerPreviousPage(this, "messages_drafts");
+            else if (messagepivots.SelectedItem == sent)
+                ctrl.registerPreviousPage(this, "messages_sent");
+
+            // ** go to compose page
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
+        // ** When navigated to pivot page, choose which page to display first
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            try
+            {
+                string newparameter = this.NavigationContext.QueryString["parameter"];
+                if (newparameter.Equals("messages_shouts"))
+                    messagepivots.SelectedItem = shouts;
+                else if (newparameter.Equals("messages_whispers"))
+                    messagepivots.SelectedItem = whispers;
+                else if (newparameter.Equals("messages_drafts"))
+                    messagepivots.SelectedItem = drafts;
+                else if (newparameter.Equals("messages_sent"))
+                    messagepivots.SelectedItem = sent;
+            }
+            catch
+            {
 
+            }
+        }
 
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -295,6 +330,9 @@ namespace GEETHREE.Pages
 
             }
         }
+        
+
+        
 
 
 

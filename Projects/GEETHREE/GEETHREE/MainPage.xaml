@@ -27,13 +27,13 @@
     		<ColumnDefinition Width="0.008*"/>
     	</Grid.ColumnDefinitions>
         <!--Panorama control-->
-        <controls:Panorama Title="TinyCircle">
+        <controls:Panorama Title="TinyCircle" Name="mainpanorama" >
             <!--
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>-->
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="Shouts " Foreground="{StaticResource PhoneAccentBrush}">
+            <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with text wrapping-->
                 <ListBox Margin="0,0,0,0">
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
@@ -57,7 +57,7 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="My Society" Foreground="{StaticResource PhoneAccentBrush}">
+            <controls:PanoramaItem Header="My Society" Name="society" Foreground="{StaticResource PhoneAccentBrush}">
                 <ListBox Margin="0,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -99,7 +99,7 @@
                 </ListBox>     
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem Header="Alias" Foreground="{StaticResource PhoneAccentBrush}">
+            <controls:PanoramaItem Header="Alias" Name="alias" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with image placeholder and text wrapping-->
                 <ListBox Margin="0,0,0,0">
                     

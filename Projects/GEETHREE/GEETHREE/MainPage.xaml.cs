@@ -88,8 +88,16 @@ namespace GEETHREE
         }
 
         private void appbar_compose_Click(object sender, EventArgs e)
-        {
-            // ** go to compose
+        { 
+            // ** ask the controller to register this page as a previous page before going to compose page
+            // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
+            if (mainpanorama.SelectedItem == shouts)
+                ctrl.registerPreviousPage(this, "main_shouts");
+            else if (mainpanorama.SelectedItem == alias)
+                ctrl.registerPreviousPage(this, "main_alias");
+            else if (mainpanorama.SelectedItem == alias)
+                ctrl.registerPreviousPage(this, "main_society");
+            // ** go to compose page
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
@@ -249,6 +257,32 @@ namespace GEETHREE
             {
                 ApplicationBar.IsVisible = true;
                 createUID = true;
+            }
+        }
+        // ** When navigated back to main page
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            try
+            {
+                string newparameter = this.NavigationContext.QueryString["parameter"];
+                if (newparameter.Equals("main_shouts"))
+                {
+                    mainpanorama.DefaultItem = shouts;
+                }
+                else if (newparameter.Equals("main_alias"))
+                {
+                    mainpanorama.DefaultItem = alias;
+                }
+                else if (newparameter.Equals("main_society"))
+                {
+                    mainpanorama.DefaultItem = society;
+                }
+
+            }
+            catch
+            {
+
             }
         }
 
