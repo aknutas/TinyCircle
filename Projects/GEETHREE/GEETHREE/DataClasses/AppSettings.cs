@@ -38,7 +38,7 @@ namespace GEETHREE.DataClasses
 
         // The default value of our settings
         //User newuser = new User();
-        const string AliasSettingDefault = "Anonymous";
+        const string AliasSettingDefault = "Alias";
         const string UserIDSettingDefault = "0000";
         const bool ShowProfileInfoSettingDefault = false;
         const bool ShowSharedUploadsSettingDefault = false;

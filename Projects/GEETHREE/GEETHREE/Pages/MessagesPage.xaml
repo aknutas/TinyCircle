@@ -115,7 +115,7 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" >
-            <shell:ApplicationBarIconButton x:Name="appbar_Message_Compose" IconUri="/Resources/appbar.add.rest.png" Text="Compose" Click="appbar_Message_Compose_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbar_Message_Compose" IconUri="/Resources/appbar.edit.rest.png" Text="Compose" Click="appbar_Message_Compose_Click" />
 
 
         </shell:ApplicationBar>

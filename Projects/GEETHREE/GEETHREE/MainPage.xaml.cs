@@ -41,6 +41,10 @@ namespace GEETHREE
 
             if (ctrl.getCurrentUserID() == "0000")
             {
+                
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+                UserIDCreateCanvas.Background= backgroundbrush;
                 UserIDCreateCanvas.Visibility = Visibility.Visible;
                 ApplicationBar.IsVisible = false;
                 createUID = true;
@@ -63,7 +67,7 @@ namespace GEETHREE
         public void refreshAvatar()
         {
             img_Base_Avatar.Source = ctrl.getCurrentAvatar();
-            //txt_Base_Alias.Text = ctrl.getCurrentAlias();
+            PanoramaItemAlias.Header = ctrl.getCurrentAlias();
         }
 
       

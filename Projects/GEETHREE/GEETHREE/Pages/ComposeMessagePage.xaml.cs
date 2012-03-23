@@ -28,6 +28,9 @@ namespace GEETHREE.Pages
         string attachmentFileName = "none";
         byte[] attachmentContent;
         string attachmentContentstring = "none";
+        Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+                
         public ComposeMessagePage()
         {
             
@@ -39,6 +42,17 @@ namespace GEETHREE.Pages
             ctrl = Controller.Instance;
             ctrl.registerCurrentPage(this, "compose");
             composeReceipientTextBox.Text = "Shout";
+
+            LayoutRoot.Background = backgroundbrush;
+
+           
+            if (((Color)Application.Current.Resources["PhoneBackgroundColor"]).ToString() == "#FFFFFFFF")            
+                image1.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/add.light.png", UriKind.Relative));
+            else
+                image1.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/add.png", UriKind.Relative)); 
+                
+            
+
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
             photoChooserTask = new PhotoChooserTask();
             photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
@@ -83,6 +97,9 @@ namespace GEETHREE.Pages
 
         private void image1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+
+
+            recipientListCanvas.Background = backgroundbrush;
             recipientListCanvas.Visibility = Visibility.Visible;
             PageTitle.Text = "Recepient:";
             recipientListBox.Items.Clear();

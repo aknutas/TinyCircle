@@ -37,7 +37,7 @@
                 <TextBlock Height="30" Name="recipientTextBlock" Text="Recepient : " Width="434" />
                 <Grid >
                     <TextBox Height="70" Name="composeReceipientTextBox" Text="" Width="363" HorizontalAlignment="Left" OpacityMask="#7C000000" Margin="1,0,0,0" IsEnabled="True" />
-                    <Image Height="70" HorizontalAlignment="Right" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="70" Source="/GEETHREE;component/Resources/add.png" Tap="image1_Tap" />
+                    <Image Height="70" HorizontalAlignment="Right" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="70" Source="/GEETHREE;component/Resources/addround.png" Tap="image1_Tap" />
                 </Grid>
 
                
