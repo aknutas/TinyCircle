@@ -45,7 +45,8 @@ namespace GEETHREE
                 ApplicationBar.IsVisible = false;
                 createUID = true;
             }
-            
+            else
+                ctrl.cm.Join(ctrl.getCurrentUserID());
           
         }
 
@@ -221,6 +222,7 @@ namespace GEETHREE
             btn_CreateUserID_Done.Content = "Done";            
             btn_CreateUserID_Done.Visibility = Visibility.Visible;
 
+            ctrl.cm.Join(ctrl.getCurrentUserID());
         }
 
         private void btn_CreateUserID_Cancel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
