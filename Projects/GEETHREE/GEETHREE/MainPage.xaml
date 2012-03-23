@@ -65,9 +65,9 @@
                 <ListBox Margin="0,0,0,0">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="97" />
-                            <RowDefinition Height="39" />
-                            <RowDefinition Height="194" />
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="0" />
+                            <RowDefinition Height="250" />
                             <RowDefinition Height="71" />
                             <RowDefinition Height="264" />
                             <RowDefinition Height="55" />
@@ -75,8 +75,8 @@
                         </Grid.RowDefinitions>
                         <!-- WHAT IS THE REASON WHY PANORAMA'S HEADER IS NOT BEING USED?-->
                         <!--<TextBlock  Name="txt_mySociety_MySociety" Grid.Row="0" Text="My Society" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_MySociety_Tap" />-->
-                        <TextBlock  Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_People_Tap" Margin="1,5,23,35" />
-                        <ListBox Grid.Row="2" Margin="0,0,0,0" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" >
+                        <TextBlock  Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_People_Tap" Margin="1,5,23,15" Height="56" />
+                        <ListBox Grid.Row="2" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" Height="242" Margin="0,2,0,6">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0,0,0,17" Width="432" Height="78">
@@ -86,7 +86,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_Groups_Tap" />
+                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
                         <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
