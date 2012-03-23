@@ -6,6 +6,7 @@
       <Column Name="UserID" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="MessageText" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="MessageBlob" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="SenderID" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
