@@ -69,9 +69,9 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Resources/appbar.feature.camera.rest.png" Text="Take pic" Click="ApplicationBarIconButton_Click" />
-            <shell:ApplicationBarIconButton IconUri="/Resources/appbar.add.rest.png" Text="Browse pic" Click="ApplicationBarIconButton_Click_1" />
-            <shell:ApplicationBarIconButton IconUri="/Resources/sendMessage.png" Text="Send msg" Click="ApplicationBarIconButton_Click_2" />
+            <shell:ApplicationBarIconButton IconUri="/Resources/appbar.feature.camera.rest.png" Text="Photo" Click="ApplicationBarIconButton_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Resources/attachment.png" Text="Attachment" Click="ApplicationBarIconButton_Click_1" />
+            <shell:ApplicationBarIconButton IconUri="/Resources/sendMessage.png" Text="Send" Click="ApplicationBarIconButton_Click_2" />
             <shell:ApplicationBar.MenuItems>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
