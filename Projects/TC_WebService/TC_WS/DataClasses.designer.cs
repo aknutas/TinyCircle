@@ -88,6 +88,8 @@ namespace TC_WS
 		
 		private System.Data.Linq.Binary _MessageBlob;
 		
+		private string _SenderID;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -100,6 +102,8 @@ namespace TC_WS
     partial void OnMessageTextChanged();
     partial void OnMessageBlobChanging(System.Data.Linq.Binary value);
     partial void OnMessageBlobChanged();
+    partial void OnSenderIDChanging(string value);
+    partial void OnSenderIDChanged();
     #endregion
 		
 		public Message()
@@ -167,7 +171,7 @@ namespace TC_WS
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageBlob", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageBlob", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary MessageBlob
 		{
 			get
@@ -183,6 +187,26 @@ namespace TC_WS
 					this._MessageBlob = value;
 					this.SendPropertyChanged("MessageBlob");
 					this.OnMessageBlobChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SenderID", DbType="NVarChar(256)")]
+		public string SenderID
+		{
+			get
+			{
+				return this._SenderID;
+			}
+			set
+			{
+				if ((this._SenderID != value))
+				{
+					this.OnSenderIDChanging(value);
+					this.SendPropertyChanging();
+					this._SenderID = value;
+					this.SendPropertyChanged("SenderID");
+					this.OnSenderIDChanged();
 				}
 			}
 		}

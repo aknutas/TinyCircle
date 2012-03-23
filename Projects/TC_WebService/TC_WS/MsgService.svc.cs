@@ -11,14 +11,18 @@ namespace TC_WS
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "MsgService" in code, svc and config file together.
     public class MsgService : IMsgService
     {
-        public Boolean postMessage(string receiverId, string messageText)
+        public Boolean postMessage(string receiverId, string senderId, string messageText)
         {
+            if (receiverId == null || messageText == null || senderId == null)
+                throw new ArgumentNullException();
+
             try
             {
                 DataClassesDataContext db = new DataClassesDataContext();
                 Message msgobj = new Message();
                 msgobj.UserID = receiverId;
                 msgobj.MessageText = messageText;
+                msgobj.SenderID = senderId;
                 db.Messages.InsertOnSubmit(msgobj);
                 db.SubmitChanges();
                 return true;
@@ -29,42 +33,30 @@ namespace TC_WS
             }
         }
 
-        public DataTable getMyMessages(string receiverId)
+        public List<WireMessage> getMyMessages(string receiverId)
         {
+            if (receiverId == null)
+                throw new ArgumentNullException();
+
             DataClassesDataContext db = new DataClassesDataContext();
             var qres = from Message message in db.Messages where message.UserID == receiverId select message;
 
-            DataTable returntable = new DataTable();
-            DataColumn idColumn = new DataColumn();
-            idColumn.DataType = System.Type.GetType("System.Int32");
-            idColumn.ColumnName = "id";
-            returntable.Columns.Add(idColumn);
+            List<Message> msgList = new List<Message>(qres);
+            List<WireMessage> sendMsg = new List<WireMessage>();
 
-            DataColumn aNameColumn = new DataColumn();
-            aNameColumn.DataType = System.Type.GetType("System.String");
-            aNameColumn.ColumnName = "userid";
-            returntable.Columns.Add(aNameColumn);
-
-            DataColumn bNameColumn = new DataColumn();
-            bNameColumn.DataType = System.Type.GetType("System.String");
-            bNameColumn.ColumnName = "message";
-            returntable.Columns.Add(bNameColumn);
-
-            List<Message> deleteList = new List<Message>();
-
-            foreach (Message qitem in qres){
-                DataRow row = returntable.NewRow();
-                row["id"] = qitem.ID;
-                row["userid"] = qitem.UserID;
-                row["message"] = qitem.MessageText;
-                returntable.Rows.Add(row);
-                deleteList.Add(qitem);
+            foreach (Message dbMsg in msgList)
+            {
+                WireMessage wmsg = new WireMessage();
+                wmsg.recipientUserId = dbMsg.UserID;
+                wmsg.msgText = dbMsg.MessageText;
+                wmsg.senderUserId = dbMsg.SenderID;
+                sendMsg.Add(wmsg);
             }
 
-            db.Messages.DeleteAllOnSubmit(deleteList);
+            db.Messages.DeleteAllOnSubmit(msgList);
             db.SubmitChanges();
 
-            return returntable;
+            return sendMsg;
         }
     }
 }

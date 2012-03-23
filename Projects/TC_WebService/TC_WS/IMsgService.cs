@@ -13,9 +13,20 @@ namespace TC_WS
     public interface IMsgService
     {
         [OperationContract]
-        Boolean postMessage(string receiverId, string message);
+        Boolean postMessage(string receiverId, string senderId, string message);
 
         [OperationContract]
-        DataTable getMyMessages(string receiverId);
+        List<WireMessage> getMyMessages(string receiverId);
+    }
+
+    [DataContract]
+    public class WireMessage
+    {
+        [DataMember]
+        public string senderUserId { get; set; }
+        [DataMember]
+        public string recipientUserId { get; set; }
+        [DataMember]
+        public string msgText { get; set; }
     }
 }

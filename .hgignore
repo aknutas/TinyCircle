@@ -8,3 +8,5 @@ Projects/TC_WebService/TC_WebService/bin/**
 Projects/TC_WebService/TC_WebService/csx/**
 Projects/TC_WebService/TC_WS/bin/**
 Projects/TC_WebService/TC_WS/obj/**
+Projects/WS_TestApp/WS_TestApp/bin/Debug/**
+Projects/WS_TestApp/WS_TestApp/obj/x86/Debug/**
