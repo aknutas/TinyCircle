@@ -19,6 +19,7 @@ namespace GEETHREE
         private Controller ctrl;
         private Group selectedGroup = null;
         private User selectedUser = null;
+        
        
         public SocietyPivot()
         {
@@ -26,6 +27,7 @@ namespace GEETHREE
             DataContext = App.ViewModel;
             ctrl = Controller.Instance;
             ctrl.registerCurrentPage(this, "society");
+
         }
        
 
@@ -138,34 +140,17 @@ namespace GEETHREE
             if (newparameter.Equals("toPeople"))
             {
                 socialpivots.SelectedItem = PeoplePivot;
+               
+                
             }
             else if (newparameter.Equals("toGroups"))
             {
-                socialpivots.SelectedItem = GroupsPivot;   
+                socialpivots.SelectedItem = GroupsPivot;
+              
             }
         }
 
-        private void appbar_addFriendButton_Click(object sender, EventArgs e)
-        {
-            txt_addorjoin_errorMessage.Text = "";
-            addOrJoinCanvasTextBox.Text = "";
-            addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
-            addOrJoinCanvasTextBlock.Text = "Type friends ID:";
-            addOrJoinCanvasButton.Content = "Add";
-            ApplicationBar.IsVisible = false;
-        }
-
-
-
-        private void appbar_joinGroupButton_Click(object sender, EventArgs e)
-        {
-            txt_addorjoin_errorMessage.Text = "";
-            addOrJoinCanvasTextBox.Text = "";
-            addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
-            addOrJoinCanvasTextBlock.Text = "Type group's name:";
-            addOrJoinCanvasButton.Content = "Join";
-            ApplicationBar.IsVisible = false;
-        }
+       
 
         private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -270,6 +255,35 @@ namespace GEETHREE
                 NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
 
             }
+        }
+
+        private void appbar_deleteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void appbar_addButton_Click(object sender, EventArgs e)
+        {
+            if (socialpivots.SelectedItem == PeoplePivot)
+                {
+                    txt_addorjoin_errorMessage.Text = "";
+                    addOrJoinCanvasTextBox.Text = "";
+                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
+                    addOrJoinCanvasTextBlock.Text = "Type friends ID:";
+                    addOrJoinCanvasButton.Content = "Add";
+                    ApplicationBar.IsVisible = false;
+                }
+            else
+                {
+                    txt_addorjoin_errorMessage.Text = "";
+                    addOrJoinCanvasTextBox.Text = "";
+                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
+                    addOrJoinCanvasTextBlock.Text = "Type group's name:";
+                    addOrJoinCanvasButton.Content = "Join";
+                    ApplicationBar.IsVisible = false;
+                }
+
+
         }
     }
 }
