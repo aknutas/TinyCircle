@@ -33,7 +33,9 @@ namespace GEETHREE
 
 
         private PhoneApplicationPage currentPage;
+        private PhoneApplicationPage previousPage;
         private string currentPageName;
+        private string previousPageName;
         //private ComposeMessagePage composeMessagePage;
         //private MessagesPage messagePage;
         //private SocietyPivot societyPivot;
@@ -137,6 +139,11 @@ namespace GEETHREE
         }
         public void registerCurrentPage(PhoneApplicationPage pap, string pageName)
         {
+            if (previousPageName == null)
+            {
+                previousPageName = pageName;
+            }
+            
             currentPageName = pageName;
             if (pageName == "main")
             {
@@ -160,7 +167,23 @@ namespace GEETHREE
             }
         
         }
+        public void registerPreviousPage(PhoneApplicationPage pap, string pageName)
+        {
 
+            previousPageName = pageName;
+            if (pageName == "main_shouts" ||pageName == "main_alias" || pageName == "main_society")
+            {
+                previousPage = (MainPage)pap;
+            }
+            else if (pageName == "messages_shouts" || pageName == "messages_whispers" || pageName == "messages_drafts" || pageName == "messages_sent")
+            {
+                previousPage = (MessagesPage)pap;
+            }
+        }
+        public string tellPreviousPage()
+        {
+            return previousPageName;
+        }
 
         public void notifyViewAboutMessage()
         {
@@ -191,6 +214,7 @@ namespace GEETHREE
             }
         
         }
+
 
         public string CreateNewUserID()
         {

@@ -17,7 +17,8 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="MESSAGES" Foreground="{StaticResource PhoneAccentBrush}">
+        <!-- Name  is important!-->
+        <controls:Pivot Title="MESSAGES" Name="messagepivots" Foreground="{StaticResource PhoneAccentBrush}">
             
             <!--
             <controls:Pivot.Background>
@@ -25,7 +26,7 @@
             </controls:Pivot.Background>-->
             
             <!--Pivot item one-->
-            <controls:PivotItem Header="Shouts" >
+            <controls:PivotItem Header="Shouts" Name="shouts" >
                 <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -39,7 +40,7 @@
             </controls:PivotItem>
 
             <!--Pivot item 2-->
-            <controls:PivotItem Header="Whispers" >
+            <controls:PivotItem Header="Whispers" Name="whispers" >
                 <ListBox Name="ReceivedPrivateMessages" Margin="0,0,-12,0" ItemsSource="{Binding ReceivedPrivateMessages}" Tap="PrivateMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -53,7 +54,7 @@
             </controls:PivotItem>
 
             <!--Pivot item 3-->
-            <controls:PivotItem Header="Sent" >
+            <controls:PivotItem Header="Sent" Name="sent" >
                 <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding SentMessages}" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -66,7 +67,7 @@
                 </ListBox>
             </controls:PivotItem>
             <!--Pivot item 4-->
-            <controls:PivotItem Header="Drafts" >
+            <controls:PivotItem Header="Drafts" Name="drafts">
                 <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding DraftMessages}" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>

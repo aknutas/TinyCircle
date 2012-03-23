@@ -116,11 +116,15 @@ namespace GEETHREE.Pages
 
 
         }
-
+  
         private void txt_compose_message_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+   
+
             if (txt_compose_message.Text == "Type your message here...")
             txt_compose_message.Text = "";
+
+
         }
 
         // start camera
@@ -195,6 +199,17 @@ namespace GEETHREE.Pages
                  image1.Visibility = System.Windows.Visibility.Visible;
                  composeReceipientTextBox.IsEnabled = true;
             }
+
+            // ** ask the controller, which was the last page
+            string destination = ctrl.tellPreviousPage();
+
+            if (destination == "main_shouts" || destination == "main_alias" || destination == "main_society")
+                //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                 NavigationService.Navigate(new Uri(string.Format("/MainPage.xaml?parameter={0}", destination), UriKind.Relative));
+            else if(destination == "messages_shouts" || destination == "messages_whispers" || destination == "messages_drafts" || destination == "messages_sent")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", destination), UriKind.Relative));
+          
+
         }
 
         //browses for the photos and gets the picture in imagebox after selection
