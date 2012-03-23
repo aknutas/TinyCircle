@@ -173,6 +173,8 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\addround.png" />
+    <Resource Include="Resources\add.light.png" />
     <Content Include="Resources\sendMessage.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>

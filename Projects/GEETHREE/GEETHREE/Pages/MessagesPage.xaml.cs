@@ -76,7 +76,9 @@ namespace GEETHREE.Pages
 
                 replyID = selectedMessage.SenderID;
                 replyAlias = selectedMessage.SenderAlias;
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
 
+                messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
                 ApplicationBar.IsVisible = false;
             }
@@ -116,6 +118,9 @@ namespace GEETHREE.Pages
                     attachmentContent = Convert.FromBase64String(selectedMessage.Attachment);
                 }
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+                messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
                 ApplicationBar.IsVisible = false;
             }
@@ -149,6 +154,9 @@ namespace GEETHREE.Pages
                 detailsCanvasTextBox.Text = "";
                 txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+                messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
 
@@ -211,6 +219,9 @@ namespace GEETHREE.Pages
             detailsCanvasTextBox.Text = "";
             txt_details_error_label.Text = "";
             details.Visibility = System.Windows.Visibility.Collapsed;
+            Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+            messageCanvas.Background = backgroundbrush;
             messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
 
@@ -242,6 +253,9 @@ namespace GEETHREE.Pages
                 detailsCanvasTextBox.Text = "";
                 txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+                messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
 
