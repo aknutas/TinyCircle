@@ -202,19 +202,19 @@ namespace GEETHREE.Pages
             msg.Attachment = attachmentContentstring;
             App.ViewModel.SentMessages.Add(msg);
             Controller.Instance.mh.SendMessage(msg);
-                MessageBox.Show("Message sent.");
-                txt_compose_message.Text = "";
-                txt_compose_error_label.Text = "";
-                composeReceipientTextBox.Text = "";
-                receiverAlias = "";
-                receiverID = "";
-                 attachmentFlag = "0";
-                 attachmentFileName = "none";
-                 attachmentContent = null;
-                 attachmentContentstring = "none";
-                 attachedImage.Visibility = Visibility.Collapsed;
-                 image1.Visibility = System.Windows.Visibility.Visible;
-                 composeReceipientTextBox.IsEnabled = true;
+            MessageBox.Show("Message sent.");
+            txt_compose_message.Text = "";
+            txt_compose_error_label.Text = "";
+            composeReceipientTextBox.Text = "";
+            receiverAlias = "";
+            receiverID = "";
+            attachmentFlag = "0";
+            attachmentFileName = "none";
+            attachmentContent = null;
+            attachmentContentstring = "none";
+            attachedImage.Visibility = Visibility.Collapsed;
+            image1.Visibility = System.Windows.Visibility.Visible;
+            composeReceipientTextBox.IsEnabled = true;
             }
 
             // ** ask the controller, which was the last page
@@ -225,6 +225,10 @@ namespace GEETHREE.Pages
                  NavigationService.Navigate(new Uri(string.Format("/MainPage.xaml?parameter={0}", destination), UriKind.Relative));
             else if(destination == "messages_shouts" || destination == "messages_whispers" || destination == "messages_drafts" || destination == "messages_sent")
                 NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", destination), UriKind.Relative));
+            else if(destination == "society_users")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toPeople"), UriKind.Relative));
+            else if(destination == "society_groups")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toGroups"), UriKind.Relative));
           
 
         }

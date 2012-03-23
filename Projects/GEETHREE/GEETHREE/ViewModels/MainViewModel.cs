@@ -19,14 +19,25 @@ namespace GEETHREE
     public class MainViewModel : INotifyPropertyChanged
     {
         private Controller c;
-        private List<Message> msgList;
+
         private List<User> usrList;
         private List<Group> grpList;
-        private List<Message> sendableMsgList;
+
+        private List<Message> draftMessageList;
+        private List<Message> sentMessageList;
+        private List<Message> privateMessagesList;
+        private List<Message> broadcaseMessagesList;
+   
 
         public MainViewModel()
         {
             c = Controller.Instance;
+            usrList = new List<User>();
+            grpList = new List<Group>();
+            draftMessageList = new List<Message>();
+            privateMessagesList = new List<Message>();
+            broadcaseMessagesList = new List<Message>();
+
             this.Items = new ObservableCollection<ItemViewModel>();
             this.Users = new ObservableCollection<User>();
             this.Groups = new ObservableCollection<Group>();
@@ -42,9 +53,8 @@ namespace GEETHREE
         
         public ObservableCollection<User> Users { get; private set; }
         public ObservableCollection<Group> Groups { get; private set; }
-        public ObservableCollection<Message> Messages { get; private set;}
-        public ObservableCollection<Message> SendableMessages { get; private set; }
 
+   
         public ObservableCollection<Message> DraftMessages { get; private set; }
         public ObservableCollection<Message> SentMessages { get; private set; }
         public ObservableCollection<Message> ReceivedPrivateMessages { get; private set; }
@@ -70,23 +80,64 @@ namespace GEETHREE
                 }
             }
         }
-
         public bool IsDataLoaded
         {
             get;
             private set;
         }
-
-        /// <summary>
-        /// Creates and adds a few ItemViewModel objects into the Items collection.
-        /// </summary>
-        /// 
-
-        // just some test function
+        // ** just some test function
         public void AddNewMessage()
         {
             this.ReceivedBroadcastMessages.Add(new Message() { Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
             c.notifyViewAboutMessage(true);
+        }
+
+        public void LoadFriends()
+        {
+            Users.Clear();
+            usrList = c.dm.getAllUsers();
+            foreach (User u in usrList)
+            {
+                this.Users.Add(u);
+            }
+        }
+
+        public void LoadGroups()
+
+        {
+            Groups.Clear();
+            grpList.Clear();
+            grpList = c.dm.getAllGroups();
+            foreach (Group g in grpList)
+            {
+                this.Groups.Add(g);
+            }   
+        }
+
+        public void LoadDrafts()
+
+        {
+            DraftMessages.Clear();
+            draftMessageList.Clear();
+            draftMessageList = c.dm.getSendableMessages();
+
+            foreach (Message m in draftMessageList)
+            {
+                this.DraftMessages.Add(m);           
+            }
+        }
+
+        public void LoadSentMessages()
+        {
+            SentMessages.Clear();
+            sentMessageList.Clear();
+
+            sentMessageList = c.dm.getSentMessages();
+
+            foreach (Message m in sentMessageList)
+            {
+                this.SentMessages.Add(m);
+            }
         }
 
         // clear and load data from database to observable collections
@@ -94,10 +145,7 @@ namespace GEETHREE
         {
 
             Groups.Clear();
-            //grpList.Clear();
-            Users.Clear();
-            //usrList.Clear();
-           
+            grpList.Clear();     
             grpList = c.dm.getAllGroups();
 
             foreach (Group g in grpList)
@@ -105,6 +153,8 @@ namespace GEETHREE
                 this.Groups.Add(g);
             }
 
+            Users.Clear();
+            usrList.Clear();
             usrList = c.dm.getAllUsers();
 
             foreach (User u in usrList)
@@ -112,7 +162,42 @@ namespace GEETHREE
                 this.Users.Add(u);
             }
 
+            ReceivedBroadcastMessages.Clear();
             
+            DraftMessages.Clear();
+            //draftMessageList.Clear();
+            draftMessageList = c.dm.getSendableMessages();
+
+            foreach (Message m in draftMessageList)
+            {
+                this.DraftMessages.Add(m);
+            }
+
+            SentMessages.Clear();
+            //sentMessageList.Clear();
+            sentMessageList = c.dm.getSentMessages();
+
+            foreach (Message m in sentMessageList)
+            {
+                this.SentMessages.Add(m);
+            }
+
+            ReceivedBroadcastMessages.Clear();
+            //broadcaseMessagesList.Clear();
+            broadcaseMessagesList = c.dm.getAllMessages();
+
+            foreach (Message m in broadcaseMessagesList)
+            {
+                this.ReceivedPrivateMessages.Add(m);
+            }
+
+            ReceivedPrivateMessages.Clear();
+            //privateMessagesList.Clear();
+            privateMessagesList = c.dm.getAllMessages();
+            foreach (Message m in privateMessagesList)
+            {
+                this.ReceivedPrivateMessages.Add(m);
+            }
             // Sample data; replace with real data
             /*
             this.Items.Add(new ItemViewModel() { LineOne = "runtime one", LineTwo = "How are you doing?", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });

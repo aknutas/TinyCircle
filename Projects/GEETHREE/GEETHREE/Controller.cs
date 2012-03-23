@@ -172,13 +172,13 @@ namespace GEETHREE
 
             previousPageName = pageName;
             if (pageName == "main_shouts" ||pageName == "main_alias" || pageName == "main_society")
-            {
                 previousPage = (MainPage)pap;
-            }
+            
             else if (pageName == "messages_shouts" || pageName == "messages_whispers" || pageName == "messages_drafts" || pageName == "messages_sent")
-            {
                 previousPage = (MessagesPage)pap;
-            }
+            
+            else if (pageName == "society_users" || pageName == "society_gropus")
+                previousPage = (SocietyPivot)pap;
         }
         public string tellPreviousPage()
         {

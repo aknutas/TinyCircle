@@ -45,13 +45,24 @@ namespace GEETHREE
 
             if (selectedGroup != null)
             {
-                detailsNameTextBlock.Text = selectedGroup.GroupName.ToString();
-                detailsDescriptionText.Text = selectedGroup.Description.ToString();
-                detailsCanvasButton.Content = "Send Message";
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Visible;
-                ApplicationBar.IsVisible = false;
+                // ** create url and give it gropu name and gropu id as parameters
+
+                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}", selectedGroup.GroupName, selectedGroup.groupDbId);
+
+                // ** give the controller the page reference
+                ctrl.registerPreviousPage(this, "society_gropus");
+
+                // ** then navigate to Compose.xaml
+                NavigationService.Navigate(new Uri(url, UriKind.Relative));
+                
+                
+                //detailsNameTextBlock.Text = selectedGroup.GroupName.ToString();
+                //detailsDescriptionText.Text = selectedGroup.Description.ToString();
+                //detailsCanvasButton.Content = "Send Message";
+                //detailsCanvasTextBox.Text = "";
+                //txt_details_error_label.Text = "";
+                //details.Visibility = System.Windows.Visibility.Visible;
+                //ApplicationBar.IsVisible = false;
             }
 
             
@@ -60,16 +71,26 @@ namespace GEETHREE
         private void Users_ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedUser = (User)usersListBox.SelectedItem;
+
             if (selectedUser != null)
             {
+                // ** create url and give it user name and user id as parameters
 
-                detailsNameTextBlock.Text = selectedUser.UserName.ToString();
-                detailsDescriptionText.Text = selectedUser.Description.ToString();
-                detailsCanvasButton.Content = "Send Message";
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Visible;
-                ApplicationBar.IsVisible = false;
+                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}", selectedUser.UserName, selectedUser.UserID);
+                
+                // ** give the controller the page reference
+                ctrl.registerPreviousPage(this, "society_users");
+                
+                // ** then navigate to Compose.xaml
+                NavigationService.Navigate(new Uri(url, UriKind.Relative));
+
+                //detailsNameTextBlock.Text = selectedUser.UserName.ToString();
+                //detailsDescriptionText.Text = selectedUser.Description.ToString();
+                //detailsCanvasButton.Content = "Send Message";
+                //detailsCanvasTextBox.Text = "";
+                //txt_details_error_label.Text = "";
+                //details.Visibility = System.Windows.Visibility.Visible;
+                //ApplicationBar.IsVisible = false;
             }
             
         }
@@ -120,8 +141,7 @@ namespace GEETHREE
             }
             else if (newparameter.Equals("toGroups"))
             {
-                socialpivots.SelectedItem = GroupsPivot;
-              
+                socialpivots.SelectedItem = GroupsPivot;   
             }
         }
 
