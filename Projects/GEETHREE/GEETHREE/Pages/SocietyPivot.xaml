@@ -85,6 +85,9 @@
         <shell:ApplicationBar  IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" >
             <shell:ApplicationBarIconButton x:Name="appbar_addFriendButton" IconUri="/Resources/appbar.add.rest.png" Text="Add Friend" Click="appbar_addFriendButton_Click" />
             <shell:ApplicationBarIconButton x:Name="appbar_joinGroupButton" IconUri="/Resources/appbar.favs.addto.rest.png" Text="Join Group" Click="appbar_joinGroupButton_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbar_removeFriendButton" IconUri="/Resources/appbar.minus.rest.png" Text="Add Friend" Click="appbar_addFriendButton_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbar_removeGroupButton" IconUri="/Resources/appbar.minus.rest.png" Text="Join Group" Click="appbar_joinGroupButton_Click" />
+
             <shell:ApplicationBar.MenuItems>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
