@@ -170,6 +170,29 @@ namespace GEETHREE
             this.cm.SendFileToAll(msg);
         }
 
+        public string MessageToString(Message msg)
+        {
+            string str = string.Format(Commands.MessageFormat, msg.SenderID,  msg.ReceiverID, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
+            return str;
+        }
+
+        public Message StringToMessage(string str)
+        {
+            string[] tmpmessage = str.Split(Commands.CommandDelimeter.ToCharArray());
+            Message msg = new Message();
+            msg.SenderID = tmpmessage[1];
+            msg.ReceiverID = tmpmessage[2];
+            if (msg.ReceiverID == null)
+                msg.PrivateMessage = false;
+            else
+                msg.PrivateMessage = true;
+            msg.Attachment = tmpmessage[3];
+            msg.Attachmentfilename = tmpmessage[4];
+            msg.TextContent = tmpmessage[5];
+
+
+            return msg;
+        }
         /// <summary>
         /// Register for events on communication
         /// </summary>
