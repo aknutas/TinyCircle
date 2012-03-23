@@ -18,7 +18,7 @@ namespace GEETHREE.Networking
         //Variables
         MsgServiceReference.MsgServiceClient msgService;
 
-        WebServiceConnector()
+        public WebServiceConnector()
         {
             msgService = new MsgServiceReference.MsgServiceClient();
         }
