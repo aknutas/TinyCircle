@@ -60,7 +60,10 @@ namespace GEETHREE.Networking
 
             void msgService_postMessageCompleted(object sender, postMessageCompletedEventArgs e)
             {
-                wr.webServiceMessageSent(true);
+                if (e.Result == true)
+                    wr.webServiceMessageSent(true);
+                else
+                    wr.webServiceMessageSent(false);
             }
 
             void msgService_getMyMessagesCompleted(object sender, MsgServiceReference.getMyMessagesCompletedEventArgs e)

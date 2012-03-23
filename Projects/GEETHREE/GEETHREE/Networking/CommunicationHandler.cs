@@ -11,12 +11,13 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Collections.Generic;
 using GEETHREE.DataClasses;
 using GEETHREE.Networking;
 
 namespace GEETHREE
 {
-    public class CommunicationHandler : IDisposable
+    public class CommunicationHandler : IDisposable, WebServiceReceiver
     {
         /// <summary>
         /// All communication takes place using a UdpAnySourceMulticastChannel. 
@@ -87,12 +88,14 @@ namespace GEETHREE
 
         private WebServiceConnector wsConnection;
 
+
         private string messagecache;
 
         public CommunicationHandler(Controller cm)
         {
             this.Channel = new UdpAnySourceMulticastChannel(GROUP_ADDRESS, GROUP_PORT);
             this.wsConnection = new WebServiceConnector();
+
 
             // Register for events on the multicast channel.
             RegisterEvents();
@@ -389,6 +392,8 @@ namespace GEETHREE
                 this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
             else
                 this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
+            //Try also to send to server
+            SendToServer(msg);
         }
 
         public void SendFileToAll(Message msg)
@@ -407,7 +412,31 @@ namespace GEETHREE
 
         public void SendToServer(Message msg)
         {
-           
+            wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this);
+        }
+
+
+        void WebServiceReceiver.webServiceMessageEvent(List<DataClasses.Message> msgList)
+        {
+            EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
+
+            for (int i = 0; i < msgList.Count; i++)
+            {
+                Message msg = msgList[i];
+
+                if (handler != null)
+                {
+                    handler(this, new MessageEventArgs(msg.TextContent,msg.SenderID, msg.SenderAlias,msg.ReceiverID,msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.Hash));
+                }              
+            }
+        }
+
+        void WebServiceReceiver.webServiceMessageSent(Boolean status)
+        {
+            if (status)
+                System.Diagnostics.Debug.WriteLine("Message sent to server");
+            else
+                System.Diagnostics.Debug.WriteLine("Message sending to server failed");
         }
 
         DispatcherTimer _dt;
@@ -443,4 +472,5 @@ namespace GEETHREE
         #endregion
 
     }
+   
 }
