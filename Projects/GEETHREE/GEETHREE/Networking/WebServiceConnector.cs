@@ -71,6 +71,7 @@ namespace GEETHREE.Networking
                     Message msg = new Message();
                     msg.ReceiverID = wmsg.recipientUserId;
                     msg.SenderID = wmsg.senderUserId;
+                    msg.TextContent = wmsg.msgText;
                     msg.PrivateMessage = true;
                     returnMsgs.Add(msg);
                 }

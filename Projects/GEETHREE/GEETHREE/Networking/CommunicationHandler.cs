@@ -85,11 +85,14 @@ namespace GEETHREE
         /// </summary>
         public event EventHandler<UdpPacketReceivedEventArgs> PacketReceived;
 
+        private WebServiceConnector wsConnection;
+
         private string messagecache;
 
         public CommunicationHandler(Controller cm)
         {
             this.Channel = new UdpAnySourceMulticastChannel(GROUP_ADDRESS, GROUP_PORT);
+            this.wsConnection = new WebServiceConnector();
 
             // Register for events on the multicast channel.
             RegisterEvents();
@@ -400,6 +403,11 @@ namespace GEETHREE
         {
            
             //this.Channel.SendTo(endpoint, Commands.BroadcastMessageFormat, msg.SenderID, msg.ReceiverID, msg.TextContent, msg.Hash);
+        }
+
+        public void SendToServer(Message msg)
+        {
+           
         }
 
         DispatcherTimer _dt;
