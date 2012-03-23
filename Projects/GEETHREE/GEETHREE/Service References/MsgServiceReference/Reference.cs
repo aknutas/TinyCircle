@@ -18,10 +18,137 @@ namespace GEETHREE.MsgServiceReference {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MsgServiceReference.IMsgService")]
     public interface IMsgService {
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMsgService/DoWork", ReplyAction="http://tempuri.org/IMsgService/DoWorkResponse")]
-        System.IAsyncResult BeginDoWork(System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMsgService/postMessage", ReplyAction="http://tempuri.org/IMsgService/postMessageResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.IAsyncResult BeginpostMessage(GEETHREE.MsgServiceReference.postMessageRequest request, System.AsyncCallback callback, object asyncState);
         
-        void EndDoWork(System.IAsyncResult result);
+        GEETHREE.MsgServiceReference.postMessageResponse EndpostMessage(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMsgService/getMyMessages", ReplyAction="http://tempuri.org/IMsgService/getMyMessagesResponse")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.IAsyncResult BegingetMyMessages(GEETHREE.MsgServiceReference.getMyMessagesRequest request, System.AsyncCallback callback, object asyncState);
+        
+        GEETHREE.MsgServiceReference.getMyMessagesResponse EndgetMyMessages(System.IAsyncResult result);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="postMessage", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class postMessageRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string receiverId;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string message;
+        
+        public postMessageRequest() {
+        }
+        
+        public postMessageRequest(string receiverId, string message) {
+            this.receiverId = receiverId;
+            this.message = message;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="postMessageResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class postMessageResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public bool postMessageResult;
+        
+        public postMessageResponse() {
+        }
+        
+        public postMessageResponse(bool postMessageResult) {
+            this.postMessageResult = postMessageResult;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.233")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/")]
+    public partial class getMyMessagesResponseGetMyMessagesResult : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private System.Xml.Linq.XElement[] anyField;
+        
+        private System.Xml.Linq.XElement any1Field;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyElementAttribute(Namespace="http://www.w3.org/2001/XMLSchema", Order=0)]
+        public System.Xml.Linq.XElement[] Any {
+            get {
+                return this.anyField;
+            }
+            set {
+                this.anyField = value;
+                this.RaisePropertyChanged("Any");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyElementAttribute(Namespace="urn:schemas-microsoft-com:xml-diffgram-v1", Order=1)]
+        public System.Xml.Linq.XElement Any1 {
+            get {
+                return this.any1Field;
+            }
+            set {
+                this.any1Field = value;
+                this.RaisePropertyChanged("Any1");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getMyMessages", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class getMyMessagesRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string receiverId;
+        
+        public getMyMessagesRequest() {
+        }
+        
+        public getMyMessagesRequest(string receiverId) {
+            this.receiverId = receiverId;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getMyMessagesResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class getMyMessagesResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public GEETHREE.MsgServiceReference.getMyMessagesResponseGetMyMessagesResult getMyMessagesResult;
+        
+        public getMyMessagesResponse() {
+        }
+        
+        public getMyMessagesResponse(GEETHREE.MsgServiceReference.getMyMessagesResponseGetMyMessagesResult getMyMessagesResult) {
+            this.getMyMessagesResult = getMyMessagesResult;
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -30,13 +157,57 @@ namespace GEETHREE.MsgServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class postMessageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public postMessageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class getMyMessagesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public getMyMessagesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public GEETHREE.MsgServiceReference.getMyMessagesResponseGetMyMessagesResult Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((GEETHREE.MsgServiceReference.getMyMessagesResponseGetMyMessagesResult)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class MsgServiceClient : System.ServiceModel.ClientBase<GEETHREE.MsgServiceReference.IMsgService>, GEETHREE.MsgServiceReference.IMsgService {
         
-        private BeginOperationDelegate onBeginDoWorkDelegate;
+        private BeginOperationDelegate onBeginpostMessageDelegate;
         
-        private EndOperationDelegate onEndDoWorkDelegate;
+        private EndOperationDelegate onEndpostMessageDelegate;
         
-        private System.Threading.SendOrPostCallback onDoWorkCompletedDelegate;
+        private System.Threading.SendOrPostCallback onpostMessageCompletedDelegate;
+        
+        private BeginOperationDelegate onBegingetMyMessagesDelegate;
+        
+        private EndOperationDelegate onEndgetMyMessagesDelegate;
+        
+        private System.Threading.SendOrPostCallback ongetMyMessagesCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -91,53 +262,133 @@ namespace GEETHREE.MsgServiceReference {
             }
         }
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> DoWorkCompleted;
+        public event System.EventHandler<postMessageCompletedEventArgs> postMessageCompleted;
+        
+        public event System.EventHandler<getMyMessagesCompletedEventArgs> getMyMessagesCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult GEETHREE.MsgServiceReference.IMsgService.BeginDoWork(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginDoWork(callback, asyncState);
+        System.IAsyncResult GEETHREE.MsgServiceReference.IMsgService.BeginpostMessage(GEETHREE.MsgServiceReference.postMessageRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginpostMessage(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void GEETHREE.MsgServiceReference.IMsgService.EndDoWork(System.IAsyncResult result) {
-            base.Channel.EndDoWork(result);
+        private System.IAsyncResult BeginpostMessage(string receiverId, string message, System.AsyncCallback callback, object asyncState) {
+            GEETHREE.MsgServiceReference.postMessageRequest inValue = new GEETHREE.MsgServiceReference.postMessageRequest();
+            inValue.receiverId = receiverId;
+            inValue.message = message;
+            return ((GEETHREE.MsgServiceReference.IMsgService)(this)).BeginpostMessage(inValue, callback, asyncState);
         }
         
-        private System.IAsyncResult OnBeginDoWork(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return ((GEETHREE.MsgServiceReference.IMsgService)(this)).BeginDoWork(callback, asyncState);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        GEETHREE.MsgServiceReference.postMessageResponse GEETHREE.MsgServiceReference.IMsgService.EndpostMessage(System.IAsyncResult result) {
+            return base.Channel.EndpostMessage(result);
         }
         
-        private object[] OnEndDoWork(System.IAsyncResult result) {
-            ((GEETHREE.MsgServiceReference.IMsgService)(this)).EndDoWork(result);
-            return null;
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        private bool EndpostMessage(System.IAsyncResult result) {
+            GEETHREE.MsgServiceReference.postMessageResponse retVal = ((GEETHREE.MsgServiceReference.IMsgService)(this)).EndpostMessage(result);
+            return retVal.postMessageResult;
         }
         
-        private void OnDoWorkCompleted(object state) {
-            if ((this.DoWorkCompleted != null)) {
+        private System.IAsyncResult OnBeginpostMessage(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string receiverId = ((string)(inValues[0]));
+            string message = ((string)(inValues[1]));
+            return this.BeginpostMessage(receiverId, message, callback, asyncState);
+        }
+        
+        private object[] OnEndpostMessage(System.IAsyncResult result) {
+            bool retVal = this.EndpostMessage(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnpostMessageCompleted(object state) {
+            if ((this.postMessageCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.DoWorkCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.postMessageCompleted(this, new postMessageCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void DoWorkAsync() {
-            this.DoWorkAsync(null);
+        public void postMessageAsync(string receiverId, string message) {
+            this.postMessageAsync(receiverId, message, null);
         }
         
-        public void DoWorkAsync(object userState) {
-            if ((this.onBeginDoWorkDelegate == null)) {
-                this.onBeginDoWorkDelegate = new BeginOperationDelegate(this.OnBeginDoWork);
+        public void postMessageAsync(string receiverId, string message, object userState) {
+            if ((this.onBeginpostMessageDelegate == null)) {
+                this.onBeginpostMessageDelegate = new BeginOperationDelegate(this.OnBeginpostMessage);
             }
-            if ((this.onEndDoWorkDelegate == null)) {
-                this.onEndDoWorkDelegate = new EndOperationDelegate(this.OnEndDoWork);
+            if ((this.onEndpostMessageDelegate == null)) {
+                this.onEndpostMessageDelegate = new EndOperationDelegate(this.OnEndpostMessage);
             }
-            if ((this.onDoWorkCompletedDelegate == null)) {
-                this.onDoWorkCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDoWorkCompleted);
+            if ((this.onpostMessageCompletedDelegate == null)) {
+                this.onpostMessageCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnpostMessageCompleted);
             }
-            base.InvokeAsync(this.onBeginDoWorkDelegate, null, this.onEndDoWorkDelegate, this.onDoWorkCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginpostMessageDelegate, new object[] {
+                        receiverId,
+                        message}, this.onEndpostMessageDelegate, this.onpostMessageCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult GEETHREE.MsgServiceReference.IMsgService.BegingetMyMessages(GEETHREE.MsgServiceReference.getMyMessagesRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BegingetMyMessages(request, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        private System.IAsyncResult BegingetMyMessages(string receiverId, System.AsyncCallback callback, object asyncState) {
+            GEETHREE.MsgServiceReference.getMyMessagesRequest inValue = new GEETHREE.MsgServiceReference.getMyMessagesRequest();
+            inValue.receiverId = receiverId;
+            return ((GEETHREE.MsgServiceReference.IMsgService)(this)).BegingetMyMessages(inValue, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        GEETHREE.MsgServiceReference.getMyMessagesResponse GEETHREE.MsgServiceReference.IMsgService.EndgetMyMessages(System.IAsyncResult result) {
+            return base.Channel.EndgetMyMessages(result);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        private GEETHREE.MsgServiceReference.getMyMessagesResponseGetMyMessagesResult EndgetMyMessages(System.IAsyncResult result) {
+            GEETHREE.MsgServiceReference.getMyMessagesResponse retVal = ((GEETHREE.MsgServiceReference.IMsgService)(this)).EndgetMyMessages(result);
+            return retVal.getMyMessagesResult;
+        }
+        
+        private System.IAsyncResult OnBegingetMyMessages(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string receiverId = ((string)(inValues[0]));
+            return this.BegingetMyMessages(receiverId, callback, asyncState);
+        }
+        
+        private object[] OnEndgetMyMessages(System.IAsyncResult result) {
+            GEETHREE.MsgServiceReference.getMyMessagesResponseGetMyMessagesResult retVal = this.EndgetMyMessages(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OngetMyMessagesCompleted(object state) {
+            if ((this.getMyMessagesCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.getMyMessagesCompleted(this, new getMyMessagesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void getMyMessagesAsync(string receiverId) {
+            this.getMyMessagesAsync(receiverId, null);
+        }
+        
+        public void getMyMessagesAsync(string receiverId, object userState) {
+            if ((this.onBegingetMyMessagesDelegate == null)) {
+                this.onBegingetMyMessagesDelegate = new BeginOperationDelegate(this.OnBegingetMyMessages);
+            }
+            if ((this.onEndgetMyMessagesDelegate == null)) {
+                this.onEndgetMyMessagesDelegate = new EndOperationDelegate(this.OnEndgetMyMessages);
+            }
+            if ((this.ongetMyMessagesCompletedDelegate == null)) {
+                this.ongetMyMessagesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OngetMyMessagesCompleted);
+            }
+            base.InvokeAsync(this.onBegingetMyMessagesDelegate, new object[] {
+                        receiverId}, this.onEndgetMyMessagesDelegate, this.ongetMyMessagesCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -216,15 +467,30 @@ namespace GEETHREE.MsgServiceReference {
                     base(client) {
             }
             
-            public System.IAsyncResult BeginDoWork(System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[0];
-                System.IAsyncResult _result = base.BeginInvoke("DoWork", _args, callback, asyncState);
+            public System.IAsyncResult BeginpostMessage(GEETHREE.MsgServiceReference.postMessageRequest request, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = request;
+                System.IAsyncResult _result = base.BeginInvoke("postMessage", _args, callback, asyncState);
                 return _result;
             }
             
-            public void EndDoWork(System.IAsyncResult result) {
+            public GEETHREE.MsgServiceReference.postMessageResponse EndpostMessage(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                base.EndInvoke("DoWork", _args, result);
+                GEETHREE.MsgServiceReference.postMessageResponse _result = ((GEETHREE.MsgServiceReference.postMessageResponse)(base.EndInvoke("postMessage", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BegingetMyMessages(GEETHREE.MsgServiceReference.getMyMessagesRequest request, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = request;
+                System.IAsyncResult _result = base.BeginInvoke("getMyMessages", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public GEETHREE.MsgServiceReference.getMyMessagesResponse EndgetMyMessages(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                GEETHREE.MsgServiceReference.getMyMessagesResponse _result = ((GEETHREE.MsgServiceReference.getMyMessagesResponse)(base.EndInvoke("getMyMessages", _args, result)));
+                return _result;
             }
         }
     }

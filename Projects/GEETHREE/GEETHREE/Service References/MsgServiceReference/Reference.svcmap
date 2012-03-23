@@ -23,8 +23,10 @@
     <MetadataSource Address="http://tinycirclews.cloudapp.net/MsgService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="MsgService1.xsd" MetadataType="Schema" ID="11c4054c-aab7-4bb7-a455-5b10fa87a27d" SourceId="1" SourceUrl="http://tinycirclews.cloudapp.net/MsgService.svc?xsd=xsd1" />
     <MetadataFile FileName="MsgService.wsdl" MetadataType="Wsdl" ID="be69a1af-c4f6-432a-bf41-acac1fc8fdd8" SourceId="1" SourceUrl="http://tinycirclews.cloudapp.net/MsgService.svc?wsdl" />
     <MetadataFile FileName="MsgService.xsd" MetadataType="Schema" ID="60a8f647-bdb7-4fa5-a5fc-af86971950a1" SourceId="1" SourceUrl="http://tinycirclews.cloudapp.net/MsgService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MsgService11.xsd" MetadataType="Schema" ID="54eeb4d9-a342-41fa-8f75-5d0889755dae" SourceId="1" SourceUrl="http://tinycirclews.cloudapp.net/MsgService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

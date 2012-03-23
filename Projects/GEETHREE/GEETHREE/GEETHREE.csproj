@@ -63,6 +63,8 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -156,8 +158,20 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
+    <None Include="Service References\MsgServiceReference\GEETHREE.MsgServiceReference.getMyMessagesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MsgServiceReference\GEETHREE.MsgServiceReference.postMessageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\MsgServiceReference\MsgService.wsdl" />
     <None Include="Service References\MsgServiceReference\MsgService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MsgServiceReference\MsgService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MsgServiceReference\MsgService11.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Service1\GEETHREE.Service1.CompositeType.datasource">

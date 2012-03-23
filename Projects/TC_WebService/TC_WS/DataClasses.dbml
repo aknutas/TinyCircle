@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="tinycircle" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="tinycircle" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=z082ai5xw0.database.windows.net;Initial Catalog=tinycircle;Persist Security Info=True;User ID=Mestari" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="tinycircleConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Messages" Member="Messages">
     <Type Name="Message">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserID" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
       <Column Name="MessageText" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="MessageBlob" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
     </Type>
