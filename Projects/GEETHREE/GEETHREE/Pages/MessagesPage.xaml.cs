@@ -289,7 +289,6 @@ namespace GEETHREE.Pages
                 txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
                 Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
