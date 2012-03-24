@@ -68,11 +68,11 @@
         </Canvas>
         <!-- This canvas is for adding friends and joining groups --> 
         <Canvas Height="700" HorizontalAlignment="Left" Name="addOrJoinCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Visible" Opacity="100">
+                Visibility="Collapsed" Opacity="100">
             
-            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="addOrJoinCanvasTextBlock" Text="Type friend's Id" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-            <TextBox Canvas.Left="34" Canvas.Top="196" Height="71" Name="addOrJoinCanvasTextBox" Text="" Width="349" />
-            <Button Canvas.Left="90" Canvas.Top="313" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" Tap="addOrJoinCanvasButton_Tap" />
+            <TextBlock Canvas.Left="21" Canvas.Top="183" Height="30" Name="addOrJoinCanvasTextBlock" Text="Type friend's Id" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+            <TextBox Canvas.Left="51" Canvas.Top="304" Height="71" Name="addOrJoinCanvasTextBox" Text="" Width="349" />
+            <Button Canvas.Left="114" Canvas.Top="560" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" Tap="addOrJoinCanvasButton_Tap" />
             <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="addOrJoinCanvasExitImageExit" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="addOrJoinCanvasExitImageExit_Tap" />
             <TextBlock Canvas.Left="51" Canvas.Top="482" Height="30" Name="txt_addorjoin_errorMessage" Text="" Width="332" Foreground="#FFF80A0A" />
         </Canvas>

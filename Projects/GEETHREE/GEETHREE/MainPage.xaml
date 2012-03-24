@@ -20,7 +20,7 @@
     shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}">
 
     <phone:PhoneApplicationPage.Resources>
-       <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
+       <local:AppSettings x:Key="appSettings"></local:AppSettings>
 
         <!-- <local:AppSettings x:Key="appSettings"></local:AppSettings>-->
 
