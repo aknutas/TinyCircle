@@ -26,6 +26,7 @@ namespace GEETHREE.Pages
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
         public SettingsPage()
         {
+
             InitializeComponent();
             ctrl = Controller.Instance;
             appSettings = ctrl.appSetting;

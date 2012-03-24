@@ -26,6 +26,7 @@ namespace GEETHREE
         bool createUID = false;
         bool serverMessageReceived = false;
         
+       
         // Constructor
         public MainPage()
         {
@@ -35,6 +36,8 @@ namespace GEETHREE
             ctrl.registerAvatarUpdates(this);
             ctrl.registerCurrentPage(this, "main");
             refreshAvatar();
+
+
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
@@ -63,8 +66,21 @@ namespace GEETHREE
             {
                 App.ViewModel.LoadData();
             }
-
+            
             System.Diagnostics.Debug.WriteLine("Mainpage loaded");
+            
+            // ** check the wifi status
+            if (DeviceNetworkInformation.IsWiFiEnabled)
+                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+            else
+                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+       
+            // ** same check for server
+            
+            if (serverMessageReceived)
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
+            else
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
         }
 
         public void refreshAvatar()
