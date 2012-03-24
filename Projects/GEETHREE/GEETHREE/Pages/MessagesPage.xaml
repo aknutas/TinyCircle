@@ -69,11 +69,11 @@
             </controls:PivotItem>
             <!--Pivot item 4-->
             <controls:PivotItem Header="Drafts" Name="drafts">
-                <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding DraftMessages}" >
+                <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding DraftMessages}" Tap="DraftMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <TextBlock Text="{Binding Header}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <!--<TextBlock Text="{Binding Header}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                 <TextBlock Text="{Binding TextContent}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
                         </DataTemplate>

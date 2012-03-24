@@ -15,9 +15,38 @@ namespace GEETHREE.Pages
 {
     public partial class HelpPage : PhoneApplicationPage
     {
+        private Controller ctrl;
         public HelpPage()
         {
             InitializeComponent();
+
+            // ** get the controller reference
+            ctrl = Controller.Instance;
+
+            // ** tell the controller which page is now active
+            ctrl.registerCurrentPage(this, "help");
+
         }
+
+        // ** some kind of popup needed to announce about the message that is just arrived
+        public void messageArrived(bool isPrivate)
+        {
+            // **  ...get the message from datamaster and display it in canvas.
+            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
+
+            if (m == MessageBoxResult.OK)
+            {
+                if (isPrivate == true) // navigate to Messages - whispers
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                else // navigate to messages - shouts
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
+            }
+        }
+
     }
+
+
+
+
+
 }

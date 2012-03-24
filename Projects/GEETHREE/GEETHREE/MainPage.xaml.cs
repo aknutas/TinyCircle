@@ -24,6 +24,7 @@ namespace GEETHREE
     {
         Controller ctrl;
         bool createUID = false;
+        bool serverMessageReceived = false;
         
         // Constructor
         public MainPage()
@@ -52,12 +53,7 @@ namespace GEETHREE
             }
             else
                 ctrl.cm.Join(ctrl.getCurrentUserID());
-
-            
-             
-
-
-          
+            System.Diagnostics.Debug.WriteLine("Mainpage constructed");
         }
 
         // Load data for the ViewModel Items
@@ -67,8 +63,8 @@ namespace GEETHREE
             {
                 App.ViewModel.LoadData();
             }
-            //messageArrived();
-           
+
+            System.Diagnostics.Debug.WriteLine("Mainpage loaded");
         }
 
         public void refreshAvatar()
@@ -221,9 +217,6 @@ namespace GEETHREE
         {
             ctrl.dm.resetDataBase();
 
-
-
-
             //DeviceNetworkInformation;
             //NetworkInterfaceInfo netInterfaceInfo = socket.GetCurrentNetworkInterface();
             //var type = netInterfaceInfo.InterfaceType;
@@ -278,14 +271,17 @@ namespace GEETHREE
             UserIDCreateCanvas.Visibility = Visibility.Collapsed;
             if (createUID == false)
             {
-
-
                 NavigationService.GoBack();
             }
             else
             {
                 ApplicationBar.IsVisible = true;
                 createUID = true;
+                if (serverMessageReceived == true) // ** now display the server message
+                {
+                    serverMessageReceived = false;
+                    this.messageArrived(true);
+                }
             }
         }
         // ** When navigated back to main page
@@ -318,16 +314,26 @@ namespace GEETHREE
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived(bool isPrivate)
         {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
-            if (m == MessageBoxResult.OK)
+            System.Diagnostics.Debug.WriteLine("MEssage arrived");
+            if (UserIDCreateCanvas.Visibility == Visibility.Visible) //  // ** don't discplay the (server) message yet, if visible, the user is creating ID
             {
-                if (isPrivate == true) // navigate to Messages - whispers
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
-                else // navigate to messages - shouts
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
+                serverMessageReceived = true;
             }
+            else
+            {
+                var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
+
+                if (m == MessageBoxResult.OK)
+                {
+                    if (isPrivate == true) // navigate to Messages - whispers
+                        NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                    else // navigate to messages - shouts
+                        NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
+                }
+            }
+        
+
         }
 
         private void menuItem3_Click(object sender, EventArgs e)

@@ -142,13 +142,10 @@ namespace GEETHREE
 
             return appSetting.UserIDSetting;
         }
+
+        // ** registers a page where the user is currently on
         public void registerCurrentPage(PhoneApplicationPage pap, string pageName)
-        {
-            if (previousPageName == null)
-            {
-                previousPageName = pageName;
-            }
-            
+        {           
             currentPageName = pageName;
             if (pageName == "main")
             {
@@ -158,6 +155,13 @@ namespace GEETHREE
             {
                 currentPage = (ComposeMessagePage)pap;
             }
+            // compose page registers itself again when user saves draft. Now we can navigagte back to drafts pivot
+            //else if (pageName == "compose_draft")
+            //{
+            //    currentPage = (ComposeMessagePage)pap;
+            //    previousPageName = "messages_drafts"; 
+            //}
+    
             else if (pageName == "messages")
             {
                 currentPage = (MessagesPage)pap;
@@ -170,8 +174,13 @@ namespace GEETHREE
             {
                 currentPage = (SettingsPage)pap;
             }
+            else if (pageName == "help")
+            {
+                currentPage = (HelpPage)pap;
+            }
         
         }
+        // ** this is needed for determining where we navigate back from compose page
         public void registerPreviousPage(PhoneApplicationPage pap, string pageName)
         {
 
@@ -184,13 +193,15 @@ namespace GEETHREE
             
             else if (pageName == "society_users" || pageName == "society_gropus")
                 previousPage = (SocietyPivot)pap;
+  
+
         }
         public string tellPreviousPage()
         {
             return previousPageName;
         }
 
-        // 
+        // ** when message arrives, notify an active views about it
         public void notifyViewAboutMessage(bool isPrivate)
         {
             if (currentPageName == "main")
