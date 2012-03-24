@@ -24,6 +24,9 @@ namespace GEETHREE
 {
     public class G3DataContext : DataContext
     {
+        //Should not be needed
+        //public static string DBConnectionString = "Data Source='isostore:/G3DB.sdf'";
+
         // Pass the connection string to the base class.
         public G3DataContext(string connectionString)
             : base(connectionString)
@@ -38,18 +41,22 @@ namespace GEETHREE
 
     public class DataMaster
     {
-        private G3DataContext db;
+        private Object dblock;
         public FileMaster fm;
         private DataClasses.AppSettings settings;
 
         public DataMaster(DataClasses.AppSettings settings)
         {
+            dblock = new Object();
+
             // Create the database if it does not yet exist.
-            db = new G3DataContext("isostore:/G3DB.sdf");
-            if (db.DatabaseExists() == false)
+            using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
             {
-                // Create the database.
-                db.CreateDatabase();
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the database.
+                    db.CreateDatabase();
+                }
             }
             fm = new FileMaster();
             this.settings = settings;
@@ -57,227 +64,290 @@ namespace GEETHREE
 
         public List<User> getAllUsers()
         {
-            lock (db)
+            lock (dblock)
             {
-                try
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from User user in db.Users select user;
-                    List<User> returnList = new List<User>(qres);
-                    return returnList;
-                }
-                catch (Exception)
-                {
-                    //If query fails bad, return an empty list
-                    return new List<User>();
+                    try
+                    {
+                        var qres = from User user in db.Users select user;
+                        List<User> returnList = new List<User>(qres);
+                        return returnList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<User>();
+                    }
                 }
             }
         }
 
         public void storeNewUser(User user)
         {
-            lock (db)
+            lock (dblock)
             {
-                db.Users.InsertOnSubmit(user);
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Users.InsertOnSubmit(user);
+                    db.SubmitChanges();
+                }
             }
         }
 
         public void deleteUser(User user)
         {
-            lock (db)
+            lock (dblock)
             {
-                db.Users.DeleteOnSubmit(user);
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Users.DeleteOnSubmit(user);
+                    db.SubmitChanges();
+                }
             }
         }
 
         public List<Message> getAllMessages()
         {
-            lock (db)
+            lock (dblock)
             {
-                try
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from Message message in db.Messages select message;
-                    List<Message> returnList = new List<Message>(qres);
-                    return returnList;
-                }
-                catch (Exception)
-                {
-                    //If query fails bad, return an empty list
-                    return new List<Message>();
+                    try
+                    {
+                        var qres = from Message message in db.Messages select message;
+                        List<Message> returnList = new List<Message>(qres);
+                        return returnList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<Message>();
+                    }
                 }
             }
         }
 
         public List<Group> getAllGroups()
         {
-            lock (db)
+            lock (dblock)
             {
-                try
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from Group grps in db.Groups select grps;
-                    List<Group> returnList = new List<Group>(qres);
-                    return returnList;
-                }
-                catch (Exception)
-                {
-                    //If query fails bad, return an empty list
-                    return new List<Group>();
+                    try
+                    {
+                        var qres = from Group grps in db.Groups select grps;
+                        List<Group> returnList = new List<Group>(qres);
+                        return returnList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<Group>();
+                    }
                 }
             }
         }
 
         public void storeNewGroup(Group group)
         {
-            lock (db)
+            lock (dblock)
             {
-                db.Groups.InsertOnSubmit(group);
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Groups.InsertOnSubmit(group);
+                    db.SubmitChanges();
+                }
             }
         }
 
         public void deleteGroup(Group group)
         {
-            lock (db)
+            lock (dblock)
             {
-                db.Groups.DeleteOnSubmit(group);
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Groups.DeleteOnSubmit(group);
+                    db.SubmitChanges();
+                }
             }
         }
 
         public List<Message> getSendableMessages()
         {
-            lock (db)
+            lock (dblock)
             {
-                //Bubblegum fix for the not existing table bug
-                try
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
-                    List<Message> returnList = new List<Message>(qres);
-                    return returnList;
-                }
-                catch (Exception)
-                {
-                    //If query fails bad, return an empty list
-                    return new List<Message>();
+                    //Bubblegum fix for the not existing table bug
+                    try
+                    {
+                        var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
+                        List<Message> returnList = new List<Message>(qres);
+                        return returnList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<Message>();
+                    }
                 }
             }
         }
 
         public List<Message> getSentMessages()
         {
-            lock (db)
+            lock (dblock)
             {
-                try
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from Message message in db.Messages where message.outgoing == true select message;
-                    List<Message> returnList = new List<Message>(qres);
-                    return returnList;
-                }
-                catch (Exception)
-                {
-                    //If query fails bad, return an empty list
-                    return new List<Message>();
+                    try
+                    {
+                        var qres = from Message message in db.Messages where message.outgoing == true select message;
+                        List<Message> returnList = new List<Message>(qres);
+                        return returnList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<Message>();
+                    }
                 }
             }
         }
 
         public void storeNewMessage(Message message)
         {
-            lock (db)
+            lock (dblock)
             {
-                db.Messages.InsertOnSubmit(message);
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Messages.InsertOnSubmit(message);
+                    db.SubmitChanges();
+                }
             }
         }
 
         public void storeNewMessage(List<Message> messages)
         {
-            lock (db)
+            lock (dblock)
             {
-                db.Messages.InsertAllOnSubmit(messages);
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Messages.InsertAllOnSubmit(messages);
+                    db.SubmitChanges();
+                }
             }
         }
 
         public void storeNewImage(DataClasses.Image image)
         {
-            lock (db)
+            lock (dblock)
             {
-                db.Images.InsertOnSubmit(image);
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Images.InsertOnSubmit(image);
+                    db.SubmitChanges();
+                }
             }
             image.saveBitmapFromStream();
         }
 
         public List<DataClasses.Image> getAllImages()
         {
-            lock (db)
+            lock (dblock)
             {
-                try
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from DataClasses.Image imgs in db.Images select imgs;
-                    List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
-                    return returnList;
-                }
-                catch (Exception)
-                {
-                    //If query fails bad, return an empty list
-                    return new List<DataClasses.Image>();
+                    try
+                    {
+                        var qres = from DataClasses.Image imgs in db.Images select imgs;
+                        List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
+                        return returnList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<DataClasses.Image>();
+                    }
                 }
             }
         }
 
         public void deleteMessage(Message message)
         {
-            db.Messages.DeleteOnSubmit(message);
-            db.SubmitChanges();
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Messages.DeleteOnSubmit(message);
+                    db.SubmitChanges();
+                }
+            }
         }
 
         public void updateChanges()
         {
-            lock (db)
+            lock (dblock)
             {
-                db.SubmitChanges();
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.SubmitChanges();
+                }
             }
         }
 
         public void resetDataBase()
         {
-            lock (db)
+            lock (dblock)
             {
-                var qres = from Group grps in db.Groups select grps;
-                foreach (var grp in qres)
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    db.Groups.DeleteOnSubmit(grp);
-                }
+                    var qres = from Group grps in db.Groups select grps;
+                    foreach (var grp in qres)
+                    {
+                        db.Groups.DeleteOnSubmit(grp);
+                    }
 
-                var qres3 = from User usr in db.Users select usr;
-                foreach (var usr in qres3)
-                {
-                    db.Users.DeleteOnSubmit(usr);
-                }
-                db.SubmitChanges();
-                qres = null;
-                qres3 = null;
+                    var qres3 = from User usr in db.Users select usr;
+                    foreach (var usr in qres3)
+                    {
+                        db.Users.DeleteOnSubmit(usr);
+                    }
+                    db.SubmitChanges();
+                    qres = null;
+                    qres3 = null;
 
-                var qres2 = from Message msg in db.Messages select msg;
-                foreach (var msg in qres2)
-                {
-                    db.Messages.DeleteOnSubmit(msg);
+                    var qres2 = from Message msg in db.Messages select msg;
+                    foreach (var msg in qres2)
+                    {
+                        db.Messages.DeleteOnSubmit(msg);
+                    }
+                    db.SubmitChanges();
                 }
-                db.SubmitChanges();
             }
         }
 
         public void refreshObjects(List<Object> updateList)
         {
-            db.Refresh(RefreshMode.OverwriteCurrentValues, updateList);
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Refresh(RefreshMode.OverwriteCurrentValues, updateList);
+                }
+            }
         }
 
         public void refreshObjects(Object updateObject)
         {
-            db.Refresh(RefreshMode.OverwriteCurrentValues, updateObject);
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Refresh(RefreshMode.OverwriteCurrentValues, updateObject);
+                }
+            }
         }
 
     }
