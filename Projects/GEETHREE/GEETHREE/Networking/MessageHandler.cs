@@ -92,6 +92,8 @@ namespace GEETHREE
             msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
+
+
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
