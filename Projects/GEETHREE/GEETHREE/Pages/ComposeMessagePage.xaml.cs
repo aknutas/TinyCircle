@@ -29,7 +29,7 @@ namespace GEETHREE.Pages
         byte[] attachmentContent;
         string attachmentContentstring = "none";
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-
+       
                 
         public ComposeMessagePage()
         {

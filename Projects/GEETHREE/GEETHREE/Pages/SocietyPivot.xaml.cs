@@ -11,6 +11,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using GEETHREE.DataClasses;
+using Microsoft.Phone.Shell;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace GEETHREE
 {
@@ -20,6 +23,7 @@ namespace GEETHREE
         private Group selectedGroup = null;
         private User selectedUser = null;
         
+        Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
        
         public SocietyPivot()
         {
@@ -40,7 +44,7 @@ namespace GEETHREE
             }
             
         }
-
+        
         private void Groups_ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedGroup = (Group) groupsListBox.SelectedItem;
@@ -49,7 +53,7 @@ namespace GEETHREE
             {
                 // ** create url and give it gropu name and gropu id as parameters
 
-                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}", selectedGroup.GroupName, selectedGroup.groupDbId);
+                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}", selectedGroup.GroupName, selectedGroup.GroupID);
 
                 // ** give the controller the page reference
                 ctrl.registerPreviousPage(this, "society_gropus");
@@ -175,55 +179,69 @@ namespace GEETHREE
             ApplicationBar.IsVisible = true;
         }
 
-        private void addOrJoinCanvasExitImageExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
-            txt_addorjoin_errorMessage.Text = "";
-            addOrJoinCanvasTextBox.Text = "";
-            ApplicationBar.IsVisible = true;
-        }
+
 
         private void addOrJoinCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             
 
-            if (addOrJoinCanvasTextBlock.Text == "Type group's name:")
-            {
+            //if (addOrJoinCanvasTextBlock.Text == "Type group's name:")
+            //{
                 if (addOrJoinCanvasTextBox.Text == "")
                 {
                     txt_addorjoin_errorMessage.Text = "Please provide a group name!";
                 }
+                else if (txt_groupDesc.Text == "")
+                {
+                    txt_addorjoin_errorMessage.Text = "Please provide a group description!";
+                }
                 else
                 {
+                    Group g = new Group();
+                    g.GroupName = addOrJoinCanvasTextBox.Text;
+                    g.GroupID = CreateNewGroupID(addOrJoinCanvasTextBox.Text);
+                    g.Description = txt_groupDesc.Text;
+                    ctrl.dm.storeNewGroup(g);
+                    MessageBox.Show("GroupName : " + addOrJoinCanvasTextBox.Text + "\n" + "Description: " + txt_groupDesc.Text,"Group Created!", MessageBoxButton.OK);
+                    addOrJoinCanvasTextBox.Text = "";
+                    txt_addorjoin_errorMessage.Text = "";
+                    txt_groupDesc.Text = "";
+                    App.ViewModel.LoadData();
+                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                    ApplicationBar.IsVisible = true;
+
+
                     // ** ask the network controller to join the group
-                    MessageBox.Show("You have joined a group\n " + addOrJoinCanvasTextBox.Text);
 
-                    addOrJoinCanvasTextBox.Text = "";
-                    txt_addorjoin_errorMessage.Text = "";
-                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
-                    ApplicationBar.IsVisible = true;
 
-                }
+                    //MessageBox.Show("You have joined a group\n " + addOrJoinCanvasTextBox.Text);
 
-            }
-            if (addOrJoinCanvasTextBlock.Text == "Type friends ID:")
-            {
-                if (addOrJoinCanvasTextBox.Text == "")
-                {
-                    txt_addorjoin_errorMessage.Text = "Please provide a friend ID!";
-                }
-                else
-                {
-                    // ** ask the nedwork controller to add a friend
-
-                    MessageBox.Show("You and " + addOrJoinCanvasTextBox.Text + "\n are now friends.");
-                    addOrJoinCanvasTextBox.Text = "";
-                    txt_addorjoin_errorMessage.Text = "";
-                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
-                    ApplicationBar.IsVisible = true;
+                    //addOrJoinCanvasTextBox.Text = "";
+                    //txt_addorjoin_errorMessage.Text = "";
+                    //addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                    //ApplicationBar.IsVisible = true;
 
                 }
-            }  
+
+            //}
+            //if (addOrJoinCanvasTextBlock.Text == "Type friends ID:")
+            //{
+            //    if (addOrJoinCanvasTextBox.Text == "")
+            //    {
+            //        txt_addorjoin_errorMessage.Text = "Please provide a friend ID!";
+            //    }
+            //    else
+            //    {
+            //         ** ask the nedwork controller to add a friend
+
+            //        MessageBox.Show("You and " + addOrJoinCanvasTextBox.Text + "\n are now friends.");
+            //        addOrJoinCanvasTextBox.Text = "";
+            //        txt_addorjoin_errorMessage.Text = "";
+            //        addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            //        ApplicationBar.IsVisible = true;
+
+            //    }
+            //}  
         }
 
         private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -257,33 +275,102 @@ namespace GEETHREE
             }
         }
 
-        private void appbar_deleteButton_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void appbar_addButton_Click(object sender, EventArgs e)
         {
             if (socialpivots.SelectedItem == PeoplePivot)
                 {
-                    txt_addorjoin_errorMessage.Text = "";
-                    addOrJoinCanvasTextBox.Text = "";
-                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
-                    addOrJoinCanvasTextBlock.Text = "Type friends ID:";
-                    addOrJoinCanvasButton.Content = "Add";
-                    ApplicationBar.IsVisible = false;
+                    //txt_addorjoin_errorMessage.Text = "";
+                    //addOrJoinCanvasTextBox.Text = "";
+                    //addOrJoinCanvas.Background = backgroundbrush;
+                    //addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
+                    //addOrJoinCanvasTextBlock.Text = "Type friends ID:";
+                    //addOrJoinCanvasButton.Content = "Add";
+                    //ApplicationBar.IsVisible = false;
                 }
             else
                 {
                     txt_addorjoin_errorMessage.Text = "";
                     addOrJoinCanvasTextBox.Text = "";
+                    addOrJoinCanvas.Background = backgroundbrush;
                     addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
-                    addOrJoinCanvasTextBlock.Text = "Type group's name:";
-                    addOrJoinCanvasButton.Content = "Join";
+                    
                     ApplicationBar.IsVisible = false;
                 }
 
 
         }
+
+        private void socialpivots_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (socialpivots.SelectedItem == GroupsPivot)
+            {
+                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Create", true, appbar_addButton_Click);
+                UpdateAppbarButton(1, "/Resources/appbar.favs.addto.rest.png", "Join", true, appbar_joingroup_Button_Click);
+            }
+            else
+            {
+                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
+                UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
+               
+            }
+
+        }
+
+
+
+        
+        private void appbar_joingroup_Button_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        //Function to add or remove appbar button
+
+        private void UpdateAppbarButton(int index, string uriString, string text, bool visibility, EventHandler handler)
+        {
+            ApplicationBarIconButton button1 = null;
+
+            if (ApplicationBar.Buttons.Count > index)
+            {
+                button1 = ApplicationBar.Buttons[index] as ApplicationBarIconButton;
+            }
+
+            if (button1 != null)
+            {
+                {
+                    ApplicationBar.Buttons.Remove(button1);
+                }
+            }
+            if (visibility == true)
+            {
+                button1 = new ApplicationBarIconButton(new Uri(uriString, UriKind.Relative));
+                button1.Text = text;
+                button1.Click += handler;
+                ApplicationBar.Buttons.Insert(index, button1);
+            }
+        }
+
+        public string CreateNewGroupID(string groupname)
+        {
+            string id;
+
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] name = UE.GetBytes(groupname); 
+            byte[] time = System.BitConverter.GetBytes(System.DateTime.Now.Ticks);
+
+            var source = new List<byte>();
+            source.AddRange(name);
+            source.AddRange(time);
+
+            HMACSHA256 sha = new HMACSHA256();
+            byte[] hashBytes = sha.ComputeHash(source.ToArray());
+
+            id = Convert.ToBase64String(hashBytes);
+            return id;
+        }
+
     }
 }
