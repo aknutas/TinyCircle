@@ -20,9 +20,9 @@
     shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}">
 
     <phone:PhoneApplicationPage.Resources>
-       <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
+       <local:AppSettings x:Key="appSettings"></local:AppSettings>
 
-        <local:AppSettings x:Key="appSettings"></local:AppSettings>
+        <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
 
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
