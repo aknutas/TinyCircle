@@ -184,16 +184,19 @@ namespace GEETHREE
 
             Group g = new Group();
             g.GroupName = ".NET Codecamp";
+            g.GroupID = "1234";
             g.Description = "Here we are still coding at 0:55.";
             ctrl.dm.storeNewGroup(g);
 
             g = new Group();
             g.GroupName = "Comlab";
+            g.GroupID = "1235";
             g.Description = "We are Comlab, the one and the only one.";
             ctrl.dm.storeNewGroup(g);
 
             g = new Group();
             g.GroupName = "SWE";
+            g.GroupID = "1236";
             g.Description = "We are from Sweden";
             ctrl.dm.storeNewGroup(g);
 

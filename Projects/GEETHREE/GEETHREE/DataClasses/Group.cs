@@ -64,6 +64,29 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        private string _groupID;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        ///
+        [Column]
+        public string GroupID
+        {
+            get
+            {
+                return _groupID;
+            }
+            set
+            {
+                if (value != _groupID)
+                {
+                    _groupID = value;
+                    NotifyPropertyChanged("GroupID");
+                }
+            }
+        }
+
         private string _description;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.

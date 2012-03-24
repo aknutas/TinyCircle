@@ -18,7 +18,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="MY CIRLES" Name="socialpivots" Foreground="{StaticResource PhoneAccentBrush}">
+        <controls:Pivot Title="MY CIRCLE" Name="socialpivots" Foreground="{StaticResource PhoneAccentBrush}" SelectionChanged="socialpivots_SelectionChanged">
             <!--
         	<controls:Pivot.Background>
         		<ImageBrush Stretch="Fill" ImageSource="/GEETHREE;component/Resources/pivot2.jpg"/>
@@ -68,13 +68,16 @@
         </Canvas>
         <!-- This canvas is for adding friends and joining groups --> 
         <Canvas Height="700" HorizontalAlignment="Left" Name="addOrJoinCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="100">
+                Visibility="Collapsed" Opacity="1" Background="Black">
             
-            <TextBlock Canvas.Left="21" Canvas.Top="183" Height="30" Name="addOrJoinCanvasTextBlock" Text="Type friend's Id" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-            <TextBox Canvas.Left="51" Canvas.Top="304" Height="71" Name="addOrJoinCanvasTextBox" Text="" Width="349" />
-            <Button Canvas.Left="114" Canvas.Top="560" Content="Add" Height="71" Name="addOrJoinCanvasButton" Width="229" Tap="addOrJoinCanvasButton_Tap" />
-            <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="addOrJoinCanvasExitImageExit" Stretch="Fill" Width="80" Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="addOrJoinCanvasExitImageExit_Tap" />
-            <TextBlock Canvas.Left="51" Canvas.Top="482" Height="30" Name="txt_addorjoin_errorMessage" Text="" Width="332" Foreground="#FFF80A0A" />
+            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="addOrJoinCanvasTextBlock" Text="Create a new group" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+            <TextBlock Canvas.Left="36" Canvas.Top="163" Height="40"  Text="Group Name :" Width="332" FontWeight="Medium" FontSize="28" />
+
+            <TextBox Canvas.Left="23" Canvas.Top="193" Height="71" Name="addOrJoinCanvasTextBox" Text="" Width="419" />
+            <Button Canvas.Left="114" Canvas.Top="542" Content="Create" Height="71" Name="addOrJoinCanvasButton" Width="229" Tap="addOrJoinCanvasButton_Tap" />
+            <TextBlock Canvas.Left="36" Canvas.Top="632" Height="30" Name="txt_addorjoin_errorMessage" Text="" Width="332" Foreground="#FFF80A0A" />
+            <TextBlock Canvas.Left="36" Canvas.Top="270" FontSize="28" FontWeight="Medium" Height="40" Text="Description :" Width="332" />
+            <TextBox Canvas.Left="23" Canvas.Top="316" Height="220" Name="txt_groupDesc" Text="" Width="419" TextWrapping="Wrap" />
         </Canvas>
     </Grid>
 
@@ -82,7 +85,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar  IsVisible="True" IsMenuEnabled="False" Opacity="50" BackgroundColor="#46000000" >
             <shell:ApplicationBarIconButton x:Name="appbar_addButton" IconUri="/Resources/appbar.add.rest.png" Text="Join" Click="appbar_addButton_Click" />
-            <shell:ApplicationBarIconButton x:Name="appbar_deleteButton" IconUri="/Resources/appbar.minus.rest.png" Text="Remove" Click="appbar_deleteButton_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbar_joingroup_Button" IconUri="/Resources/appbar.minus.rest.png" Text="Remove" Click="appbar_joingroup_Button_Click" />
 
             <shell:ApplicationBar.MenuItems>
             </shell:ApplicationBar.MenuItems>
