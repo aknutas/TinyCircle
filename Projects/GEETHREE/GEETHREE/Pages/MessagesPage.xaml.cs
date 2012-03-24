@@ -32,13 +32,33 @@ namespace GEETHREE.Pages
 
         }
 
-        private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        // ** When navigated to pivot page, choose which page to display first
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
-            ApplicationBar.IsVisible = true;
-            receivedimage.Visibility = Visibility.Collapsed;
-        }
+            base.OnNavigatedTo(e);
+            try
+            {
+                // when going to compose page when message canvas is visible, returning back here will collapse it
+                if (messageCanvas.Visibility == Visibility.Visible)
+                {
+                    messageCanvas.Visibility = Visibility.Collapsed;
+                }
 
+                string newparameter = this.NavigationContext.QueryString["parameter"];
+                if (newparameter.Equals("messages_shouts"))
+                    messagepivots.SelectedItem = shouts;
+                else if (newparameter.Equals("messages_whispers"))
+                    messagepivots.SelectedItem = whispers;
+                else if (newparameter.Equals("messages_drafts"))
+                    messagepivots.SelectedItem = drafts;
+                else if (newparameter.Equals("messages_sent"))
+                    messagepivots.SelectedItem = sent;
+            }
+            catch
+            {
+
+            }
+        }
         private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             
@@ -143,47 +163,16 @@ namespace GEETHREE.Pages
 
         }
 
-
-        // ** must navigate back to the pivot page from details page, not back to panorama page
-        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            if (messageCanvas.Visibility == System.Windows.Visibility.Visible)
-            {
-                messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
-                ApplicationBar.IsVisible = true;
-                receivedimage.Visibility = Visibility.Collapsed;
-                e.Cancel = true;
-            }
-            if (details.Visibility == System.Windows.Visibility.Visible)
-            {
-                if (detailsCanvasTextBox.Text != "")
-                {
-
-                    // **  ...get the message saving the draft.
-                    var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
-
-                    if (m == MessageBoxResult.OK)
-                    {
-                        // !! write code for storing this message to draft
-
-                        // ** 
-                    }
-
-                }
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Collapsed;
-                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-
-                messageCanvas.Background = backgroundbrush;
-                messageCanvas.Visibility = System.Windows.Visibility.Visible;
-
-
-                e.Cancel = true;
-            }
+            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            ApplicationBar.IsVisible = true;
+            receivedimage.Visibility = Visibility.Collapsed;
         }
 
-        // ** COMPOSE CLICKED
+
+
+        // ** COMPOSE CLICKED ON THE MENUBAR
         private void appbar_Message_Compose_Click(object sender, EventArgs e)
         {
             // ** ask the controller to register this page as a previous page before going to compose page
@@ -201,33 +190,7 @@ namespace GEETHREE.Pages
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
-        // ** When navigated to pivot page, choose which page to display first
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            try
-            {
-                // when going to compose page when message canvas is visible, returning back here will collapse it
-                if (messageCanvas.Visibility == Visibility.Visible)
-                {
-                    messageCanvas.Visibility = Visibility.Collapsed;
-                }
 
-                string newparameter = this.NavigationContext.QueryString["parameter"];
-                if (newparameter.Equals("messages_shouts"))
-                    messagepivots.SelectedItem = shouts;
-                else if (newparameter.Equals("messages_whispers"))
-                    messagepivots.SelectedItem = whispers;
-                else if (newparameter.Equals("messages_drafts"))
-                    messagepivots.SelectedItem = drafts;
-                else if (newparameter.Equals("messages_sent"))
-                    messagepivots.SelectedItem = sent;
-            }
-            catch
-            {
-
-            }
-        }
 
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -381,6 +344,59 @@ namespace GEETHREE.Pages
                     
             }
         }
+
+        // ** must navigate back to the pivot page from details page, not back to panorama page
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true; // cancel the default behaviour
+
+            // **  first, close the canvas if it is visible 
+            if (messageCanvas.Visibility == System.Windows.Visibility.Visible)
+            {
+                messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                receivedimage.Visibility = Visibility.Collapsed;
+
+            }
+            else // ** then, navigate back
+            {
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+
+
+            /*
+            if (details.Visibility == System.Windows.Visibility.Visible)
+            {
+                if (detailsCanvasTextBox.Text != "")
+                {
+
+                    // **  ...get the message saving the draft.
+                    var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
+
+                    if (m == MessageBoxResult.OK)
+                    {
+                        // !! write code for storing this message to draft
+
+                        // ** 
+                    }
+
+                }
+                detailsCanvasTextBox.Text = "";
+                txt_details_error_label.Text = "";
+                details.Visibility = System.Windows.Visibility.Collapsed;
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+                messageCanvas.Background = backgroundbrush;
+                messageCanvas.Visibility = System.Windows.Visibility.Visible;
+
+
+                //e.Cancel = true;
+            }
+             * */
+
+            
+        }
+        
 
  
 

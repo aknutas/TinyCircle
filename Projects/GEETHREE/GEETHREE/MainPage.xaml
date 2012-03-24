@@ -17,7 +17,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}">
+    shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}" BackKeyPress="PhoneApplicationPage_BackKeyPress">
 
     <phone:PhoneApplicationPage.Resources>
        <local:AppSettings x:Key="appSettings"></local:AppSettings>

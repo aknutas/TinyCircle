@@ -377,6 +377,23 @@ namespace GEETHREE
             ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
             connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.Cellular;
             connectionSettingsTask.Show();
+        }
+
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //e.Cancel = true;
+
+            if (NavigationService.CanGoBack)
+            {
+                
+                while (NavigationService.RemoveBackEntry() != null)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+                NavigationService.GoBack();
+
+            }
+            
         }    
     }
 }
