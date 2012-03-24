@@ -94,7 +94,7 @@ namespace GEETHREE.DataClasses
 
         private string _attachment;
 
-        [Column(DbType="image")]
+        [Column(DbType="ntext")]
         public string Attachment
         {
             get
