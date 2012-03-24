@@ -64,7 +64,8 @@ namespace GEETHREE
         /// <value>The client.</value>
         private UdpAnySourceMulticastClient Client { get; set; }
 
-        private receivebuffer buffer;
+        private MessageBuffer sendbuffer;
+        private MessageBuffer receivebuffer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UdpAnySourceMulticastChannel"/> class.
@@ -195,9 +196,7 @@ namespace GEETHREE
             {
                 if (this.IsJoined)
                 {
-                    Debug.WriteLine("Send buffer size: " + this.Client.SendBufferSize);
-                    Debug.WriteLine("Receive buffer size: " + this.Client.ReceiveBufferSize);
-                    Debug.WriteLine(message);
+                    Debug.WriteLine("Sending a message of size: " + message.Length);
                     //Is the message too big?
                     if (message.Length > 256)
                     {
@@ -206,18 +205,25 @@ namespace GEETHREE
                         int index=0;
 
                         int nopackages = message.Length / 256 + (message.Length % 256 > 0 ? 1 : 0);
-                        for (int i = 0; i < nopackages; i++)
-                        {
-                            if(index+256<=message.Length)
-                                tmpmsg = string.Format(Commands.PartialMessageFormat, messageParts[1], i.ToString(), nopackages.ToString(), message.Substring(index, 256));
-                            else
-                                tmpmsg = string.Format(Commands.PartialMessageFormat, messageParts[1], i.ToString(), nopackages.ToString(), message.Substring(index));
+                        if (sendbuffer == null)
+                            sendbuffer = new MessageBuffer();
 
-                            index = index + 256;
-                            byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                            this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                        sendbuffer.buffer = message;
+                        sendbuffer.numberofpackages = nopackages;
+                        sendbuffer.sender = messageParts[1];
+                        sendbuffer.problem = false;
+                        sendbuffer.currentpackage = 0;
+
+                        if(index+256<=message.Length)
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index, 256));
+                        else
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index));
+
+                       
+                        byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                        this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                             
-                        }
+
                     }
                     else
                     {
@@ -310,6 +316,36 @@ namespace GEETHREE
             }
         }
 
+        public void SendPartTo(IPEndPoint endPoint, int nopackage)
+        {
+            try
+            {
+                if (this.IsJoined)
+                {
+                    string tmpmsg;
+                    sendbuffer.currentpackage += 1;
+
+                    if (nopackage*256 + 256 <= sendbuffer.buffer.Length)
+                        tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage*256, 256));
+                    else
+                        tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256));
+
+
+                    byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                    this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                }
+                else
+                {
+                    DiagnosticsHelper.SafeShow("Not joined!");
+                }
+            }
+            catch (SocketException socketEx)
+            {
+                // See if we can do something when a SocketException occurs.
+                HandleSocketException(socketEx);
+            }
+        }
+
         void SendToCallback(IAsyncResult result)
         {
             try
@@ -380,21 +416,29 @@ namespace GEETHREE
             string[] messageParts = message.Split(Commands.PackageDelimeter.ToCharArray());
             if (messageParts[0] == Commands.PartialMessage)
             {
-                if (HandlePartialMessage(messageParts[1], messageParts[2], messageParts[3], messageParts[4]))
+                if (HandlePartialMessage(messageParts[1], messageParts[2], messageParts[3], messageParts[4], source))
                 {
-                    if (buffer.problem == false)
+                    if (receivebuffer.problem == false)
                     {
+                        Debug.WriteLine("Received a message of size: " + receivebuffer.buffer.Length);
                         EventHandler<UdpPacketReceivedEventArgs> handler = this.PacketReceived;
 
                         if (handler != null)
                         {
-                            handler(this, new UdpPacketReceivedEventArgs(buffer.buffer, source));
+                            handler(this, new UdpPacketReceivedEventArgs(receivebuffer.buffer, source));
                         }
                     }
                     else
                         Debug.WriteLine("Receiving multi-part message failed");
                 }
                 
+            }
+            else if (messageParts[0] == Commands.InfoMessage)
+            {
+                if (messageParts[1] == Commands.RequestPart)
+                {
+                    SendPartTo(source,Convert.ToInt32(messageParts[2]));
+                }
             }
             else
             {
@@ -428,36 +472,59 @@ namespace GEETHREE
             if (handler != null)
                 handler(this, EventArgs.Empty);
         }
-        private bool HandlePartialMessage(string sender, string packetno, string nopackets, string content)
+        private bool HandlePartialMessage(string sender, string packetno, string nopackets, string content, IPEndPoint source)
         {
             Debug.WriteLine("got package: " + packetno + " of " + nopackets);
-            if (buffer == null)
-                buffer = new receivebuffer();
+            if (receivebuffer == null)
+                receivebuffer = new MessageBuffer();
 
             if (Convert.ToInt32(packetno) == 0)
             {
-                buffer.buffer = content;
-                buffer.currentpackage = 0;
-                buffer.numberofpackages = Convert.ToInt32(nopackets);
-                buffer.id = sender;
-                buffer.problem = false;
+                receivebuffer.buffer = content;
+                receivebuffer.currentpackage = 0;
+                receivebuffer.numberofpackages = Convert.ToInt32(nopackets);
+                receivebuffer.sender = sender;
+                receivebuffer.problem = false;
+
+                //All ok, request for next part
+                string tmpmsg;
+
+                if (Convert.ToInt32(packetno) < Convert.ToInt32(nopackets) - 1)
+                {
+                    tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.RequestPart, receivebuffer.currentpackage + 1);
+
+                    byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                    this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
+                }
             }
             else
             {
-                if (sender == buffer.id && Convert.ToInt32(packetno) == buffer.currentpackage + 1)
+                if (sender == receivebuffer.sender && Convert.ToInt32(packetno) == receivebuffer.currentpackage + 1)
                 {
-                    buffer.buffer += content;
-                    buffer.currentpackage = Convert.ToInt32(packetno);
+                    receivebuffer.buffer += content;
+                    receivebuffer.currentpackage = Convert.ToInt32(packetno);
+
+                    //All ok, request for next part
+                    string tmpmsg;
+
+                    if (Convert.ToInt32(packetno) < Convert.ToInt32(nopackets) - 1)
+                    {
+                        tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.RequestPart, receivebuffer.currentpackage + 1);
+
+                        byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                        this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
+                    }
+
                 }
-                else if (Convert.ToInt32(packetno) != buffer.currentpackage + 1)
+                else if (Convert.ToInt32(packetno) != receivebuffer.currentpackage + 1)
                 {
                     Debug.WriteLine("Error:wrong package number");
-                    buffer.problem = true;
+                    receivebuffer.problem = true;
                 }
                 else
                 {
                     Debug.WriteLine("Error: partial message from new source");
-                    buffer.problem = true;
+                    receivebuffer.problem = true;
                 }
             }
             if (Convert.ToInt32(packetno) == Convert.ToInt32(nopackets)-1)
@@ -509,10 +576,11 @@ namespace GEETHREE
 
         }
     }
-    public class receivebuffer
+    public class MessageBuffer
     {
         public string buffer{ get; set; }
-        public string id { get; set; }
+        public string sender { get; set; }
+        public string receiver { get; set; }
         public int currentpackage { get; set; }
         public int numberofpackages { get; set; }
         public bool problem { get; set; }
