@@ -429,7 +429,7 @@ namespace GEETHREE
         public void GetMessagesFromServer(string uid)
         {
             wsConnection.testConnection(this);
-            if (wsConnection.connectionUp)
+           // if (wsConnection.connectionUp)
                 wsConnection.getMyMessages(uid, this);
         }
 
