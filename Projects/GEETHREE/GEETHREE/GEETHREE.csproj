@@ -20,7 +20,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>GEETHREE.xap</XapFilename>
+    <XapFilename>TinyCircle.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>GEETHREE.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
@@ -152,6 +152,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SplashScreenImage.jpg" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
     <None Include="Service References\MsgServiceReference\GEETHREE.MsgServiceReference.WireMessage.datasource">
@@ -175,10 +176,19 @@
     </None>
     <Resource Include="Resources\addround.png" />
     <Resource Include="Resources\add.light.png" />
+    <Resource Include="Resources\ap.green.png" />
+    <Resource Include="Resources\ap.red.png" />
     <Content Include="Resources\appbar.minus.rest.png" />
     <Content Include="Resources\attachment.png" />
     <Resource Include="Resources\camera.png" />
+    <Resource Include="Resources\camera.light.png" />
+    <Resource Include="Resources\people.png" />
+    <Resource Include="Resources\people.light.png" />
     <Content Include="Resources\sendMessage.png" />
+    <Resource Include="Resources\server.green.png" />
+    <Resource Include="Resources\server.red.png" />
+    <Resource Include="Resources\wifi.green.png" />
+    <Resource Include="Resources\wifi.red.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +218,6 @@
     <Resource Include="Resources\appbar.new.rest.png" />
     <Resource Include="Resources\panorama.jpg" />
     <Resource Include="Resources\pivot2.jpg" />
-    <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

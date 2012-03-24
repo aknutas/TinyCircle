@@ -14,6 +14,7 @@ using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
 using GEETHREE.DataClasses;
+using Microsoft.Phone.Net.NetworkInformation;
 
 
 
@@ -51,6 +52,11 @@ namespace GEETHREE
             }
             else
                 ctrl.cm.Join(ctrl.getCurrentUserID());
+
+            
+             
+
+
           
         }
 
@@ -62,6 +68,7 @@ namespace GEETHREE
                 App.ViewModel.LoadData();
             }
             //messageArrived();
+           
         }
 
         public void refreshAvatar()
@@ -72,10 +79,10 @@ namespace GEETHREE
 
       
 
-        private void txt_Base_Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
-        }
+        //private void txt_Base_Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
+        //}
 
         // ** When user clicks menu bar buttons
 
@@ -105,10 +112,10 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
-        private void txt_Base_Messages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
-        }
+        //private void txt_Base_Messages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+        //}
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
@@ -147,10 +154,10 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
         }
 
-        private void txt_Base_Help_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
-        }
+        //private void txt_Base_Help_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
+        //}
 
         // ** these were just for testing purposes
         private void menuItem1_Click(object sender, EventArgs e)
@@ -210,6 +217,32 @@ namespace GEETHREE
         private void menuItem2_Click(object sender, EventArgs e)
         {
             ctrl.dm.resetDataBase();
+
+
+
+
+            //DeviceNetworkInformation;
+            //NetworkInterfaceInfo netInterfaceInfo = socket.GetCurrentNetworkInterface();
+            //var type = netInterfaceInfo.InterfaceType;
+            //var subType = netInterfaceInfo.InterfaceSubtype; 
+            //MessageBox.Show(NetworkInterface.NetworkInterfaceType.ToString()); 
+
+
+            //Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceType net = Microsoft.Phone.Net.NetworkInformation.NetworkInterface.NetworkInterfaceType;
+            //if (net == Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceType.Wireless80211)
+            //{
+            //   img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+            //}
+            //if (net != Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceType.Wireless80211)
+            //{
+            //    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+            //}
+
+
+            //if (NetworkInterface.NetworkInterfaceType.ToString() == "Wireless80211")
+            //    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+            //else
+            //    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
         }
 
         private void btn_CreateUserID_OK_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -292,6 +325,33 @@ namespace GEETHREE
                 else // navigate to messages - shouts
                     NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
             }
+        }
+
+        private void menuItem3_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
+        }
+
+        private void img_Base_Wifi_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            
+
+                ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
+                connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.WiFi;
+                connectionSettingsTask.Show();
+
+        }
+
+        private void img_Base_Server_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
+        }
+
+        private void img_Base_AP_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
+            connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.Cellular;
+            connectionSettingsTask.Show();
         }    
     }
 }

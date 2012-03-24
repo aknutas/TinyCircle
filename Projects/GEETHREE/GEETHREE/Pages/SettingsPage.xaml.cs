@@ -22,8 +22,8 @@ namespace GEETHREE.Pages
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;
         Controller ctrl;
-        DataClasses.AppSettings appSettings; 
-
+        DataClasses.AppSettings appSettings;
+        Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
         public SettingsPage()
         {
             InitializeComponent();
@@ -33,6 +33,10 @@ namespace GEETHREE.Pages
             ctrl.registerAvatarUpdates(this);
             ctrl.registerCurrentPage(this, "settings");
             refreshAvatar();
+
+            LayoutRoot.Background = backgroundbrush;
+
+
 
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
             photoChooserTask = new PhotoChooserTask();
@@ -62,18 +66,18 @@ namespace GEETHREE.Pages
             }
         }
 
-        private void img_Settings_camera_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            try
-            {
-                cameraCaptureTask.Show();
-            }
-            catch (System.InvalidOperationException ex)
-            {
-                MessageBox.Show("An error occurred.");
-            }
+        //private void img_Settings_camera_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    try
+        //    {
+        //        cameraCaptureTask.Show();
+        //    }
+        //    catch (System.InvalidOperationException ex)
+        //    {
+        //        MessageBox.Show("An error occurred.");
+        //    }
 
-        }
+        //}
 
         //browses for the photos and gets the picture in imagebox after selection
         void photoChooserTask_Completed(object sender, PhotoResult e)
@@ -105,6 +109,20 @@ namespace GEETHREE.Pages
             {
                 NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
 
+            }
+        }
+
+       
+
+        private void img_Settings_camera1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                cameraCaptureTask.Show();
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                MessageBox.Show("An error occurred.");
             }
         }
     }

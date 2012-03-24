@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{34bfde6b-2c49-440e-94c9-69e0c7f36d0d}" Title="GEETHREE" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GEETHREE author" Description="Sample description" Publisher="GEETHREE">
+  <App xmlns="" ProductID="{34bfde6b-2c49-440e-94c9-69e0c7f36d0d}" Title="TinyCircle" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="GEETHREE author" Description="Sample description" Publisher="GEETHREE">
     <IconPath IsRelative="true" IsResource="false">g3aicon2_62x62.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
@@ -26,7 +26,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">g3aicon2_173x173.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>GEETHREE</Title>
+          <Title>TinyCircle</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

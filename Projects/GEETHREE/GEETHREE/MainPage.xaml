@@ -20,8 +20,9 @@
     shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}">
 
     <phone:PhoneApplicationPage.Resources>
-
         <local:AppSettings x:Key="appSettings"></local:AppSettings>
+
+        <!-- <local:AppSettings x:Key="appSettings"></local:AppSettings>-->
 
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -108,17 +109,63 @@
                 <ListBox Margin="0,0,0,0">
                     
                     <!--<TextBlock  Name="txt_Base_Alias" Text="Alias" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="40" />
 
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,17" Height="497">
 
-                        <StackPanel Width="410" Height="446">
-                            <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" />
-                            <TextBlock Name="txt_Base_Messages" Text=" Messages" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Messages_Tap" Foreground="#FF9BC0D3"/>
+                        </Grid.RowDefinitions>
+ 
 
-                            <TextBlock Name="txt_Base_Settings" Text=" Settings" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Tap="txt_Base_Settings_Tap" Foreground="#FF9BC0D3"/>
-                            <TextBlock Name="txt_Base_Help" Text=" Help" HorizontalAlignment="Left" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_Base_Help_Tap" />
+                            <StackPanel Grid.Row="0" Width="410"  >
+                                <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" />
+                            </StackPanel>
+                        <StackPanel Grid.Row="2" Width="410"  >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.07*"/>
+                                    <ColumnDefinition Width="0.25*"/>
+                                    <ColumnDefinition Width="0.07*"/>
+                                    <ColumnDefinition Width="0.25*"/>
+                                    <ColumnDefinition Width="0.07*"/>
+                                    <ColumnDefinition Width="0.25*"/>
+                                    <ColumnDefinition Width="0.04*"/>
+
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Height="80" Name="img_Base_Wifi" Stretch="Fill" Width="80" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/wifi.red.png" Tap="img_Base_Wifi_Tap" />
+                                <Image Grid.Column="3" Height="80" Name="img_Base_Server" Stretch="Fill" Width="80" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/server.red.png" Tap="img_Base_Server_Tap" />
+                                <Image Grid.Column="5" Height="80" Name="img_Base_AP" Stretch="Fill" Width="80" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/ap.red.png" Tap="img_Base_AP_Tap" />
+
+                            </Grid>
                         </StackPanel>
-                    </StackPanel>
+
+                        <StackPanel Grid.Row="4" Width="410"  >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.09*"/>
+                                    <ColumnDefinition Width="0.15*"/>
+                                    <ColumnDefinition Width="0.17*"/>
+                                    <ColumnDefinition Width="0.25*"/>
+                                    <ColumnDefinition Width="0.01*"/>
+                                    <ColumnDefinition Width="0.39*"/>
+                                    <ColumnDefinition Width="0.0*"/>
+
+                                </Grid.ColumnDefinitions>
+                               
+
+                                <TextBlock Grid.Column="1" Text="WiFi"  Width="50"  Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" Margin="12,0,0,0" />
+                                <TextBlock Grid.Column="3" Text="Server" Width="70" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0,32,0" />
+                                <TextBlock Grid.Column="5" Text="Access Point"  Width="115"  Style="{StaticResource PhoneTextNormalStyle}" />
+                            </Grid>
+                        </StackPanel>
+
+
+
+                    </Grid>
 
                 </ListBox>
             </controls:PanoramaItem>
@@ -145,6 +192,8 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="Init DB" Click="menuItem1_Click" />
                 <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="Clear Db" Click="menuItem2_Click" />
+                <shell:ApplicationBarMenuItem x:Name="menuItem3" Text="Help" Click="menuItem3_Click" />
+
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
