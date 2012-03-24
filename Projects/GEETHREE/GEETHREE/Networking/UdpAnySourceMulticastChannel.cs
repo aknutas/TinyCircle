@@ -272,6 +272,7 @@ namespace GEETHREE
             {
                 if (this.IsJoined)
                 {
+
                     string msg = string.Format(format, args);
                     byte[] data = Encoding.UTF8.GetBytes(msg);
                     this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
@@ -300,9 +301,33 @@ namespace GEETHREE
             {
                 if (this.IsJoined)
                 {
-                   
-                    byte[] data = Encoding.UTF8.GetBytes(message);
-                    this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                    Debug.WriteLine("Sending a message of size: " + message.Length);
+                    //Is the message too big?
+                    if (message.Length > 256)
+                    {
+                        string tmpmsg;
+                        string[] messageParts = message.Split(Commands.CommandDelimeter.ToCharArray());
+                        int index = 0;
+
+                        int nopackages = message.Length / 256 + (message.Length % 256 > 0 ? 1 : 0);
+                        if (sendbuffer == null)
+                            sendbuffer = new MessageBuffer();
+
+                        sendbuffer.buffer = message;
+                        sendbuffer.numberofpackages = nopackages;
+                        sendbuffer.sender = messageParts[1];
+                        sendbuffer.problem = false;
+                        sendbuffer.currentpackage = 0;
+
+                        if (index + 256 <= message.Length)
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index, 256));
+                        else
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index));
+
+
+                        byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                        this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                    }
                 }
                 else
                 {

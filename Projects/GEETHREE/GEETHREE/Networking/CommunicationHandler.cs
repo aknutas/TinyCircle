@@ -384,8 +384,24 @@ namespace GEETHREE
 
         public void SendTo(Message msg, string id)
         {
-           
-            //this.Channel.SendTo(endpoint, Commands.BroadcastMessageFormat, msg.SenderID, msg.ReceiverID, msg.TextContent, msg.Hash);
+            IPEndPoint endpoint;
+
+            for (int i=0;i<Connections.Count;i++)
+            {
+                if(Connections[i].UserID==id)
+                {
+                    endpoint = Connections[i].UserEndPoint;
+
+                    if (msg.PrivateMessage == false)
+                        this.Channel.SendTo(endpoint, string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                    else
+                        this.Channel.SendTo(endpoint, string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+
+                    break;
+                }
+            }
+            
+            
         }
 
         public void SendToServer(Message msg)
