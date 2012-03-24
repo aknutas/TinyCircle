@@ -106,7 +106,12 @@ namespace GEETHREE
                 }
                 else
                 {
-                    return new BitmapImage(new Uri("/GEETHREE;component/Resources/anonymous.png", UriKind.Relative));
+                    if (((Color)Application.Current.Resources["PhoneBackgroundColor"]).ToString() == "#FFFFFFFF")
+                        return new BitmapImage(new Uri("/GEETHREE;component/Resources/people.light.png", UriKind.Relative));
+                    else
+                        return new BitmapImage(new Uri("/GEETHREE;component/Resources/people.png", UriKind.Relative));
+                
+                    
                 }
             }
         }
