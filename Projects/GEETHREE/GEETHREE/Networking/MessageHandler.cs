@@ -133,13 +133,15 @@ namespace GEETHREE
             {
                 this.cm.SendTo(TransitMessages[i], e.UserId);
             }
+
+            //How do we tell the UI about connection?
         }
 
         public void NewServerConnectionFound(object sender, ServerConnectionEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Got new server connection ");
 
-            
+            //How do we tell the UI about connection?
 
         }
 

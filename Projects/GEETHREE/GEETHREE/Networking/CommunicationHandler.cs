@@ -89,7 +89,7 @@ namespace GEETHREE
         private WebServiceConnector wsConnection;
 
 
-        private string messagecache;
+       
 
         public CommunicationHandler(Controller cm)
         {
@@ -241,18 +241,6 @@ namespace GEETHREE
                         break;
                 }               
             }
-            else if (messageParts.Length == 5)
-            {
-                switch (messageParts[0])
-                {
-                    case Commands.PartialMessage:
-                        HandlePartialMessage(messageParts[1], messageParts[2], messageParts[3], messageParts[4]);
-                        break;
-                    default:
-                        break;
-                }
-
-            }
             else if (messageParts.Length == 9)
             {
                 switch (messageParts[0])
@@ -375,32 +363,13 @@ namespace GEETHREE
             }
         }
 
-        private void HandlePartialMessage(string sender, string packetno, string nopackets, string content)
-        {
-            if (Convert.ToInt32(packetno) == 1)
-            {
-                messagecache.Remove(0);
-                messagecache.Insert(messagecache.Length, content);
-            }
-            else
-                messagecache.Insert(messagecache.Length, content);
-            if (Convert.ToInt32(packetno) == Convert.ToInt32(nopackets))
-            {
-                 EventHandler<UdpPacketReceivedEventArgs> handler = this.PacketReceived;
-
-                if (handler != null)
-                {
-                    handler(this, new UdpPacketReceivedEventArgs(messagecache, null));
-                }
-            }
-
-        }
+        
         public void SendToAll(Message msg)
         {
             if (msg.PrivateMessage == false)
-                this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
+                this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
             else
-                this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
+                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
             //Try also to send to server
             SendToServer(msg);
         }
@@ -408,9 +377,9 @@ namespace GEETHREE
         public void SendFileToAll(Message msg)
         {
             if (msg.PrivateMessage == false)
-                this.Channel.Send(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
+                this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
             else
-                this.Channel.Send(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash);
+                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
         }
 
         public void SendTo(Message msg, string id)
