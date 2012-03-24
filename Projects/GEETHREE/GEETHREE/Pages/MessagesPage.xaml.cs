@@ -125,6 +125,24 @@ namespace GEETHREE.Pages
                 ApplicationBar.IsVisible = false;
             }
         }
+        private void DraftMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            selectedMessage = (Message)DraftMessages.SelectedItem;
+            if (selectedMessage != null)
+            {
+                // ** create url and give it user name and user id as parameters
+
+                string url = string.Format("/Pages/ComposeMessagePage.xaml?draftcontent={0}", selectedMessage.TextContent);
+
+                // ** give the controller the page reference
+                ctrl.registerPreviousPage(this, "messages_drafts");
+
+                // ** then navigate to Compose.xaml
+                NavigationService.Navigate(new Uri(url, UriKind.Relative));
+            }
+
+        }
+
 
         // ** must navigate back to the pivot page from details page, not back to panorama page
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
@@ -146,8 +164,9 @@ namespace GEETHREE.Pages
 
                     if (m == MessageBoxResult.OK)
                     {
-                        //write code for storing this message to draft
+                        // !! write code for storing this message to draft
 
+                        // ** 
                     }
 
                 }
@@ -173,8 +192,6 @@ namespace GEETHREE.Pages
                 ctrl.registerPreviousPage(this, "messages_shouts");
             else if (messagepivots.SelectedItem == whispers)
                 ctrl.registerPreviousPage(this, "messages_whispers");
-            else if (messagepivots.SelectedItem == whispers)
-                ctrl.registerPreviousPage(this, "messages_drafts");
             else if (messagepivots.SelectedItem == drafts)
                 ctrl.registerPreviousPage(this, "messages_drafts");
             else if (messagepivots.SelectedItem == sent)
@@ -190,6 +207,12 @@ namespace GEETHREE.Pages
             base.OnNavigatedTo(e);
             try
             {
+                // when going to compose page when message canvas is visible, returning back here will collapse it
+                if (messageCanvas.Visibility == Visibility.Visible)
+                {
+                    messageCanvas.Visibility = Visibility.Collapsed;
+                }
+
                 string newparameter = this.NavigationContext.QueryString["parameter"];
                 if (newparameter.Equals("messages_shouts"))
                     messagepivots.SelectedItem = shouts;
@@ -208,9 +231,17 @@ namespace GEETHREE.Pages
 
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            // ** ask the controller to register this page as a previous page before going to compose page
+            // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
+            if (messagepivots.SelectedItem == shouts)
+                ctrl.registerPreviousPage(this, "messages_shouts");
+            else if (messagepivots.SelectedItem == whispers)
+                ctrl.registerPreviousPage(this, "messages_whispers");
+            else if (messagepivots.SelectedItem == drafts)
+                ctrl.registerPreviousPage(this, "messages_drafts");
+            else if (messagepivots.SelectedItem == sent)
+                ctrl.registerPreviousPage(this, "messages_sent");
 
-            // ** creating an URL that gives some parameters
-            //string url = string.Format("/Pages/ComposeMessagePage.xaml?sender={0}&sender={1}", messageCanvasSenderTextBlock.Text, messageCanvasSenderTextBlock.Text);
             string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}",replyAlias,replyID);
             // ** then navigate to Compose.xaml
             NavigationService.Navigate(new Uri(url, UriKind.Relative));
@@ -221,7 +252,7 @@ namespace GEETHREE.Pages
             //detailsCanvasTextBox.Text = "";
             //txt_details_error_label.Text = "";
             //details.Visibility = System.Windows.Visibility.Visible;
-            //messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
+            messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -330,19 +361,33 @@ namespace GEETHREE.Pages
             }
         }
         */
+
+
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived(bool isPrivate)
         {
             // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
             if (m == MessageBoxResult.OK)
             {
-                // already on this page, so don't need to navigate anywhere
-                //NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+                if (isPrivate == true) // ** change the current pivot if needed
+                    if (messagepivots.SelectedItem != whispers)
+                        messagepivots.SelectedItem = whispers;
 
+                else 
+                    if (messagepivots.SelectedItem != shouts)
+                        messagepivots.SelectedItem = shouts;
+                    
             }
         }
+
+ 
+
+
+        
+        
+     
         
 
         

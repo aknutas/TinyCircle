@@ -88,11 +88,30 @@ namespace GEETHREE.Pages
 
                     // ** add the messages to the draftmessages collection
                     App.ViewModel.DraftMessages.Add(msg);
-                   
-
+                    //ctrl.registerPreviousPage(this, "messages_draft");
+                    // ** ask the controller, which was the last page
+                    //string destination = ctrl.tellPreviousPage();
+                    e.Cancel = true;
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_drafts"), UriKind.Relative));
+                    
                 }
 
             }
+            e.Cancel = true;
+
+            // ** ask the controller, which was the last page
+            string destination = ctrl.tellPreviousPage();
+
+            if (destination == "main_shouts" || destination == "main_alias" || destination == "main_society")
+                //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                 NavigationService.Navigate(new Uri(string.Format("/MainPage.xaml?parameter={0}", destination), UriKind.Relative));
+            else if(destination == "messages_shouts" || destination == "messages_whispers" || destination == "messages_drafts" || destination == "messages_sent")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", destination), UriKind.Relative));
+            else if(destination == "society_users")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toPeople"), UriKind.Relative));
+            else if(destination == "society_groups")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toGroups"), UriKind.Relative));
+           
         }
 
         private void image1_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -279,16 +298,25 @@ namespace GEETHREE.Pages
             
             }
         }
+        // ** when navigated to this page, check the url parameters if they contain some information
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             try
             {
-                // ** try to get sender name 
-                receiverAlias = NavigationContext.QueryString["replyalias"];
-                receiverID = NavigationContext.QueryString["replyid"];
-                composeReceipientTextBox.Text = receiverAlias;
-                image1.Visibility = Visibility.Collapsed;
-                composeReceipientTextBox.IsEnabled = false;
+                string previousPage = ctrl.tellPreviousPage();
+                if (previousPage != "messages_drafts")
+                {// ** try to get sender name 
+                    receiverAlias = NavigationContext.QueryString["replyalias"];
+                    receiverID = NavigationContext.QueryString["replyid"];
+                    composeReceipientTextBox.Text = receiverAlias;
+                    image1.Visibility = Visibility.Collapsed;
+                    composeReceipientTextBox.IsEnabled = false;
+                }
+                else // the user clicked draft from drafts page
+                {
+                    txt_compose_message.Text = NavigationContext.QueryString["draftcontent"];
+                
+                }
 
             }
             catch
@@ -299,19 +327,21 @@ namespace GEETHREE.Pages
             base.OnNavigatedTo(e);
         }
 
-
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived(bool isPrivate)
         {
             // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
             if (m == MessageBoxResult.OK)
             {
-                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
-
+                if (isPrivate == true) // navigate to Messages - whispers
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                else // navigate to messages - shouts
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
             }
         }
+
 
         //private void recipientCanvasExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         //{

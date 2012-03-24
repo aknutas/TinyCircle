@@ -102,17 +102,16 @@ namespace GEETHREE.Pages
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived(bool isPrivate)
         {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have reveived a message.", MessageBoxButton.OKCancel);
+            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
             if (m == MessageBoxResult.OK)
             {
-                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
-
+                if (isPrivate == true) // navigate to Messages - whispers
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                else // navigate to messages - shouts
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
             }
         }
-
-       
 
         private void img_Settings_camera1_Click_1(object sender, EventArgs e)
         {
