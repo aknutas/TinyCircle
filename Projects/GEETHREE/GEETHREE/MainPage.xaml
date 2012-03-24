@@ -21,7 +21,7 @@
 
     <phone:PhoneApplicationPage.Resources>
 
-        <local:AppSettings x:Key="appSettings"></local:AppSettings>
+       <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
 
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -39,24 +39,22 @@
             <!--Panorama item one-->
             <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with text wrapping-->
-                <ListBox Margin="0,0,0,0">
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
-                    <ListBox  Margin="0,0,0,0" ItemsSource="{Binding Items}">
+                    <ListBox  Margin="0,0,0,0" ItemsSource="{Binding ReceivedBroadcastMessages}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
                                     <!--Replace rectangle with image-->
-
                                     <StackPanel Width="311">
-                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding LineThree}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                        <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                </ListBox>
+  
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
