@@ -154,7 +154,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SplashScreenImage.png" />
+    <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Resources\available.png" />
     <Resource Include="Resources\notAvailable.png" />
     <Resource Include="Resources\ap_grey.png" />
