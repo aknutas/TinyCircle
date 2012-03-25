@@ -69,7 +69,7 @@ namespace TC_WS
             {
                 WireMessage wmsg = new WireMessage();
                 wmsg.recipientUserId = receiverId;
-                wmsg.msgText = "Welcome to the TinyCircle messaging service! \n -ADMIN";
+                wmsg.msgText = "Welcome to the TinyCircle messaging service!";
                 wmsg.senderUserId = "XXXADMINXXX";
                 sendMsg.Add(wmsg);
 
