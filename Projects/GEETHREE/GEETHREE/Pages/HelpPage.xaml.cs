@@ -45,8 +45,8 @@ namespace GEETHREE.Pages
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
         {
-            mainpageHelpTextBlock.Text = @"The main panorama has three pages. 'My Circle' shows you if there are other people in your circles.
-            You can also see statuses of your connections (WiFi and Server connection).";
+            //mainpageHelpTextBlock.Text = @"The main panorama has three pages. 'My Circle' shows you if there are other people in your circles.
+           // You can also see statuses of your connections (WiFi and Server connection).";
         }
 
     }
