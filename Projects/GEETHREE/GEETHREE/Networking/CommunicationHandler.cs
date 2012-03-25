@@ -537,7 +537,7 @@ namespace GEETHREE
 
         public void SendToServer(Message msg)
         {
-            wsConnection.testConnection(this);
+            //wsConnection.testConnection(this);
             if(wsConnection.connectionUp)
                 wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this);
         }
@@ -547,7 +547,7 @@ namespace GEETHREE
             wsConnection.testConnection(this);
             // Temporarily disabled check
             // if (wsConnection.connectionUp)
-                wsConnection.getMyMessages(uid, this);
+           wsConnection.getMyMessages(uid, this);
         }
 
         //Web service callbacks
