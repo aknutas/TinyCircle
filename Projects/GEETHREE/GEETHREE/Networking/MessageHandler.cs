@@ -77,13 +77,14 @@ namespace GEETHREE
             {
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
                 msg.outgoing = false;
+                dm.storeNewMessage(msg);
                 App.ViewModel.ReceivedPrivateMessages.Add(msg);
                 Controller.Instance.notifyViewAboutMessage(true);
             }
             else
                 this.TransitMessages.Add(msg);
 
-            dm.storeNewMessage(msg);
+           
         }
         public void BroadcastMessageReceived(object sender, MessageEventArgs e)
         {

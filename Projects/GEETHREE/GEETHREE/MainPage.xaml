@@ -22,7 +22,7 @@
     <phone:PhoneApplicationPage.Resources>
        <!--MAke sure that the next line is not commented out!!!-->
 <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
-       <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
+       <local:AppSettings x:Key="appSettings"></local:AppSettings>
 
 
     </phone:PhoneApplicationPage.Resources>
