@@ -116,6 +116,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="150" />
                             <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
                             <RowDefinition Height="80" />
                             <RowDefinition Height="10" />
                             <RowDefinition Height="40" />
@@ -125,9 +126,26 @@
  
 
                             <StackPanel Grid.Row="0" Width="410"  >
-                                <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" />
-                            </StackPanel>
-                        <StackPanel Grid.Row="2" Width="410"  >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="33*"/>
+                                    <ColumnDefinition Width="246*"/>
+                                    <ColumnDefinition Width="103*"/>
+                                    <ColumnDefinition Width="29*"/>
+
+
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" />
+                                <Image Grid.Column="2" Height="80" Name="img_Base_ConnectionStatus" Stretch="Fill" Width="80" HorizontalAlignment="Left" Margin="13,32,0,32" Source="/GEETHREE;component/Resources/few.png" />
+                                <TextBlock Grid.Column="1" Name="txt_connection" Text="Many People" Style="{StaticResource PhoneTextNormalStyle}" Margin="239,113,24,0" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+
+
+                            </Grid>
+                        </StackPanel>
+                        <TextBlock Grid.Row="1" Name="txt_alias_Name" Text="Bishal" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,0,231,0" VerticalAlignment="Top" Height="37" HorizontalAlignment="Right" Width="143" />
+
+
+                        <StackPanel Grid.Row="3" Width="410"  >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.07*"/>
@@ -146,7 +164,7 @@
                             </Grid>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="4" Width="410"  >
+                        <StackPanel Grid.Row="5" Width="410"  >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.09*"/>
