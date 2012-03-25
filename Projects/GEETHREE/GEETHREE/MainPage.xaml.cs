@@ -450,8 +450,22 @@ namespace GEETHREE
             else
                 img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
 
-            // ctrl.mh.LocalConnections
-        
+            if (ctrl.mh.LocalConnections == 0)
+            {
+                img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/Empty.png", UriKind.Relative));
+                txt_connection.Text = "No People";
+            }
+            else if (ctrl.mh.LocalConnections > 0 && ctrl.mh.LocalConnections <= 1)
+            {
+                img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/few.png", UriKind.Relative));
+                txt_connection.Text = "Few People";
+            }
+            else if (ctrl.mh.LocalConnections >= 2)
+            {
+                img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/many.png", UriKind.Relative));
+                txt_connection.Text = "Many People";
+            }
+
         }
     }
 }

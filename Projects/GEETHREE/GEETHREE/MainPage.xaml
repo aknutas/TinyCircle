@@ -69,7 +69,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="1" Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" />
                                 <Image Grid.Column="2" Height="80" Name="img_Base_ConnectionStatus" Stretch="Fill" Width="80" HorizontalAlignment="Left" Margin="13,32,0,32" Source="/GEETHREE;component/Resources/few.png" />
-                                <TextBlock Grid.Column="1" Name="txt_connection" Text="Many People" Style="{StaticResource PhoneTextNormalStyle}" Margin="239,113,24,0" VerticalAlignment="Top" Grid.ColumnSpan="3" />
+                                <TextBlock Grid.Column="1" Name="txt_connection" Text="Few People" Style="{StaticResource PhoneTextNormalStyle}" Margin="239,113,24,0" VerticalAlignment="Top" Grid.ColumnSpan="3" />
 
 
                             </Grid>
