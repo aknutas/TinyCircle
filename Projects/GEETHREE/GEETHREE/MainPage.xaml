@@ -21,7 +21,7 @@
 
     <phone:PhoneApplicationPage.Resources>
        <!--MAke sure that the next line is not commented out!!!-->
-    <local:AppSettings x:Key="appSettings"></local:AppSettings>
+    <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
     
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -36,81 +36,13 @@
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>-->
-            <!--Panorama item one-->
-            <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
-                <!--Double line list with text wrapping-->
-                    <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
-                <ListBox  Margin="0,0,50,0" ItemsSource="{Binding ReceivedBroadcastMessages}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                    <!--Replace rectangle with image-->
-                                   
-                                     <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
-                                     <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
 
-                                     <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
+            <!--controls:PanoramaItem Name="PanoramaItemAlias" Header="{Binding Path=AliasSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Foreground="{StaticResource PhoneAccentBrush}">-->
+                <controls:PanoramaItem Name="PanoramaItemAlias" Header="My Circle" Foreground="{StaticResource PhoneAccentBrush}">
 
-                                    <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                    <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    
-                            </Canvas>
-                          
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-  
-            </controls:PanoramaItem>
-
-            <!--Panorama item two-->
-            <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="My Society" Name="society" Foreground="{StaticResource PhoneAccentBrush}">
+                    <!--Double line list with image placeholder and text wrapping-->
                 <ListBox Margin="0,0,0,0">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="80" />
-                            <RowDefinition Height="0" />
-                            <RowDefinition Height="250" />
-                            <RowDefinition Height="71" />
-                            <RowDefinition Height="264" />
-                            <RowDefinition Height="55" />
-                            
-                        </Grid.RowDefinitions>
-                        <!-- WHAT IS THE REASON WHY PANORAMA'S HEADER IS NOT BEING USED?-->
-                        <!--<TextBlock  Name="txt_mySociety_MySociety" Grid.Row="0" Text="My Society" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_MySociety_Tap" />-->
-                        <TextBlock  Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}"  Tap="txt_mySociety_People_Tap" Margin="1,5,23,15" Height="56" />
-                        <ListBox Grid.Row="2" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" Height="242" Margin="0,2,0,6">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                        <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
-                        <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                        <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <TextBlock Name="txt_mySociety_morePeopleGroups" Grid.Row="5" Text="more people and groups" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_morePeopleGroups_Tap" />
-                        
-                    </Grid>
-                </ListBox>     
-            </controls:PanoramaItem>
 
-            <controls:PanoramaItem Name="PanoramaItemAlias" Header="{Binding Path=AliasSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Foreground="{StaticResource PhoneAccentBrush}">
-                <!--Double line list with image placeholder and text wrapping-->
-                <ListBox Margin="0,0,0,0">
-                    
                     <!--<TextBlock  Name="txt_Base_Alias" Text="Alias" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
                     <Grid>
                         <Grid.RowDefinitions>
@@ -122,11 +54,11 @@
 
 
                         </Grid.RowDefinitions>
- 
 
-                            <StackPanel Grid.Row="0" Width="410"  >
-                                <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" />
-                            </StackPanel>
+
+                        <StackPanel Grid.Row="0" Width="410"  >
+                            <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" />
+                        </StackPanel>
                         <StackPanel Grid.Row="2" Width="410"  >
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -158,16 +90,87 @@
                                     <ColumnDefinition Width="0.0*"/>
 
                                 </Grid.ColumnDefinitions>
-                               
 
-                                <TextBlock Grid.Column="1" Text="WiFi"  Width="50"  Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" Margin="12,0,0,0" />
-                                <TextBlock Grid.Column="3" Text="Server" Width="70" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0,32,0" />
+
+                                <TextBlock Text="WiFi Status"  Width="102"  Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" Margin="25,0,0,0" Grid.ColumnSpan="3" />
+                                <TextBlock Grid.Column="2" Text="Server status" Style="{StaticResource PhoneTextNormalStyle}" Margin="62,0,143,0" Grid.ColumnSpan="4" />
                                 <TextBlock Grid.Column="5" Text="Access Point"  Width="115"  Style="{StaticResource PhoneTextNormalStyle}" />
                             </Grid>
                         </StackPanel>
                     </Grid>
                 </ListBox>
             </controls:PanoramaItem>
+
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
+                <!--Double line list with text wrapping-->
+                    <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
+                <ListBox  Margin="0,0,50,0" ItemsSource="{Binding ReceivedBroadcastMessages}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Canvas Height="80" Width="600"  Margin="0,0,0,30">
+                                    <!--Replace rectangle with image-->
+                                   
+                                     <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
+                                     <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
+
+                                     <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
+
+                                    <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                    <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    
+                                </Canvas>
+                          
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+            </controls:PanoramaItem>
+
+            <!--Panorama item two-->
+            <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
+            <controls:PanoramaItem Header="My Society" Name="society" Foreground="{StaticResource PhoneAccentBrush}">
+                <ListBox Margin="0,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="0" />
+                            <RowDefinition Height="250" />
+                            <RowDefinition Height="71" />
+                            <RowDefinition Height="264" />
+                            <RowDefinition Height="55" />
+                            
+                        </Grid.RowDefinitions>
+                        <TextBlock  Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}"  Tap="txt_mySociety_People_Tap" Margin="1,5,23,15" Height="56" />
+                        <ListBox Grid.Row="2" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" Height="242" Margin="0,2,0,6">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Canvas Height="80" Width="600"  Margin="0,0,0,30">                                     
+                                        <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />           
+                                        <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </Canvas>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
+                        <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Canvas Height="80" Width="600"  Margin="0,0,0,30">
+                                        <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
+                                        <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </Canvas>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Name="txt_mySociety_morePeopleGroups" Grid.Row="5" Text="more people and groups" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_morePeopleGroups_Tap" />                   
+                    </Grid>
+                </ListBox>     
+            </controls:PanoramaItem>
+
+
 
         </controls:Panorama>
         <!-- This canvas is for UserID Creation  -->
