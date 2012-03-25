@@ -44,6 +44,11 @@ namespace GEETHREE.Networking
     /// </summary>
     public class ServerConnectionEventArgs : EventArgs
     {
-        
+        public bool Running { get; set; }
+
+        public ServerConnectionEventArgs(bool status)
+        {
+            this.Running = status;
+        }
     }
 }

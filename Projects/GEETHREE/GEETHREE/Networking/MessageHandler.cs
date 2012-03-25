@@ -30,12 +30,17 @@ namespace GEETHREE
         private DataMaster dm;
         private CommunicationHandler cm;
 
+        public bool ConnectedToServer { get; private set; }
+        public int LocalConnections { get; private set; }
+
         //Public constructor
         public MessageHandler(DataMaster dm, CommunicationHandler cm)
         {
             this.dm = dm;
             this.cm = cm;
             this.TransitMessages = new ObservableCollection<Message>();
+            this.ConnectedToServer = false;
+            this.LocalConnections = 0;
             RegisterEvents();
             LoadTransitmessages();
         }
@@ -136,15 +141,25 @@ namespace GEETHREE
                 this.cm.SendTo(TransitMessages[i], e.UserId);
             }
 
+            this.LocalConnections = this.cm.Connections.Count;
+
             //How do we tell the UI about connection?
         }
 
         public void NewServerConnectionFound(object sender, ServerConnectionEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Got new server connection ");
-
-            //How do we tell the UI about connection?
-
+            if (e.Running)
+            {
+                System.Diagnostics.Debug.WriteLine("Got new server connection ");
+                this.ConnectedToServer = true;
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Server connection lost");
+                this.ConnectedToServer = false;
+            }
+            
+        
         }
 
         public void Synchronize(User info)
@@ -207,7 +222,7 @@ namespace GEETHREE
             this.cm.BroadcastMessageReceived += new EventHandler<MessageEventArgs>(BroadcastMessageReceived);
             this.cm.NewConnection += new EventHandler<ConnectionEventArgs>(NewConnectionFound);
             this.cm.FileReceived += new EventHandler<MessageEventArgs>(FileReceived);
-            
+            this.cm.NewServerConnection += new EventHandler<ServerConnectionEventArgs>(NewServerConnectionFound);
         }
         /// <summary>
         /// Unregister for events on communication

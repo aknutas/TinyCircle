@@ -117,8 +117,14 @@ namespace GEETHREE
             {
                 if (!this.IsJoined && !_joinPending)
                 {
-                    _joinPending = true;
-                    this.Client.BeginJoinGroup(new AsyncCallback(OpenCallback), null);
+                    //if (Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.IsWiFiEnabled)
+                    //{
+                        _joinPending = true;
+                        this.Client.BeginJoinGroup(new AsyncCallback(OpenCallback), null);
+                        Debug.WriteLine("Joining network");
+                    //}
+                    //else
+                    //    Debug.WriteLine("Wifi off, not joining network");
                 }
             }
             catch (SocketException socketEx)
@@ -349,19 +355,44 @@ namespace GEETHREE
                 {
                     string tmpmsg;
                     sendbuffer.currentpackage += 1;
-
-                    if (nopackage*256 + 256 <= sendbuffer.buffer.Length)
-                        tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage*256, 256));
+                    if (sendbuffer != null && sendbuffer.buffer != null && sendbuffer.sender != null && nopackage < sendbuffer.numberofpackages)
+                    {
+                        if (nopackage * 256 + 256 <= sendbuffer.buffer.Length)
+                        {
+                            try
+                            {
+                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256, 256));
+                                byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                                this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                            }
+                            catch (System.ArgumentOutOfRangeException)
+                            {
+                                Debug.WriteLine("Problem with sendbuffer, aborting send");
+                            }
+                        }
+                        else if (nopackage * 256 <= sendbuffer.buffer.Length)
+                        {
+                            try
+                            {
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256));
+                            byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                            this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                            }
+                            catch (System.ArgumentOutOfRangeException)
+                            {
+                                Debug.WriteLine("Problem with sendbuffer, aborting send");
+                            }
+                        }
+                        else
+                            Debug.WriteLine("Request for non-existing package received");
+                    }
                     else
-                        tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256));
-
-
-                    byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                    this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                        Debug.WriteLine("Request for non-existing package received");
                 }
+
                 else
                 {
-                    DiagnosticsHelper.SafeShow("Not joined!");
+                    Debug.WriteLine("Not joined!");
                 }
             }
             catch (SocketException socketEx)
@@ -528,6 +559,7 @@ namespace GEETHREE
                 {
                     receivebuffer.buffer += content;
                     receivebuffer.currentpackage = Convert.ToInt32(packetno);
+                    receivebuffer.problem = false;
 
                     //All ok, request for next part
                     string tmpmsg;
