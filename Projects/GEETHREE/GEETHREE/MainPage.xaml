@@ -21,7 +21,8 @@
 
     <phone:PhoneApplicationPage.Resources>
        <!--MAke sure that the next line is not commented out!!!-->
-        <local:AppSettings x:Key="appSettings"></local:AppSettings>
+        
+       <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
 
 
 
@@ -127,7 +128,7 @@
  
 
                             <StackPanel Grid.Row="0" Width="410"  >
-                                <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" />
+                                <Image Height="143" Name="img_Base_Avatar" Stretch="Fill" Width="144" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" />
                             </StackPanel>
                         <StackPanel Grid.Row="2" Width="410"  >
                             <Grid>
@@ -189,7 +190,7 @@
        
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="50" BackgroundColor="#46000000" Mode="Default">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="1" BackgroundColor="{StaticResource PhoneBackgroundColor}" Mode="Default">
             <shell:ApplicationBarIconButton x:Name="appbar_settings" IconUri="/Resources/appbar.feature.settings.rest.png" Text="Settings" Click="appbar_settings_Click" />
             <shell:ApplicationBarIconButton x:Name="appbar_messages" IconUri="/Resources/appbar.feature.email.rest.png" Text="Messages" Click="appbar_messages_Click" />
             <shell:ApplicationBarIconButton x:Name="appbar_compose" IconUri="/Resources/appbar.edit.rest.png" Text="Compose" Click="appbar_compose_Click" />

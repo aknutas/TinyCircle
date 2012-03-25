@@ -354,6 +354,11 @@ namespace GEETHREE
                 ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
                 connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.WiFi;
                 connectionSettingsTask.Show();
+                // ** check the wifi status
+                if (DeviceNetworkInformation.IsWiFiEnabled)
+                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+                else
+                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
 
         }
 
@@ -384,6 +389,12 @@ namespace GEETHREE
 
             }
             
+        }
+
+        private void img_Base_Avatar_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            // ** Go to settings
+            NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
         }    
     }
 }
