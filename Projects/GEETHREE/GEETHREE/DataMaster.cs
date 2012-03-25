@@ -550,21 +550,27 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
+                    try
+                    {
+
+                        var qres1 = from GroupInfoResponse grpi in db.GroupInfoResponses select grpi;
+                        foreach (var grpi in qres1)
+                        {
+                            db.GroupInfoResponses.DeleteOnSubmit(grpi);
+                        }
+                        db.SubmitChanges();
+
+                        var qres2 = from UserInfoResponse useri in db.UserInfoResponses select useri;
+                        foreach (var useri in qres2)
+                        {
+                            db.UserInfoResponses.DeleteOnSubmit(useri);
+                        }
+                        db.SubmitChanges();
+                    }
+                    catch (Exception)
+                    { 
                     
-
-                    var qres1 = from GroupInfoResponse grpi in db.GroupInfoResponses select grpi;
-                    foreach (var grpi in qres1)
-                    {
-                        db.GroupInfoResponses.DeleteOnSubmit(grpi);
                     }
-                    db.SubmitChanges();
-
-                    var qres2 = from UserInfoResponse useri in db.UserInfoResponses select useri;
-                    foreach (var useri in qres2)
-                    {
-                        db.UserInfoResponses.DeleteOnSubmit(useri);
-                    }
-                    db.SubmitChanges();
                 }
             }
         }

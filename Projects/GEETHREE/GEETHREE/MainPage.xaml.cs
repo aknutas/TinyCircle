@@ -73,11 +73,7 @@ namespace GEETHREE
             else
                 img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
        
-            // ** same check for server
-            if (serverMessageReceived)
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
-            else
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
+
         }
 
         public void refreshAvatar()
@@ -330,6 +326,13 @@ namespace GEETHREE
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            // ** check the wifi status
+            if (DeviceNetworkInformation.IsWiFiEnabled)
+                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+            else
+                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+            
             try
             {
                 string newparameter = this.NavigationContext.QueryString["parameter"];

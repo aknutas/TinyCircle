@@ -48,13 +48,13 @@
                                 <Canvas Height="80" Width="600"  Margin="0,0,0,30">
                                     <!--Replace rectangle with image-->
                                    
-                                     <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people.png" Stretch="Fill" Width="50" />
+                                     <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
                                      <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
 
                                      <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
 
                                     <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    <TextBlock Text="{Binding LineTwo}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     
                             </Canvas>
                           
@@ -81,24 +81,24 @@
                         </Grid.RowDefinitions>
                         <!-- WHAT IS THE REASON WHY PANORAMA'S HEADER IS NOT BEING USED?-->
                         <!--<TextBlock  Name="txt_mySociety_MySociety" Grid.Row="0" Text="My Society" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3" Tap="txt_mySociety_MySociety_Tap" />-->
-                        <TextBlock  Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_People_Tap" Margin="1,5,23,15" Height="56" />
+                        <TextBlock  Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}"  Tap="txt_mySociety_People_Tap" Margin="1,5,23,15" Height="56" />
                         <ListBox Grid.Row="2" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" Height="242" Margin="0,2,0,6">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0,0,0,17" Width="432" Height="78">
                                         <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
+                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
                         <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0,0,0,17" Width="432" Height="78">
                                         <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -167,11 +167,7 @@
                                 <TextBlock Grid.Column="5" Text="Access Point"  Width="115"  Style="{StaticResource PhoneTextNormalStyle}" />
                             </Grid>
                         </StackPanel>
-
-
-
                     </Grid>
-
                 </ListBox>
             </controls:PanoramaItem>
 
