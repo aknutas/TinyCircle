@@ -296,7 +296,7 @@ namespace GEETHREE
             btn_CreateUserID_Done.Content = "Done";            
             btn_CreateUserID_Done.Visibility = Visibility.Visible;
 
-            ctrl.cm.Join(ctrl.getCurrentUserID());
+            
         }
 
         private void btn_CreateUserID_Cancel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -321,6 +321,7 @@ namespace GEETHREE
             {
                 ApplicationBar.IsVisible = true;
                 createUID = true;
+                ctrl.cm.Join(ctrl.getCurrentUserID());
                 if (serverMessageReceived == true) // ** now display the server message
                 {
                     serverMessageReceived = false;
@@ -372,22 +373,19 @@ namespace GEETHREE
         {
 
             System.Diagnostics.Debug.WriteLine("MEssage arrived");
-            if (UserIDCreateCanvas.Visibility == Visibility.Visible) //  // ** don't discplay the (server) message yet, if visible, the user is creating ID
-            {
-                serverMessageReceived = true;
-            }
-            else
-            {
+            
                 var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
                 if (m == MessageBoxResult.OK)
                 {
                     if (isPrivate == true) // navigate to Messages - whispers
-                        NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                        //NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                        //NavigationService.Navigate(new Uri("/Pages/MessagePage.xaml?parameter=messages_whispers", UriKind.Relative));
+                        NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
                     else // navigate to messages - shouts
                         NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
                 }
-            }
+            
         
 
         }
