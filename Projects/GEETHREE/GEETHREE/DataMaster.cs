@@ -46,6 +46,7 @@ namespace GEETHREE
         private Object dblock;
         public FileMaster fm;
         private DataClasses.AppSettings settings;
+        private List<Message> draftMessages;
 
         public DataMaster(DataClasses.AppSettings settings)
         {
@@ -62,6 +63,7 @@ namespace GEETHREE
             }
             fm = new FileMaster();
             this.settings = settings;
+            draftMessages = new List<Message>();
         }
 
         public List<User> getAllUsers()
@@ -314,6 +316,90 @@ namespace GEETHREE
                     return returnList;
                 }
             }
+        }
+
+        public List<Message> getMySentMessages()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    var qres = from Message message in db.Messages where message.SenderID == settings.UserIDSetting select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
+                }
+            }
+        }
+
+        public List<Message> getMySentBroadcasts()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    var qres = from Message message in db.Messages where message.SenderID == settings.UserIDSetting && message.PrivateMessage != true select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
+                }
+            }
+        }
+
+        public List<Message> getMySentPrivateMessages()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    var qres = from Message message in db.Messages where message.SenderID == settings.UserIDSetting && message.PrivateMessage == true select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
+                }
+            }
+        }
+
+        public List<Message> getIncomingPrivateMessages()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    var qres = from Message message in db.Messages where message.ReceiverID == settings.UserIDSetting && message.PrivateMessage == true select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
+                }
+            }
+        }
+
+        public List<Message> getMyDraftMessages()
+        {
+            lock (dblock)
+            {
+                List<Message> returnList = new List<Message>(draftMessages);
+                return returnList;
+            }
+        }
+
+        public void storeDraftMessage(Message message)
+        {
+            lock (dblock)
+            {
+                draftMessages.Add(message);
+                return;
+            }
+        }
+
+        public void deleteDraftMessage(Message message)
+        {
+            lock (dblock)
+            {
+                draftMessages.Remove(message);
+                return;
+            }
+        }
+
+        public void emptyDraftMessages()
+        {
+            draftMessages = new List<Message>();
         }
 
         public void storeNewMessage(Message message)
