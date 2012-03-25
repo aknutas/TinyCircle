@@ -23,10 +23,14 @@ namespace GEETHREE
         private List<User> usrList;
         private List<Group> grpList;
 
+        
         private List<Message> draftMessageList;
         private List<Message> sentMessageList;
         private List<Message> privateMessagesList;
         private List<Message> broadcaseMessagesList;
+
+        private List<GroupInfoResponse> grpInfoResponseList;
+        private List<UserInfoResponse> usrInfoResponseList;
    
 
         public MainViewModel()
@@ -37,6 +41,8 @@ namespace GEETHREE
             draftMessageList = new List<Message>();
             privateMessagesList = new List<Message>();
             broadcaseMessagesList = new List<Message>();
+            grpInfoResponseList = new List<GroupInfoResponse>();
+            usrInfoResponseList = new List<UserInfoResponse>();
 
             this.Items = new ObservableCollection<ItemViewModel>();
             this.Users = new ObservableCollection<User>();
@@ -45,6 +51,10 @@ namespace GEETHREE
             this.SentMessages = new ObservableCollection<Message>();
             this.ReceivedPrivateMessages = new ObservableCollection<Message>();
             this.ReceivedBroadcastMessages = new ObservableCollection<Message>();
+
+            this.GroupInfoResponses = new ObservableCollection<GroupInfoResponse>();
+            this.UserInfoResponses = new ObservableCollection<UserInfoResponse>();
+
         }
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -59,6 +69,9 @@ namespace GEETHREE
         public ObservableCollection<Message> SentMessages { get; private set; }
         public ObservableCollection<Message> ReceivedPrivateMessages { get; private set; }
         public ObservableCollection<Message> ReceivedBroadcastMessages { get; private set; }
+
+        public ObservableCollection<GroupInfoResponse> GroupInfoResponses { get; private set; }
+        public ObservableCollection<UserInfoResponse> UserInfoResponses { get; private set; }
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
@@ -112,6 +125,32 @@ namespace GEETHREE
             {
                 this.Groups.Add(g);
             }   
+        }
+
+        public void LoadGroupInfoResponses()
+        {
+            GroupInfoResponses.Clear();
+            grpInfoResponseList.Clear();
+            grpInfoResponseList = c.dm.getAllGroupInfoResponses();
+
+
+            foreach (GroupInfoResponse grp in grpInfoResponseList)
+            {
+                this.GroupInfoResponses.Add(grp);
+            }
+        }
+
+        public void LoadUserInfoResponses()
+        {
+            UserInfoResponses.Clear();
+            usrInfoResponseList.Clear();
+            usrInfoResponseList = c.dm.getAllUserInfoResponses();
+
+
+            foreach (UserInfoResponse usr in usrInfoResponseList)
+            {
+                this.UserInfoResponses.Add(usr);
+            }
         }
 
         public void LoadDrafts()

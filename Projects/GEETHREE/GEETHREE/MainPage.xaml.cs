@@ -184,6 +184,42 @@ namespace GEETHREE
             u.UserID = "559";
             ctrl.dm.storeNewUser(u);
 
+            GroupInfoResponse gri = new GroupInfoResponse();
+            gri.GroupName = "G1";
+            gri.GroupID = "111";
+            gri.Description = "dasdsada";
+            gri.SenderAlias = "dasdad";
+            gri.SenderID = "SDA";
+            gri.ReceiverID = "SADAD";
+            ctrl.dm.storeNewGroupInfoResponse(gri);
+
+            gri = new GroupInfoResponse();
+            gri.GroupName = "G2";
+            gri.GroupID = "112";
+            gri.Description = "dasdsada222";
+            gri.SenderAlias = "dasdad";
+            gri.SenderID = "SDA";
+            gri.ReceiverID = "SADAD";
+            ctrl.dm.storeNewGroupInfoResponse(gri);
+
+            UserInfoResponse uri = new UserInfoResponse();
+            uri.UserID = "115";
+            uri.UserAlias = "Samantha";
+            uri.Description = "the foxy gal";
+            ctrl.dm.storeNewUserInfoResponse(uri);
+
+            uri = new UserInfoResponse();
+            uri.UserID = "185";
+            uri.UserAlias = "anjelina";
+            uri.Description = "the sexy gal";
+            ctrl.dm.storeNewUserInfoResponse(uri);
+
+            uri = new UserInfoResponse();
+            uri.UserID = "556";
+            uri.UserAlias = "bomber";
+            uri.Description = "the sexy gal";
+            ctrl.dm.storeNewUserInfoResponse(uri);
+
             Group g = new Group();
             g.GroupName = ".NET Codecamp";
             g.GroupID = "1234";
@@ -222,7 +258,7 @@ namespace GEETHREE
         private void menuItem2_Click(object sender, EventArgs e)
         {
             ctrl.dm.resetDataBase();
-
+            App.ViewModel.LoadData();
             //DeviceNetworkInformation;
             //NetworkInterfaceInfo netInterfaceInfo = socket.GetCurrentNetworkInterface();
             //var type = netInterfaceInfo.InterfaceType;
@@ -364,9 +400,7 @@ namespace GEETHREE
 
         private void img_Base_AP_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
-            connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.Cellular;
-            connectionSettingsTask.Show();
+            
         }
 
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)

@@ -37,6 +37,8 @@ namespace GEETHREE
         public Table<Me> Me;
         public Table<Message> Messages;
         public Table<User> Users;
+        public Table<GroupInfoResponse> GroupInfoResponses;
+        public Table<UserInfoResponse> UserInfoResponses;
     }
 
     public class DataMaster
@@ -128,6 +130,99 @@ namespace GEETHREE
             }
         }
 
+        public List<GroupInfoResponse> getAllGroupInfoResponses()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    try
+                    {
+                        var qres = from GroupInfoResponse grpinforesponses in db.GroupInfoResponses select grpinforesponses;
+                        List<GroupInfoResponse> returnresponseList = new List<GroupInfoResponse>(qres);
+                        return returnresponseList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<GroupInfoResponse>();
+                    }
+                }
+            }
+        }
+
+
+        public void storeNewGroupInfoResponse(GroupInfoResponse groupInfoResponse)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.GroupInfoResponses.InsertOnSubmit(groupInfoResponse);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public void deleteGroupInfoResponse(GroupInfoResponse groupInfoResponse)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.GroupInfoResponses.DeleteOnSubmit(groupInfoResponse);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public List<UserInfoResponse> getAllUserInfoResponses()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    try
+                    {
+                        var qres = from UserInfoResponse usrinforesponses in db.UserInfoResponses select usrinforesponses;
+                        List<UserInfoResponse> returnresponseList = new List<UserInfoResponse>(qres);
+                        return returnresponseList;
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return new List<UserInfoResponse>();
+                    }
+                }
+            }
+        }
+
+
+        public void storeNewUserInfoResponse(UserInfoResponse userInfoResponse)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.UserInfoResponses.InsertOnSubmit(userInfoResponse);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public void deleteUserInfoResponse(UserInfoResponse userInfoResponse)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.UserInfoResponses.DeleteOnSubmit(userInfoResponse);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+
         public List<Group> getAllGroups()
         {
             lock (dblock)
@@ -172,6 +267,114 @@ namespace GEETHREE
                 }
             }
         }
+
+        public bool checkGroupID(string grpID)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    //Bubblegum fix for the not existing table bug
+                    try
+                    {
+                        var qres = from Group grp in db.Groups where grp.GroupID == grpID select grp;
+                        List<Group> returnList = new List<Group>(qres);
+                        if (returnList.Count() <= 0)
+                            return false;
+                        else
+                            return true;
+                        
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool checkGroupIDfromGroupInfoResponse(string grpID)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    //Bubblegum fix for the not existing table bug
+                    try
+                    {
+                        var qres = from GroupInfoResponse grp in db.GroupInfoResponses where grp.GroupID == grpID select grp;
+                        List<GroupInfoResponse> returnList = new List<GroupInfoResponse>(qres);
+                        if (returnList.Count() <= 0)
+                            return false;
+                        else
+                            return true;
+
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool checkUserIDfromUserInfoResponse(string usrID)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    //Bubblegum fix for the not existing table bug
+                    try
+                    {
+                        var qres = from UserInfoResponse usr in db.UserInfoResponses where usr.UserID==usrID select usr;
+                        List<UserInfoResponse> returnList = new List<UserInfoResponse>(qres);
+                        if (returnList.Count() <= 0)
+                            return false;
+                        else
+                            return true;
+
+                    }
+                    catch (Exception)
+                    {
+                        //If query fails bad, return an empty list
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        public bool checkFriendID(string usrID)
+        {
+            lock (dblock)
+            {
+                   
+                  
+
+                    using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                    {
+                        try
+                        {
+                            var qres = from User user in db.Users where user.UserID == usrID select user;
+                            List<User> returnList = new List<User>(qres);
+                            if (returnList.Count() <= 0)
+                                return false;
+                            else
+                                return true;
+                        }
+                        catch (Exception)
+                        {
+                            
+                            return false;
+                        }
+                    }
+                
+            }
+        }
+
 
         public List<Message> getSendableMessages()
         {
@@ -322,6 +525,44 @@ namespace GEETHREE
                     foreach (var msg in qres2)
                     {
                         db.Messages.DeleteOnSubmit(msg);
+                    }
+                  
+                    var qres4 = from GroupInfoResponse grpi in db.GroupInfoResponses select grpi;
+                    foreach (var grpi in qres4)
+                    {
+                        db.GroupInfoResponses.DeleteOnSubmit(grpi);
+                    }
+                    db.SubmitChanges();
+
+                    var qres5 = from UserInfoResponse useri in db.UserInfoResponses select useri;
+                    foreach (var useri in qres5)
+                    {
+                        db.UserInfoResponses.DeleteOnSubmit(useri);
+                    }
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public void resetTableGroupAndUserInfoResponse()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    
+
+                    var qres1 = from GroupInfoResponse grpi in db.GroupInfoResponses select grpi;
+                    foreach (var grpi in qres1)
+                    {
+                        db.GroupInfoResponses.DeleteOnSubmit(grpi);
+                    }
+                    db.SubmitChanges();
+
+                    var qres2 = from UserInfoResponse useri in db.UserInfoResponses select useri;
+                    foreach (var useri in qres2)
+                    {
+                        db.UserInfoResponses.DeleteOnSubmit(useri);
                     }
                     db.SubmitChanges();
                 }

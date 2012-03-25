@@ -86,10 +86,13 @@ namespace GEETHREE
         /// </summary>
         public event EventHandler<UdpPacketReceivedEventArgs> PacketReceived;
 
+        
+
         private WebServiceConnector wsConnection;
 
 
-       
+       public List<Group> grpList= new List<Group>();
+      
 
         public CommunicationHandler(Controller cm)
         {
@@ -103,6 +106,10 @@ namespace GEETHREE
             
             this.Connections = new ObservableCollection<Connection>();
             //this.Join(cm.getCurrentUserID());
+
+            grpList.Clear();
+            grpList = cm.dm.getAllGroups();
+           
         }
 
         /// <summary>
@@ -218,6 +225,26 @@ namespace GEETHREE
         }
 
         /// <summary>
+        /// requests for group info
+        /// </summary>
+        
+        public void RequestGroupInfo(string UserID)
+        {
+
+            this.Channel.Send(Commands.GroupInfoRequestFormat, UserID);
+           
+        }
+
+        public void RequestUserInfo(string UserID)
+        {
+
+            this.Channel.Send(Commands.UserInfoRequestFormat, UserID);
+
+        }
+
+       
+
+        /// <summary>
         /// Handles the PacketReceived event of the Channel control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -237,10 +264,42 @@ namespace GEETHREE
                     case Commands.Leave:
                         OnUserLeft(new Connection(messageParts[1], e.Source));
                         break;
+                    case Commands.GroupInfoRequest:
+                        ResponseWithGroupInfo(messageParts[1]);
+                        break;
+
+                    case Commands.UserInfoRequest:
+                        ResponseWithUserInfo(messageParts[1]);
+                        break;
+
                     default:
                         break;
                 }               
             }
+            else if (messageParts.Length == 5)
+            {
+                switch (messageParts[0])
+                {
+                    case Commands.UserInfoResponse:
+                        OnResponseWithUserInfoReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            else if (messageParts.Length == 7)
+            {
+                switch (messageParts[0])
+                {
+                    case Commands.GroupInfoResponse:
+                        OnResponseWithGroupInfoReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             else if (messageParts.Length == 9)
             {
                 switch (messageParts[0])
@@ -363,7 +422,50 @@ namespace GEETHREE
             }
         }
 
+        private void OnResponseWithGroupInfoReceived(string sender, string senderalias, string receiver, string groupname, string groupid, string description)
+        {
+            if (sender != receiver)
+            {
+                //if (Controller.Instance.dm.checkGroupIDfromGroupInfoResponse(groupid) == false)
+                //{
+                    GroupInfoResponse grpInfo = new GroupInfoResponse();
+                    grpInfo.SenderID = sender;
+                    grpInfo.SenderAlias = senderalias;
+                    grpInfo.ReceiverID = receiver;
+                    grpInfo.GroupName = groupname;
+                    grpInfo.GroupID = groupid;
+                    grpInfo.Description = description;
+                    Controller.Instance.dm.storeNewGroupInfoResponse(grpInfo);
+                //}
+            }
+            
+            
+        }
+        private void OnResponseWithUserInfoReceived(string sender, string senderalias, string description, string receiver)
+        {
+            if (sender != receiver)
+            {
+                //if (Controller.Instance.dm.checkUserIDfromUserInfoResponse(sender) == false)
+                //{
+
+                    UserInfoResponse u = new UserInfoResponse();
+                    u.UserID = sender;
+                    u.UserAlias = senderalias;
+                    u.Description = description;
+                    u.ReceiverID = receiver;
+
+                    Controller.Instance.dm.storeNewUserInfoResponse(u);
+                //}
+
+
+               
+            }
+            
+            
+        }
+
         
+
         public void SendToAll(Message msg)
         {
             if (msg.PrivateMessage == false)
@@ -380,6 +482,35 @@ namespace GEETHREE
                 this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
             else
                 this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+        }
+
+        public void ResponseWithGroupInfo(string ReceiverID)
+        {
+            if (ReceiverID != Controller.Instance.getCurrentUserID())
+            {
+
+                foreach (Group g in grpList)
+                {
+                    this.Channel.Send(string.Format(Commands.GroupInfoResponseFormat, Controller.Instance.getCurrentUserID(), Controller.Instance.getCurrentAlias(), ReceiverID, g.GroupName, g.GroupID, g.Description));
+                }
+            }
+
+           
+
+        }
+
+        public void ResponseWithUserInfo(string ReceiverID)
+        {
+            if (ReceiverID != Controller.Instance.getCurrentUserID())
+            {
+
+                
+                    this.Channel.Send(string.Format(Commands.UserInfoResponseFormat, Controller.Instance.getCurrentUserID(), Controller.Instance.getCurrentAlias(), "User Description", ReceiverID));
+                
+            }
+
+
+
         }
 
         public void SendTo(Message msg, string id)

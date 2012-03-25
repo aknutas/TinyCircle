@@ -90,6 +90,14 @@
             <TextBlock Canvas.Left="36" Canvas.Top="270" FontSize="28" FontWeight="Medium" Height="40" Text="Description :" Width="332" />
             <TextBox Canvas.Left="23" Canvas.Top="316" Height="220" Name="txt_groupDesc" Text="" Width="419" TextWrapping="Wrap" />
         </Canvas>
+        
+        <!-- This canvas is for selecting Groups  -->
+        <Canvas Height="694" HorizontalAlignment="Left" Name="groupListCanvas" VerticalAlignment="Top" Width="480" 
+               Visibility="Collapsed"  Opacity="1" Margin="0,3,0,0" Background="Black">
+            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="groupCanvasTextBlock" Text="Join a Group :" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+            <ListBox Canvas.Left="37" Canvas.Top="236" Height="344" Name="grplistBox1" Width="403" Visibility="Collapsed" FontSize="{StaticResource PhoneFontSizeExtraLarge}" SelectionChanged="grouptListBox_SelectionChanged"/>
+            <TextBlock Canvas.Left="37" Canvas.Top="163" Height="67" Name="txt_groupList_message" Text="" Width="403" TextWrapping="Wrap" />
+        </Canvas>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->

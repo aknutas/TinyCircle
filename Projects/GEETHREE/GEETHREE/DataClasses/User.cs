@@ -23,29 +23,7 @@ namespace GEETHREE.DataClasses
     public class User : INotifyPropertyChanged
     {
 
-        //Constructors
-        public User()
-        {
-            // Assign handlers for the add and remove operations, respectively.
-            _messages = new EntitySet<Message>(
-                new Action<Message>(this.attach_User),
-                new Action<Message>(this.detach_User)
-                );
-           
-        }
-
-        public User(string username, string description)
-        {
-            // Assign handlers for the add and remove operations, respectively.
-            _messages = new EntitySet<Message>(
-                new Action<Message>(this.attach_User),
-                new Action<Message>(this.detach_User)
-                );
-
-            //Assigments
-            UserName = username;
-            Description = description;
-        }
+        
 
         // Define ID: private field, public property, and database column.
         private int _userDbId;
@@ -65,6 +43,30 @@ namespace GEETHREE.DataClasses
                     NotifyPropertyChanged("userDbId");
                 }
             }
+        }
+
+        //Constructors
+        public User()
+        {
+            // Assign handlers for the add and remove operations, respectively.
+            _messages = new EntitySet<Message>(
+                new Action<Message>(this.attach_User),
+                new Action<Message>(this.detach_User)
+                );
+
+        }
+
+        public User(string username, string description)
+        {
+            // Assign handlers for the add and remove operations, respectively.
+            _messages = new EntitySet<Message>(
+                new Action<Message>(this.attach_User),
+                new Action<Message>(this.detach_User)
+                );
+
+            //Assigments
+            UserName = username;
+            Description = description;
         }
 
         [Column]
