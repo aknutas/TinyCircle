@@ -21,7 +21,7 @@
 
     <phone:PhoneApplicationPage.Resources>
        <!--MAke sure that the next line is not commented out!!!-->
-<local:AppSettings x:Key="appSettings"></local:AppSettings>
+<!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
 
 
     </phone:PhoneApplicationPage.Resources>
@@ -176,8 +176,8 @@
 
         </controls:Panorama>
         <!-- This canvas is for UserID Creation  -->
-        <Canvas Height="700" HorizontalAlignment="Left" Name="UserIDCreateCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1" Background="Black">
+        <Canvas Height="797" HorizontalAlignment="Left" Name="UserIDCreateCanvas" VerticalAlignment="Top" Width="480" 
+                Visibility="Collapsed" Opacity="1" Background="Black" Grid.ColumnSpan="2">
             <TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="CreateUserIDTextBlock" Text="Create UserID" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <TextBlock Canvas.Left="11" Canvas.Top="273" Height="280" Name="CreateUserIDContent" Text="TinyCircle wants to create a UserID for this device?" Width="426" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />

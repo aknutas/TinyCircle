@@ -25,6 +25,7 @@ namespace GEETHREE
         private User selectedUser = null;
         ObservableCollection<GroupInfoResponse> GroupInfoResponseslist = new ObservableCollection<GroupInfoResponse>();
         ObservableCollection<UserInfoResponse> UserInfoResponseslist = new ObservableCollection<UserInfoResponse>();
+        List<User> Userslist = new List<User>();
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
 
         bool userflag = true;
@@ -35,6 +36,8 @@ namespace GEETHREE
             DataContext = App.ViewModel;
             ctrl = Controller.Instance;
             ctrl.registerCurrentPage(this, "society");
+            ctrl.cm.RequestUserInfo(ctrl.getCurrentUserID());
+            ctrl.cm.RequestGroupInfo(ctrl.getCurrentUserID());
 
         }
        
@@ -261,7 +264,19 @@ namespace GEETHREE
             }
         }
 
-        
+        public bool checkOnline(string userid, List<User> userlist)
+        {
+            bool online = false;
+            foreach (User us in Userslist)
+            {
+                
+                if (us.UserID ==userid)
+                {
+                    online = true;
+                }
+            }
+            return online;
+        }
 
         private void appbar_addButton_Click(object sender, EventArgs e)
         {
@@ -280,23 +295,34 @@ namespace GEETHREE
                     txt_groupList_message.Text = "";
                     grplistBox1.Items.Clear();
                     UserInfoResponseslist.Clear();
+                    Userslist.Clear();
+                    Userslist = ctrl.dm.getAllUsers();
                     App.ViewModel.LoadUserInfoResponses();
+                    
 
 
                     foreach (UserInfoResponse u in App.ViewModel.UserInfoResponses)
                     {
-                        if (ctrl.dm.checkFriendID(u.UserID) == false)
+                        foreach (User us in Userslist)
                         {
-                            bool exists = false;
-                            foreach (UserInfoResponse resp in UserInfoResponseslist)
+                            bool exists_in_userTable = false;
+                            if (us.UserID == u.UserID)
                             {
-                                if (resp.UserID == u.UserID)
-                                    exists = true;
+                                exists_in_userTable = true;
                             }
-                            if (exists == false)
+                            if (exists_in_userTable == false)
                             {
-                                grplistBox1.Items.Add(u.UserAlias);
-                                UserInfoResponseslist.Add(u);
+                                bool exists = false;
+                                foreach (UserInfoResponse resp in UserInfoResponseslist)
+                                {
+                                    if (resp.UserID == u.UserID)
+                                        exists = true;
+                                }
+                                if (exists == false)
+                                {
+                                    grplistBox1.Items.Add(u.UserAlias);
+                                    UserInfoResponseslist.Add(u);
+                                }
                             }
                         }
 
