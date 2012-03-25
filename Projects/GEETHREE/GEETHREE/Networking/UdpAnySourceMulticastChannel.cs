@@ -285,7 +285,7 @@ namespace GEETHREE
                 }
                 else
                 {
-                    DiagnosticsHelper.SafeShow("Not joined!");
+                    Debug.WriteLine("Not joined!");
                 }
             }
             catch (SocketException socketEx)
@@ -332,12 +332,12 @@ namespace GEETHREE
 
 
                         byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                        this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                        this.Client.BeginSendTo(data, 0, data.Length,endPoint, new AsyncCallback(SendToCallback), null);
                     }
                 }
                 else
                 {
-                    DiagnosticsHelper.SafeShow("Not joined!");
+                    Debug.WriteLine("Not joined!");
                 }
             }
             catch (SocketException socketEx)
@@ -363,7 +363,7 @@ namespace GEETHREE
                             {
                                 tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256, 256));
                                 byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                                this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                                this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                             }
                             catch (System.ArgumentOutOfRangeException)
                             {
@@ -376,7 +376,7 @@ namespace GEETHREE
                             {
                             tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256));
                             byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                            this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                            this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                             }
                             catch (System.ArgumentOutOfRangeException)
                             {
@@ -613,7 +613,7 @@ namespace GEETHREE
         {
             if (socketEx.SocketErrorCode == SocketError.NetworkDown)
             {
-                DiagnosticsHelper.SafeShow("A SocketExeption has occurred. Please make sure your device is on a Wi-Fi network and the Wi-Fi network is operational");
+                Debug.WriteLine("A SocketExeption has occurred. Please make sure your device is on a Wi-Fi network and the Wi-Fi network is operational");
             }
             else if (socketEx.SocketErrorCode == SocketError.ConnectionReset)
             {
@@ -624,7 +624,7 @@ namespace GEETHREE
             }
             else if (socketEx.SocketErrorCode == SocketError.AccessDenied)
             {
-                DiagnosticsHelper.SafeShow("An error occurred. Try Again.");
+                Debug.WriteLine("An error occurred. Try Again.");
             }
             else if (socketEx.SocketErrorCode == SocketError.OperationAborted)
             {
@@ -637,7 +637,7 @@ namespace GEETHREE
             else
             {
                 // Just display the message.
-                DiagnosticsHelper.SafeShow(socketEx.Message);
+                Debug.WriteLine(socketEx.Message);
             }
 
         }
