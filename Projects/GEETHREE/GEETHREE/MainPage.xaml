@@ -21,7 +21,7 @@
 
     <phone:PhoneApplicationPage.Resources>
        <!--MAke sure that the next line is not commented out!!!-->
-    <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
+    <local:AppSettings x:Key="appSettings"></local:AppSettings>
     
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -74,7 +74,7 @@
 
                             </Grid>
                         </StackPanel>
-                        <TextBlock Grid.Row="1" Name="txt_alias_Name" Text="Bishal" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,0,231,0" VerticalAlignment="Top" Height="37" HorizontalAlignment="Right" Width="143" />
+                        <TextBlock Grid.Row="1" Name="txt_alias_Name" Text="Bishal" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,0,169,0" VerticalAlignment="Top" Height="37" HorizontalAlignment="Right" Width="171" />
 
 
                         <StackPanel Grid.Row="3" Width="410"  >
