@@ -332,7 +332,7 @@ namespace GEETHREE
 
 
                         byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                        this.Client.BeginSendTo(data, 0, data.Length, endPoint, new AsyncCallback(SendToCallback), null);
+                        this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                     }
                 }
                 else
