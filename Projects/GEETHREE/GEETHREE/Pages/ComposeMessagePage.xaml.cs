@@ -130,6 +130,8 @@ namespace GEETHREE.Pages
             {
                 recipientListBox.Items.Add(u.UserName);
                 //receiverListPicker.Items.Add(u.UserName);
+                receiverID = u.UserID;
+                receiverAlias = u.UserName;
             }
 
             recipientListBox.Visibility = Visibility.Visible;
