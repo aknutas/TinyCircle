@@ -29,6 +29,7 @@ namespace GEETHREE.Pages
 
             ctrl = Controller.Instance;
             ctrl.registerCurrentPage(this, "messages");
+            System.Diagnostics.Debug.WriteLine("Messages page constructed");
 
         }
 
