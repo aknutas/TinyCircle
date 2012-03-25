@@ -14,6 +14,7 @@ using GEETHREE.DataClasses;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Threading;
 
 namespace GEETHREE.Pages
 {
@@ -168,7 +169,7 @@ namespace GEETHREE.Pages
 
         }
 
-        // start camera
+        // ** start camera
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
 
@@ -262,21 +263,37 @@ namespace GEETHREE.Pages
         void photoChooserTask_Completed(object sender, PhotoResult e)
         {
             if (e.TaskResult == TaskResult.OK)
-            {
-                // ...communication with the isolated storage...
+            {             
+                this.Dispatcher.BeginInvoke(() =>
+                {
+                    // ...communication with the isolated storage...
 
-                BitmapImage bitImage = new BitmapImage();
-                bitImage.CreateOptions = BitmapCreateOptions.None;
-	            bitImage.SetSource(e.ChosenPhoto);
-                attachedImage.Source = bitImage;
-                attachedImage.Visibility = Visibility.Visible;
+                    BitmapImage bitImage = new BitmapImage();
+                    bitImage.CreateOptions = BitmapCreateOptions.None;
 
-                attachmentFlag = "1";
-                attachmentFileName = "img001.gim";
-                attachmentContent = new byte[e.ChosenPhoto.Length];
-                e.ChosenPhoto.Position = 0;                
-                e.ChosenPhoto.Read(attachmentContent, 0, attachmentContent.Length);
+
+                    bitImage.SetSource(e.ChosenPhoto);
+                    WriteableBitmap wb = new WriteableBitmap(bitImage);
+
+                    MemoryStream ms = new MemoryStream();
+                    // width, height, orienteation, quality
+                    wb.SaveJpeg(ms, 800, 480, 0, 50);
+                    bitImage.SetSource(ms);
+
+
+                    attachmentFlag = "1";
+                    attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
+                    attachmentContent = new byte[ms.Length];
+                    ms.Position = 0;
+                    ms.Read(attachmentContent, 0, attachmentContent.Length);
+
+                    attachedImage.Source = bitImage;
+
+                    attachedImage.Visibility = Visibility.Visible;
      
+                    // using (MediaLibrary lib = new MediaLibrary())
+                    // lib.SavePicture("Test", ms.ToArray());
+                });
             }
         }
 
@@ -285,23 +302,37 @@ namespace GEETHREE.Pages
         {
             if (e.TaskResult == TaskResult.OK)
             {
-                // ...communication with the isolated storage...
 
-                BitmapImage bitImage = new BitmapImage();
-                bitImage.CreateOptions = BitmapCreateOptions.None;
-                bitImage.SetSource(e.ChosenPhoto);
-                attachedImage.Source = bitImage;
+                this.Dispatcher.BeginInvoke(() =>
+                {
+                    // ...communication with the isolated storage...
 
-                attachedImage.Visibility = Visibility.Visible;
+                    BitmapImage bitImage = new BitmapImage();
+                    bitImage.CreateOptions = BitmapCreateOptions.None;
 
-                //Convert image to byte array
 
-                attachmentFlag = "1";
-                attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".gim";
-                attachmentContent = new byte[e.ChosenPhoto.Length];
-                e.ChosenPhoto.Position = 0;
-                e.ChosenPhoto.Read(attachmentContent, 0, attachmentContent.Length); 
-            
+                    bitImage.SetSource(e.ChosenPhoto);
+                    WriteableBitmap wb = new WriteableBitmap(bitImage);
+
+                    MemoryStream ms = new MemoryStream();
+                    // width, height, orienteation, quality
+                    wb.SaveJpeg(ms, 800, 480, 0, 50);
+                    bitImage.SetSource(ms);
+
+
+                    attachmentFlag = "1";
+                    attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
+                    attachmentContent = new byte[ms.Length];
+                    ms.Position = 0;
+                    ms.Read(attachmentContent, 0, attachmentContent.Length);
+
+                    attachedImage.Source = bitImage;
+
+                    attachedImage.Visibility = Visibility.Visible;
+
+                    // using (MediaLibrary lib = new MediaLibrary())
+                    // lib.SavePicture("Test", ms.ToArray());
+                });
             }
         }
         // ** when navigated to this page, check the url parameters if they contain some information
@@ -321,7 +352,6 @@ namespace GEETHREE.Pages
                 else // the user clicked draft from drafts page
                 {
                     txt_compose_message.Text = NavigationContext.QueryString["draftcontent"];
-                
                 }
 
             }
