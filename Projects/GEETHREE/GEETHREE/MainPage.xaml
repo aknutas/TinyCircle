@@ -22,8 +22,7 @@
     <phone:PhoneApplicationPage.Resources>
        <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
 
-        <local:AppSettings x:Key="appSettings"></local:AppSettings>
-
+<local:AppSettings x:Key="appSettings"></local:AppSettings>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -136,7 +135,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="1" Height="80" Name="img_Base_Wifi" Stretch="Fill" Width="80" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/wifi.red.png" Tap="img_Base_Wifi_Tap" />
                                 <Image Grid.Column="3" Height="80" Name="img_Base_Server" Stretch="Fill" Width="80" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/server.red.png" Tap="img_Base_Server_Tap" />
-                                <Image Grid.Column="5" Height="80" Name="img_Base_AP" Stretch="Fill" Width="80" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/ap.red.png" Tap="img_Base_AP_Tap" />
+                                <Image Grid.Column="5" Height="80" Name="img_Base_AP" Stretch="Fill" Width="80" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/ap_grey.png" Tap="img_Base_AP_Tap" />
 
                             </Grid>
                         </StackPanel>

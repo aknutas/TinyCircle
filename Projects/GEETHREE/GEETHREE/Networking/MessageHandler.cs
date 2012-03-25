@@ -207,6 +207,7 @@ namespace GEETHREE
             this.cm.BroadcastMessageReceived += new EventHandler<MessageEventArgs>(BroadcastMessageReceived);
             this.cm.NewConnection += new EventHandler<ConnectionEventArgs>(NewConnectionFound);
             this.cm.FileReceived += new EventHandler<MessageEventArgs>(FileReceived);
+            
         }
         /// <summary>
         /// Unregister for events on communication

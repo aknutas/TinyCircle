@@ -14,6 +14,7 @@ using GEETHREE.DataClasses;
 using Microsoft.Phone.Shell;
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace GEETHREE
 {
@@ -22,8 +23,11 @@ namespace GEETHREE
         private Controller ctrl;
         private Group selectedGroup = null;
         private User selectedUser = null;
-        
+        ObservableCollection<GroupInfoResponse> GroupInfoResponseslist = new ObservableCollection<GroupInfoResponse>();
+        ObservableCollection<UserInfoResponse> UserInfoResponseslist = new ObservableCollection<UserInfoResponse>();
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+
+        bool userflag = true;
        
         public SocietyPivot()
         {
@@ -211,37 +215,11 @@ namespace GEETHREE
                     ApplicationBar.IsVisible = true;
 
 
-                    // ** ask the network controller to join the group
-
-
-                    //MessageBox.Show("You have joined a group\n " + addOrJoinCanvasTextBox.Text);
-
-                    //addOrJoinCanvasTextBox.Text = "";
-                    //txt_addorjoin_errorMessage.Text = "";
-                    //addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
-                    //ApplicationBar.IsVisible = true;
+                   
 
                 }
 
-            //}
-            //if (addOrJoinCanvasTextBlock.Text == "Type friends ID:")
-            //{
-            //    if (addOrJoinCanvasTextBox.Text == "")
-            //    {
-            //        txt_addorjoin_errorMessage.Text = "Please provide a friend ID!";
-            //    }
-            //    else
-            //    {
-            //         ** ask the nedwork controller to add a friend
-
-            //        MessageBox.Show("You and " + addOrJoinCanvasTextBox.Text + "\n are now friends.");
-            //        addOrJoinCanvasTextBox.Text = "";
-            //        txt_addorjoin_errorMessage.Text = "";
-            //        addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
-            //        ApplicationBar.IsVisible = true;
-
-            //    }
-            //}  
+           
         }
 
         private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -283,13 +261,48 @@ namespace GEETHREE
         {
             if (socialpivots.SelectedItem == PeoplePivot)
                 {
-                    //txt_addorjoin_errorMessage.Text = "";
-                    //addOrJoinCanvasTextBox.Text = "";
-                    //addOrJoinCanvas.Background = backgroundbrush;
-                    //addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
-                    //addOrJoinCanvasTextBlock.Text = "Type friends ID:";
-                    //addOrJoinCanvasButton.Content = "Add";
-                    //ApplicationBar.IsVisible = false;
+                    //send for getNearbyGroupInfoRequest()
+                    ctrl.cm.RequestUserInfo(ctrl.getCurrentUserID());
+
+
+                    //list allnearbygroups in a new canvas
+                    groupCanvasTextBlock.Text = "Add new Friend : ";
+                    groupListCanvas.Background = backgroundbrush;
+                    userflag = true;
+                    groupListCanvas.Visibility = Visibility.Visible;
+
+                    txt_groupList_message.Text = "";
+                    grplistBox1.Items.Clear();
+                    UserInfoResponseslist.Clear();
+                    App.ViewModel.LoadUserInfoResponses();
+
+
+                    foreach (UserInfoResponse u in App.ViewModel.UserInfoResponses)
+                    {
+                        if (ctrl.dm.checkFriendID(u.UserID) == false)
+                        {
+                            bool exists = false;
+                            foreach (UserInfoResponse resp in UserInfoResponseslist)
+                            {
+                                if (resp.UserID == u.UserID)
+                                    exists = true;
+                            }
+                            if (exists == false)
+                            {
+                                grplistBox1.Items.Add(u.UserAlias);
+                                UserInfoResponseslist.Add(u);
+                            }
+                        }
+
+                    }
+                    if (grplistBox1.Items.Count() <= 0)
+                        txt_groupList_message.Text = "There are no available nearby Users! \nPlease check again later!";
+                    else
+                        txt_groupList_message.Text = "";
+
+                    
+                    grplistBox1.Visibility = Visibility.Visible;
+                    ApplicationBar.IsVisible = false;
                 }
             else
                 {
@@ -306,10 +319,12 @@ namespace GEETHREE
 
         private void socialpivots_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (socialpivots.SelectedItem == GroupsPivot)
             {
                 UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Create", true, appbar_addButton_Click);
                 UpdateAppbarButton(1, "/Resources/appbar.favs.addto.rest.png", "Join", true, appbar_joingroup_Button_Click);
+
             }
             else
             {
@@ -317,6 +332,7 @@ namespace GEETHREE
                 UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
                
             }
+            
 
         }
 
@@ -325,6 +341,48 @@ namespace GEETHREE
         
         private void appbar_joingroup_Button_Click(object sender, EventArgs e)
         {
+            //send for getNearbyGroupInfoRequest()
+            ctrl.cm.RequestGroupInfo(ctrl.getCurrentUserID());
+           
+
+            //list allnearbygroups in a new canvas
+            groupListCanvas.Background = backgroundbrush;
+            groupCanvasTextBlock.Text = "Join new Group : ";
+            userflag = false;
+            groupListCanvas.Visibility = Visibility.Visible;
+
+            txt_groupList_message.Text = "";
+            grplistBox1.Items.Clear();
+            GroupInfoResponseslist.Clear();
+                App.ViewModel.LoadGroupInfoResponses();
+                
+            
+            foreach (GroupInfoResponse u in App.ViewModel.GroupInfoResponses)
+            {
+                if (ctrl.dm.checkGroupID(u.GroupID) == false)
+                {
+                    bool exists = false;
+                    foreach (GroupInfoResponse resp in GroupInfoResponseslist)
+                    {
+                        if (resp.GroupID == u.GroupID)
+                            exists = true;
+                    }
+                    if (exists == false)
+                    {
+                        grplistBox1.Items.Add(u.GroupName);
+                        GroupInfoResponseslist.Add(u);
+                    }
+                }
+                
+            }
+            if (grplistBox1.Items.Count() <= 0)
+                txt_groupList_message.Text = "There are no available nearby groups! \nPlease check again later!";
+            else
+                txt_groupList_message.Text = "";
+            grplistBox1.Visibility = Visibility.Visible;
+            ApplicationBar.IsVisible = false;
+
+            
 
 
         }
@@ -372,6 +430,46 @@ namespace GEETHREE
 
             id = Convert.ToBase64String(hashBytes);
             return id;
+        }
+
+        private void grouptListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (grplistBox1.SelectedItem != null)
+            {
+                if (userflag == true)
+                {
+                    User u = new User();
+                    u.UserID = UserInfoResponseslist[grplistBox1.SelectedIndex].UserID;
+                    u.UserName = UserInfoResponseslist[grplistBox1.SelectedIndex].UserAlias;
+                    u.Description = UserInfoResponseslist[grplistBox1.SelectedIndex].Description;
+                    ctrl.dm.storeNewUser(u);
+
+                    MessageBox.Show("New Friend : " + UserInfoResponseslist[grplistBox1.SelectedIndex].UserAlias + " added successfully!!");
+                    App.ViewModel.LoadData();
+                }
+                else
+                {
+
+                    //save group to database
+                    Group g = new Group();
+                    g.GroupName = GroupInfoResponseslist[grplistBox1.SelectedIndex].GroupName;
+                    g.GroupID = GroupInfoResponseslist[grplistBox1.SelectedIndex].GroupID;
+                    g.Description = GroupInfoResponseslist[grplistBox1.SelectedIndex].Description;
+                    ctrl.dm.storeNewGroup(g);
+
+                    ////show group joined message
+                    MessageBox.Show("Joined group : " + GroupInfoResponseslist[grplistBox1.SelectedIndex].GroupName + " successfully!!");
+                    ////make canvas collapsed  
+                    App.ViewModel.LoadData();
+                }
+
+                grplistBox1.Visibility = System.Windows.Visibility.Collapsed;
+                groupListCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                
+                ApplicationBar.IsVisible = true;
+                
+
+            }
         }
 
     }
