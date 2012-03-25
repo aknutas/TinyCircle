@@ -70,17 +70,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    try
-                    {
-                        var qres = from User user in db.Users select user;
-                        List<User> returnList = new List<User>(qres);
-                        return returnList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<User>();
-                    }
+                    var qres = from User user in db.Users select user;
+                    List<User> returnList = new List<User>(qres);
+                    return returnList;
                 }
             }
         }
@@ -115,17 +107,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    try
-                    {
-                        var qres = from Message message in db.Messages select message;
-                        List<Message> returnList = new List<Message>(qres);
-                        return returnList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<Message>();
-                    }
+                    var qres = from Message message in db.Messages select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
                 }
             }
         }
@@ -136,17 +120,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    try
-                    {
-                        var qres = from GroupInfoResponse grpinforesponses in db.GroupInfoResponses select grpinforesponses;
-                        List<GroupInfoResponse> returnresponseList = new List<GroupInfoResponse>(qres);
-                        return returnresponseList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<GroupInfoResponse>();
-                    }
+                    var qres = from GroupInfoResponse grpinforesponses in db.GroupInfoResponses select grpinforesponses;
+                    List<GroupInfoResponse> returnresponseList = new List<GroupInfoResponse>(qres);
+                    return returnresponseList;
                 }
             }
         }
@@ -182,17 +158,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    try
-                    {
-                        var qres = from UserInfoResponse usrinforesponses in db.UserInfoResponses select usrinforesponses;
-                        List<UserInfoResponse> returnresponseList = new List<UserInfoResponse>(qres);
-                        return returnresponseList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<UserInfoResponse>();
-                    }
+                    var qres = from UserInfoResponse usrinforesponses in db.UserInfoResponses select usrinforesponses;
+                    List<UserInfoResponse> returnresponseList = new List<UserInfoResponse>(qres);
+                    return returnresponseList;
                 }
             }
         }
@@ -229,17 +197,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    try
-                    {
-                        var qres = from Group grps in db.Groups select grps;
-                        List<Group> returnList = new List<Group>(qres);
-                        return returnList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<Group>();
-                    }
+                    var qres = from Group grps in db.Groups select grps;
+                    List<Group> returnList = new List<Group>(qres);
+                    return returnList;
                 }
             }
         }
@@ -274,22 +234,11 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    //Bubblegum fix for the not existing table bug
-                    try
-                    {
-                        var qres = from Group grp in db.Groups where grp.GroupID == grpID select grp;
-                        List<Group> returnList = new List<Group>(qres);
-                        if (returnList.Count() <= 0)
-                            return false;
-                        else
-                            return true;
-                        
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
+                    var qres = (from Group grp in db.Groups where grp.GroupID == grpID select grp).Count();
+                    if (qres <= 0)
                         return false;
-                    }
+                    else
+                        return true;
                 }
             }
         }
@@ -300,22 +249,11 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    //Bubblegum fix for the not existing table bug
-                    try
-                    {
-                        var qres = from GroupInfoResponse grp in db.GroupInfoResponses where grp.GroupID == grpID select grp;
-                        List<GroupInfoResponse> returnList = new List<GroupInfoResponse>(qres);
-                        if (returnList.Count() <= 0)
-                            return false;
-                        else
-                            return true;
-
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
+                    var qres = (from GroupInfoResponse grp in db.GroupInfoResponses where grp.GroupID == grpID select grp).Count();
+                    if (qres <= 0)
                         return false;
-                    }
+                    else
+                        return true;
                 }
             }
         }
@@ -326,22 +264,11 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    //Bubblegum fix for the not existing table bug
-                    try
-                    {
-                        var qres = from UserInfoResponse usr in db.UserInfoResponses where usr.UserID==usrID select usr;
-                        List<UserInfoResponse> returnList = new List<UserInfoResponse>(qres);
-                        if (returnList.Count() <= 0)
-                            return false;
-                        else
-                            return true;
-
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
+                    var qres = (from UserInfoResponse usr in db.UserInfoResponses where usr.UserID == usrID select usr).Count();
+                    if (qres <= 0)
                         return false;
-                    }
+                    else
+                        return true;
                 }
             }
         }
@@ -351,27 +278,14 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                   
-                  
-
-                    using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                    {
-                        try
-                        {
-                            var qres = from User user in db.Users where user.UserID == usrID select user;
-                            List<User> returnList = new List<User>(qres);
-                            if (returnList.Count() <= 0)
-                                return false;
-                            else
-                                return true;
-                        }
-                        catch (Exception)
-                        {
-                            
-                            return false;
-                        }
-                    }
-                
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    var qres = (from User user in db.Users where user.UserID == usrID select user).Count();
+                    if (qres <= 0)
+                        return false;
+                    else
+                        return true;
+                }
             }
         }
 
@@ -382,18 +296,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    //Bubblegum fix for the not existing table bug
-                    try
-                    {
-                        var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
-                        List<Message> returnList = new List<Message>(qres);
-                        return returnList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<Message>();
-                    }
+                    var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
                 }
             }
         }
@@ -404,17 +309,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    try
-                    {
-                        var qres = from Message message in db.Messages where message.outgoing == true select message;
-                        List<Message> returnList = new List<Message>(qres);
-                        return returnList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<Message>();
-                    }
+                    var qres = from Message message in db.Messages where message.outgoing == true select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
                 }
             }
         }
@@ -462,17 +359,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    try
-                    {
-                        var qres = from DataClasses.Image imgs in db.Images select imgs;
-                        List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
-                        return returnList;
-                    }
-                    catch (Exception)
-                    {
-                        //If query fails bad, return an empty list
-                        return new List<DataClasses.Image>();
-                    }
+                    var qres = from DataClasses.Image imgs in db.Images select imgs;
+                    List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
+                    return returnList;
                 }
             }
         }
@@ -485,6 +374,19 @@ namespace GEETHREE
                 {
                     db.Messages.DeleteOnSubmit(message);
                     db.SubmitChanges();
+                }
+            }
+        }
+
+        public List<Message> getBroadcastMessages()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    var qres = from Message message in db.Messages where message.PrivateMessage != true select message;
+                    List<Message> returnList = new List<Message>(qres);
+                    return returnList;
                 }
             }
         }
@@ -526,7 +428,7 @@ namespace GEETHREE
                     {
                         db.Messages.DeleteOnSubmit(msg);
                     }
-                  
+
                     var qres4 = from GroupInfoResponse grpi in db.GroupInfoResponses select grpi;
                     foreach (var grpi in qres4)
                     {
@@ -567,9 +469,9 @@ namespace GEETHREE
                         }
                         db.SubmitChanges();
                     }
-                    catch (Exception)
-                    { 
-                    
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
                     }
                 }
             }
