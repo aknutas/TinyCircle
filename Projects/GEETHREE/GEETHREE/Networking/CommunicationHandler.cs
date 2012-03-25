@@ -578,11 +578,20 @@ namespace GEETHREE
 
         void WebServiceReceiver.pingFinished(Boolean status)
         {
+            EventHandler<ServerConnectionEventArgs> handler = this.NewServerConnection;
+
             if (status)
+            {
                 System.Diagnostics.Debug.WriteLine("Connection to server up and running");
+            }
             else
                 System.Diagnostics.Debug.WriteLine("Connection to server failed");
-            //throw new NotImplementedException();
+
+            if (handler != null)
+            {
+                handler(this, new ServerConnectionEventArgs(status));
+            }
+            
         }
 
         DispatcherTimer _dt;

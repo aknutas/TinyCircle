@@ -117,8 +117,14 @@ namespace GEETHREE
             {
                 if (!this.IsJoined && !_joinPending)
                 {
-                    _joinPending = true;
-                    this.Client.BeginJoinGroup(new AsyncCallback(OpenCallback), null);
+                    //if (Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.IsWiFiEnabled)
+                    //{
+                        _joinPending = true;
+                        this.Client.BeginJoinGroup(new AsyncCallback(OpenCallback), null);
+                        Debug.WriteLine("Joining network");
+                    //}
+                    //else
+                    //    Debug.WriteLine("Wifi off, not joining network");
                 }
             }
             catch (SocketException socketEx)
