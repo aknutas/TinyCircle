@@ -31,7 +31,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
+                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
                                 <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </Canvas>
@@ -46,7 +46,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
+                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
                                 <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </Canvas>
@@ -61,10 +61,11 @@
                 <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding SentMessages}" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                                <!--<TextBlock Text="{Binding ReceiverID}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>-->
-                                <TextBlock Text="{Binding TextContent}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
+                            <Canvas Height="80" Width="600"  Margin="0,0,0,30">
+                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />
+                                <TextBlock Text="{Binding Path=AliasSetting, Source={StaticResource appSettings}}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </Canvas>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
