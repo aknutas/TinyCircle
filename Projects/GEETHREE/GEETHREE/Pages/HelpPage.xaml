@@ -14,10 +14,13 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" >
+    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
+        <!--
         <Grid.Background>
             <ImageBrush ImageSource="/GEETHREE;component/Resources/pivot2.jpg" Stretch="Fill"/>
         </Grid.Background>
+        -->
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -25,20 +28,15 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="Help" />
+            <TextBlock x:Name="ApplicationTitle" Text="HELP" Foreground="{StaticResource PhoneAccentBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ListBox Margin="0,0,0,0">
-
-
-
-                <TextBlock   Text="Application Instructions" Style="{StaticResource PhoneTextLargeStyle}"  Foreground="#FF9BC0D3"  />
+                <TextBlock   Text="My Circle:"  Style="{StaticResource PhoneTextLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}"  />
                 <Grid>
-                    <TextBlock    Text="The Instruction for the application will appear here along with the help information about the entire application. So this is where you get all this info about the application. So tune into this page to know more....... coming soon the real stuff. GEETHREEA Team" TextWrapping="Wrap" Width="424" Margin="14,13,0,159" HorizontalAlignment="Left" FontStretch="Normal" />
-
-
+                    <TextBlock    Text="" TextWrapping="Wrap" Width="424" Margin="14,62,0,-691" HorizontalAlignment="Left" FontStretch="Normal" Name="mainpageHelpTextBlock" />
                 </Grid>
                 
 
