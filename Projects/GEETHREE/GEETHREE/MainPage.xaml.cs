@@ -76,7 +76,12 @@ namespace GEETHREE
         public void refreshAvatar()
         {
             img_Base_Avatar.Source = ctrl.getCurrentAvatar();
-            PanoramaItemAlias.Header = ctrl.getCurrentAlias();
+            //PanoramaItemAlias.Header = ctrl.getCurrentAlias();
+            if (ctrl.getCurrentAlias() != "Alias")
+                txt_alias_Name.Text = ctrl.getCurrentAlias();
+            else
+                txt_alias_Name.Text = "";
+            
         }
 
         // ** When user clicks menu bar buttons
