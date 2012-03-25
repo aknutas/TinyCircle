@@ -577,6 +577,15 @@ namespace GEETHREE
                 {
                     Debug.WriteLine("Error:wrong package number");
                     receivebuffer.problem = true;
+
+                    //Request for correct part
+                    string tmpmsg;
+
+
+                    tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.RequestPart, receivebuffer.currentpackage + 1);
+
+                    byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                    this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
                 }
                 else
                 {
