@@ -26,7 +26,7 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="My Friends" Name="PeoplePivot">
                 <!--Double line list with text wrapping-->
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}" Tap="Users_ListBox_Tap" Name="usersListBox">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Users}" Tap="Users_ListBox_Tap" Name="usersListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
@@ -34,15 +34,13 @@
 
                                 <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people.png" Stretch="Fill" Width="50" />
                                 <!--Here should be UserName and Description-->
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                <Image Height="25" Name="img_IsAvailable" Margin="330,35,0,0"  Source="/GEETHREE;component/Resources/available.png" Stretch="Fill" Width="25" />
+                                <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <Image Height="15" Name="img_IsAvailable" Margin="340,35,0,0"  Source="/GEETHREE;component/Resources/available.png" Stretch="Fill" Width="15" />
                             </Canvas>
 
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-
-
                 </ListBox>
             </controls:PivotItem>
 
@@ -51,10 +49,15 @@
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="Groups_ListBox_Tap" Name="groupsListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,30" Width="432" Height="78">
-                                <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
+                            <Canvas Height="80" Width="600"  Margin="0,0,0,30">
+                                <!--Replace rectangle with image-->
+
+                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people.png" Stretch="Fill" Width="50" />
+                                <!--Here should be UserName and Description-->
+                                <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <!--<Image Height="15" Name="img_IsAvailable" Margin="330,35,0,0"  Source="/GEETHREE;component/Resources/available.png" Stretch="Fill" Width="15" />-->
+                            </Canvas>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

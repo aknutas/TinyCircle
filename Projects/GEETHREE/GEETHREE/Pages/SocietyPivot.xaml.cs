@@ -56,7 +56,7 @@ namespace GEETHREE
                 string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}", selectedGroup.GroupName, selectedGroup.GroupID);
 
                 // ** give the controller the page reference
-                ctrl.registerPreviousPage(this, "society_gropus");
+                ctrl.registerPreviousPage(this, "society_groups");
 
                 // ** then navigate to Compose.xaml
                 NavigationService.Navigate(new Uri(url, UriKind.Relative));
@@ -104,6 +104,8 @@ namespace GEETHREE
         // ** must navigate back to the pivot page from details page, not back to panorama page
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
+
+            e.Cancel = true; // cancel the default behaviour
             if (details.Visibility == System.Windows.Visibility.Visible)
             {
                 if (detailsCanvasTextBox.Text != "")
@@ -125,7 +127,6 @@ namespace GEETHREE
                 
                 
                 ApplicationBar.IsVisible = true;
-                e.Cancel = true; 
             }
             if (addOrJoinCanvas.Visibility == System.Windows.Visibility.Visible)
             {
@@ -133,8 +134,13 @@ namespace GEETHREE
                 ApplicationBar.IsVisible = true;
                 txt_addorjoin_errorMessage.Text = "";
                 addOrJoinCanvasTextBox.Text = "";
-                e.Cancel = true;
+  
             }
+
+            else // ** then, navigate back
+            {
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }       
         }
         // ** When navigated to pivot page, choose which page to display first
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)

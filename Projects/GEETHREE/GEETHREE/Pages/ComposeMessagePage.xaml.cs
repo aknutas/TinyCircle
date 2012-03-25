@@ -65,10 +65,12 @@ namespace GEETHREE.Pages
 
         }
 
-        //check for message to store to draft
+       
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
+
+            // ** check for message to store to draft
             if ((txt_compose_message.Text != "") && (txt_compose_message.Text != "Type your message here..."))
             {
 
