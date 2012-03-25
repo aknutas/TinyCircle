@@ -81,8 +81,8 @@ namespace GEETHREE
                 App.ViewModel.ReceivedPrivateMessages.Add(msg);
                 Controller.Instance.notifyViewAboutMessage(true);
             }
-            else
-                this.TransitMessages.Add(msg);
+            //else
+            //    this.TransitMessages.Add(msg);
             
            
         }
@@ -105,7 +105,7 @@ namespace GEETHREE
             msg.Attachmentflag = e.Attachmentflag;
             dm.storeNewMessage(msg);
             App.ViewModel.ReceivedBroadcastMessages.Add(msg);
-            this.TransitMessages.Add(msg);
+            //this.TransitMessages.Add(msg);
             Controller.Instance.notifyViewAboutMessage(false);
         }
 

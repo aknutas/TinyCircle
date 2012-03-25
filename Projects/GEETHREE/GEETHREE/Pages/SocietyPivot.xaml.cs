@@ -303,26 +303,29 @@ namespace GEETHREE
 
                     foreach (UserInfoResponse u in App.ViewModel.UserInfoResponses)
                     {
+                        bool exists_in_userTable = false;
                         foreach (User us in Userslist)
                         {
-                            bool exists_in_userTable = false;
+                            
                             if (us.UserID == u.UserID)
                             {
                                 exists_in_userTable = true;
                             }
-                            if (exists_in_userTable == false)
+                            
+                        }
+
+                        if (exists_in_userTable == false)
+                        {
+                            bool exists = false;
+                            foreach (UserInfoResponse resp in UserInfoResponseslist)
                             {
-                                bool exists = false;
-                                foreach (UserInfoResponse resp in UserInfoResponseslist)
-                                {
-                                    if (resp.UserID == u.UserID)
-                                        exists = true;
-                                }
-                                if (exists == false)
-                                {
-                                    grplistBox1.Items.Add(u.UserAlias);
-                                    UserInfoResponseslist.Add(u);
-                                }
+                                if (resp.UserID == u.UserID)
+                                    exists = true;
+                            }
+                            if (exists == false)
+                            {
+                                grplistBox1.Items.Add(u.UserAlias);
+                                UserInfoResponseslist.Add(u);
                             }
                         }
 
