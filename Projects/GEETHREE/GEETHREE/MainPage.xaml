@@ -40,7 +40,7 @@
             <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with text wrapping-->
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
-                    <ListBox  Margin="0,0,50,0" ItemsSource="{Binding Items}">
+                <ListBox  Margin="0,0,50,0" ItemsSource="{Binding ReceivedBroadcastMessages}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Canvas Height="80" Width="600"  Margin="0,0,0,30">
@@ -51,8 +51,8 @@
 
                                      <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
 
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Text="{Binding TextContext}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     
                             </Canvas>
                           

@@ -205,16 +205,15 @@ namespace GEETHREE
             
             DraftMessages.Clear();
             //draftMessageList.Clear();
-            draftMessageList = c.dm.getSendableMessages();
+            draftMessageList = c.dm.getMyDraftMessages();
 
             foreach (Message m in draftMessageList)
             {
                 this.DraftMessages.Add(m);
             }
-
             SentMessages.Clear();
             //sentMessageList.Clear();
-            sentMessageList = c.dm.getSentMessages();
+            sentMessageList = c.dm.getMySentMessages();
 
             foreach (Message m in sentMessageList)
             {
@@ -223,7 +222,8 @@ namespace GEETHREE
 
             ReceivedBroadcastMessages.Clear();
             //broadcaseMessagesList.Clear();
-            broadcaseMessagesList = c.dm.getAllMessages();
+            broadcaseMessagesList = c.dm.getBroadcastMessages();
+   
 
             foreach (Message m in broadcaseMessagesList)
             {
@@ -232,13 +232,13 @@ namespace GEETHREE
 
             ReceivedPrivateMessages.Clear();
             //privateMessagesList.Clear();
-            privateMessagesList = c.dm.getAllMessages();
+            privateMessagesList = c.dm.getIncomingPrivateMessages();
             foreach (Message m in privateMessagesList)
             {
                 this.ReceivedPrivateMessages.Add(m);
             }
             // Sample data; replace with real data
-            
+            /*
             this.Items.Add(new ItemViewModel() { LineOne = "runtime one", LineTwo = "How are you doing?", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime two", LineTwo = "We need more members in our team.", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime three", LineTwo = "IT can be fun.", LineThree = "Habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent" });
@@ -265,6 +265,7 @@ namespace GEETHREE
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "hello there3", TextContent = "plaa plaa plaa plaa plaa plaa3 " });
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "hello there4", TextContent = "plaa plaa plaa plaa plaa plaa4 " });
+            */
             this.IsDataLoaded = true;
         }
 
