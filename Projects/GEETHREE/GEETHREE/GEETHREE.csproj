@@ -154,6 +154,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Draft.png" />
+    <Resource Include="Resources\Empty.png" />
+    <Resource Include="Resources\few.png" />
+    <Resource Include="Resources\many.png" />
+    <Resource Include="Resources\sent.png" />
+    <Resource Include="Resources\shout.png" />
+    <Resource Include="Resources\whisper.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Resources\available.png" />
     <Resource Include="Resources\notAvailable.png" />

@@ -71,7 +71,7 @@ namespace GEETHREE
             msg.Attachmentflag = e.Attachmentflag;
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
-            
+
 
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
@@ -81,8 +81,11 @@ namespace GEETHREE
                 App.ViewModel.ReceivedPrivateMessages.Add(msg);
                 Controller.Instance.notifyViewAboutMessage(true);
             }
-            //else
-            //    this.TransitMessages.Add(msg);
+            else
+            {
+                if (e.Attachmentflag == "0")
+                    this.TransitMessages.Add(msg);
+            }
             
            
         }
@@ -105,7 +108,8 @@ namespace GEETHREE
             msg.Attachmentflag = e.Attachmentflag;
             dm.storeNewMessage(msg);
             App.ViewModel.ReceivedBroadcastMessages.Add(msg);
-            //this.TransitMessages.Add(msg);
+            if (e.Attachmentflag == "0")
+                this.TransitMessages.Add(msg);
             Controller.Instance.notifyViewAboutMessage(false);
         }
 
@@ -127,7 +131,8 @@ namespace GEETHREE
             dm.storeNewMessage(msg);
             //Where do we add this and who do we tell?
             //App.ViewModel.ReceivedBroadcastMessages.Add(msg);
-            //this.TransitMessages.Add(msg);
+            if(e.Attachmentflag=="0")
+                this.TransitMessages.Add(msg);
             Controller.Instance.notifyViewAboutMessage(true);
         }
 
