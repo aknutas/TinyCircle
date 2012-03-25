@@ -24,7 +24,7 @@ namespace GEETHREE
     {
         Controller ctrl;
         bool createUID = false;
-        bool serverMessageReceived = false;
+        //bool serverMessageReceived = false;
         
        
         // Constructor
@@ -64,21 +64,12 @@ namespace GEETHREE
             {
                 App.ViewModel.LoadData();
             }
-            
-            System.Diagnostics.Debug.WriteLine("Mainpage loaded");
-            
-            // ** check the wifi status
-            if (DeviceNetworkInformation.IsWiFiEnabled)
-                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
-            else
-                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
-            
-            if (ctrl.mh.ConnectedToServer == true)
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
-            else
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
 
-               // ctrl.mh.LocalConnections
+
+            updateWifiAndServerStatuses();
+
+
+            System.Diagnostics.Debug.WriteLine("Mainpage loaded");
 
         }
 
@@ -322,11 +313,10 @@ namespace GEETHREE
                 ApplicationBar.IsVisible = true;
                 createUID = true;
                 ctrl.cm.Join(ctrl.getCurrentUserID());
-                if (serverMessageReceived == true) // ** now display the server message
-                {
-                    serverMessageReceived = false;
-                    this.messageArrived(true);
-                }
+                //{
+                //    serverMessageReceived = false;
+                //    this.messageArrived(true);
+                //}
             }
         }
         // ** When navigated back to main page
@@ -386,8 +376,6 @@ namespace GEETHREE
                         NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
                 }
             
-        
-
         }
 
         private void menuItem3_Click(object sender, EventArgs e)
@@ -441,6 +429,29 @@ namespace GEETHREE
         {
             // ** Go to settings
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
-        }    
+        }
+
+        private void mainpanorama_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            updateWifiAndServerStatuses();
+        }
+        public void updateWifiAndServerStatuses()
+
+        {
+
+            // ** check the wifi status
+            if (DeviceNetworkInformation.IsWiFiEnabled)
+                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+            else
+                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+
+            if (ctrl.mh.ConnectedToServer == true)
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
+            else
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
+
+            // ctrl.mh.LocalConnections
+        
+        }
     }
 }
