@@ -72,7 +72,13 @@ namespace GEETHREE
                 img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
             else
                 img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
-       
+            
+            if (ctrl.mh.ConnectedToServer == true)
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
+            else
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
+
+               // ctrl.mh.LocalConnections
 
         }
 
@@ -333,6 +339,11 @@ namespace GEETHREE
             else
                 img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
             
+            if (ctrl.mh.ConnectedToServer == true)
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
+            else
+                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
+
             try
             {
                 string newparameter = this.NavigationContext.QueryString["parameter"];
