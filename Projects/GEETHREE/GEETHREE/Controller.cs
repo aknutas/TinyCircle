@@ -252,7 +252,26 @@ namespace GEETHREE
             byte[] hashBytes = sha.ComputeHash(source.ToArray());
 
             id = Convert.ToBase64String(hashBytes);
+
+            if (checkUserIDforinvalidchars(id, "+") == true)
+                id = CreateNewUserID();
+
             return id;
+        }
+
+        public bool checkUserIDforinvalidchars(string id, string chr)
+        {
+            int firstCharacter = -1;
+            firstCharacter= id.IndexOf(chr);
+            if (firstCharacter >= 0)
+            {
+                return true;
+            }
+
+            else
+                return false;
+
+             
         }
 
 
