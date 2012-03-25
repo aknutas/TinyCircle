@@ -20,9 +20,10 @@
     shell:SystemTray.IsVisible="False" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" DataContext="{Binding}" BackKeyPress="PhoneApplicationPage_BackKeyPress">
 
     <phone:PhoneApplicationPage.Resources>
-       <local:AppSettings x:Key="appSettings"></local:AppSettings>
+       <!--MAke sure that the next line is not commented out!!!-->
+        <local:AppSettings x:Key="appSettings"></local:AppSettings>
 
-        <!--<local:AppSettings x:Key="appSettings"></local:AppSettings>-->
+
 
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -41,16 +42,22 @@
             <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with text wrapping-->
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
-                    <ListBox  Margin="0,0,0,0" ItemsSource="{Binding ReceivedBroadcastMessages}">
+                    <ListBox  Margin="0,0,50,0" ItemsSource="{Binding Items}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                                <Canvas Height="80" Width="600"  Margin="0,0,0,30">
                                     <!--Replace rectangle with image-->
-                                    <StackPanel Width="311">
-                                        <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                </StackPanel>
+                                   
+                                     <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people.png" Stretch="Fill" Width="50" />
+                                     <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
+
+                                     <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
+
+                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    
+                            </Canvas>
+                          
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

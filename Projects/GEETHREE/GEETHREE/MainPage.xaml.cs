@@ -37,8 +37,6 @@ namespace GEETHREE
             ctrl.registerCurrentPage(this, "main");
             refreshAvatar();
 
-
-
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
@@ -59,7 +57,7 @@ namespace GEETHREE
             System.Diagnostics.Debug.WriteLine("Mainpage constructed");
         }
 
-        // Load data for the ViewModel Items
+        // ** Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             if (!App.ViewModel.IsDataLoaded)
@@ -76,7 +74,6 @@ namespace GEETHREE
                 img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
        
             // ** same check for server
-            
             if (serverMessageReceived)
                 img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
             else
@@ -88,13 +85,6 @@ namespace GEETHREE
             img_Base_Avatar.Source = ctrl.getCurrentAvatar();
             PanoramaItemAlias.Header = ctrl.getCurrentAlias();
         }
-
-      
-
-        //private void txt_Base_Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        //{
-        //    NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
-        //}
 
         // ** When user clicks menu bar buttons
 

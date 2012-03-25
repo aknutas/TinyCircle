@@ -152,6 +152,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\available.png" />
+    <Resource Include="Resources\notAvailable.png" />
     <Content Include="SplashScreenImage.jpg" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
@@ -225,6 +227,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\MsgServiceReference\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -68,6 +68,7 @@ namespace GEETHREE.Pages
         //check for message to store to draft
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            e.Cancel = true;
             if ((txt_compose_message.Text != "") && (txt_compose_message.Text != "Type your message here..."))
             {
 
@@ -97,7 +98,7 @@ namespace GEETHREE.Pages
                 }
 
             }
-            e.Cancel = true;
+           
 
             // ** ask the controller, which was the last page
             string destination = ctrl.tellPreviousPage();
@@ -188,52 +189,53 @@ namespace GEETHREE.Pages
             else
             {
 
-            Message msg =new Message();
-            msg.TextContent=txt_compose_message.Text;
-            msg.SenderID=Controller.Instance.getCurrentUserID();
-            msg.SenderAlias = Controller.Instance.getCurrentAlias();
-            if (composeReceipientTextBox.Text == "" || composeReceipientTextBox.Text == "Shout")
-            {
-                msg.ReceiverID = "Shout";
-                msg.PrivateMessage = false;
-            }
-            else
-            {
-                msg.ReceiverID = receiverID;
-                msg.PrivateMessage = true;
-            }
+                Message msg =new Message();
+                msg.TextContent=txt_compose_message.Text;
+                msg.SenderID=Controller.Instance.getCurrentUserID();
+                msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                if (composeReceipientTextBox.Text == "" || composeReceipientTextBox.Text == "Shout")
+                {
+                    msg.ReceiverID = "Shout";
+                    msg.PrivateMessage = false;
+                }
+                else
+                {
+                    msg.ReceiverID = receiverID;
+                    msg.PrivateMessage = true;
+                }
             
-            msg.outgoing=true;
+                msg.outgoing=true;
 
 
-            if (attachmentFlag == "1")
-            {
+                if (attachmentFlag == "1")
+                {
 
-                attachmentContentstring = Convert.ToBase64String(attachmentContent);
-            }
-            else
-            {
+                    attachmentContentstring = Convert.ToBase64String(attachmentContent);
+                }
+                else
+                {
+                    attachmentFileName = "none";
+                    attachmentContentstring = "none";
+                }
+                msg.Attachmentflag = attachmentFlag;
+                msg.Attachmentfilename = attachmentFileName;   
+                msg.Attachment = attachmentContentstring;
+                App.ViewModel.SentMessages.Add(msg);
+                Controller.Instance.mh.SendMessage(msg);
+                MessageBox.Show("Message sent.");
+                
+                txt_compose_message.Text = "";
+                txt_compose_error_label.Text = "";
+                composeReceipientTextBox.Text = "";
+                receiverAlias = "";
+                receiverID = "";
+                attachmentFlag = "0";
                 attachmentFileName = "none";
+                attachmentContent = null;
                 attachmentContentstring = "none";
-            }
-            msg.Attachmentflag = attachmentFlag;
-            msg.Attachmentfilename = attachmentFileName;   
-            msg.Attachment = attachmentContentstring;
-            App.ViewModel.SentMessages.Add(msg);
-            Controller.Instance.mh.SendMessage(msg);
-            MessageBox.Show("Message sent.");
-            txt_compose_message.Text = "";
-            txt_compose_error_label.Text = "";
-            composeReceipientTextBox.Text = "";
-            receiverAlias = "";
-            receiverID = "";
-            attachmentFlag = "0";
-            attachmentFileName = "none";
-            attachmentContent = null;
-            attachmentContentstring = "none";
-            attachedImage.Visibility = Visibility.Collapsed;
-            image1.Visibility = System.Windows.Visibility.Visible;
-            composeReceipientTextBox.IsEnabled = true;
+                attachedImage.Visibility = Visibility.Collapsed;
+                image1.Visibility = System.Windows.Visibility.Visible;
+                composeReceipientTextBox.IsEnabled = true;
             }
 
             // ** ask the controller, which was the last page

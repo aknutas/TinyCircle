@@ -83,21 +83,15 @@ namespace GEETHREE.Pages
                     receivedimage.Visibility = Visibility.Visible;
                 }
 
-
-
-
-
                 //BitmapImage bitmapImage = new BitmapImage();
                 //MemoryStream ms = new MemoryStream(imageBytes);
                 //bitmapImage.SetSource(ms);
                 //myImageElement.Source = bitmapImage; 
 
-
-
                 replyID = selectedMessage.SenderID;
                 replyAlias = selectedMessage.SenderAlias;
+                
                 Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
                 ApplicationBar.IsVisible = false;
@@ -163,35 +157,13 @@ namespace GEETHREE.Pages
 
         }
 
+        // ** MESSAGE CANVAS
         private void messageCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
             ApplicationBar.IsVisible = true;
             receivedimage.Visibility = Visibility.Collapsed;
         }
-
-
-
-        // ** COMPOSE CLICKED ON THE MENUBAR
-        private void appbar_Message_Compose_Click(object sender, EventArgs e)
-        {
-            // ** ask the controller to register this page as a previous page before going to compose page
-            // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
-            if (messagepivots.SelectedItem == shouts)
-                ctrl.registerPreviousPage(this, "messages_shouts");
-            else if (messagepivots.SelectedItem == whispers)
-                ctrl.registerPreviousPage(this, "messages_whispers");
-            else if (messagepivots.SelectedItem == drafts)
-                ctrl.registerPreviousPage(this, "messages_drafts");
-            else if (messagepivots.SelectedItem == sent)
-                ctrl.registerPreviousPage(this, "messages_sent");
-
-            // ** go to compose page
-            NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
-        }
-
-
-
         private void btn_reply_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             // ** ask the controller to register this page as a previous page before going to compose page
@@ -229,7 +201,6 @@ namespace GEETHREE.Pages
                 if (m == MessageBoxResult.OK)
                 {
                     //write code for storing this message to draft
-                    //write code for storing this message to draft
                     Message msg = new Message();
 
                     msg.TextContent = detailsCanvasTextBox.Text;
@@ -263,7 +234,7 @@ namespace GEETHREE.Pages
             }
             else
             {
-                // ask the controller to send message here
+                // ** create a message
                 Message msg = new Message();
                 msg.TextContent = detailsCanvasTextBox.Text;
                 msg.SenderID = Controller.Instance.getCurrentUserID();
@@ -275,10 +246,11 @@ namespace GEETHREE.Pages
                 // ** add to sent messages collection
                 App.ViewModel.SentMessages.Add(msg);
 
+                // ** ask the controller to send the message 
                 Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
 
-
+                // ** reset elements 
                 detailsCanvasTextBox.Text = "";
                 txt_details_error_label.Text = "";
                 details.Visibility = System.Windows.Visibility.Collapsed;
@@ -286,62 +258,6 @@ namespace GEETHREE.Pages
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
 
-
-            }
-        }
-        /*
-        private void detailsCanvasButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (detailsCanvasTextBox.Text == "")
-            {
-                txt_details_error_label.Text = "Message Field is empty!";
-            }
-            else
-            {
-                // ask the controller to send message here
-                // ask the controller to send message here
-                Message msg = new Message();
-                msg.TextContent = detailsCanvasTextBox.Text;
-                msg.SenderID = Controller.Instance.getCurrentUserID();
-                msg.SenderAlias = Controller.Instance.getCurrentAlias();
-                msg.ReceiverID = replyID;
-                msg.PrivateMessage = true;
-                msg.outgoing = true;
-
-                // ** add to sent messages collection
-                App.ViewModel.SentMessages.Add(msg);
-
-                Controller.Instance.mh.SendMessage(msg);
-                MessageBox.Show("Message sent.");
-
-                MessageBox.Show("Message successfully sent.");
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Collapsed;
-                messageCanvas.Visibility = System.Windows.Visibility.Visible;
-
-
-            }
-        }
-        */
-
-
-        // ** some kind of popup needed to announce about the message that is just arrived
-        public void messageArrived(bool isPrivate)
-        {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
-
-            if (m == MessageBoxResult.OK)
-            {
-                if (isPrivate == true) // ** change the current pivot if needed
-                    if (messagepivots.SelectedItem != whispers)
-                        messagepivots.SelectedItem = whispers;
-
-                else 
-                    if (messagepivots.SelectedItem != shouts)
-                        messagepivots.SelectedItem = shouts;
-                    
             }
         }
 
@@ -361,42 +277,45 @@ namespace GEETHREE.Pages
             else // ** then, navigate back
             {
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
-            }
-
-
-            /*
-            if (details.Visibility == System.Windows.Visibility.Visible)
-            {
-                if (detailsCanvasTextBox.Text != "")
-                {
-
-                    // **  ...get the message saving the draft.
-                    var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
-
-                    if (m == MessageBoxResult.OK)
-                    {
-                        // !! write code for storing this message to draft
-
-                        // ** 
-                    }
-
-                }
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Collapsed;
-                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-
-                messageCanvas.Background = backgroundbrush;
-                messageCanvas.Visibility = System.Windows.Visibility.Visible;
-
-
-                //e.Cancel = true;
-            }
-             * */
-
-            
+            }            
         }
-        
+        // ** MENUBAR, COMPOSE CLICKED 
+        private void appbar_Message_Compose_Click(object sender, EventArgs e)
+        {
+            // ** ask the controller to register this page as a previous page before going to compose page
+            // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
+
+            if (messagepivots.SelectedItem == shouts)
+                ctrl.registerPreviousPage(this, "messages_shouts");
+            else if (messagepivots.SelectedItem == whispers)
+                ctrl.registerPreviousPage(this, "messages_whispers");
+            else if (messagepivots.SelectedItem == drafts)
+                ctrl.registerPreviousPage(this, "messages_drafts");
+            else if (messagepivots.SelectedItem == sent)
+                ctrl.registerPreviousPage(this, "messages_sent");
+
+            // ** go to compose page
+            NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
+        }
+
+        // ** a popup message to announce about the message that is just arrived
+        public void messageArrived(bool isPrivate)
+        {
+            // **  ...get the message from datamaster and display it in canvas.
+            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
+
+            if (m == MessageBoxResult.OK)
+            {
+                if (isPrivate == true) // ** change the current pivot if needed
+                    if (messagepivots.SelectedItem != whispers)
+                        messagepivots.SelectedItem = whispers;
+
+                    else
+                        if (messagepivots.SelectedItem != shouts)
+                            messagepivots.SelectedItem = shouts;
+
+            }
+        }
 
  
 

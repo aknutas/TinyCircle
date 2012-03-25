@@ -199,7 +199,7 @@ namespace GEETHREE
                 this.ReceivedPrivateMessages.Add(m);
             }
             // Sample data; replace with real data
-            /*
+            
             this.Items.Add(new ItemViewModel() { LineOne = "runtime one", LineTwo = "How are you doing?", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime two", LineTwo = "We need more members in our team.", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime three", LineTwo = "IT can be fun.", LineThree = "Habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent" });
@@ -210,16 +210,16 @@ namespace GEETHREE
             this.Items.Add(new ItemViewModel() { LineOne = "runtime eight", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime nine", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime ten", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
-            */
-            //this.Users.Add(new User("Tommi", "Having fun at codecamp.")); 
-            //this.Users.Add(new User("Antti", "Description 2")); 
-            //this.Users.Add(new User("Bishal", "Description 3")); 
-            //this.Users.Add(new User("Another Tommi", "Description 4"));
-            //this.Users.Add(new User("Anni", "Description 5"));
+            
+            this.Users.Add(new User("Tommi", "Having fun at codecamp.")); 
+            this.Users.Add(new User("Antti", "Description 2")); 
+            this.Users.Add(new User("Bishal", "Description 3")); 
+            this.Users.Add(new User("Another Tommi", "Description 4"));
+            this.Users.Add(new User("Anni", "Description 5"));
 
-            //this.Groups.Add(new Group() { GroupName = ".NET Code Camp", Description= "It is not necessary to wear long-sleeved underwear here." });
-            //this.Groups.Add(new Group() { GroupName = "Commlab", Description = "We are commlab" });
-            //this.Groups.Add(new Group() { GroupName = "SWE", Description = "We are from Sweden" });
+            this.Groups.Add(new Group() { GroupName = ".NET Code Camp", Description= "It is not necessary to wear long-sleeved underwear here." });
+            this.Groups.Add(new Group() { GroupName = "Commlab", Description = "We are commlab" });
+            this.Groups.Add(new Group() { GroupName = "SWE", Description = "We are from Sweden" });
 
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "This is HEadertest", TextContent = "Hello there, we are coding .NET" });
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
