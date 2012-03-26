@@ -42,7 +42,7 @@ namespace GEETHREE
             this.ConnectedToServer = false;
             this.LocalConnections = 0;
             RegisterEvents();
-            LoadTransitmessages();
+            //LoadTransitmessages();
         }
 
         private void LoadTransitmessages()

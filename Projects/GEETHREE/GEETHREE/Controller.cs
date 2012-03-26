@@ -49,12 +49,12 @@ namespace GEETHREE
             r = new Random();
             appSetting = new DataClasses.AppSettings();
             dm = new DataMaster(appSetting);
-            wcc = new Networking.WebServiceConnector();
+            //wcc = new Networking.WebServiceConnector();
             cm = new CommunicationHandler(this);
             mh = new MessageHandler(dm, cm);
-            dm.resetTableGroupAndUserInfoResponse();
-            cm.RequestGroupInfo(getCurrentUserID());
-            cm.RequestUserInfo(getCurrentUserID());
+            //dm.resetTableGroupAndUserInfoResponse();
+            //cm.RequestGroupInfo(getCurrentUserID());
+            //cm.RequestUserInfo(getCurrentUserID());
 
             // TODO Elegant callbacks
             // callbackList = new List<PhoneApplicationPage>();
