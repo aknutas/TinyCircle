@@ -236,8 +236,9 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = (from Group grp in db.Groups where grp.GroupID == grpID select grp).Count();
-                    if (qres <= 0)
+                    var qres = from Group grp in db.Groups where grp.GroupID == grpID select grp;
+                    List<Group> returnList = new List<Group>(qres);
+                    if (returnList.Count() <= 0)
                         return false;
                     else
                         return true;

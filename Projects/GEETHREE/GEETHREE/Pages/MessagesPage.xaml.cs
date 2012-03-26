@@ -22,6 +22,8 @@ namespace GEETHREE.Pages
         private Controller ctrl;
         string replyID = "";
         string replyAlias = "";
+        string groupmessageFlag = "0";
+
         public MessagesPage()
         {
             InitializeComponent();
@@ -86,6 +88,10 @@ namespace GEETHREE.Pages
 
                 replyID = selectedMessage.SenderID;
                 replyAlias = selectedMessage.SenderAlias;
+                if (selectedMessage.GroupMessage == true)
+                    groupmessageFlag = "1";
+                else
+                    groupmessageFlag = "0";
                 
                 Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
                 messageCanvas.Background = backgroundbrush;
@@ -108,8 +114,17 @@ namespace GEETHREE.Pages
                 {
 
                     attachmentContent = Convert.FromBase64String(selectedMessage.Attachment);
+                    BitmapImage bitImage = new BitmapImage();
+                    MemoryStream ms = new MemoryStream(attachmentContent, 0, attachmentContent.Length);
+                    ms.Write(attachmentContent, 0, attachmentContent.Length);
+                    bitImage.SetSource(ms);
+                    receivedimage.Source = bitImage;
+                    receivedimage.Visibility = Visibility.Visible;
                 }
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                replyID = selectedMessage.SenderID;
+                replyAlias = selectedMessage.SenderAlias;
+                groupmessageFlag = "0";
                 Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
 
                 messageCanvas.Background = backgroundbrush;
@@ -155,7 +170,7 @@ namespace GEETHREE.Pages
             else if (messagepivots.SelectedItem == sent)
                 ctrl.registerPreviousPage(this, "messages_sent");
 
-            string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}",replyAlias,replyID);
+            string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}&groupmessageflag={2}", replyAlias, replyID, groupmessageFlag);
             // ** then navigate to Compose.xaml
             NavigationService.Navigate(new Uri(url, UriKind.Relative));
             messageCanvas.Visibility = System.Windows.Visibility.Collapsed;

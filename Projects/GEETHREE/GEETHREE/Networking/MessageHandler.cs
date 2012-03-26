@@ -62,11 +62,13 @@ namespace GEETHREE
             System.Diagnostics.Debug.WriteLine(" Private message received " + e.TextContent);
             Message msg = new Message();
             msg.PrivateMessage = true;
+            msg.GroupMessage = false;
             msg.Hash = e.Hash;
             msg.ReceiverID = e.Receiver;
             msg.SenderID = e.Sender;
             msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
+            
             msg.outgoing = true;
             msg.Attachmentflag = e.Attachmentflag;
             msg.Attachment = e.Attachment;
@@ -83,7 +85,7 @@ namespace GEETHREE
             }
             else
             {
-                if (e.Attachmentflag == "0")
+               
                     this.TransitMessages.Add(msg);
             }
             
@@ -95,6 +97,7 @@ namespace GEETHREE
             System.Diagnostics.Debug.WriteLine("Broadcast message received " + e.TextContent);
             Message msg = new Message();
             msg.PrivateMessage = false;
+            msg.GroupMessage = false;
             msg.Hash = e.Hash;
             msg.ReceiverID = e.Receiver;
             msg.SenderID = e.Sender;
@@ -108,11 +111,45 @@ namespace GEETHREE
             msg.Attachmentflag = e.Attachmentflag;
             dm.storeNewMessage(msg);
             App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
-            if (e.Attachmentflag == "0")
-                this.TransitMessages.Add(msg);
+            
+             this.TransitMessages.Add(msg);
             Controller.Instance.notifyViewAboutMessage(false);
         }
+        public void GroupMessageReceived(object sender, MessageEventArgs e)
+        {
 
+            System.Diagnostics.Debug.WriteLine("Group message received " + e.TextContent);
+            Message msg = new Message();
+            msg.PrivateMessage = false;
+            msg.GroupMessage = true;
+            msg.Hash = e.Hash;
+            msg.ReceiverID = e.Receiver;
+            msg.SenderID = e.Sender;
+            msg.SenderAlias = e.SenderAlias;
+            msg.TextContent = e.TextContent;
+            msg.outgoing = true;
+
+
+            msg.Attachment = e.Attachment;
+            msg.Attachmentfilename = e.Attachmentfilename;
+            msg.Attachmentflag = e.Attachmentflag;
+            //if the groupID is one of my groupID
+            bool mygroup = false;
+            foreach ( Group g in App.ViewModel.Groups)
+            {
+                if(g.GroupID==e.Sender)
+                    mygroup=true;
+            }
+           
+            if (mygroup == true)
+            {
+                dm.storeNewMessage(msg);
+                App.ViewModel.ReceivedBroadcastMessages.Add(msg);
+                Controller.Instance.notifyViewAboutMessage(false);
+            }
+            this.TransitMessages.Add(msg);
+            
+        }
         public void FileReceived(object sender, MessageEventArgs e)
         {
 
@@ -207,10 +244,11 @@ namespace GEETHREE
             Message msg = new Message();
             msg.SenderID = tmpmessage[1];
             msg.ReceiverID = tmpmessage[2];
-            if (msg.ReceiverID == null)
+            if (msg.ReceiverID == null || msg.ReceiverID == "Shout")
                 msg.PrivateMessage = false;
             else
                 msg.PrivateMessage = true;
+            
             msg.Attachment = tmpmessage[3];
             msg.Attachmentfilename = tmpmessage[4];
             msg.TextContent = tmpmessage[5];
@@ -226,6 +264,7 @@ namespace GEETHREE
 
             this.cm.PrivateMessageReceived += new EventHandler<MessageEventArgs>(PrivateMessageReceived);
             this.cm.BroadcastMessageReceived += new EventHandler<MessageEventArgs>(BroadcastMessageReceived);
+            this.cm.GroupMessageReceived += new EventHandler<MessageEventArgs>(GroupMessageReceived);
             this.cm.NewConnection += new EventHandler<ConnectionEventArgs>(NewConnectionFound);
             this.cm.FileReceived += new EventHandler<MessageEventArgs>(FileReceived);
             this.cm.NewServerConnection += new EventHandler<ServerConnectionEventArgs>(NewServerConnectionFound);
@@ -239,6 +278,7 @@ namespace GEETHREE
             {
                 this.cm.PrivateMessageReceived -= new EventHandler<MessageEventArgs>(PrivateMessageReceived);
                 this.cm.BroadcastMessageReceived -= new EventHandler<MessageEventArgs>(BroadcastMessageReceived);
+                this.cm.GroupMessageReceived -= new EventHandler<MessageEventArgs>(GroupMessageReceived);
                 this.cm.NewConnection -= new EventHandler<ConnectionEventArgs>(NewConnectionFound);
             }
         }
