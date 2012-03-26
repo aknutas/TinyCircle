@@ -101,19 +101,14 @@ namespace GEETHREE
 
         public CommunicationHandler(Controller cm)
         {
-            this.Channel = new UdpAnySourceMulticastChannel(GROUP_ADDRESS, GROUP_PORT);
-            this.wsConnection = new WebServiceConnector();
-
-
-            // Register for events on the multicast channel.
-            RegisterEvents();
+            
 
             
             this.Connections = new ObservableCollection<Connection>();
             //this.Join(cm.getCurrentUserID());
 
             grpList.Clear();
-            grpList = cm.dm.getAllGroups();
+            //grpList = cm.dm.getAllGroups();
            
         }
 
@@ -131,7 +126,15 @@ namespace GEETHREE
         /// a friendly name. </remarks>
         public void Join(string playerID)
         {
-            
+            if (this.Channel == null)
+            {
+                this.Channel = new UdpAnySourceMulticastChannel(GROUP_ADDRESS, GROUP_PORT);
+                //this.wsConnection = new WebServiceConnector();
+
+
+                // Register for events on the multicast channel.
+                RegisterEvents();
+            }
 
             if (IsJoined)
             {
@@ -579,12 +582,17 @@ namespace GEETHREE
         public void SendToServer(Message msg)
         {
             //wsConnection.testConnection(this);
+            if (wsConnection == null)
+                wsConnection = new WebServiceConnector();
             if(wsConnection.connectionUp)
                 wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this);
         }
 
         public void GetMessagesFromServer(string uid)
         {
+            if (wsConnection == null)
+                wsConnection = new WebServiceConnector();
+
             wsConnection.testConnection(this);
             // Temporarily disabled check
             // if (wsConnection.connectionUp)
