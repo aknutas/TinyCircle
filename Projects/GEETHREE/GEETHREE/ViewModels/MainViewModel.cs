@@ -249,7 +249,8 @@ namespace GEETHREE
             this.Items.Add(new ItemViewModel() { LineOne = "runtime eight", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime nine", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
             this.Items.Add(new ItemViewModel() { LineOne = "runtime ten", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
-            
+            */
+            /*
             this.Users.Add(new User("Tommi", "Having fun at codecamp.")); 
             this.Users.Add(new User("Antti", "Description 2")); 
             this.Users.Add(new User("Bishal", "Description 3")); 
@@ -265,7 +266,7 @@ namespace GEETHREE
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "hello there2", TextContent = "plaa plaa plaa plaa plaa plaa2 " });
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "hello there3", TextContent = "plaa plaa plaa plaa plaa plaa3 " });
             this.ReceivedBroadcastMessages.Add(new Message() { SenderAlias = "XXX", Header = "hello there4", TextContent = "plaa plaa plaa plaa plaa plaa4 " });
-            */
+           */
             this.IsDataLoaded = true;
         }
 

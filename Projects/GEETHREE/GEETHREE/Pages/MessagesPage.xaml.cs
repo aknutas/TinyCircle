@@ -39,7 +39,7 @@ namespace GEETHREE.Pages
             base.OnNavigatedTo(e);
             try
             {
-                // when going to compose page when message canvas is visible, returning back here will collapse it
+                // ** when going to compose page when message canvas is visible, returning back here will collapse it
                 if (messageCanvas.Visibility == Visibility.Visible)
                 {
                     messageCanvas.Visibility = Visibility.Collapsed;
@@ -84,11 +84,6 @@ namespace GEETHREE.Pages
                     receivedimage.Visibility = Visibility.Visible;
                 }
 
-                //BitmapImage bitmapImage = new BitmapImage();
-                //MemoryStream ms = new MemoryStream(imageBytes);
-                //bitmapImage.SetSource(ms);
-                //myImageElement.Source = bitmapImage; 
-
                 replyID = selectedMessage.SenderID;
                 replyAlias = selectedMessage.SenderAlias;
                 
@@ -98,24 +93,6 @@ namespace GEETHREE.Pages
                 ApplicationBar.IsVisible = false;
             }
         }
-        //private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        //{
-        //    selectedMessage = (Message)SentMessages.SelectedItem;
-        //    messageCanvasSenderTextBlock.Text = selectedMessage.ReceiverID;
-        //    //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-        //    messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
-        //    messageCanvas.Visibility = System.Windows.Visibility.Visible;
-        //    ApplicationBar.IsVisible = false;
-        //}
-
-        //private void DraftMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        //{
-        //    selectedMessage = (Message)DraftMessages.SelectedItem;
-        //    //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-        //    messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
-        //    messageCanvas.Visibility = System.Windows.Visibility.Visible;
-        //    ApplicationBar.IsVisible = false;
-        //}
 
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -181,85 +158,7 @@ namespace GEETHREE.Pages
             string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}",replyAlias,replyID);
             // ** then navigate to Compose.xaml
             NavigationService.Navigate(new Uri(url, UriKind.Relative));
-            //detailsNameTextBlock.Text = messageCanvasSenderTextBlock.Text;
-            //detailsDescriptionText.Text = "Description";
-            ////detailsCanvasTextBox.Visibility = System.Windows.Visibility.Visible;
-            //detailsCanvasButton.Content = "Send Message";
-            //detailsCanvasTextBox.Text = "";
-            //txt_details_error_label.Text = "";
-            //details.Visibility = System.Windows.Visibility.Visible;
             messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
-        private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            if (detailsCanvasTextBox.Text != "")
-            {
-
-                // **  ...get the message saving the draft.
-                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
-
-                if (m == MessageBoxResult.OK)
-                {
-                    //write code for storing this message to draft
-                    Message msg = new Message();
-
-                    msg.TextContent = detailsCanvasTextBox.Text;
-                    msg.SenderID = Controller.Instance.getCurrentUserID();
-                    msg.SenderAlias = Controller.Instance.getCurrentAlias();
-                    //msg.ReceiverID = replyID;
-                    //msg.PrivateMessage = true;
-                    //msg.outgoing = true;
-
-                    // ** add the messages to the draftmessages collection
-                    App.ViewModel.DraftMessages.Add(msg);
-
-                }
-            }
-
-            detailsCanvasTextBox.Text = "";
-            txt_details_error_label.Text = "";
-            details.Visibility = System.Windows.Visibility.Collapsed;
-            Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-
-            messageCanvas.Background = backgroundbrush;
-            messageCanvas.Visibility = System.Windows.Visibility.Visible;
-
-
-        }
-        private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            if (detailsCanvasTextBox.Text == "")
-            {
-                txt_details_error_label.Text = "Message Field is empty!";
-            }
-            else
-            {
-                // ** create a message
-                Message msg = new Message();
-                msg.TextContent = detailsCanvasTextBox.Text;
-                msg.SenderID = Controller.Instance.getCurrentUserID();
-                msg.SenderAlias = Controller.Instance.getCurrentAlias();
-                msg.ReceiverID = replyID;
-                msg.PrivateMessage = true;
-                msg.outgoing = true;
-
-                // ** add to sent messages collection
-                App.ViewModel.SentMessages.Add(msg);
-
-                // ** ask the controller to send the message 
-                Controller.Instance.mh.SendMessage(msg);
-                MessageBox.Show("Message sent.");
-
-                // ** reset elements 
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Collapsed;
-                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-                messageCanvas.Background = backgroundbrush;
-                messageCanvas.Visibility = System.Windows.Visibility.Visible;
-
-            }
         }
 
         // ** must navigate back to the pivot page from details page, not back to panorama page
@@ -286,6 +185,7 @@ namespace GEETHREE.Pages
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }            
         }
+
         // ** MENUBAR, COMPOSE CLICKED 
         private void appbar_Message_Compose_Click(object sender, EventArgs e)
         {
@@ -329,7 +229,7 @@ namespace GEETHREE.Pages
             if (receivedimage.Visibility == Visibility.Visible) // ** if there is an image
             {
                 ApplicationBar.IsVisible = false;
-                receivedimage.Visibility = Visibility.Collapsed;
+                //receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvas.Visibility = Visibility.Collapsed;
 
                 imegePreviewCanvasImageBig.Source = receivedimage.Source;
@@ -343,8 +243,5 @@ namespace GEETHREE.Pages
         {
             
         }
-
-
-
     }
 }

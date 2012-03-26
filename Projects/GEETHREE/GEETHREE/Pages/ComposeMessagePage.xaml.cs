@@ -70,34 +70,43 @@ namespace GEETHREE.Pages
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-
-            // ** check for message to store to draft
-            if ((txt_compose_message.Text != "") && (txt_compose_message.Text != "Type your message here..."))
+            if (recipientListCanvas.Visibility == Visibility.Visible)
             {
-
-                // **  ...get the message saving the draft.
-                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
-
-                if (m == MessageBoxResult.OK)
+                recipientListCanvas.Visibility = Visibility.Collapsed;
+                PageTitle.Text = "Compose";
+                return;
+            }
+            else
+            {
+            // ** check for message to store to draft
+                if ((txt_compose_message.Text != "") && (txt_compose_message.Text != "Type your message here..."))
                 {
 
-                    //write code for storing this message to draft
-                    Message msg = new Message();
-                    msg.TextContent = txt_compose_message.Text;
-                    msg.SenderID = Controller.Instance.getCurrentUserID();
-                    msg.SenderAlias = Controller.Instance.getCurrentAlias();
-                    //msg.ReceiverID = replyID;
-                    //msg.PrivateMessage = true;
-                    //msg.outgoing = true;
 
-                    // ** add the messages to the draftmessages collection
-                    App.ViewModel.DraftMessages.Add(msg);
-                    //ctrl.registerPreviousPage(this, "messages_draft");
-                    // ** ask the controller, which was the last page
-                    //string destination = ctrl.tellPreviousPage();
-                    e.Cancel = true;
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_drafts"), UriKind.Relative));
-                    
+                    // **  ...get the message saving the draft.
+                    var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
+
+                    if (m == MessageBoxResult.OK)
+                    {
+
+                        //write code for storing this message to draft
+                        Message msg = new Message();
+                        msg.TextContent = txt_compose_message.Text;
+                        msg.SenderID = Controller.Instance.getCurrentUserID();
+                        msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                        //msg.ReceiverID = replyID;
+                        //msg.PrivateMessage = true;
+                        //msg.outgoing = true;
+
+                        // ** add the messages to the draftmessages collection
+                        App.ViewModel.DraftMessages.Add(msg);
+                        //ctrl.registerPreviousPage(this, "messages_draft");
+                        // ** ask the controller, which was the last page
+                        //string destination = ctrl.tellPreviousPage();
+                        e.Cancel = true;
+                        NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_drafts"), UriKind.Relative));
+
+                    }
                 }
 
             }

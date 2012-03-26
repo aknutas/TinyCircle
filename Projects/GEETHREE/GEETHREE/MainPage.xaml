@@ -124,19 +124,19 @@
             <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with text wrapping-->
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
-                <ListBox  Margin="0,0,50,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                <ListBox   ItemsSource="{Binding ReceivedBroadcastMessages}" Margin="0,0,50,0" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Canvas Height="80" Width="400"  Margin="0,0,0,30">
+                                <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                     <!--Replace rectangle with image-->
 
-                                <Image Height="50" Margin="5,40,0,0" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
+                                <Image Height="50" Margin="5,15,0,0" Name="img_shout" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
                                      <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                      <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
 
-                                <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="5,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <StackPanel Margin="0,0,0,0" Height="100" Width="400">
-                                    <TextBlock Margin="60,50,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="380">
+                                    <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
 
                                 </Canvas>
@@ -164,8 +164,8 @@
                         <ListBox Grid.Row="2" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" Height="242" Margin="0,2,0,6">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                        <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
+                                    <Canvas Height="110" Width="400"  Margin="0,0,0,0">
+                                        <Image Margin="5,42,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
                                         <TextBlock Margin="5,0,0,0" Text="{Binding UserName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
                                         <TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </Canvas>
@@ -176,8 +176,8 @@
                         <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                        <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
+                                    <Canvas Height="110" Width="400"  Margin="0,0,0,0">
+                                        <Image Margin="5,42,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
                                         <TextBlock Margin="5,0,0,0" Text="{Binding GroupName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
                                         <TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                     </Canvas>

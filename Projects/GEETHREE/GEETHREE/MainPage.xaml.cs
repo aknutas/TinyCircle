@@ -39,7 +39,7 @@ namespace GEETHREE
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
-            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            //this.Loaded += new RoutedEventHandler(MainPage_Loaded); // removed this line
             //txt_Base_Alias.Text = appSetting.AliasSetting;
 
             if (ctrl.getCurrentUserID() == "0000")
@@ -329,17 +329,7 @@ namespace GEETHREE
         {
             base.OnNavigatedTo(e);
 
-            // ** check the wifi status
-            if (DeviceNetworkInformation.IsWiFiEnabled)
-                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
-            else
-                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
-            
-            if (ctrl.mh.ConnectedToServer == true)
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
-            else
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
-
+            updateWifiAndServerStatuses();
             try
             {
                 string newparameter = this.NavigationContext.QueryString["parameter"];
@@ -424,7 +414,11 @@ namespace GEETHREE
                 {
                     NavigationService.RemoveBackEntry();
                 }
-                NavigationService.GoBack();
+                try
+                {
+                    NavigationService.GoBack();
+                }
+                catch { }
 
             }
             
