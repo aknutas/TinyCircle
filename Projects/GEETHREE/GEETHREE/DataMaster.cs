@@ -547,7 +547,6 @@ namespace GEETHREE
                         {
                             db.GroupInfoResponses.DeleteOnSubmit(grpi);
                         }
-                        db.SubmitChanges();
 
                         var qres2 = from UserInfoResponse useri in db.UserInfoResponses select useri;
                         foreach (var useri in qres2)
