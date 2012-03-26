@@ -78,7 +78,7 @@ namespace GEETHREE
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
                 msg.outgoing = false;
                 dm.storeNewMessage(msg);
-                App.ViewModel.ReceivedPrivateMessages.Add(msg);
+                App.ViewModel.ReceivedPrivateMessages.Insert(0, msg);
                 Controller.Instance.notifyViewAboutMessage(true);
             }
             else
@@ -107,7 +107,7 @@ namespace GEETHREE
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
             dm.storeNewMessage(msg);
-            App.ViewModel.ReceivedBroadcastMessages.Add(msg);
+            App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
             if (e.Attachmentflag == "0")
                 this.TransitMessages.Add(msg);
             Controller.Instance.notifyViewAboutMessage(false);

@@ -277,7 +277,7 @@ namespace GEETHREE.Pages
 
                     MemoryStream ms = new MemoryStream();
                     // width, height, orienteation, quality
-                    wb.SaveJpeg(ms, 800, 480, 0, 50);
+                    wb.SaveJpeg(ms, 400, 240, 0, 50);
                     bitImage.SetSource(ms);
 
 
@@ -316,7 +316,7 @@ namespace GEETHREE.Pages
 
                     MemoryStream ms = new MemoryStream();
                     // width, height, orienteation, quality
-                    wb.SaveJpeg(ms, 800, 480, 0, 50);
+                    wb.SaveJpeg(ms, 400, 240, 0, 50);
                     bitImage.SetSource(ms);
 
 

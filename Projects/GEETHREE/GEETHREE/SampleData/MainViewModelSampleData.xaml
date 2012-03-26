@@ -14,3 +14,9 @@
     </local:MainViewModel.Items>
     
 </local:MainViewModel>
+    
+<!-- listtemplate margins 
+Margin="5,40,0,0"
+Margin="5,0,0,0"
+Margin="60,50,0,0"   
+-->

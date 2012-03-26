@@ -275,6 +275,12 @@ namespace GEETHREE.Pages
                 receivedimage.Visibility = Visibility.Collapsed;
 
             }
+            if (imagePreviewCanvas.Visibility == Visibility.Visible)
+            {
+                imagePreviewCanvas.Visibility = Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+            }
+
             else // ** then, navigate back
             {
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
@@ -317,17 +323,26 @@ namespace GEETHREE.Pages
 
             }
         }
+        // ** we have received an image and user taps it
+        private void receivedimage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (receivedimage.Visibility == Visibility.Visible) // ** if there is an image
+            {
+                ApplicationBar.IsVisible = false;
+                receivedimage.Visibility = Visibility.Collapsed;
+                messageCanvas.Visibility = Visibility.Collapsed;
 
- 
+                imegePreviewCanvasImageBig.Source = receivedimage.Source;
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+                imagePreviewCanvas.Background = backgroundbrush;
+                imagePreviewCanvas.Visibility = Visibility.Visible;          
+            }
+        }
 
-
-        
-        
-     
-        
-
-        
-
+        private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            
+        }
 
 
 

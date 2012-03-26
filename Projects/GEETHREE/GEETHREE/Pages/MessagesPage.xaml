@@ -11,14 +11,14 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress">
+    SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress" OrientationChanged="PhoneApplicationPage_OrientationChanged">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <!-- Name  is important!-->
-        <controls:Pivot Title="MESSAGES" Name="messagepivots" Foreground="{StaticResource PhoneAccentBrush}">
+        <controls:Pivot Title="TinyCircle" Name="messagepivots" Foreground="{StaticResource PhoneAccentBrush}" HorizontalContentAlignment="Left">
             
             <!--
             <controls:Pivot.Background>
@@ -27,13 +27,15 @@
             
             <!--Pivot item 1: WHISPERS-->
             <controls:PivotItem Header="Whispers" Name="whispers" >
-                <ListBox Name="ReceivedPrivateMessages" Margin="0,0,0,0" ItemsSource="{Binding ReceivedPrivateMessages}" Tap="PrivateMessages_Tap">
+                <ListBox Name="ReceivedPrivateMessages" Margin="0,0,0,0" ItemsSource="{Binding ReceivedPrivateMessages}" Tap="PrivateMessages_Tap" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
-                                <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <Canvas Height="80" Width="400"  Margin="0,0,0,0">
+                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="400">
+                                    <TextBlock Margin="60,50,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
                             </Canvas>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -42,15 +44,16 @@
 
             <!--Pivot item 2: SHOUTS-->
             <controls:PivotItem Header="Shouts" Name="shouts" >
-                <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,0,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap">
+                <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,0,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
-                                <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <Canvas Height="80" Width="400"  Margin="0,0,0,30">
+                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
+                                <TextBlock Margin="5,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="400">
+                                    <TextBlock Margin="60,50,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
                             </Canvas>
-
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -58,28 +61,33 @@
 
             <!--Pivot item 3: SENT-->
             <controls:PivotItem Header="Sent" Name="sent" >
-                <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding SentMessages}" >
+                <ListBox Name="SentMessages" Margin="0,0,-12,0" ItemsSource="{Binding SentMessages}" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />
+                            <Canvas Height="80" Width="400"  Margin="0,0,0,30">
+                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />
                                 <!--<TextBlock Text="{Binding Path=AliasSetting, Source={StaticResource appSettings}}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
-                                <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="400">
+                                    <TextBlock Margin="60,50,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
                             </Canvas>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
+            
             <!--Pivot item 4: DRAFTS-->
             <controls:PivotItem Header="Drafts" Name="drafts">
-                <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding DraftMessages}" Tap="DraftMessages_Tap">
+                <ListBox Name="DraftMessages" Margin="0,0,-12,0" ItemsSource="{Binding DraftMessages}" Tap="DraftMessages_Tap" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                    <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/Draft.png" Stretch="Fill" Width="50" />
+                                <Canvas Height="80" Width="400"  Margin="0,0,0,30">
+                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/Draft.png" Stretch="Fill" Width="50" />
                                     <!--<TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
-                                    <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </Canvas>
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="400">
+                                    <TextBlock Margin="60,50,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
+                            </Canvas>
                             </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -91,14 +99,19 @@
                 Visibility="Collapsed" Opacity="1" Background="Black">
             <TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
-            <TextBlock Canvas.Left="23" Canvas.Top="117" Height="349" Name="messageCanvasMessageContent" Text="Content" Width="426" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+            <TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="11" Canvas.Top="109" Height="374" Name="messageCanvasMessageContent" Text="Content" Width="451" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
             <Image Canvas.Left="400" Canvas.Top="0" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" 
                    Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />
             <TextBlock Canvas.Left="23" Canvas.Top="173" Height="30" Name="messageCanvasMessageHeader" Text="" Width="426" />
             <TextBlock  Canvas.Left="247" Canvas.Top="644" Height="50" Name="btn_reply" Text="reply to sender" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="btn_reply_Tap" Width="215" />
-            <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" />
+            <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" Tap="receivedimage_Tap" />
         </Canvas>
-        
+
+        <Canvas RenderTransformOrigin=".5,.5" Name="imagePreviewCanvas" Visibility="Collapsed" Height="800" Width="480" Background="Black">
+
+            <Image RenderTransformOrigin=".5,.5" Name="imegePreviewCanvasImageBig" Source="/GEETHREE;component/Resources/pivot2.jpg"> </Image>
+            
+        </Canvas>
         
         <!-- This canvas is for sending messages  -->
         <!-- this is not needed anymore because compose page handles it-->
