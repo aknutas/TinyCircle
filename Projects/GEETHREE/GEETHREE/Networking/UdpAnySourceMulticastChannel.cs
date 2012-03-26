@@ -15,6 +15,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace GEETHREE
 {
@@ -101,6 +102,7 @@ namespace GEETHREE
                 if (this.Client != null)
                 {
                     this.Client.Dispose();
+                    StopkeepAlive();
                 }
             }
         }
@@ -354,33 +356,33 @@ namespace GEETHREE
                 if (this.IsJoined)
                 {
                     string tmpmsg;
-                    sendbuffer.currentpackage += 1;
+                    //sendbuffer.currentpackage += 1;
                     if (sendbuffer != null && sendbuffer.buffer != null && sendbuffer.sender != null && nopackage < sendbuffer.numberofpackages)
                     {
                         if (nopackage * 256 + 256 <= sendbuffer.buffer.Length)
                         {
                             try
                             {
-                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256, 256));
+                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * 256, 256));
                                 byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                                 this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                             }
                             catch (System.ArgumentOutOfRangeException)
                             {
-                                Debug.WriteLine("Problem with sendbuffer, aborting send");
+                                Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * 256) + " to " + (nopackage * 256 + 256) + "size of buffer: " + sendbuffer.buffer.Length);
                             }
                         }
                         else if (nopackage * 256 <= sendbuffer.buffer.Length)
                         {
                             try
                             {
-                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(sendbuffer.currentpackage * 256));
+                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * 256));
                             byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                             this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                             }
                             catch (System.ArgumentOutOfRangeException)
                             {
-                                Debug.WriteLine("Problem with sendbuffer, aborting send");
+                                Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * 256) + " to " + (nopackage * 256 + 256) + "size of buffer: " + sendbuffer.buffer.Length);
                             }
                         }
                         else
@@ -541,6 +543,8 @@ namespace GEETHREE
                 receivebuffer.numberofpackages = Convert.ToInt32(nopackets);
                 receivebuffer.sender = sender;
                 receivebuffer.problem = false;
+                receivebuffer.ready = false;
+                receivebuffer.source = source;
 
                 //All ok, request for next part
                 string tmpmsg;
@@ -552,6 +556,9 @@ namespace GEETHREE
                     byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                     this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
                 }
+
+                //Start the timer for request restarting
+                StartKeepAlive();
             }
             else
             {
@@ -593,11 +600,27 @@ namespace GEETHREE
                     receivebuffer.problem = true;
                 }
             }
-            if (Convert.ToInt32(packetno) == Convert.ToInt32(nopackets)-1)
+            if (Convert.ToInt32(packetno) == Convert.ToInt32(nopackets) - 1)
+            {
+                receivebuffer.ready = true;
+                StopkeepAlive();
                 return true;
+            }
             else
                 return false;
 
+        }
+        public void RequestNextPackage()
+        {
+            if (receivebuffer!=null && !receivebuffer.ready && (receivebuffer.currentpackage < receivebuffer.numberofpackages))
+            {
+                string tmpmsg;
+
+                tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.RequestPart, receivebuffer.currentpackage + 1);
+
+                byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                this.Client.BeginSendTo(data, 0, data.Length, receivebuffer.source, new AsyncCallback(SendToCallback), null);
+            }
         }
 
         /// <summary>
@@ -641,14 +664,42 @@ namespace GEETHREE
             }
 
         }
+        DispatcherTimer _dt;
+        private void StartKeepAlive()
+        {
+            if (_dt == null)
+            {
+                _dt = new DispatcherTimer();
+                _dt.Interval = new TimeSpan(0, 0, 5);
+                _dt.Tick +=
+                            delegate(object s, EventArgs args)
+                            {
+                                if (IsJoined)
+                                {
+                                    this.RequestNextPackage();
+                                }
+                            };
+            }
+            _dt.Start();
+
+        }
+        private void StopkeepAlive()
+        {
+            if (_dt != null)
+                _dt.Stop();
+        }
     }
+
+
     public class MessageBuffer
     {
+        public IPEndPoint source { get; set; }
         public string buffer{ get; set; }
         public string sender { get; set; }
         public string receiver { get; set; }
         public int currentpackage { get; set; }
         public int numberofpackages { get; set; }
         public bool problem { get; set; }
+        public bool ready{ get; set; }
     }
 }
