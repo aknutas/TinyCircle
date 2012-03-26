@@ -458,17 +458,17 @@ namespace GEETHREE
             if (ctrl.mh.LocalConnections == 0)
             {
                 img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/Empty.png", UriKind.Relative));
-                txt_connection.Text = "No People";
+                txt_connection.Text = "         No   People Nearby";
             }
             else if (ctrl.mh.LocalConnections > 0 && ctrl.mh.LocalConnections <= 1)
             {
                 img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/few.png", UriKind.Relative));
-                txt_connection.Text = "Few People";
+                txt_connection.Text = "         Few   People Nearby";
             }
             else if (ctrl.mh.LocalConnections >= 2)
             {
                 img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/many.png", UriKind.Relative));
-                txt_connection.Text = "Many People";
+                txt_connection.Text = "        Many   People Nearby";
             }
 
         }

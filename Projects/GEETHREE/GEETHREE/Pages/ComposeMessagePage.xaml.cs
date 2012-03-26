@@ -25,6 +25,9 @@ namespace GEETHREE.Pages
         CameraCaptureTask cameraCaptureTask;
         string receiverID = "";
         string receiverAlias = "";
+        string GroupID = "";
+        string GroupName = "";
+        bool groupMessage = false;
         string attachmentFlag = "0";
         string attachmentFileName = "none";
         byte[] attachmentContent;
@@ -198,6 +201,8 @@ namespace GEETHREE.Pages
                 msg.TextContent=txt_compose_message.Text;
                 msg.SenderID=Controller.Instance.getCurrentUserID();
                 msg.SenderAlias = Controller.Instance.getCurrentAlias();
+                msg.GroupMessage = false;
+                
                 if (composeReceipientTextBox.Text == "" || composeReceipientTextBox.Text == "Shout")
                 {
                     msg.ReceiverID = "Shout";
@@ -207,6 +212,14 @@ namespace GEETHREE.Pages
                 {
                     msg.ReceiverID = receiverID;
                     msg.PrivateMessage = true;
+                }
+                if (groupMessage == true)
+                {
+                    msg.SenderID = receiverID;
+                    msg.SenderAlias = receiverAlias;
+                    msg.ReceiverID = receiverID;
+                    msg.PrivateMessage = false;
+                    msg.GroupMessage = true;
                 }
             
                 msg.outgoing=true;
@@ -234,6 +247,9 @@ namespace GEETHREE.Pages
                 composeReceipientTextBox.Text = "";
                 receiverAlias = "";
                 receiverID = "";
+                GroupID = "";
+                GroupName = "";
+                groupMessage = false;
                 attachmentFlag = "0";
                 attachmentFileName = "none";
                 attachmentContent = null;
@@ -345,6 +361,11 @@ namespace GEETHREE.Pages
                 {// ** try to get sender name 
                     receiverAlias = NavigationContext.QueryString["replyalias"];
                     receiverID = NavigationContext.QueryString["replyid"];
+                    string groupflag = NavigationContext.QueryString["groupmessageflag"];
+                    if (groupflag == "0")
+                        groupMessage = false;
+                    else
+                        groupMessage = true;
                     composeReceipientTextBox.Text = receiverAlias;
                     image1.Visibility = Visibility.Collapsed;
                     composeReceipientTextBox.IsEnabled = false;

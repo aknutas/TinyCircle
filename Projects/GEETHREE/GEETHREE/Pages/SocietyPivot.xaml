@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -31,6 +32,11 @@
                                 <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 <!--<Image Height="15" Name="img_IsAvailable" Margin="340,35,0,0"  Source="/GEETHREE;component/Resources/notAvailable.png" Stretch="Fill" Width="15" />-->
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu Name="MyContextMenu">
+                                        <toolkit:MenuItem Header="Delete User" Click="MenuItem_Click" />
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
                             </Canvas>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -39,7 +45,7 @@
 
             <!--Pivot item two GROUPS-->
             <controls:PivotItem Header="My Groups" Name="GroupsPivot">
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="Groups_ListBox_Tap" Name="groupsListBox">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="Groups_ListBox_Tap" Name="groupsListBox" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
@@ -48,7 +54,13 @@
                                 <TextBlock Text="{Binding GroupName}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 <!--<Image Height="15" Name="img_IsAvailable" Margin="330,35,0,0"  Source="/GEETHREE;component/Resources/available.png" Stretch="Fill" Width="15" />-->
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu Name="MyContextMenu">
+                                        <toolkit:MenuItem Header="Delete Group" Click="MenuItem_Click" />
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
                             </Canvas>
+                            
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

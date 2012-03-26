@@ -76,7 +76,7 @@
                     <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                    <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
+                                    <Image Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/draft.png" Stretch="Fill" Width="50" />
                                     <!--<TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                     <TextBlock Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </Canvas>

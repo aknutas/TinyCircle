@@ -263,6 +263,25 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        private bool _groupmessage;
+
+        [Column]
+        public bool GroupMessage
+        {
+            get
+            {
+                return _groupmessage;
+            }
+            set
+            {
+                if (value != _groupmessage)
+                {
+                    _groupmessage = value;
+                    NotifyPropertyChanged("GroupMessage");
+                }
+            }
+        }
+
         private string _attachmentflag;
 
         [Column]

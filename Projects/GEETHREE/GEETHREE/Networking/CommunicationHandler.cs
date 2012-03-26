@@ -72,6 +72,11 @@ namespace GEETHREE
         public event EventHandler<MessageEventArgs>FileReceived;
 
         /// <summary>
+        /// Occurs when a Group message is received.
+        /// </summary>
+        public event EventHandler<MessageEventArgs> GroupMessageReceived;
+
+        /// <summary>
         /// Occurs when a new connection is formed
         /// </summary>
         public event EventHandler<ConnectionEventArgs> NewConnection;
@@ -313,6 +318,9 @@ namespace GEETHREE
                     case Commands.PrivateFileMessage:
                         OnFileReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
                         break;
+                    case Commands.GroupMessage:
+                        OnGroupMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
+                        break;
                     default:
                         break;
                 }
@@ -422,6 +430,21 @@ namespace GEETHREE
             }
         }
 
+        private void OnGroupMessageReceived(string GroupID, string groupname, string grpID, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
+        {
+            //Message msg = new Message(sender, receiver, message, hash, true);
+            EventHandler<MessageEventArgs> handler = this.GroupMessageReceived;
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] storedHash = UE.GetBytes(hash);
+
+            //byte[] storedAttachment = UE.GetBytes(attachment);
+            if (handler != null)
+            {
+                handler(this, new MessageEventArgs(message, GroupID, groupname, grpID, attachmentflag, attachment, attachmentfilename, storedHash));
+            }
+            //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
+        }
+
         private void OnResponseWithGroupInfoReceived(string sender, string senderalias, string receiver, string groupname, string groupid, string description)
         {
             if (sender != receiver)
@@ -469,9 +492,17 @@ namespace GEETHREE
         public void SendToAll(Message msg)
         {
             if (msg.PrivateMessage == false)
-                this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+            {
+                if (msg.GroupMessage == true)
+                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                else
+                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+            }
             else
+            {
+
                 this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+            }
             //Try also to send to server
             SendToServer(msg);
         }
@@ -479,7 +510,12 @@ namespace GEETHREE
         public void SendFileToAll(Message msg)
         {
             if (msg.PrivateMessage == false)
-                this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+            {
+                if (msg.GroupMessage == true)
+                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                else
+                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+            }
             else
                 this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
         }
@@ -524,8 +560,13 @@ namespace GEETHREE
                     endpoint = Connections[i].UserEndPoint;
 
                     if (msg.PrivateMessage == false)
-                        this.Channel.SendTo(endpoint, string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
-                    else
+                     {
+                        if (msg.GroupMessage == true)
+                            this.Channel.SendTo(endpoint, string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                        else
+                            this.Channel.SendTo(endpoint, string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                     }
+                     else
                         this.Channel.SendTo(endpoint, string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
 
                     break;

@@ -49,6 +49,12 @@ namespace GEETHREE
             {
                 App.ViewModel.LoadData();
             }
+
+            //ContextMenu PopUpMenu = new ContextMenu();
+            //MenuItem item1 = new MenuItem() { Header = "Delete Group" };
+            //item1.Click += new RoutedEventHandler(MenuItem_Click);
+            //PopUpMenu.Items.Add(item1);
+            //ContextMenuService.SetContextMenu(this.groupsListBox, PopUpMenu);
             
         }
         
@@ -59,8 +65,8 @@ namespace GEETHREE
             if (selectedGroup != null)
             {
                 // ** create url and give it gropu name and gropu id as parameters
-
-                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}", selectedGroup.GroupName, selectedGroup.GroupID);
+                
+                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}&groupmessageflag={2}", selectedGroup.GroupName, selectedGroup.GroupID, "1");
 
                 // ** give the controller the page reference
                 ctrl.registerPreviousPage(this, "society_groups");
@@ -89,7 +95,7 @@ namespace GEETHREE
             {
                 // ** create url and give it user name and user id as parameters
 
-                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}", selectedUser.UserName, selectedUser.UserID);
+                string url = string.Format("/Pages/ComposeMessagePage.xaml?replyalias={0}&replyid={1}&groupmessageflag={2}", selectedUser.UserName, selectedUser.UserID,"0");
                 
                 // ** give the controller the page reference
                 ctrl.registerPreviousPage(this, "society_users");
@@ -464,7 +470,24 @@ namespace GEETHREE
             byte[] hashBytes = sha.ComputeHash(source.ToArray());
 
             id = Convert.ToBase64String(hashBytes);
+            if (checkStringforinvalidchars(id, "+") == true)
+                id = CreateNewGroupID(groupname);
             return id;
+        }
+
+        public bool checkStringforinvalidchars(string id, string chr)
+        {
+            int firstCharacter = -1;
+            firstCharacter = id.IndexOf(chr);
+            if (firstCharacter >= 0)
+            {
+                return true;
+            }
+
+            else
+                return false;
+
+
         }
 
         private void grouptListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -507,5 +530,30 @@ namespace GEETHREE
             }
         }
 
-    }
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+            //selectedGroup = (Group)groupsListBox.SelectedItem;
+            //string groupname = selectedGroup.GroupName;
+            //ctrl.dm.deleteGroup(selectedGroup);
+            ////show group joined message
+            MessageBox.Show("Sorry, Deleting not allowed at this moment!!");
+            ////make canvas collapsed  
+            //App.ViewModel.LoadData();
+            //var selectedIndex = (sender as ListBox).SelectedIndex;
+            //Group contextMenuDataItem = (sender as MenuItem).DataContext as Group;
+            //if (contextMenuDataItem != null)
+            //{ 
+                // if not using an ObservableCollection, refresh the ListBox.ItemsSource here  
+            //}  
+
+        }
+
+       
+
+        
+
+          
+
+   }
 }
