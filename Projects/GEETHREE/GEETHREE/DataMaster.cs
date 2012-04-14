@@ -405,6 +405,9 @@ namespace GEETHREE
 
         public void storeNewMessage(Message message)
         {
+            System.Diagnostics.Debug.WriteLine("Asked to store message");
+            System.Diagnostics.Debug.WriteLine(message.TextContent);
+
             lock (dblock)
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
@@ -417,6 +420,8 @@ namespace GEETHREE
 
         public void storeNewMessage(List<Message> messages)
         {
+            System.Diagnostics.Debug.WriteLine("Asked to store a message list");
+
             lock (dblock)
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
