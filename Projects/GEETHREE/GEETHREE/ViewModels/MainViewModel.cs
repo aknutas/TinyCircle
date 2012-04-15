@@ -27,7 +27,7 @@ namespace GEETHREE
         private List<Message> draftMessageList;
         private List<Message> sentMessageList;
         private List<Message> privateMessagesList;
-        private List<Message> broadcaseMessagesList;
+        private List<Message> broadcastMessagesList;
 
         private List<GroupInfoResponse> grpInfoResponseList;
         private List<UserInfoResponse> usrInfoResponseList;
@@ -45,7 +45,7 @@ namespace GEETHREE
             grpList = new List<Group>();
             draftMessageList = new List<Message>();
             privateMessagesList = new List<Message>();
-            broadcaseMessagesList = new List<Message>();
+            broadcastMessagesList = new List<Message>();
             grpInfoResponseList = new List<GroupInfoResponse>();
             usrInfoResponseList = new List<UserInfoResponse>();
 
@@ -142,11 +142,12 @@ namespace GEETHREE
 
             draftMessageList = c.dm.getMyDraftMessages();
             sentMessageList = c.dm.getMySentMessages();
-            broadcaseMessagesList = c.dm.getBroadcastMessages();
+            broadcastMessagesList = c.dm.getBroadcastMessages();
             privateMessagesList = c.dm.getIncomingPrivateMessages();
 
             //Debug
             System.Diagnostics.Debug.WriteLine("LoadData: Got " + sentMessageList.Count.ToString() + " sent messages");
+            System.Diagnostics.Debug.WriteLine("LoadData: Got " + privateMessagesList.Count.ToString() + " private messages");
         }
 
         //Whole thing completed
@@ -258,9 +259,9 @@ namespace GEETHREE
 
         public void LoadBroadcastMessages()
         {
-            foreach (Message m in broadcaseMessagesList)
+            foreach (Message m in broadcastMessagesList)
             {
-                this.ReceivedPrivateMessages.Add(m);
+                this.ReceivedBroadcastMessages.Add(m);
             }
         }
 
@@ -308,10 +309,10 @@ namespace GEETHREE
 
             ReceivedBroadcastMessages.Clear();
             //broadcaseMessagesList.Clear();
-            broadcaseMessagesList = c.dm.getBroadcastMessages();
+            broadcastMessagesList = c.dm.getBroadcastMessages();
    
 
-            foreach (Message m in broadcaseMessagesList)
+            foreach (Message m in broadcastMessagesList)
             {
                 this.ReceivedPrivateMessages.Add(m);
             }

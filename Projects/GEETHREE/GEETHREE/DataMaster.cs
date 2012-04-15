@@ -338,7 +338,7 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from Message message in db.Messages where message.SenderID == settings.UserIDSetting && message.PrivateMessage != true select message;
+                    var qres = from Message message in db.Messages where (message.SenderID == settings.UserIDSetting && message.PrivateMessage != true) select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
                 }
@@ -351,7 +351,7 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from Message message in db.Messages where message.SenderID == settings.UserIDSetting && message.PrivateMessage == true select message;
+                    var qres = from Message message in db.Messages where (message.SenderID == settings.UserIDSetting && message.PrivateMessage == true) select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
                 }
@@ -364,7 +364,7 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    var qres = from Message message in db.Messages where message.ReceiverID == settings.UserIDSetting && message.PrivateMessage == true select message;
+                    var qres = from Message message in db.Messages where (message.ReceiverID == settings.UserIDSetting && message.PrivateMessage == true) select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
                 }

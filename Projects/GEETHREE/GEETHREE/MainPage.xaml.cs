@@ -159,128 +159,6 @@ namespace GEETHREE
         //    NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
         //}
 
-        // ** these were just for testing purposes
-        private void menuItem1_Click(object sender, EventArgs e)
-        {
-            User u = new User("Anni", "This is Anni");
-            u.UserID = "555";
-            ctrl.dm.storeNewUser(u);
-
-            u = new User("Thomster", "This is Tommi.");
-            u.UserID = "556";
-            ctrl.dm.storeNewUser(u);
-
-            u = new User("Bishal", "This is Bishal.");
-            u.UserID = "557";
-            ctrl.dm.storeNewUser(u);
-
-            u = new User("Antti", "This is antti.");
-            u.UserID = "558";
-            ctrl.dm.storeNewUser(u);
-
-            u = new User("Tommi K", "This is Tommi K.");
-            u.UserID = "559";
-            ctrl.dm.storeNewUser(u);
-
-            GroupInfoResponse gri = new GroupInfoResponse();
-            gri.GroupName = "G1";
-            gri.GroupID = "111";
-            gri.Description = "dasdsada";
-            gri.SenderAlias = "dasdad";
-            gri.SenderID = "SDA";
-            gri.ReceiverID = "SADAD";
-            ctrl.dm.storeNewGroupInfoResponse(gri);
-
-            gri = new GroupInfoResponse();
-            gri.GroupName = "G2";
-            gri.GroupID = "112";
-            gri.Description = "dasdsada222";
-            gri.SenderAlias = "dasdad";
-            gri.SenderID = "SDA";
-            gri.ReceiverID = "SADAD";
-            ctrl.dm.storeNewGroupInfoResponse(gri);
-
-            UserInfoResponse uri = new UserInfoResponse();
-            uri.UserID = "115";
-            uri.UserAlias = "Samantha";
-            uri.Description = "the foxy gal";
-            ctrl.dm.storeNewUserInfoResponse(uri);
-
-            uri = new UserInfoResponse();
-            uri.UserID = "185";
-            uri.UserAlias = "anjelina";
-            uri.Description = "the sexy gal";
-            ctrl.dm.storeNewUserInfoResponse(uri);
-
-            uri = new UserInfoResponse();
-            uri.UserID = "556";
-            uri.UserAlias = "bomber";
-            uri.Description = "the sexy gal";
-            ctrl.dm.storeNewUserInfoResponse(uri);
-
-            Group g = new Group();
-            g.GroupName = ".NET Codecamp";
-            g.GroupID = "1234";
-            g.Description = "Here we are still coding at 0:55.";
-            ctrl.dm.storeNewGroup(g);
-
-            g = new Group();
-            g.GroupName = "Comlab";
-            g.GroupID = "1235";
-            g.Description = "We are Comlab, the one and the only one.";
-            ctrl.dm.storeNewGroup(g);
-
-            g = new Group();
-            g.GroupName = "SWE";
-            g.GroupID = "1236";
-            g.Description = "We are from Sweden";
-            ctrl.dm.storeNewGroup(g);
-
-            App.ViewModel.LoadData();
-            //Old debug code
-            /*
-            DataClasses.Message msg = new DataClasses.Message();
-            msg.TextContent = "Pli";
-            msg.outgoing = true;
-            ctrl.dm.storeNewMessage(msg);
-
-            DataClasses.Message msg2 = new DataClasses.Message();
-            msg2.TextContent = "Pla";
-            msg2.outgoing = true;
-            ctrl.dm.storeNewMessage(msg2);
-
-            List<DataClasses.Message> msgList = ctrl.dm.getAllMessages();
-            System.Diagnostics.Debug.WriteLine(msgList.Count);*/
-        }
-
-        private void menuItem2_Click(object sender, EventArgs e)
-        {
-            ctrl.dm.resetDataBase();
-            App.ViewModel.LoadData();
-            //DeviceNetworkInformation;
-            //NetworkInterfaceInfo netInterfaceInfo = socket.GetCurrentNetworkInterface();
-            //var type = netInterfaceInfo.InterfaceType;
-            //var subType = netInterfaceInfo.InterfaceSubtype; 
-            //MessageBox.Show(NetworkInterface.NetworkInterfaceType.ToString()); 
-
-
-            //Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceType net = Microsoft.Phone.Net.NetworkInformation.NetworkInterface.NetworkInterfaceType;
-            //if (net == Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceType.Wireless80211)
-            //{
-            //   img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
-            //}
-            //if (net != Microsoft.Phone.Net.NetworkInformation.NetworkInterfaceType.Wireless80211)
-            //{
-            //    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
-            //}
-
-
-            //if (NetworkInterface.NetworkInterfaceType.ToString() == "Wireless80211")
-            //    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
-            //else
-            //    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
-        }
-
         private void btn_CreateUserID_OK_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             
@@ -464,6 +342,11 @@ namespace GEETHREE
                 img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/many.png", UriKind.Relative));
                 txt_connection.Text = "        Many   People Nearby";
             }
+
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
 
         }
     }
