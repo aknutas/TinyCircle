@@ -207,8 +207,6 @@
             <shell:ApplicationBarIconButton x:Name="appbar_compose" IconUri="/Resources/appbar.edit.rest.png" Text="Compose" Click="appbar_compose_Click" />
             
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="Init DB" Click="menuItem1_Click" />
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="Clear Db" Click="menuItem2_Click" />
                 <shell:ApplicationBarMenuItem x:Name="menuItem3" Text="Help" Click="menuItem3_Click" />
 
             </shell:ApplicationBar.MenuItems>
