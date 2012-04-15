@@ -20,7 +20,7 @@ using Microsoft.Phone.Net.NetworkInformation;
 
 namespace GEETHREE
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : PhoneApplicationPage, GEETHREE.Pages.AvatarChangeListener
     {
         Controller ctrl;
         bool createUID = false;

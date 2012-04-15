@@ -28,9 +28,7 @@ namespace GEETHREE
         private Random r;
 
         //Update view callback list
-        private SettingsPage settingspage;
-        private MainPage mainpage;
-
+        private List<AvatarChangeListener> avatarCallbackList;
 
         private PhoneApplicationPage currentPage;
         private PhoneApplicationPage previousPage;
@@ -56,8 +54,8 @@ namespace GEETHREE
             //cm.RequestGroupInfo(getCurrentUserID());
             //cm.RequestUserInfo(getCurrentUserID());
 
-            // TODO Elegant callbacks
-            // callbackList = new List<PhoneApplicationPage>();
+            // Elegant callbacks
+            avatarCallbackList = new List<AvatarChangeListener>();
         }
 
         //Get us the singleton instance
@@ -77,25 +75,16 @@ namespace GEETHREE
 
         //All kinds of cool and useful public functions (put your stuff here, I love you for it) -Antti
         public void refreshAvatars() {
-            if (settingspage != null)
+            foreach (AvatarChangeListener acl in avatarCallbackList)
             {
-                settingspage.refreshAvatar();   
+                acl.refreshAvatar();
             }
-            if (mainpage != null)
-                mainpage.refreshAvatar();
         }
 
         //Wanting callbacks
-        public void registerAvatarUpdates(PhoneApplicationPage regMe)
+        public void registerAvatarUpdates(AvatarChangeListener regMe)
         {
-            if (regMe is SettingsPage)
-            {
-                settingspage = (SettingsPage) regMe;
-            }
-            else if (regMe is MainPage)
-            {
-                mainpage = (MainPage) regMe;
-            }
+            avatarCallbackList.Add(regMe);
         }
 
         //File management

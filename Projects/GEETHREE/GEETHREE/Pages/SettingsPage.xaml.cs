@@ -17,7 +17,7 @@ using System.IO.IsolatedStorage;
 
 namespace GEETHREE.Pages
 {
-    public partial class SettingsPage : PhoneApplicationPage
+    public partial class SettingsPage : PhoneApplicationPage, AvatarChangeListener
     {
         PhotoChooserTask photoChooserTask;
         CameraCaptureTask cameraCaptureTask;

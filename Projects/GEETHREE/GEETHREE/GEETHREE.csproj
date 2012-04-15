@@ -99,6 +99,7 @@
     <Compile Include="Pages\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AvatarChangeListener.cs" />
     <Compile Include="Pages\MessagesPage.xaml.cs">
       <DependentUpon>MessagesPage.xaml</DependentUpon>
     </Compile>

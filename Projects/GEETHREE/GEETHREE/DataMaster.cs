@@ -512,9 +512,6 @@ namespace GEETHREE
                     {
                         db.Users.DeleteOnSubmit(usr);
                     }
-                    db.SubmitChanges();
-                    qres = null;
-                    qres3 = null;
 
                     var qres2 = from Message msg in db.Messages select msg;
                     foreach (var msg in qres2)
@@ -527,13 +524,13 @@ namespace GEETHREE
                     {
                         db.GroupInfoResponses.DeleteOnSubmit(grpi);
                     }
-                    db.SubmitChanges();
 
                     var qres5 = from UserInfoResponse useri in db.UserInfoResponses select useri;
                     foreach (var useri in qres5)
                     {
                         db.UserInfoResponses.DeleteOnSubmit(useri);
                     }
+
                     db.SubmitChanges();
                 }
             }
