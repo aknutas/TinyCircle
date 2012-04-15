@@ -18,6 +18,7 @@ namespace GEETHREE
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        //Variables
         private Controller c;
 
         private List<User> usrList;
@@ -30,11 +31,16 @@ namespace GEETHREE
 
         private List<GroupInfoResponse> grpInfoResponseList;
         private List<UserInfoResponse> usrInfoResponseList;
+
+        private System.ComponentModel.BackgroundWorker loaderBackgroundWorker;
    
 
         public MainViewModel()
         {
+            //Create and get reference to the main controller instance
             c = Controller.Instance;
+
+            //Create data container holders
             usrList = new List<User>();
             grpList = new List<Group>();
             draftMessageList = new List<Message>();
@@ -54,6 +60,12 @@ namespace GEETHREE
             this.GroupInfoResponses = new ObservableCollection<GroupInfoResponse>();
             this.UserInfoResponses = new ObservableCollection<UserInfoResponse>();
 
+            //Start async start data loading
+            System.Diagnostics.Debug.WriteLine("MVM: Starting async data load worker");
+            loaderBackgroundWorker = new BackgroundWorker();
+            InitializeBackgroundWorker();
+            loaderBackgroundWorker.RunWorkerAsync();
+            System.Diagnostics.Debug.WriteLine("MVM: Exiting constructor");
         }
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -92,11 +104,13 @@ namespace GEETHREE
                 }
             }
         }
+
         public bool IsDataLoaded
         {
             get;
             private set;
         }
+
         // ** just some test function
         public void AddNewMessage()
         {
@@ -104,10 +118,67 @@ namespace GEETHREE
             c.notifyViewAboutMessage(true);
         }
 
+        private void InitializeBackgroundWorker()
+        {
+            loaderBackgroundWorker.DoWork +=
+                new DoWorkEventHandler(loaderBackgroundWorker_DoWork);
+            loaderBackgroundWorker.RunWorkerCompleted +=
+                new RunWorkerCompletedEventHandler(
+            loaderBackgroundWorker_RunWorkerCompleted);
+            loaderBackgroundWorker.ProgressChanged +=
+                new ProgressChangedEventHandler(
+            loaderBackgroundWorker_ProgressChanged);
+        }
+
+        //This is where the intensive work happens
+        private void loaderBackgroundWorker_DoWork(object sender,
+             DoWorkEventArgs e)
+        {
+            // Get the BackgroundWorker that raised this event.
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            grpList = c.dm.getAllGroups();
+            usrList = c.dm.getAllUsers();
+
+            draftMessageList = c.dm.getMyDraftMessages();
+            sentMessageList = c.dm.getMySentMessages();
+            broadcaseMessagesList = c.dm.getBroadcastMessages();
+            privateMessagesList = c.dm.getIncomingPrivateMessages();
+
+            //Debug
+            System.Diagnostics.Debug.WriteLine("LoadData: Got " + sentMessageList.Count.ToString() + " sent messages");
+        }
+
+        //Whole thing completed
+        private void loaderBackgroundWorker_RunWorkerCompleted(object sender,
+     RunWorkerCompletedEventArgs e)
+        {
+            // Get the BackgroundWorker that raised this event.
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            LoadGroups();
+            LoadFriends();
+            LoadBroadcastMessages();
+            LoadPrivateMessages();
+            LoadSentMessages();
+            System.Diagnostics.Debug.WriteLine("LoadData: Data load thread completed");
+        }
+
+        //Async thread made new progress and triggered progress update
+        private void loaderBackgroundWorker_ProgressChanged(object sender,
+     ProgressChangedEventArgs e)
+        {
+            // Get the BackgroundWorker that raised this event.
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            //TODO
+            //Add lists to the UI one by one, right away when finished with loading
+        }
+
         public void LoadFriends()
         {
-            Users.Clear();
-            usrList = c.dm.getAllUsers();
+            // Users.Clear();
+            //usrList = c.dm.getAllUsers();
             foreach (User u in usrList)
             {
                 this.Users.Add(u);
@@ -117,9 +188,9 @@ namespace GEETHREE
         public void LoadGroups()
 
         {
-            Groups.Clear();
-            grpList.Clear();
-            grpList = c.dm.getAllGroups();
+            //Groups.Clear();
+            //grpList.Clear();
+            //grpList = c.dm.getAllGroups();
             foreach (Group g in grpList)
             {
                 this.Groups.Add(g);
@@ -132,7 +203,6 @@ namespace GEETHREE
             grpInfoResponseList.Clear();
             grpInfoResponseList = c.dm.getAllGroupInfoResponses();
 
-
             foreach (GroupInfoResponse grp in grpInfoResponseList)
             {
                 this.GroupInfoResponses.Add(grp);
@@ -141,10 +211,9 @@ namespace GEETHREE
 
         public void LoadUserInfoResponses()
         {
-            UserInfoResponses.Clear();
-            usrInfoResponseList.Clear();
-            usrInfoResponseList = c.dm.getAllUserInfoResponses();
-
+            //UserInfoResponses.Clear();
+            //usrInfoResponseList.Clear();
+            //usrInfoResponseList = c.dm.getAllUserInfoResponses();
 
             foreach (UserInfoResponse usr in usrInfoResponseList)
             {
@@ -152,29 +221,46 @@ namespace GEETHREE
             }
         }
 
-        public void LoadDrafts()
+        //Not needed - drafts saved to memory only!
+        //public void LoadDrafts()
 
-        {
-            DraftMessages.Clear();
-            draftMessageList.Clear();
-            draftMessageList = c.dm.getSendableMessages();
+        //{
+        //    DraftMessages.Clear();
+        //    draftMessageList.Clear();
+        //    draftMessageList = c.dm.getSendableMessages();
 
-            foreach (Message m in draftMessageList)
-            {
-                this.DraftMessages.Add(m);           
-            }
-        }
+        //    foreach (Message m in draftMessageList)
+        //    {
+        //        this.DraftMessages.Add(m);           
+        //    }
+        //}
 
         public void LoadSentMessages()
         {
-            SentMessages.Clear();
-            sentMessageList.Clear();
+            //SentMessages.Clear();
+            //sentMessageList.Clear();
 
-            sentMessageList = c.dm.getSentMessages();
+            //sentMessageList = c.dm.getSentMessages();
 
             foreach (Message m in sentMessageList)
             {
                 this.SentMessages.Add(m);
+            }
+        }
+
+        public void LoadPrivateMessages()
+        {
+            foreach (Message m in privateMessagesList)
+            {
+                this.ReceivedPrivateMessages.Add(m);
+            }
+        }
+
+        public void LoadBroadcastMessages()
+        {
+            foreach (Message m in broadcaseMessagesList)
+            {
+                this.ReceivedPrivateMessages.Add(m);
             }
         }
 
