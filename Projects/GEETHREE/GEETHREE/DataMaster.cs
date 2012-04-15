@@ -406,7 +406,8 @@ namespace GEETHREE
         public void storeNewMessage(Message message)
         {
             System.Diagnostics.Debug.WriteLine("Asked to store message");
-            System.Diagnostics.Debug.WriteLine(message.TextContent);
+            if(message.TextContent != null)
+                System.Diagnostics.Debug.WriteLine(message.TextContent);
 
             lock (dblock)
             {

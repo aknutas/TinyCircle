@@ -22,7 +22,6 @@ namespace GEETHREE
 
         private List<User> usrList;
         private List<Group> grpList;
-
         
         private List<Message> draftMessageList;
         private List<Message> sentMessageList;
@@ -214,6 +213,7 @@ namespace GEETHREE
             SentMessages.Clear();
             //sentMessageList.Clear();
             sentMessageList = c.dm.getMySentMessages();
+            System.Diagnostics.Debug.WriteLine("LoadData: Got " + sentMessageList.Count.ToString() + "sent messages");
 
             foreach (Message m in sentMessageList)
             {
