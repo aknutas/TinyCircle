@@ -15,6 +15,8 @@ using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Threading;
+using System.Windows.Navigation;
+using Microsoft.Phone.Shell;
 
 namespace GEETHREE.Pages
 {
@@ -389,8 +391,19 @@ namespace GEETHREE.Pages
             { 
                 
             }
+            if (PhoneApplicationService.Current.StartupMode == StartupMode.Activate)
+            {
+                composeReceipientTextBox.Text = this.LoadState<String>("RecipientNameKey");
+                txt_compose_message.Text = this.LoadState<String>("MessageDraftKey");
+            }
 
             base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            this.SaveState("RecipientNameKey", composeReceipientTextBox.Text);
+            this.SaveState("MessageDraftKey", txt_compose_message.Text);
         }
 
         // ** some kind of popup needed to announce about the message that is just arrived

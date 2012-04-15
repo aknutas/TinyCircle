@@ -105,6 +105,7 @@
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\StateManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pages\SocietyPivot.xaml.cs">
       <DependentUpon>SocietyPivot.xaml</DependentUpon>
