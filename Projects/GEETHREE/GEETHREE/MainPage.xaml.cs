@@ -35,6 +35,8 @@ namespace GEETHREE
             ctrl = Controller.Instance;
             ctrl.registerAvatarUpdates(this);
             ctrl.registerCurrentPage(this, "main");
+            
+
             refreshAvatar();
 
             // Set the data context of the listbox control to the sample data
