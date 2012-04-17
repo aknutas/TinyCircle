@@ -46,9 +46,9 @@ namespace GEETHREE.Networking
             new WSRequest(wr, initMs()).handleTestConnection(this, wr);
         }
 
-        void msgService_pingCompleted(object sender, pingCompletedEventArgs e)
+        public void registerToast(string subscriptionUri, string userId)
         {
-            throw new NotImplementedException();
+            new WSRequest(initMs()).handleRegisterToast(subscriptionUri, userId);
         }
 
         private class WSRequest
@@ -61,6 +61,11 @@ namespace GEETHREE.Networking
             public WSRequest(WebServiceReceiver wr, MsgServiceReference.MsgServiceClient msgService)
             {
                 this.wr = wr;
+                this.msgService = msgService;
+            }
+
+            public WSRequest(MsgServiceReference.MsgServiceClient msgService)
+            {
                 this.msgService = msgService;
             }
 
@@ -164,6 +169,13 @@ namespace GEETHREE.Networking
                     System.Diagnostics.Debug.WriteLine(e.Error.Message.ToString());
                 }
             }
+
+            public void handleRegisterToast(string subscriptionUri, string userId)
+            {
+                //TODO
+                //Send toast registration to server
+            }
+
         }
 
     }
