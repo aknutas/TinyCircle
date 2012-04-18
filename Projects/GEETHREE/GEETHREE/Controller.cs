@@ -14,6 +14,14 @@ using GEETHREE.Pages;
 using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
 using System.Security.Cryptography;
+using Microsoft.Phone.Shell;
+using System.Linq;
+using GEETHREE.DataClasses;
+
+
+
+
+
 
 namespace GEETHREE
 {
@@ -43,7 +51,8 @@ namespace GEETHREE
 
         //Private constructor, no external access!
         //Don't change this if you really don't know (especially visibility to public)
-        private Controller() {
+        private Controller()
+        {
             r = new Random();
             appSetting = new DataClasses.AppSettings();
             dm = new DataMaster(appSetting);
@@ -74,7 +83,8 @@ namespace GEETHREE
         }
 
         //All kinds of cool and useful public functions (put your stuff here, I love you for it) -Antti
-        public void refreshAvatars() {
+        public void refreshAvatars()
+        {
             foreach (AvatarChangeListener acl in avatarCallbackList)
             {
                 acl.refreshAvatar();
@@ -102,8 +112,8 @@ namespace GEETHREE
                         return new BitmapImage(new Uri("/GEETHREE;component/Resources/people.light.png", UriKind.Relative));
                     else
                         return new BitmapImage(new Uri("/GEETHREE;component/Resources/people.png", UriKind.Relative));
-                
-                    
+
+
                 }
             }
         }
@@ -121,7 +131,7 @@ namespace GEETHREE
 
         public string getCurrentAlias()
         {
-            
+
             return appSetting.AliasSetting;
         }
 
@@ -137,11 +147,11 @@ namespace GEETHREE
 
         // ** registers a page where the user is currently on
         public void registerCurrentPage(PhoneApplicationPage pap, string pageName)
-        {           
+        {
             currentPageName = pageName;
             if (pageName == "main")
             {
-                currentPage = (MainPage)pap; 
+                currentPage = (MainPage)pap;
             }
             else if (pageName == "compose")
             {
@@ -153,7 +163,7 @@ namespace GEETHREE
             //    currentPage = (ComposeMessagePage)pap;
             //    previousPageName = "messages_drafts"; 
             //}
-    
+
             else if (pageName == "messages")
             {
                 currentPage = (MessagesPage)pap;
@@ -170,22 +180,22 @@ namespace GEETHREE
             {
                 currentPage = (HelpPage)pap;
             }
-        
+
         }
         // ** this is needed for determining where we navigate back from compose page
         public void registerPreviousPage(PhoneApplicationPage pap, string pageName)
         {
 
             previousPageName = pageName;
-            if (pageName == "main_shouts" ||pageName == "main_alias" || pageName == "main_society")
+            if (pageName == "main_shouts" || pageName == "main_alias" || pageName == "main_society")
                 previousPage = (MainPage)pap;
-            
+
             else if (pageName == "messages_shouts" || pageName == "messages_whispers" || pageName == "messages_drafts" || pageName == "messages_sent")
                 previousPage = (MessagesPage)pap;
-            
+
             else if (pageName == "society_users" || pageName == "society_gropus")
                 previousPage = (SocietyPivot)pap;
-  
+
 
         }
         public string tellPreviousPage()
@@ -216,12 +226,12 @@ namespace GEETHREE
                 SocietyPivot sp = (SocietyPivot)currentPage;
                 sp.messageArrived(isPrivate);
             }
-            else if(currentPageName == "settings")
+            else if (currentPageName == "settings")
             {
                 SettingsPage settp = (SettingsPage)currentPage;
                 settp.messageArrived(isPrivate);
             }
-        
+
         }
 
 
@@ -251,7 +261,7 @@ namespace GEETHREE
         public bool checkUserIDforinvalidchars(string id, string chr)
         {
             int firstCharacter = -1;
-            firstCharacter= id.IndexOf(chr);
+            firstCharacter = id.IndexOf(chr);
             if (firstCharacter >= 0)
             {
                 return true;
@@ -260,10 +270,93 @@ namespace GEETHREE
             else
                 return false;
 
-             
+
+        }
+
+        public void CreateApplicationTile()
+        {
+            var appTile = ShellTile.ActiveTiles.First();
+
+            if (appTile != null)
+            {
+                var standardTile = new StandardTileData
+                {
+                    Title = "Tiny Circle",
+                    //BackgroundImage = new Uri("Resources/anonymous.png", UriKind.Relative),
+                    Count = 0, // any number can go here, leaving this null shows NO number  
+                    
+                    //BackBackgroundImage = new Uri("Images/ApplicationTileIcon.jpg", UriKind.Relative),  
+                    
+                    
+                };
+
+                appTile.Update(standardTile);
+            }
+        }
+        public string getLatestMessage()
+        {
+           
+            if (App.ViewModel.ReceivedPrivateMessages.Count != 0)
+            {
+                Message m = App.ViewModel.ReceivedPrivateMessages.First();
+                return m.TextContent.ToString();
+            }
+            return "";
+        }
+        public string getLatestAlias()
+        {
+            try
+            {
+                if (App.ViewModel.ReceivedPrivateMessages.Count != 0)
+                {
+                    Message m = App.ViewModel.ReceivedPrivateMessages.First();
+                    return m.SenderAlias.ToString();
+                }
+            }
+            catch { }
+            return "Anonymous";
         }
 
 
+        // ** this is something that we might not need but it is there anyway
+        public void CreateSecondaryTile()
+        {
+            var foundTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("DetailId=123"));
+
+            if (foundTile == null)
+            {
+                var secondaryTile = new StandardTileData
+                {
+                    //BackgroundImage = new Uri("Images/SecondaryTileFrontIcon.jpg", UriKind.Relative),
+                    Title = "Secondary Tile",
+                    Count = null,
+                    BackTitle = "Back of Tile",
+                    BackContent = "You can put some data here......",
+                    //BackBackgroundImage = new Uri("Images/SecondaryTileFrontIcon.jpg", UriKind.Relative)  
+                };
+
+                ShellTile.Create(new Uri("/Views/DetailsPage.xaml?DetailId=123", UriKind.Relative), secondaryTile);
+            }
+        }
+
+        public void EditExistingTile()
+        {
+            //var foundTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("DetailId=123"));
+            var foundTile = ShellTile.ActiveTiles.First();  
+            if (foundTile != null)
+            {
+                // what sucks here is we cannot get access to the information on the existing tile...  
+                var liveTile = new StandardTileData
+                {
+                    BackTitle =  getLatestAlias(),
+                    BackContent = getLatestMessage(),
+                    Count = 0 + App.ViewModel.ReceivedBroadcastMessages.Count + App.ViewModel.ReceivedPrivateMessages.Count
+                    
+                };
+
+                foundTile.Update(liveTile);
+            }
+        }  
 
     }
 }

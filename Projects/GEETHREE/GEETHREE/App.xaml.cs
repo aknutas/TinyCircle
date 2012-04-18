@@ -18,7 +18,7 @@ namespace GEETHREE
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
-
+        private Controller c;
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
@@ -74,7 +74,7 @@ namespace GEETHREE
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
+            c = Controller.Instance;
 
 
         }
@@ -100,6 +100,8 @@ namespace GEETHREE
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+
+            c.EditExistingTile();
             // Ensure that required application state is persisted here.
         }
 

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.IO.IsolatedStorage;
 using GEETHREE.DataClasses;
 using Microsoft.Phone.Net.NetworkInformation;
+using Microsoft.Phone.Shell;
 
 
 
@@ -72,6 +73,8 @@ namespace GEETHREE
 
 
             System.Diagnostics.Debug.WriteLine("Mainpage loaded");
+
+            
 
         }
 
@@ -255,6 +258,7 @@ namespace GEETHREE
 
         private void menuItem3_Click(object sender, EventArgs e)
         {
+            
             NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
         }
 
@@ -349,7 +353,15 @@ namespace GEETHREE
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ctrl.CreateApplicationTile();
+            //ctrl.CreateSecondaryTile();
+            
+        }
 
+        private void PhoneApplicationPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Mainpage Unloaded");
+           
         }
 
         private void txt_mySociety_Tags_Tap(object sender, System.Windows.Input.GestureEventArgs e)
