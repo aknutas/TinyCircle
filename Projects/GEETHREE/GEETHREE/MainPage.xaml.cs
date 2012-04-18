@@ -79,10 +79,10 @@ namespace GEETHREE
         {
             img_Base_Avatar.Source = ctrl.getCurrentAvatar();
             //PanoramaItemAlias.Header = ctrl.getCurrentAlias();
-            if (ctrl.getCurrentAlias() != "Alias")
+            if (ctrl.getCurrentAlias() != "Alias" && ctrl.getCurrentAlias() != "Anonymous")
                 txt_alias_Name.Text = ctrl.getCurrentAlias();
             else
-                txt_alias_Name.Text = "";
+                txt_alias_Name.Text = "Anonymous";
             
         }
 
