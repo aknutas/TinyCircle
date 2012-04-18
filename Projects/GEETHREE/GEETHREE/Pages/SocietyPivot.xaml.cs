@@ -147,8 +147,27 @@ namespace GEETHREE
                 ApplicationBar.IsVisible = true;
                 txt_addorjoin_errorMessage.Text = "";
                 addOrJoinCanvasTextBox.Text = "";
-  
+                
             }
+            else if (groupListCanvas.Visibility == System.Windows.Visibility.Visible)
+            {
+                groupListCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                txt_groupList_message.Text = "";
+               
+
+            }
+            else if (addtagsCanvas.Visibility == System.Windows.Visibility.Visible)
+            {
+                addtagsCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+
+                addtagTextBox.Text = "";
+                txt_addtag_errorMessage.Text = "";
+                
+                
+            }
+
 
             else // ** then, navigate back
             {
@@ -235,6 +254,58 @@ namespace GEETHREE
                 }
 
            
+        }
+
+        private void addtagButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (addtagTextBox.Text == "")
+            {
+                txt_addtag_errorMessage.Text = "Please provide a #tag!";
+            }
+            
+            else
+            {
+
+                string newtag = addtagTextBox.Text;
+                if (newtag.Substring(0, 1) != "#")
+                {
+                    newtag = "#" + newtag;
+                }
+
+
+
+                bool mytag = false;
+                foreach (Tags t in ctrl.dm.getAllTags())
+                {
+                    if (t.TagName == newtag)
+                        mytag = true;
+                }
+
+                if (mytag == true)
+                {
+                    txt_addtag_errorMessage.Text = "#Tag already exist!";
+                }
+                else
+                {
+
+
+                    Tags tag = new Tags();
+                    tag.TagName = newtag;
+
+
+                    ctrl.dm.storeNewTag(tag);
+                    MessageBox.Show("#Tag : " + newtag, "#Tag Added!", MessageBoxButton.OK);
+                    addtagTextBox.Text = "";
+                    txt_addtag_errorMessage.Text = "";
+
+                    App.ViewModel.LoadData();
+                    addtagsCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                    ApplicationBar.IsVisible = true;
+
+                }
+
+
+            }
         }
 
         private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -345,6 +416,13 @@ namespace GEETHREE
                     grplistBox1.Visibility = Visibility.Visible;
                     ApplicationBar.IsVisible = false;
                 }
+            else if (socialpivots.SelectedItem == TagsPivot)
+            {
+                txt_addtag_errorMessage.Text = "";
+                addtagTextBox.Text = "";                
+                addtagsCanvas.Visibility = System.Windows.Visibility.Visible;
+                ApplicationBar.IsVisible = false;
+            }
             else
                 {
                     txt_addorjoin_errorMessage.Text = "";
@@ -354,6 +432,7 @@ namespace GEETHREE
                     
                     ApplicationBar.IsVisible = false;
                 }
+
 
 
         }
@@ -548,6 +627,8 @@ namespace GEETHREE
             //}  
 
         }
+
+        
 
        
 

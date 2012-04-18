@@ -42,8 +42,10 @@
 
 
                 <TextBox BorderBrush ="{StaticResource PhoneAccentBrush}" Height="323" Name="txt_compose_message" Text="Type your message here..." Width="440" Tap="txt_compose_message_Tap" MaxWidth="440" TextWrapping="Wrap"  />
-                <Image Height="116" Name="attachedImage" Stretch="Fill" Width="117" HorizontalAlignment="Right" Visibility="Collapsed" />
-                <TextBlock Height="30" Name="txt_compose_error_label" Text="" Foreground="#FFFB0000" />
+                <Grid Height="130">
+                    <Image Height="116" Name="attachedImage" Stretch="Fill" Width="117" HorizontalAlignment="Right" Visibility="Collapsed" />
+                    <TextBlock Height="30" Name="txt_compose_error_label" Text="" Foreground="#FFFB0000" Margin="10,94,143,6" />
+                </Grid>
             </StackPanel>
             <!-- This canvas is for selecting recepient  -->
             <Canvas Height="694" HorizontalAlignment="Left" Name="recipientListCanvas" VerticalAlignment="Top" Width="480" 

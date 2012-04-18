@@ -39,6 +39,7 @@ namespace GEETHREE
         public Table<User> Users;
         public Table<GroupInfoResponse> GroupInfoResponses;
         public Table<UserInfoResponse> UserInfoResponses;
+        public Table<Tags> Tags;
     }
 
     public class DataMaster
@@ -64,6 +65,43 @@ namespace GEETHREE
             fm = new FileMaster();
             this.settings = settings;
             draftMessages = new List<Message>();
+        }
+
+        public List<Tags> getAllTags()
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    var qres = from Tags tag in db.Tags select tag;
+                    List<Tags> returnList = new List<Tags>(qres);
+                    return returnList;
+                }
+            }
+        }
+
+        public void storeNewTag(Tags tag)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Tags.InsertOnSubmit(tag);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public void deleteTag(Tags tag)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Tags.DeleteOnSubmit(tag);
+                    db.SubmitChanges();
+                }
+            }
         }
 
         public List<User> getAllUsers()

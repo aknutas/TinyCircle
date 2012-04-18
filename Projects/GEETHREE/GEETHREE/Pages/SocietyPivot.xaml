@@ -65,8 +65,30 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
+            <!--Pivot item three Tags-->
+            <controls:PivotItem Header="My Tags" Name="TagsPivot">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Tags}" Name="tagsListBox" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Canvas Height="80" Width="600"  Margin="0,0,0,30">
+                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
+                                <!--Here should be UserName and Description-->
+                                <!--<TextBlock Margin="5,0,0,0" Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
+                                <!--<Image Height="15" Name="img_IsAvailable" Margin="330,35,0,0"  Source="/GEETHREE;component/Resources/available.png" Stretch="Fill" Width="15" />-->
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu Name="MyContextMenu">
+                                        <toolkit:MenuItem Header="Delete Group" Click="MenuItem_Click" />
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
+                            </Canvas>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PivotItem>
         </controls:Pivot>
-        <!-- This canvas is for sending messages  -->
+        <!-- This canvas is for details  -->
         <Canvas Height="700" HorizontalAlignment="Left" Name="details" VerticalAlignment="Top" Width="480" 
                Visibility="Collapsed"  Opacity="1">
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="detailsNameTextBlock" Text="Name" 
@@ -100,6 +122,21 @@
             <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="groupCanvasTextBlock" Text="Join a Group :" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
             <ListBox Canvas.Left="37" Canvas.Top="236" Height="344" Name="grplistBox1" Width="403" Visibility="Collapsed" FontSize="{StaticResource PhoneFontSizeExtraLarge}" SelectionChanged="grouptListBox_SelectionChanged"/>
             <TextBlock Canvas.Left="37" Canvas.Top="163" Height="67" Name="txt_groupList_message" Text="" Width="403" TextWrapping="Wrap" />
+        </Canvas>
+
+        <!-- This canvas is for adding tags -->
+        <Canvas Height="700" HorizontalAlignment="Left" Name="addtagsCanvas" VerticalAlignment="Top" Width="480" 
+                Visibility="Collapsed" Opacity="1" Background="Black">
+
+            <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="addtagsTextBlock" Text="Add new #tag" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextExtraLargeStyle}" />
+            <TextBlock Canvas.Left="36" Canvas.Top="163" Height="40"  Text="#Tag :" Width="332" FontWeight="Medium" FontSize="28" />
+
+            <TextBox Canvas.Left="23" Canvas.Top="193" Height="71" Name="addtagTextBox" Text="" Width="419" />
+            <Button Canvas.Left="314" Canvas.Top="254" Content="Add" Height="71" Name="addtagButton" Width="127" Tap="addOrJoinCanvasButton_Tap" />
+            <TextBlock Canvas.Left="36" Canvas.Top="270" Height="30" Name="txt_addtag_errorMessage" Text="" Width="286" Foreground="#FFF80A0A" />
+            <TextBlock Canvas.Left="24" Canvas.Top="336" Height="30" Text="Add #tag from list " Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}" />
+            <ListBox Canvas.Left="36" Canvas.Top="387" Height="283" Name="taglistBox" Width="403" Visibility="Collapsed" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
+
         </Canvas>
     </Grid>
 

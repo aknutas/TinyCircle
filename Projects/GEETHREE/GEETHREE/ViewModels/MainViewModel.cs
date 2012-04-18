@@ -23,6 +23,7 @@ namespace GEETHREE
 
         private List<User> usrList;
         private List<Group> grpList;
+        private List<Tags> tagList;
         
         private List<Message> draftMessageList;
         private List<Message> sentMessageList;
@@ -33,6 +34,7 @@ namespace GEETHREE
         private List<UserInfoResponse> usrInfoResponseList;
 
         private System.ComponentModel.BackgroundWorker loaderBackgroundWorker;
+        private bool threadRunning = false;
    
 
         public MainViewModel()
@@ -43,6 +45,8 @@ namespace GEETHREE
             //Create data container holders
             usrList = new List<User>();
             grpList = new List<Group>();
+            tagList = new List<Tags>();
+
             draftMessageList = new List<Message>();
             privateMessagesList = new List<Message>();
             broadcastMessagesList = new List<Message>();
@@ -52,6 +56,8 @@ namespace GEETHREE
             this.Items = new ObservableCollection<ItemViewModel>();
             this.Users = new ObservableCollection<User>();
             this.Groups = new ObservableCollection<Group>();
+            this.Tagss = new ObservableCollection<Tags>();
+
             this.DraftMessages = new ObservableCollection<Message>();
             this.SentMessages = new ObservableCollection<Message>();
             this.ReceivedPrivateMessages = new ObservableCollection<Message>();
@@ -61,11 +67,8 @@ namespace GEETHREE
             this.UserInfoResponses = new ObservableCollection<UserInfoResponse>();
 
             //Start async start data loading
-            System.Diagnostics.Debug.WriteLine("MVM: Starting async data load worker");
-            loaderBackgroundWorker = new BackgroundWorker();
-            InitializeBackgroundWorker();
-            loaderBackgroundWorker.RunWorkerAsync();
-            System.Diagnostics.Debug.WriteLine("MVM: Exiting constructor");
+            refreshDataAsync();
+
         }
         /// <summary>
         /// A collection for ItemViewModel objects.
@@ -74,7 +77,7 @@ namespace GEETHREE
         
         public ObservableCollection<User> Users { get; private set; }
         public ObservableCollection<Group> Groups { get; private set; }
-
+        public ObservableCollection<Tags> Tagss { get; private set; }
    
         public ObservableCollection<Message> DraftMessages { get; private set; }
         public ObservableCollection<Message> SentMessages { get; private set; }
@@ -102,6 +105,18 @@ namespace GEETHREE
                     _sampleProperty = value;
                     NotifyPropertyChanged("SampleProperty");
                 }
+            }
+        }
+
+        public void refreshDataAsync(){
+            //Start async start data loading
+            if (!threadRunning)
+            {
+                System.Diagnostics.Debug.WriteLine("MVM: Starting async data load worker");
+                loaderBackgroundWorker = new BackgroundWorker();
+                InitializeBackgroundWorker();
+                loaderBackgroundWorker.RunWorkerAsync();
+                System.Diagnostics.Debug.WriteLine("MVM: Exiting constructor");
             }
         }
 
@@ -139,6 +154,7 @@ namespace GEETHREE
 
             grpList = c.dm.getAllGroups();
             usrList = c.dm.getAllUsers();
+            tagList = c.dm.getAllTags();
 
             draftMessageList = c.dm.getMyDraftMessages();
             sentMessageList = c.dm.getMySentMessages();
@@ -159,10 +175,14 @@ namespace GEETHREE
 
             LoadGroups();
             LoadFriends();
+            LoadTags();
             LoadBroadcastMessages();
             LoadPrivateMessages();
             LoadSentMessages();
             System.Diagnostics.Debug.WriteLine("LoadData: Data load thread completed");
+
+            //Release "lock"
+            threadRunning = false;
         }
 
         //Async thread made new progress and triggered progress update
@@ -178,20 +198,26 @@ namespace GEETHREE
 
         public void LoadFriends()
         {
-            // Users.Clear();
-            //usrList = c.dm.getAllUsers();
+            Users.Clear();
             foreach (User u in usrList)
             {
                 this.Users.Add(u);
             }
         }
 
+        public void LoadTags()
+        {
+            Tagss.Clear();
+            foreach (Tags u in tagList)
+            {
+                this.Tagss.Add(u);
+            }
+        }
+
         public void LoadGroups()
 
         {
-            //Groups.Clear();
-            //grpList.Clear();
-            //grpList = c.dm.getAllGroups();
+            Groups.Clear();
             foreach (Group g in grpList)
             {
                 this.Groups.Add(g);

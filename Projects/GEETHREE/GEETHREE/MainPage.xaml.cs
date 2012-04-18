@@ -351,5 +351,11 @@ namespace GEETHREE
         {
 
         }
+
+        private void txt_mySociety_Tags_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            string parameter = "toTags";
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+        }
     }
 }
