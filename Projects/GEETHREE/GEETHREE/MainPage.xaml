@@ -106,6 +106,8 @@
                             <RowDefinition Height="250" />
                             <RowDefinition Height="71" />
                             <RowDefinition Height="264" />
+                            <RowDefinition Height="71" />
+                            <RowDefinition Height="264" />
                             <RowDefinition Height="55" />
                             
                         </Grid.RowDefinitions>
@@ -121,8 +123,20 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
-                        <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
+                        <TextBlock Name="txt_mySociety_Tags" Grid.Row="3" Text="Tags" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}"  Margin="5,3,19,261" Grid.RowSpan="2" Tap="txt_mySociety_Tags_Tap" />
+                        <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Tags}" Width="412" Tap="txt_mySociety_Tags_Tap">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Canvas Height="110" Width="400"  Margin="0,0,0,0">
+                                        <Image Margin="5,42,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
+                                        <TextBlock Margin="5,0,0,0" Text="{Binding TagName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </Canvas>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="5" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
+                        <ListBox Grid.Row="6" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Canvas Height="110" Width="400"  Margin="0,0,0,0">
@@ -133,7 +147,7 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <TextBlock Name="txt_mySociety_morePeopleGroups" Grid.Row="5" Text="more people and groups" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_morePeopleGroups_Tap" />                   
+                        <TextBlock Name="txt_mySociety_morePeopleGroups" Grid.Row="7" Text="more people and groups" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_morePeopleGroups_Tap" />                   
                     </Grid>
                 </ListBox>     
             </controls:PanoramaItem>

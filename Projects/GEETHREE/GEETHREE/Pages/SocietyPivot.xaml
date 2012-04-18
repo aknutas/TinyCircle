@@ -132,7 +132,7 @@
             <TextBlock Canvas.Left="36" Canvas.Top="163" Height="40"  Text="#Tag :" Width="332" FontWeight="Medium" FontSize="28" />
 
             <TextBox Canvas.Left="23" Canvas.Top="193" Height="71" Name="addtagTextBox" Text="" Width="419" />
-            <Button Canvas.Left="314" Canvas.Top="254" Content="Add" Height="71" Name="addtagButton" Width="127" Tap="addOrJoinCanvasButton_Tap" />
+            <Button Canvas.Left="314" Canvas.Top="254" Content="Add" Height="71" Name="addtagButton" Width="127" Tap="addtagButton_Tap" />
             <TextBlock Canvas.Left="36" Canvas.Top="270" Height="30" Name="txt_addtag_errorMessage" Text="" Width="286" Foreground="#FFF80A0A" />
             <TextBlock Canvas.Left="24" Canvas.Top="336" Height="30" Text="Add #tag from list " Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}" />
             <ListBox Canvas.Left="36" Canvas.Top="387" Height="283" Name="taglistBox" Width="403" Visibility="Collapsed" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />

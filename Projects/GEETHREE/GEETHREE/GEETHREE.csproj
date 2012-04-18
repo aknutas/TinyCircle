@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="DataClasses\FileMaster.cs" />
     <Compile Include="DataClasses\GroupInfoResponse.cs" />
+    <Compile Include="DataClasses\Tags.cs" />
     <Compile Include="DataClasses\UserInfoResponse.cs" />
     <Compile Include="Networking\Commands.cs" />
     <Compile Include="Networking\CommunicationHandler.cs" />
