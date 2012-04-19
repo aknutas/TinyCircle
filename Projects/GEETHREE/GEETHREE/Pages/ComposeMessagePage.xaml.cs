@@ -250,10 +250,12 @@ namespace GEETHREE.Pages
                 msg.Attachmentflag = attachmentFlag;
                 msg.Attachmentfilename = attachmentFileName;   
                 msg.Attachment = attachmentContentstring;
-                App.ViewModel.SentMessages.Add(msg);
+                //ctrl.dm.storeNewMessage(msg);
+                
+                //App.ViewModel.SentMessages.Add(msg);
                 Controller.Instance.mh.SendMessage(msg);
                 MessageBox.Show("Message sent.");
-                
+                App.ViewModel.refreshDataAsync();
                 txt_compose_message.Text = "";
                 txt_compose_error_label.Text = "";
                 composeReceipientTextBox.Text = "";
