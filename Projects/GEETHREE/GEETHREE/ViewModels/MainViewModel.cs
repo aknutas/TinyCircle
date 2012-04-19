@@ -151,10 +151,15 @@ namespace GEETHREE
         {
             // Get the BackgroundWorker that raised this event.
             BackgroundWorker worker = sender as BackgroundWorker;
-
+           
             grpList = c.dm.getAllGroups();
             usrList = c.dm.getAllUsers();
             tagList = c.dm.getAllTags();
+
+            //broadcastMessagesList.Clear();
+            //privateMessagesList.Clear();
+            //sentMessageList.Clear();
+            //draftMessageList.Clear();
 
             draftMessageList = c.dm.getMyDraftMessages();
             sentMessageList = c.dm.getMySentMessages();
@@ -201,7 +206,7 @@ namespace GEETHREE
             Users.Clear();
             foreach (User u in usrList)
             {
-                this.Users.Add(u);
+                this.Users.Insert(0, u);
             }
         }
 
@@ -210,7 +215,7 @@ namespace GEETHREE
             Tagss.Clear();
             foreach (Tags u in tagList)
             {
-                this.Tagss.Add(u);
+                this.Tagss.Insert(0, u);
             }
         }
 
@@ -220,7 +225,7 @@ namespace GEETHREE
             Groups.Clear();
             foreach (Group g in grpList)
             {
-                this.Groups.Add(g);
+                this.Groups.Insert(0, g);
             }   
         }
 
@@ -232,19 +237,19 @@ namespace GEETHREE
 
             foreach (GroupInfoResponse grp in grpInfoResponseList)
             {
-                this.GroupInfoResponses.Add(grp);
+                this.GroupInfoResponses.Insert(0, grp);
             }
         }
 
         public void LoadUserInfoResponses()
         {
-            //UserInfoResponses.Clear();
-            //usrInfoResponseList.Clear();
-            //usrInfoResponseList = c.dm.getAllUserInfoResponses();
+            UserInfoResponses.Clear();
+            usrInfoResponseList.Clear();
+            usrInfoResponseList = c.dm.getAllUserInfoResponses();
 
             foreach (UserInfoResponse usr in usrInfoResponseList)
             {
-                this.UserInfoResponses.Add(usr);
+                this.UserInfoResponses.Insert(0, usr);
             }
         }
 
@@ -264,30 +269,33 @@ namespace GEETHREE
 
         public void LoadSentMessages()
         {
-            //SentMessages.Clear();
+            SentMessages.Clear();
             //sentMessageList.Clear();
 
             //sentMessageList = c.dm.getSentMessages();
 
             foreach (Message m in sentMessageList)
             {
-                this.SentMessages.Add(m);
+                this.SentMessages.Insert(0, m);
             }
         }
 
         public void LoadPrivateMessages()
         {
+            ReceivedPrivateMessages.Clear();
             foreach (Message m in privateMessagesList)
             {
-                this.ReceivedPrivateMessages.Add(m);
+                this.ReceivedPrivateMessages.Insert(0, m);
             }
         }
 
         public void LoadBroadcastMessages()
         {
+            ReceivedBroadcastMessages.Clear();
             foreach (Message m in broadcastMessagesList)
             {
-                this.ReceivedBroadcastMessages.Add(m);
+                //this.ReceivedBroadcastMessages.Add(m);
+                this.ReceivedBroadcastMessages.Insert(0, m);
             }
         }
 

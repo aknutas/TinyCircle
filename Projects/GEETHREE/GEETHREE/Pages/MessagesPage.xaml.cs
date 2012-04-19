@@ -206,12 +206,14 @@ namespace GEETHREE.Pages
                 ApplicationBar.IsVisible = true;
                 receivedimage.Visibility = Visibility.Collapsed;
 
+                if (imagePreviewCanvas.Visibility == Visibility.Visible)
+                {
+                    imagePreviewCanvas.Visibility = Visibility.Collapsed;
+                    ApplicationBar.IsVisible = true;
+                }
+                return;
             }
-            if (imagePreviewCanvas.Visibility == Visibility.Visible)
-            {
-                imagePreviewCanvas.Visibility = Visibility.Collapsed;
-                ApplicationBar.IsVisible = true;
-            }
+
 
             else // ** then, navigate back
             {
