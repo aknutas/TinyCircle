@@ -621,7 +621,7 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    db.Refresh(RefreshMode.OverwriteCurrentValues, updateObject);
+                    db.Refresh(RefreshMode.KeepCurrentValues, updateObject);
                 }
             }
         }

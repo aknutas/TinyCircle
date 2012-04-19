@@ -166,6 +166,10 @@
     <Resource Include="Resources\sent.png" />
     <Resource Include="Resources\shout.png" />
     <Resource Include="Resources\whisper.png" />
+    <Resource Include="g3aicon3_62x62.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="g3aicon3_173x173.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Resources\available.png" />
     <Resource Include="Resources\notAvailable.png" />
