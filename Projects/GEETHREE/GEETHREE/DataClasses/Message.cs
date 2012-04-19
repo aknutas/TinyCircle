@@ -41,6 +41,26 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        ////Database internal timestamp for change management
+        //private DateTime _dbTimeStamp;
+
+        //[Column]
+        //public DateTime DbTimeStamp
+        //{
+        //    get
+        //    {
+        //        return _dbTimeStamp;
+        //    }
+        //    set
+        //    {
+        //        if (value != _dbTimeStamp)
+        //        {
+        //            _timeStamp = value;
+        //            NotifyPropertyChanged("DbTimeStamp");
+        //        }
+        //    }
+        //}
+
         //Default constructor
 
         public Message()
@@ -70,23 +90,23 @@ namespace GEETHREE.DataClasses
             }
         }
 
-        private DateTime? _timestamp;
+        private DateTime? _timeStamp;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns></returns>
         [Column]
-        public DateTime? Timestamp
+        public DateTime? TimeStamp
         {
             get
             {
-                return _timestamp;
+                return _timeStamp;
             }
             set
             {
-                if (value != _timestamp)
+                if (value != _timeStamp)
                 {
-                    _timestamp = value;
+                    _timeStamp = value;
                     NotifyPropertyChanged("Timestamp");
                 }
             }

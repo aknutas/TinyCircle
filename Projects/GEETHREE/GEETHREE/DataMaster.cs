@@ -499,11 +499,14 @@ namespace GEETHREE
 
         public void deleteMessage(Message message)
         {
+            //Debug message
+            System.Diagnostics.Debug.WriteLine("DM: Deleting message");
+
             lock (dblock)
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    db.Messages.Attach(message, true);
+                    var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
                     db.Messages.DeleteOnSubmit(message);
                     db.SubmitChanges();
                 }
@@ -512,11 +515,16 @@ namespace GEETHREE
 
         public void updateMessage(Message message)
         {
+            //Debug message
+            System.Diagnostics.Debug.WriteLine("DM: Updating message");
+
             lock (dblock)
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
-                    db.Messages.Attach(message, true);
+                    var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
+                    Message oldmessage = qres.Single();
+                    db.Messages.Attach(message, oldmessage);
                     db.SubmitChanges();
                 }
             }
@@ -524,6 +532,9 @@ namespace GEETHREE
 
         public void updateMessage(List<Message> message)
         {
+            //Debug message
+            System.Diagnostics.Debug.WriteLine("DM: Updating message list");
+            
             lock (dblock)
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
