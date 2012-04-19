@@ -64,8 +64,10 @@ namespace GEETHREE.Pages
         }
         private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
+
+            selectedMessage.IsRead = true;
+ 
             if (selectedMessage != null)
             {
                 receivedimage.Visibility = Visibility.Collapsed;
@@ -102,8 +104,11 @@ namespace GEETHREE.Pages
 
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
+
+            (ReceivedPrivateMessages.SelectedItem as Message).IsRead = true;
             selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
+            //ctrl.dm.deleteMessage(selectedMessage);
+            //ctrl.dm.storeNewMessage(selectedMessage);
             if (selectedMessage != null)
             {
                 receivedimage.Visibility = Visibility.Collapsed;
@@ -127,7 +132,7 @@ namespace GEETHREE.Pages
                 }
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
                 replyID = selectedMessage.SenderID;
-                replyAlias = selectedMessage.SenderAlias;
+                replyAlias = selectedMessage.SenderAlias + " " + selectedMessage.IsRead.ToString();
                 groupmessageFlag = "0";
                 Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
 

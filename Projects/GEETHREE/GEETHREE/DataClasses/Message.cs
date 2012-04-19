@@ -92,6 +92,30 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        // ** flag to derermine if the user has read the message or not
+        private bool _isRead;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        [Column]
+        public bool IsRead
+        {
+            get
+            {
+                return _isRead;
+            }
+            set
+            {
+                if (value != _isRead)
+                {
+                    _isRead = value;
+                    NotifyPropertyChanged("ISRead");
+                }
+            }
+        }
+
+
         private string _attachment;
 
         [Column(DbType="ntext")]
