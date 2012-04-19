@@ -98,6 +98,7 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
+                   
                     db.Tags.DeleteOnSubmit(tag);
                     db.SubmitChanges();
                 }

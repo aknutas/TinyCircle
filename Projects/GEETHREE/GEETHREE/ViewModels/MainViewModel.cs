@@ -304,6 +304,15 @@ namespace GEETHREE
                 this.Groups.Add(g);
             }
 
+            Tagss.Clear();
+            tagList.Clear();
+            tagList = c.dm.getAllTags();
+
+            foreach (Tags g in tagList)
+            {
+                this.Tagss.Add(g);
+            }
+
             Users.Clear();
             usrList.Clear();
             usrList = c.dm.getAllUsers();

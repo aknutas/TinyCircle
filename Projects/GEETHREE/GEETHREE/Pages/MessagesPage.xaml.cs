@@ -98,6 +98,14 @@ namespace GEETHREE.Pages
                 Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
+                if (replyID == Controller.Instance.getCurrentUserID())
+                {
+                    buttonReply.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    buttonReply.Visibility = Visibility.Visible;
+                }
                 ApplicationBar.IsVisible = false;
             }
         }
@@ -138,6 +146,7 @@ namespace GEETHREE.Pages
 
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
+                buttonReply.Visibility = Visibility.Visible;
                 ApplicationBar.IsVisible = false;
             }
         }
@@ -289,11 +298,12 @@ namespace GEETHREE.Pages
             //m = (Message)selectedListBoxItem.Content;
             App.ViewModel.ReceivedPrivateMessages.Remove((Message)selectedListBoxItem.Content);
 
+
         }
 
         private void contextMenuReply_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
     }
 }

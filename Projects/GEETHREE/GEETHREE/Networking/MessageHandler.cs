@@ -66,7 +66,10 @@ namespace GEETHREE
             msg.Hash = e.Hash;
             msg.ReceiverID = e.Receiver;
             msg.SenderID = e.Sender;
-            msg.SenderAlias = e.SenderAlias;
+            if (e.SenderAlias == "")
+                msg.SenderAlias = "Anonymous";
+            else
+                msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             
             msg.outgoing = true;
@@ -101,7 +104,10 @@ namespace GEETHREE
             msg.Hash = e.Hash;
             msg.ReceiverID = e.Receiver;
             msg.SenderID = e.Sender;
-            msg.SenderAlias = e.SenderAlias;
+            if (e.SenderAlias == "")
+                msg.SenderAlias = "Anonymous";
+            else
+                msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
 
@@ -128,7 +134,10 @@ namespace GEETHREE
             msg.Hash = e.Hash;
             msg.ReceiverID = e.Receiver;
             msg.SenderID = e.Sender;
-            msg.SenderAlias = e.SenderAlias;
+            if (e.SenderAlias == "")
+                msg.SenderAlias = "Anonymous";
+            else
+                msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
 

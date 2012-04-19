@@ -190,6 +190,11 @@ namespace GEETHREE
                 socialpivots.SelectedItem = GroupsPivot;
               
             }
+            else if (newparameter.Equals("toTags"))
+            {
+                socialpivots.SelectedItem = TagsPivot;
+
+            }
         }
 
        
@@ -244,7 +249,7 @@ namespace GEETHREE
                     addOrJoinCanvasTextBox.Text = "";
                     txt_addorjoin_errorMessage.Text = "";
                     txt_groupDesc.Text = "";
-                    App.ViewModel.LoadData();
+                    App.ViewModel.refreshDataAsync();
                     addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
                     ApplicationBar.IsVisible = true;
 
@@ -298,7 +303,7 @@ namespace GEETHREE
                     addtagTextBox.Text = "";
                     txt_addtag_errorMessage.Text = "";
 
-                    App.ViewModel.LoadData();
+                    App.ViewModel.refreshDataAsync();
                     addtagsCanvas.Visibility = System.Windows.Visibility.Collapsed;
                     ApplicationBar.IsVisible = true;
 
@@ -419,7 +424,8 @@ namespace GEETHREE
             else if (socialpivots.SelectedItem == TagsPivot)
             {
                 txt_addtag_errorMessage.Text = "";
-                addtagTextBox.Text = "";                
+                addtagTextBox.Text = "";
+                addtagsCanvas.Background = backgroundbrush;
                 addtagsCanvas.Visibility = System.Windows.Visibility.Visible;
                 ApplicationBar.IsVisible = false;
             }
@@ -446,11 +452,17 @@ namespace GEETHREE
                 UpdateAppbarButton(1, "/Resources/appbar.favs.addto.rest.png", "Join", true, appbar_joingroup_Button_Click);
 
             }
-            else
+            else if (socialpivots.SelectedItem == TagsPivot)
             {
                 UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
                 UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
                
+            }
+            else 
+            {
+                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
+                UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
+
             }
             
 
@@ -582,7 +594,7 @@ namespace GEETHREE
                     ctrl.dm.storeNewUser(u);
 
                     MessageBox.Show("New Friend : " + UserInfoResponseslist[grplistBox1.SelectedIndex].UserAlias + " added successfully!!");
-                    App.ViewModel.LoadData();
+                    App.ViewModel.refreshDataAsync();
                 }
                 else
                 {
@@ -597,7 +609,7 @@ namespace GEETHREE
                     ////show group joined message
                     MessageBox.Show("Joined group : " + GroupInfoResponseslist[grplistBox1.SelectedIndex].GroupName + " successfully!!");
                     ////make canvas collapsed  
-                    App.ViewModel.LoadData();
+                    App.ViewModel.refreshDataAsync();
                 }
 
                 grplistBox1.Visibility = System.Windows.Visibility.Collapsed;
@@ -611,20 +623,41 @@ namespace GEETHREE
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
-            //selectedGroup = (Group)groupsListBox.SelectedItem;
-            //string groupname = selectedGroup.GroupName;
-            //ctrl.dm.deleteGroup(selectedGroup);
-            ////show group joined message
-            MessageBox.Show("Sorry, Deleting not allowed at this moment!!");
-            ////make canvas collapsed  
-            //App.ViewModel.LoadData();
-            //var selectedIndex = (sender as ListBox).SelectedIndex;
-            //Group contextMenuDataItem = (sender as MenuItem).DataContext as Group;
-            //if (contextMenuDataItem != null)
-            //{ 
-                // if not using an ObservableCollection, refresh the ListBox.ItemsSource here  
-            //}  
+            if (socialpivots.SelectedItem == TagsPivot)
+            {
+                ListBoxItem selectedListBoxItem = this.tagsListBox.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+                //App.ViewModel.Tagss.Remove((Tags)selectedListBoxItem.Content);
+                ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
+                App.ViewModel.refreshDataAsync();
+            }
+            else if(socialpivots.SelectedItem == GroupsPivot )
+            {
+                ListBoxItem selectedListBoxItem = this.groupsListBox.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+                App.ViewModel.Groups.Remove((Group)selectedListBoxItem.Content);
+                //ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
+                //App.ViewModel.refreshDataAsync();
+            }
+            else if (socialpivots.SelectedItem == PeoplePivot)
+            {
+                ListBoxItem selectedListBoxItem = this.usersListBox.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+                App.ViewModel.Users.Remove((User)selectedListBoxItem.Content);
+                //ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
+                //App.ViewModel.refreshDataAsync();
+            }
+    
+            
 
         }
 

@@ -40,7 +40,7 @@
                                 </StackPanel>
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Name="MyContextMenu" Opened="MyContextMenu_Opened">
-                                        <toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>
+                                        <!--<toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>-->
                                         <toolkit:MenuItem Header="Delete" Click="contextMenuDelete_Click"/>
                                     </toolkit:ContextMenu>
                                 </toolkit:ContextMenuService.ContextMenu>
@@ -64,7 +64,7 @@
                                 </StackPanel>
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Name="MyContextMenu" Opened="MyContextMenu_Opened">
-                                        <toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>
+                                        <!--<toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>-->
                                         <toolkit:MenuItem Header="Delete" Click="contextMenuDelete_Click"/>
                                     </toolkit:ContextMenu>
                                 </toolkit:ContextMenuService.ContextMenu>
@@ -81,7 +81,7 @@
                         <DataTemplate>
                             <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />
-                                <!--<TextBlock Margin="60,0,0,0" Text="{Binding Path=AliasSetting, Source={StaticResource appSettings}}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
+                                <!--<TextBlock Margin="60,0,0,0" Text="{Binding }" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
@@ -122,7 +122,7 @@
             <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" Tap="receivedimage_Tap" />
             
                 <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="0" Canvas.Top="157" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="474" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap" FontWeight="ExtraBold" HorizontalScrollBarVisibility="Auto" OpacityMask="White" />
-            <Button Tap="btn_reply_Tap" Canvas.Left="136" Canvas.Top="653" Content="Reply" Height="116" Name="button1" Width="176" BorderThickness="1" />
+            <Button Tap="btn_reply_Tap" Canvas.Left="136" Canvas.Top="653" Content="Reply" Height="116" Name="buttonReply" Width="176" BorderThickness="1" />
         </Canvas>
 
         <Canvas RenderTransformOrigin="0,0" Name="imagePreviewCanvas" Visibility="Collapsed" Height="Auto" Width="Auto" Background="Black">
