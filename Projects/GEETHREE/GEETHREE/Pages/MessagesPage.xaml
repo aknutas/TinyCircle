@@ -111,7 +111,7 @@
 
         <!-- This canvas is for reading messages  -->
         <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Visible" Opacity="1" Background="Black">
+                Visibility="Collapsed" Opacity="1" Background="Black">
             <TextBlock  Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <!--<TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="11" Canvas.Top="109" Height="374" Name="messageCanvasMessageContent" Text="Content" Width="451" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" FontStretch="Normal" />-->
@@ -125,9 +125,9 @@
             <Button Tap="btn_reply_Tap" Canvas.Left="136" Canvas.Top="653" Content="Reply" Height="116" Name="button1" Width="176" BorderThickness="1" />
         </Canvas>
 
-        <Canvas RenderTransformOrigin=".5,.5" Name="imagePreviewCanvas" Visibility="Collapsed" Height="800" Width="480" Background="Black">
+        <Canvas RenderTransformOrigin="0,0" Name="imagePreviewCanvas" Visibility="Collapsed" Height="Auto" Width="Auto" Background="Black">
 
-            <Image RenderTransformOrigin=".5,.5" Name="imegePreviewCanvasImageBig" Source="/GEETHREE;component/Resources/pivot2.jpg"> </Image>
+            <Image RenderTransformOrigin="0,0" Name="imegePreviewCanvasImageBig" Source="/GEETHREE;component/Resources/pivot2.jpg" Stretch="Fill"> </Image>
             
         </Canvas>
         

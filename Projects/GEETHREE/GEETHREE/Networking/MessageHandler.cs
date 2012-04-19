@@ -73,7 +73,7 @@ namespace GEETHREE
             msg.Attachmentflag = e.Attachmentflag;
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
-
+            msg.IsRead = false;
 
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
@@ -109,6 +109,9 @@ namespace GEETHREE
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
+            msg.IsRead = false;
+
+
             dm.storeNewMessage(msg);
             App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
             
@@ -133,6 +136,8 @@ namespace GEETHREE
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
+            
+            msg.IsRead = false;
             //if the groupID is one of my groupID
             bool mygroup = false;
             foreach ( Group g in App.ViewModel.Groups)

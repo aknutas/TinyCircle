@@ -397,8 +397,14 @@ namespace GEETHREE.Pages
             }
             if (PhoneApplicationService.Current.StartupMode == StartupMode.Activate)
             {
-                composeReceipientTextBox.Text = this.LoadState<String>("RecipientNameKey");
-                txt_compose_message.Text = this.LoadState<String>("MessageDraftKey");
+                if (this.LoadState<String>("RecipientNameKey") != null)
+                {
+                    composeReceipientTextBox.Text = this.LoadState<String>("RecipientNameKey");
+                }
+                if (this.LoadState<String>("MessageDraftKey") != null)
+                {
+                    txt_compose_message.Text = this.LoadState<String>("MessageDraftKey");
+                }
             }
 
             base.OnNavigatedTo(e);
