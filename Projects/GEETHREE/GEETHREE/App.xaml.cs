@@ -94,6 +94,7 @@ namespace GEETHREE
             {
                 App.ViewModel.LoadData();
             }*/
+            c.CreateApplicationTile();
         }
 
         // Code to execute when the application is deactivated (sent to background)
