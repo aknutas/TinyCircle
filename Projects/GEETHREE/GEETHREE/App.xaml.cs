@@ -110,6 +110,7 @@ namespace GEETHREE
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            c.dm.closeDb();
         }
 
         // Code to execute if a navigation fails

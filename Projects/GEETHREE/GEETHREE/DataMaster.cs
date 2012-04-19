@@ -48,35 +48,44 @@ namespace GEETHREE
         public FileMaster fm;
         private DataClasses.AppSettings settings;
         private List<Message> draftMessages;
+        private G3DataContext db;
 
         public DataMaster(DataClasses.AppSettings settings)
         {
             dblock = new Object();
+            db = new G3DataContext("Data Source='isostore:/G3DB.sdf'");
 
             // Create the database if it does not yet exist.
-            using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+
+            if (db.DatabaseExists() == false)
             {
-                if (db.DatabaseExists() == false)
-                {
-                    // Create the database.
-                    db.CreateDatabase();
-                }
+                // Create the database.
+                db.CreateDatabase();
             }
+
             fm = new FileMaster();
             this.settings = settings;
             draftMessages = new List<Message>();
+        }
+
+        //Closing and disposing of the database resource
+        public void closeDb()
+        {
+            lock (dblock)
+            {
+                db.SubmitChanges();
+                db.Dispose();
+                db = null;
+            }
         }
 
         public List<Tags> getAllTags()
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Tags tag in db.Tags select tag;
                     List<Tags> returnList = new List<Tags>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -84,37 +93,24 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Tags.InsertOnSubmit(tag);
                     db.SubmitChanges();
-                }
             }
         }
 
         public void deleteTag(Tags tag)
         {
-            lock (dblock)
-            {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
-                   
                     db.Tags.DeleteOnSubmit(tag);
                     db.SubmitChanges();
-                }
-            }
         }
 
         public List<User> getAllUsers()
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from User user in db.Users select user;
                     List<User> returnList = new List<User>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -122,11 +118,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Users.InsertOnSubmit(user);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -134,11 +127,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Users.DeleteOnSubmit(user);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -146,12 +136,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -159,12 +146,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from GroupInfoResponse grpinforesponses in db.GroupInfoResponses select grpinforesponses;
                     List<GroupInfoResponse> returnresponseList = new List<GroupInfoResponse>(qres);
                     return returnresponseList;
-                }
             }
         }
 
@@ -173,11 +157,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.GroupInfoResponses.InsertOnSubmit(groupInfoResponse);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -185,11 +166,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.GroupInfoResponses.DeleteOnSubmit(groupInfoResponse);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -197,12 +175,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from UserInfoResponse usrinforesponses in db.UserInfoResponses select usrinforesponses;
                     List<UserInfoResponse> returnresponseList = new List<UserInfoResponse>(qres);
                     return returnresponseList;
-                }
             }
         }
 
@@ -211,11 +186,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.UserInfoResponses.InsertOnSubmit(userInfoResponse);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -223,11 +195,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.UserInfoResponses.DeleteOnSubmit(userInfoResponse);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -236,12 +205,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Group grps in db.Groups select grps;
                     List<Group> returnList = new List<Group>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -249,11 +215,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Groups.InsertOnSubmit(group);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -261,11 +224,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Groups.DeleteOnSubmit(group);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -273,15 +233,12 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Group grp in db.Groups where grp.GroupID == grpID select grp;
                     List<Group> returnList = new List<Group>(qres);
                     if (returnList.Count() <= 0)
                         return false;
                     else
                         return true;
-                }
             }
         }
 
@@ -289,14 +246,11 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = (from GroupInfoResponse grp in db.GroupInfoResponses where grp.GroupID == grpID select grp).Count();
                     if (qres <= 0)
                         return false;
                     else
                         return true;
-                }
             }
         }
 
@@ -304,14 +258,11 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = (from UserInfoResponse usr in db.UserInfoResponses where usr.UserID == usrID select usr).Count();
                     if (qres <= 0)
                         return false;
                     else
                         return true;
-                }
             }
         }
 
@@ -320,14 +271,11 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = (from User user in db.Users where user.UserID == usrID select user).Count();
                     if (qres <= 0)
                         return false;
                     else
                         return true;
-                }
             }
         }
 
@@ -336,12 +284,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -349,12 +294,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages where message.outgoing == true select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -362,12 +304,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages where message.SenderID == settings.UserIDSetting select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -375,12 +314,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages where (message.SenderID == settings.UserIDSetting && message.PrivateMessage != true) select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -388,12 +324,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages where (message.SenderID == settings.UserIDSetting && message.PrivateMessage == true) select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -401,12 +334,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages where (message.ReceiverID == settings.UserIDSetting && message.PrivateMessage == true) select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -450,11 +380,8 @@ namespace GEETHREE
 
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Messages.InsertOnSubmit(message);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -464,11 +391,8 @@ namespace GEETHREE
 
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Messages.InsertAllOnSubmit(messages);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -476,11 +400,8 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Images.InsertOnSubmit(image);
                     db.SubmitChanges();
-                }
             }
             image.saveBitmapFromStream();
         }
@@ -489,12 +410,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from DataClasses.Image imgs in db.Images select imgs;
                     List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -505,12 +423,8 @@ namespace GEETHREE
 
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
-                    var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
                     db.Messages.DeleteOnSubmit(message);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -521,13 +435,10 @@ namespace GEETHREE
 
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
                     Message oldmessage = qres.Single();
                     db.Messages.Attach(message, oldmessage);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -538,11 +449,8 @@ namespace GEETHREE
             
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.Messages.AttachAll(message, true);
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -550,12 +458,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Message message in db.Messages where message.PrivateMessage != true select message;
                     List<Message> returnList = new List<Message>(qres);
                     return returnList;
-                }
             }
         }
 
@@ -563,10 +468,7 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -574,8 +476,6 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     var qres = from Group grps in db.Groups select grps;
                     foreach (var grp in qres)
                     {
@@ -607,7 +507,6 @@ namespace GEETHREE
                     }
 
                     db.SubmitChanges();
-                }
             }
         }
 
@@ -615,8 +514,6 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
                     try
                     {
 
@@ -637,32 +534,31 @@ namespace GEETHREE
                     {
                         System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
                     }
-                }
+            }
+        }
+
+        public void storeObjects()
+        {
+            lock (dblock)
+            {
+                db.SubmitChanges();
             }
         }
 
         public void updateObjects(List<Object> updateList)
         {
-            throw new NotImplementedException();
-            //lock (dblock)
-            //{
-            //    using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-            //    {
-            //        db.Refresh(RefreshMode.KeepCurrentValues, updateList);
-            //    }
-            //}
+            lock (dblock)
+            {
+                    db.Refresh(RefreshMode.KeepCurrentValues, updateList);
+            }
         }
 
         public void updateObjects(Object updateObject)
         {
-            throw new NotImplementedException();
-            //lock (dblock)
-            //{
-            //    using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-            //    {
-            //        db.Refresh(RefreshMode.KeepCurrentValues, updateObject);
-            //    }
-            //}
+            lock (dblock)
+            {
+                    db.Refresh(RefreshMode.KeepCurrentValues, updateObject);
+            }
         }
 
     }
