@@ -641,9 +641,9 @@ namespace GEETHREE
                 {
                     return;
                 }
-                App.ViewModel.Groups.Remove((Group)selectedListBoxItem.Content);
-                //ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
-                //App.ViewModel.refreshDataAsync();
+                //App.ViewModel.Groups.Remove((Group)selectedListBoxItem.Content);
+                ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
+                App.ViewModel.refreshDataAsync();
             }
             else if (socialpivots.SelectedItem == PeoplePivot)
             {
@@ -652,9 +652,9 @@ namespace GEETHREE
                 {
                     return;
                 }
-                App.ViewModel.Users.Remove((User)selectedListBoxItem.Content);
-                //ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
-                //App.ViewModel.refreshDataAsync();
+                //App.ViewModel.Users.Remove((User)selectedListBoxItem.Content);
+                ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
+                App.ViewModel.refreshDataAsync();
             }
     
             

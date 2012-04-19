@@ -85,6 +85,12 @@
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu Name="MyContextMenu" Opened="MyContextMenu_Opened">
+                                        <!--<toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>-->
+                                        <toolkit:MenuItem Header="Delete" Click="contextMenuDelete_Click"/>
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
                             </Canvas>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -102,6 +108,12 @@
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
+                                <toolkit:ContextMenuService.ContextMenu>
+                                    <toolkit:ContextMenu Name="MyContextMenu" Opened="MyContextMenu_Opened">
+                                        <!--<toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>-->
+                                        <toolkit:MenuItem Header="Delete" Click="contextMenuDelete_Click"/>
+                                    </toolkit:ContextMenu>
+                                </toolkit:ContextMenuService.ContextMenu>
                             </Canvas>
                             </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -111,7 +123,7 @@
 
         <!-- This canvas is for reading messages  -->
         <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1" Background="Black">
+                Visibility="Visible" Opacity="1" Background="Black">
             <TextBlock  Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <!--<TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="11" Canvas.Top="109" Height="374" Name="messageCanvasMessageContent" Text="Content" Width="451" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" FontStretch="Normal" />-->
@@ -121,8 +133,9 @@
             <!--<TextBlock  Canvas.Left="266" Canvas.Top="486" Height="113" Name="btn_reply" Text="Reply" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="btn_reply_Tap" Width="171" TextAlignment="Center" />-->
             <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" Tap="receivedimage_Tap" />
             
-                <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="0" Canvas.Top="157" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="474" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap" FontWeight="ExtraBold" HorizontalScrollBarVisibility="Auto" OpacityMask="White" />
-            <Button Tap="btn_reply_Tap" Canvas.Left="136" Canvas.Top="653" Content="Reply" Height="116" Name="buttonReply" Width="176" BorderThickness="1" />
+                <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="6" Canvas.Top="193" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="468" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap" FontWeight="ExtraBold" HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" />
+            <Button Tap="btn_reply_Tap" Canvas.Left="151" Canvas.Top="646" Content="Reply" Height="116" Name="buttonReply" Width="176" BorderThickness="1" />
+            <TextBlock Canvas.Left="23" Canvas.Top="151" Height="30" Name="messageCanvasDateTime" Text="" Width="242" />
         </Canvas>
 
         <Canvas RenderTransformOrigin="0,0" Name="imagePreviewCanvas" Visibility="Collapsed" Height="Auto" Width="Auto" Background="Black">

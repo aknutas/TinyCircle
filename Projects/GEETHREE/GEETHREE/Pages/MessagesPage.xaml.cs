@@ -65,13 +65,13 @@ namespace GEETHREE.Pages
         private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
-
             selectedMessage.IsRead = true;
  
             if (selectedMessage != null)
             {
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
+               // messageCanvasDateTime = 
                 //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
 
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
@@ -90,6 +90,7 @@ namespace GEETHREE.Pages
 
                 replyID = selectedMessage.SenderID;
                 replyAlias = selectedMessage.SenderAlias;
+
                 if (selectedMessage.GroupMessage == true)
                     groupmessageFlag = "1";
                 else
@@ -115,7 +116,7 @@ namespace GEETHREE.Pages
 
             (ReceivedPrivateMessages.SelectedItem as Message).IsRead = true;
             selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
-            ctrl.dm.deleteMessage(selectedMessage);
+
             //ctrl.dm.storeNewMessage(selectedMessage);
             if (selectedMessage != null)
             {
@@ -286,26 +287,61 @@ namespace GEETHREE.Pages
             // ask Viewmodel and database delete this message
         }
 
+        
         private void contextMenuDelete_Click(object sender, RoutedEventArgs e)
         {
 
-            ListBoxItem selectedListBoxItem = this.ReceivedPrivateMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
-            if (selectedListBoxItem == null)
+            if (messagepivots.SelectedItem == whispers)
             {
-                return;
+                ListBoxItem selectedListBoxItem = this.ReceivedPrivateMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+
+                ctrl.dm.deleteMessage((Message)selectedListBoxItem.Content);
+                App.ViewModel.refreshDataAsync();
             }
-            
-            //Message m = new Message();
-            // ** delete the message from viewmodel and also from database
-            //m = (Message)selectedListBoxItem.Content;
-            App.ViewModel.ReceivedPrivateMessages.Remove((Message)selectedListBoxItem.Content);
+            else if (messagepivots.SelectedItem == shouts)
+            {
+                ListBoxItem selectedListBoxItem = this.ReveicedBroadcastMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+
+                ctrl.dm.deleteMessage((Message)selectedListBoxItem.Content);
+                App.ViewModel.refreshDataAsync();
+            }
+            else if (messagepivots.SelectedItem == sent)
+            {
+                ListBoxItem selectedListBoxItem = this.SentMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+
+                ctrl.dm.deleteMessage((Message)selectedListBoxItem.Content);
+                App.ViewModel.refreshDataAsync();
+            }
+            else if (messagepivots.SelectedItem == drafts)
+            {
+                ListBoxItem selectedListBoxItem = this.SentMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+                App.ViewModel.DraftMessages.Remove((Message)selectedListBoxItem.Content);
+                //ctrl.dm.deleteMessage((Message)selectedListBoxItem.Content);
+                //App.ViewModel.refreshDataAsync();
+            }
 
 
-        }
 
-        private void contextMenuReply_Click(object sender, RoutedEventArgs e)
-        {
-           
+
+
+
+
         }
     }
 }
