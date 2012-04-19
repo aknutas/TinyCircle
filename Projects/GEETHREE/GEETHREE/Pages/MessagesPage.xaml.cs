@@ -107,7 +107,7 @@ namespace GEETHREE.Pages
 
             (ReceivedPrivateMessages.SelectedItem as Message).IsRead = true;
             selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
-            //ctrl.dm.deleteMessage(selectedMessage);
+            ctrl.dm.deleteMessage(selectedMessage);
             //ctrl.dm.storeNewMessage(selectedMessage);
             if (selectedMessage != null)
             {
