@@ -108,6 +108,10 @@ namespace GEETHREE.Pages
             {
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
+                if (messageCanvasSenderTextBlock.Text == "")
+                {
+                    messageCanvasSenderTextBlock.Text = "Anonymous";
+                }
                 //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
                 byte[] attachmentContent = null;
                 if (selectedMessage.Attachmentflag == "1")
@@ -257,6 +261,34 @@ namespace GEETHREE.Pages
         private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             
+        }
+
+        private void MyContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            
+
+            // ask Viewmodel and database delete this message
+        }
+
+        private void contextMenuDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+            ListBoxItem selectedListBoxItem = this.ReceivedPrivateMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+            if (selectedListBoxItem == null)
+            {
+                return;
+            }
+            
+            //Message m = new Message();
+            // ** delete the message from viewmodel and also from database
+            //m = (Message)selectedListBoxItem.Content;
+            App.ViewModel.ReceivedPrivateMessages.Remove((Message)selectedListBoxItem.Content);
+
+        }
+
+        private void contextMenuReply_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

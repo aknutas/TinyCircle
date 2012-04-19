@@ -314,7 +314,7 @@ namespace GEETHREE
                 }
             }
             catch { }
-            return "Anonymous";
+            return "";
         }
 
 
