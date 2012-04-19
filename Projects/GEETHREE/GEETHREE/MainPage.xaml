@@ -68,7 +68,7 @@
             <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}" Tap="shouts_Tap">
                 <!--Double line list with text wrapping-->
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
-                <ListBox   ItemsSource="{Binding Path=ReceivedBroadcastMessages}" Margin="0,0,50,0" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="shouts_Tap">
+                <ListBox   ItemsSource="{Binding Path=ReceivedBroadcastMessages}" Margin="0,0,50,0" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="ListBox_Tap">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Canvas Height="110" Width="400"  Margin="0,0,0,0">

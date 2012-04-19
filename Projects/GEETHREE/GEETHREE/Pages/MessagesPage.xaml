@@ -75,7 +75,7 @@
             </controls:PivotItem>
 
             <!--Pivot item 3: SENT-->
-            <controls:PivotItem Header="Sent" Name="sent" >
+            <controls:PivotItem Header="Shared" Name="sent" >
                 <ListBox Name="SentMessages" Margin="0,0,50,0" ItemsSource="{Binding SentMessages}" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -92,7 +92,7 @@
             </controls:PivotItem>
             
             <!--Pivot item 4: DRAFTS-->
-            <controls:PivotItem Header="Drafts" Name="drafts">
+            <controls:PivotItem Header="Outlines" Name="drafts">
                 <ListBox Name="DraftMessages" Margin="0,0,50,0" ItemsSource="{Binding DraftMessages}" Tap="DraftMessages_Tap" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                             <DataTemplate>
