@@ -70,6 +70,28 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        private DateTime _timestamp;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        [Column]
+        public DateTime Timestamp
+        {
+            get
+            {
+                return _timestamp;
+            }
+            set
+            {
+                if (value != _timestamp)
+                {
+                    _timestamp = value;
+                    NotifyPropertyChanged("Timestamp");
+                }
+            }
+        }
+
         private string _textContent;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.

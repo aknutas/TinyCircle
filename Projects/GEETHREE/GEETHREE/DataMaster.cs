@@ -503,7 +503,32 @@ namespace GEETHREE
             {
                 using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
                 {
+                    db.Messages.Attach(message, true);
                     db.Messages.DeleteOnSubmit(message);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public void updateMessage(Message message)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Messages.Attach(message, true);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public void updateMessage(List<Message> message)
+        {
+            lock (dblock)
+            {
+                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+                {
+                    db.Messages.AttachAll(message, true);
                     db.SubmitChanges();
                 }
             }
@@ -604,26 +629,28 @@ namespace GEETHREE
             }
         }
 
-        public void refreshObjects(List<Object> updateList)
+        public void updateObjects(List<Object> updateList)
         {
-            lock (dblock)
-            {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
-                    db.Refresh(RefreshMode.OverwriteCurrentValues, updateList);
-                }
-            }
+            throw new NotImplementedException();
+            //lock (dblock)
+            //{
+            //    using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+            //    {
+            //        db.Refresh(RefreshMode.KeepCurrentValues, updateList);
+            //    }
+            //}
         }
 
-        public void refreshObjects(Object updateObject)
+        public void updateObjects(Object updateObject)
         {
-            lock (dblock)
-            {
-                using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
-                {
-                    db.Refresh(RefreshMode.KeepCurrentValues, updateObject);
-                }
-            }
+            throw new NotImplementedException();
+            //lock (dblock)
+            //{
+            //    using (G3DataContext db = new G3DataContext("Data Source='isostore:/G3DB.sdf'"))
+            //    {
+            //        db.Refresh(RefreshMode.KeepCurrentValues, updateObject);
+            //    }
+            //}
         }
 
     }
