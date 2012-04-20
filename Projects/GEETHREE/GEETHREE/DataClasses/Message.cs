@@ -160,7 +160,7 @@ namespace GEETHREE.DataClasses
 
         private string _attachment;
 
-        [Column(DbType="ntext")]
+        [Column(DbType="ntext", UpdateCheck=UpdateCheck.Never)]
         public string Attachment
         {
             get

@@ -34,17 +34,17 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Height="675" HorizontalAlignment="Left" Margin="9,6,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="441" >
-                <TextBlock Margin="10,0,0,0"  Height="30" Name="recipientTextBlock" Text="Recepient : " Width="434" Foreground="{StaticResource PhoneAccentBrush}" />
+                <TextBlock  Margin="10,0,0,0"  Height="47" Name="recipientTextBlock" Text="Recepient: " Width="434" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}"  />
                 <Grid >
-                    <TextBox BorderBrush ="{StaticResource PhoneAccentBrush}" Height="70" Name="composeReceipientTextBox" Text="" Width="363" HorizontalAlignment="Left"  Margin="1,0,0,0" IsEnabled="True" />
+                    <TextBox Height="70" Name="composeReceipientTextBox" Text="" Width="363" HorizontalAlignment="Left"  Margin="1,0,0,0" IsEnabled="True" />
                     <Image Height="70" HorizontalAlignment="Right" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="70" Source="/GEETHREE;component/Resources/addround.png" Tap="image1_Tap" />
                 </Grid>
-
-
-                <TextBox BorderBrush ="{StaticResource PhoneAccentBrush}" Height="323" Name="txt_compose_message" Text="Type your message here..." Width="440" Tap="txt_compose_message_Tap" MaxWidth="440" TextWrapping="Wrap"  />
-                <Grid Height="130">
-                    <Image Height="116" Name="attachedImage" Stretch="Fill" Width="117" HorizontalAlignment="Right" Visibility="Collapsed" />
-                    <TextBlock Height="30" Name="txt_compose_error_label" Text="" Foreground="#FFFB0000" Margin="10,94,143,6" />
+<TextBlock  Margin="10,0,0,0"  Height="47" Name="messageTextBoxTitle" Text="Message:" Width="434" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}"  />
+                <!-- for text box, BorderBrush ="{StaticResource PhoneAccentBrush}"-->
+                <TextBox  Height="216" Name="txt_compose_message" Text="Type your message here..." Width="440" Tap="txt_compose_message_Tap" MaxWidth="440" TextWrapping="Wrap"  />
+                <Grid Height="173">
+                    <Image Name="attachedImage" Stretch="None" Width="170" HorizontalAlignment="Right" Visibility="Visible" Margin="0,6,6,35" />
+                    <TextBlock Height="30" Name="txt_compose_error_label" Text="" Foreground="#FFFB0000" Margin="0,144,162,0" />
                 </Grid>
             </StackPanel>
             <!-- This canvas is for selecting recepient  -->
