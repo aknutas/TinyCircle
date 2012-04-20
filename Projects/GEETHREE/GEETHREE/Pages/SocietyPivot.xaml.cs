@@ -119,28 +119,7 @@ namespace GEETHREE
         {
 
             e.Cancel = true; // cancel the default behaviour
-            if (details.Visibility == System.Windows.Visibility.Visible)
-            {
-                if (detailsCanvasTextBox.Text != "")
-                {
 
-                    // **  ...get the message saving the draft.
-                    var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
-
-                    if (m == MessageBoxResult.OK)
-                    {
-                        //write code for storing this message to draft
-
-                    }
-
-                }
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Collapsed;
-                
-                
-                ApplicationBar.IsVisible = true;
-            }
             if (addOrJoinCanvas.Visibility == System.Windows.Visibility.Visible)
             {
                 addOrJoinCanvas.Visibility = System.Windows.Visibility.Collapsed;
@@ -196,34 +175,6 @@ namespace GEETHREE
 
             }
         }
-
-       
-
-        private void detailsCanvasExitImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            if (detailsCanvasTextBox.Text != "")
-            {
-
-                 // **  ...get the message saving the draft.
-                var m = MessageBox.Show("Save to Drafts?", "Do you want to save this message to drafts?", MessageBoxButton.OKCancel);
-
-                if (m == MessageBoxResult.OK)
-                {
-                   //write code for storing this message to draft
-
-                }
-
-            }
-
-            detailsCanvasTextBox.Text = "";
-            txt_details_error_label.Text = "";
-            details.Visibility = System.Windows.Visibility.Collapsed;
-
-            ApplicationBar.IsVisible = true;
-        }
-
-
-
         private void addOrJoinCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             
@@ -313,24 +264,6 @@ namespace GEETHREE
             }
         }
 
-        private void detailsCanvasButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            if (detailsCanvasTextBox.Text == "")
-            {
-                txt_details_error_label.Text = "Message Field is empty!";
-            }
-            else
-            {
-                // ask the controller to send message here
-
-                MessageBox.Show("Message successfully sent.");
-                detailsCanvasTextBox.Text = "";
-                txt_details_error_label.Text = "";
-                details.Visibility = System.Windows.Visibility.Collapsed;
-
-                ApplicationBar.IsVisible = true;
-            }
-        }
         // ** some kind of popup needed to announce about the message that is just arrived
         public void messageArrived(bool isPrivate)
         {
@@ -369,7 +302,7 @@ namespace GEETHREE
 
 
                     //list allnearbygroups in a new canvas
-                    groupCanvasTextBlock.Text = "Add new Friend : ";
+                    groupCanvasTextBlock.Text = "Add Friend : ";
                     groupListCanvas.Background = backgroundbrush;
                     userflag = true;
                     groupListCanvas.Visibility = Visibility.Visible;
@@ -479,7 +412,7 @@ namespace GEETHREE
 
             //list allnearbygroups in a new canvas
             groupListCanvas.Background = backgroundbrush;
-            groupCanvasTextBlock.Text = "Join new Group : ";
+            groupCanvasTextBlock.Text = "Join Group : ";
             userflag = false;
             groupListCanvas.Visibility = Visibility.Visible;
 
