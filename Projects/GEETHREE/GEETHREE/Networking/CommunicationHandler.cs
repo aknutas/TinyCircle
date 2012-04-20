@@ -94,6 +94,7 @@ namespace GEETHREE
         
 
         private WebServiceConnector wsConnection;
+        private ToastProcessor toaster;
 
 
        public List<Group> grpList= new List<Group>();
@@ -593,10 +594,17 @@ namespace GEETHREE
             if (wsConnection == null)
                 wsConnection = new WebServiceConnector();
 
+            if (toaster == null)
+            {
+                //Register for toasts
+                toaster = new ToastProcessor(_userID);
+                toaster.registerToast();
+            }
+
             wsConnection.testConnection(this);
             // Temporarily disabled check
             // if (wsConnection.connectionUp)
-           wsConnection.getMyMessages(uid, this);
+            wsConnection.getMyMessages(uid, this);
         }
 
         //Web service callbacks

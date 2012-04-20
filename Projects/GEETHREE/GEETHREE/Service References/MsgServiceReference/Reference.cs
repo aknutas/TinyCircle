@@ -93,6 +93,11 @@ namespace GEETHREE.MsgServiceReference {
         System.IAsyncResult Beginping(string appKey, System.AsyncCallback callback, object asyncState);
         
         bool Endping(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMsgService/postToastNotificationAddress", ReplyAction="http://tempuri.org/IMsgService/postToastNotificationAddressResponse")]
+        System.IAsyncResult BeginpostToastNotificationAddress(string userId, string toastAddress, string appKey, System.AsyncCallback callback, object asyncState);
+        
+        void EndpostToastNotificationAddress(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -178,6 +183,12 @@ namespace GEETHREE.MsgServiceReference {
         
         private System.Threading.SendOrPostCallback onpingCompletedDelegate;
         
+        private BeginOperationDelegate onBeginpostToastNotificationAddressDelegate;
+        
+        private EndOperationDelegate onEndpostToastNotificationAddressDelegate;
+        
+        private System.Threading.SendOrPostCallback onpostToastNotificationAddressCompletedDelegate;
+        
         private BeginOperationDelegate onBeginOpenDelegate;
         
         private EndOperationDelegate onEndOpenDelegate;
@@ -236,6 +247,8 @@ namespace GEETHREE.MsgServiceReference {
         public event System.EventHandler<getMyMessagesCompletedEventArgs> getMyMessagesCompleted;
         
         public event System.EventHandler<pingCompletedEventArgs> pingCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> postToastNotificationAddressCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -387,6 +400,55 @@ namespace GEETHREE.MsgServiceReference {
                         appKey}, this.onEndpingDelegate, this.onpingCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult GEETHREE.MsgServiceReference.IMsgService.BeginpostToastNotificationAddress(string userId, string toastAddress, string appKey, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginpostToastNotificationAddress(userId, toastAddress, appKey, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void GEETHREE.MsgServiceReference.IMsgService.EndpostToastNotificationAddress(System.IAsyncResult result) {
+            base.Channel.EndpostToastNotificationAddress(result);
+        }
+        
+        private System.IAsyncResult OnBeginpostToastNotificationAddress(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string userId = ((string)(inValues[0]));
+            string toastAddress = ((string)(inValues[1]));
+            string appKey = ((string)(inValues[2]));
+            return ((GEETHREE.MsgServiceReference.IMsgService)(this)).BeginpostToastNotificationAddress(userId, toastAddress, appKey, callback, asyncState);
+        }
+        
+        private object[] OnEndpostToastNotificationAddress(System.IAsyncResult result) {
+            ((GEETHREE.MsgServiceReference.IMsgService)(this)).EndpostToastNotificationAddress(result);
+            return null;
+        }
+        
+        private void OnpostToastNotificationAddressCompleted(object state) {
+            if ((this.postToastNotificationAddressCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.postToastNotificationAddressCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void postToastNotificationAddressAsync(string userId, string toastAddress, string appKey) {
+            this.postToastNotificationAddressAsync(userId, toastAddress, appKey, null);
+        }
+        
+        public void postToastNotificationAddressAsync(string userId, string toastAddress, string appKey, object userState) {
+            if ((this.onBeginpostToastNotificationAddressDelegate == null)) {
+                this.onBeginpostToastNotificationAddressDelegate = new BeginOperationDelegate(this.OnBeginpostToastNotificationAddress);
+            }
+            if ((this.onEndpostToastNotificationAddressDelegate == null)) {
+                this.onEndpostToastNotificationAddressDelegate = new EndOperationDelegate(this.OnEndpostToastNotificationAddress);
+            }
+            if ((this.onpostToastNotificationAddressCompletedDelegate == null)) {
+                this.onpostToastNotificationAddressCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnpostToastNotificationAddressCompleted);
+            }
+            base.InvokeAsync(this.onBeginpostToastNotificationAddressDelegate, new object[] {
+                        userId,
+                        toastAddress,
+                        appKey}, this.onEndpostToastNotificationAddressDelegate, this.onpostToastNotificationAddressCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -504,6 +566,20 @@ namespace GEETHREE.MsgServiceReference {
                 object[] _args = new object[0];
                 bool _result = ((bool)(base.EndInvoke("ping", _args, result)));
                 return _result;
+            }
+            
+            public System.IAsyncResult BeginpostToastNotificationAddress(string userId, string toastAddress, string appKey, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[3];
+                _args[0] = userId;
+                _args[1] = toastAddress;
+                _args[2] = appKey;
+                System.IAsyncResult _result = base.BeginInvoke("postToastNotificationAddress", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndpostToastNotificationAddress(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("postToastNotificationAddress", _args, result);
             }
         }
     }

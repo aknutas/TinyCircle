@@ -17,10 +17,9 @@ namespace GEETHREE.Networking
     {
         private string userId;
 
-        ToastProcessor(string userId)
+        public ToastProcessor(string userId)
         {
             this.userId = userId;
-            registerToast();
         }
 
         public void registerToast()
@@ -32,7 +31,7 @@ namespace GEETHREE.Networking
             HttpNotificationChannel pushChannel;
 
             //Set channel name
-            string channelName = "NewMessageChannel";
+            string channelName = "TinyCircleNewMessageChannel";
 
             // Try to find the push channel.
             pushChannel = HttpNotificationChannel.Find(channelName);
@@ -64,18 +63,28 @@ namespace GEETHREE.Networking
 
                 // Register for this notification only if you need to receive the notifications while your application is running.
                 pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
+
+                //Display the URI for testing purposes
+                System.Diagnostics.Debug.WriteLine(pushChannel.ChannelUri.ToString());
+
+                //Registering the URI in the web service
+                ws.registerToast(pushChannel.ChannelUri.ToString(), userId);
             }
 
-            //Display the URI for testing purposes
-            System.Diagnostics.Debug.WriteLine(pushChannel.ChannelUri.ToString());
 
-            //Registering the URI in the web service
-            ws.registerToast(pushChannel.ChannelUri.ToString(), userId);
         }
 
         private void PushChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
         {
+            //Open web service for notifications
+            WebServiceConnector ws = new WebServiceConnector();
 
+            string ChannelUri = e.ChannelUri.ToString();
+            //Display the URI for testing purposes
+            System.Diagnostics.Debug.WriteLine(ChannelUri);
+
+            //Registering the URI in the web service
+            ws.registerToast(ChannelUri, userId);
         }
 
         private void PushChannel_ErrorOccurred(object sender, NotificationChannelErrorEventArgs e)

@@ -47,4 +47,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="postToastNotificationAddress">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="toastAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="appKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="postToastNotificationAddressResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

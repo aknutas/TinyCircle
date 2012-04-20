@@ -19,6 +19,8 @@ using System.Linq;
 using GEETHREE.DataClasses;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using GEETHREE.Networking;
+using System.ComponentModel;
 
 
 
@@ -43,9 +45,6 @@ namespace GEETHREE
         private PhoneApplicationPage previousPage;
         private string currentPageName;
         private string previousPageName;
-        //private ComposeMessagePage composeMessagePage;
-        //private MessagesPage messagePage;
-        //private SocietyPivot societyPivot;
 
         //Singleton instance
         private static Controller instance;

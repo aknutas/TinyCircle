@@ -94,6 +94,10 @@ namespace TC_WS
             try
             {
                 DataClassesDataContext db = new DataClassesDataContext();
+
+                var qres = from MsgToast toast in db.MsgToasts where toast.UserID == userId select toast;
+                db.MsgToasts.DeleteAllOnSubmit(qres);
+
                 MsgToast toastadd = new MsgToast();
                 toastadd.UserID = userId;
                 toastadd.ToastAddress = toastAddress;

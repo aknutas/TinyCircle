@@ -172,8 +172,9 @@ namespace GEETHREE.Networking
 
             public void handleRegisterToast(string subscriptionUri, string userId)
             {
-                //TODO
                 //Send toast registration to server
+                msgService.postToastNotificationAddressAsync(userId, subscriptionUri, appKey);
+                System.Diagnostics.Debug.WriteLine("WSC: Registered " + userId + " with address " + subscriptionUri);
             }
 
         }
