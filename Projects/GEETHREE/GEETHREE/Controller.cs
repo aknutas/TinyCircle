@@ -17,7 +17,8 @@ using System.Security.Cryptography;
 using Microsoft.Phone.Shell;
 using System.Linq;
 using GEETHREE.DataClasses;
-
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 
 
@@ -358,6 +359,48 @@ namespace GEETHREE
                 foundTile.Update(liveTile);
             }
         }
+
+        //String parsing for tagslist
+        public List<string> GetTagsList(string messagecontent)
+        {
+
+            List<string> tagsList = new List<string>();
+
+
+
+            if (messagecontent.Length > 1 && messagecontent.Substring(0, 1) == "#" && (messagecontent.Substring(1, 1) != " " && messagecontent.Substring(1, 1) != "#"))
+            {
+                int space = messagecontent.IndexOf(" ");
+                if (space != -1)
+                    tagsList.Add(messagecontent.Substring(0, space));
+                else
+                    tagsList.Add(messagecontent);
+
+
+            }
+
+            string[] list = Regex.Split(messagecontent, " #");
+            int i = 0;
+            foreach (string s in list)
+            {
+                if (i > 0)
+                {
+                    if (s.Length > 0)
+                    {
+                        if (s.Substring(0, 1) != " " && s.Substring(0, 1) != "#")
+                        {
+                            int space = s.IndexOf(" ");
+                            if (space != -1)
+                                tagsList.Add("#" + s.Substring(0, space));
+                            else
+                                tagsList.Add("#" + s);
+                        }
+                    }
+                }
+                i++;
+            }
+            return tagsList;
+        } 
   
 
 

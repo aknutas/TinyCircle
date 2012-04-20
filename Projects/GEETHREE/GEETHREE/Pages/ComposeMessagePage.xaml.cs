@@ -17,6 +17,8 @@ using System.IO;
 using System.Threading;
 using System.Windows.Navigation;
 using Microsoft.Phone.Shell;
+using System.Text.RegularExpressions;
+
 
 namespace GEETHREE.Pages
 {
@@ -209,14 +211,15 @@ namespace GEETHREE.Pages
             else
             {
                 bool tagsFlag = false;
-                string messagecontent = txt_compose_message.Text;
+                
 
-                int n = messagecontent.IndexOf(" #");
-
-                if ((n != -1 && messagecontent.Substring(n + 2, 1) != " ") || (messagecontent.Substring(0, 1) == "#" && messagecontent.Substring(1, 1)!=" "))
+                if (ctrl.GetTagsList(txt_compose_message.Text).Count > 0)
                 {
-                    tagsFlag = true; 
+                    tagsFlag = true;
                 }
+
+
+                   
 
                 
 
@@ -265,7 +268,34 @@ namespace GEETHREE.Pages
                 
                 //App.ViewModel.SentMessages.Add(msg);
                 Controller.Instance.mh.SendMessage(msg);
+                
                 MessageBox.Show("Message sent.");
+                if (msg.PrivateMessage == false && tagsFlag == true)
+                {
+                    //store new tags if any
+                    foreach (string tagfromMessage in ctrl.GetTagsList(txt_compose_message.Text))
+                    {
+                        bool mytag = false;
+                        foreach (Tags t in ctrl.dm.getAllTags())
+                        {
+                            if (t.TagName == tagfromMessage)
+                                mytag = true;
+                        }
+                        if (mytag == false)
+                        {
+                            Tags tag = new Tags();
+                            tag.TagName = tagfromMessage;
+
+
+                            ctrl.dm.storeNewTag(tag);
+                        }
+                    }
+                    
+
+                    //store tags message reference
+
+                }
+
                 App.ViewModel.refreshDataAsync();
                 txt_compose_message.Text = "";
                 txt_compose_error_label.Text = "";
@@ -302,6 +332,9 @@ namespace GEETHREE.Pages
           
 
         }
+
+        
+
 
         //browses for the photos and gets the picture in imagebox after selection
         void photoChooserTask_Completed(object sender, PhotoResult e)
