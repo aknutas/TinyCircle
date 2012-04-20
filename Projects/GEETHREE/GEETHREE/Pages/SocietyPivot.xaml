@@ -27,10 +27,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
                                 <!--Here should be UserName and Description-->
-                                <TextBlock  Margin="5,0,0,0" Text="{Binding UserName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock  Margin="60,15,0,0" Text="{Binding UserName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <!--<TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
                                 <!--<Image Height="15" Name="img_IsAvailable" Margin="340,35,0,0"  Source="/GEETHREE;component/Resources/notAvailable.png" Stretch="Fill" Width="15" />-->
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Name="MyContextMenu">
@@ -49,10 +49,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
                                 <!--Here should be UserName and Description-->
-                                <TextBlock Margin="5,0,0,0" Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Margin="60,0,0,0" Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Margin="60,45,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 <!--<Image Height="15" Name="img_IsAvailable" Margin="330,35,0,0"  Source="/GEETHREE;component/Resources/available.png" Stretch="Fill" Width="15" />-->
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Name="MyContextMenu">
@@ -71,10 +71,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Margin="5,40,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/tags.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/tags.png" Stretch="Fill" Width="50" />
                                 <!--Here should be TagName and Description-->
                                 <!--<TextBlock Margin="5,0,0,0" Text="{Binding TagName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>-->
-                                <TextBlock Margin="60,50,0,0" Text="{Binding TagName}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Margin="60,15,0,0" Text="{Binding TagName}"  TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <!--<Image Height="15" Name="img_IsAvailable" Margin="330,35,0,0"  Source="/GEETHREE;component/Resources/available.png" Stretch="Fill" Width="15" />-->
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Name="MyContextMenu">

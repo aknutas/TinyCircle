@@ -81,7 +81,7 @@
                         <DataTemplate>
                             <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />
-                                <!--<TextBlock Margin="60,0,0,0" Text="{Binding }" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>-->
+                                <TextBlock Margin="60,0,0,0" Text="Me" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
@@ -104,7 +104,7 @@
                             <DataTemplate>
                             <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/Draft.png" Stretch="Fill" Width="50" />
-                                <!--<TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
+                                <TextBlock Margin="60,0,0,0" Text="Me" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
