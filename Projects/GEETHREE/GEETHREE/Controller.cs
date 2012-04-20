@@ -317,26 +317,27 @@ namespace GEETHREE
             return "";
         }
 
-
-        // ** this is something that we might not need but it is there anyway
-        public void CreateSecondaryTile()
+        public int getUnreadMessages()
         {
-            var foundTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("DetailId=123"));
+            int i = 0;
+            List<Message> bcms = dm.getBroadcastMessages();
 
-            if (foundTile == null)
+            List<Message> pm = dm.getIncomingPrivateMessages();
+
+            foreach (Message m in bcms)
             {
-                var secondaryTile = new StandardTileData
-                {
-                    //BackgroundImage = new Uri("Images/SecondaryTileFrontIcon.jpg", UriKind.Relative),
-                    Title = "Secondary Tile",
-                    Count = null,
-                    BackTitle = "Back of Tile",
-                    BackContent = "You can put some data here......",
-                    //BackBackgroundImage = new Uri("Images/SecondaryTileFrontIcon.jpg", UriKind.Relative)  
-                };
-
-                ShellTile.Create(new Uri("/Views/DetailsPage.xaml?DetailId=123", UriKind.Relative), secondaryTile);
+                if (!m.IsRead)
+                    i++;
             }
+            foreach (Message m in pm)
+            {
+                if (!m.IsRead)
+                    i++;
+            }
+
+            return i;
+        
+        
         }
 
         public void EditExistingTile()
@@ -350,13 +351,15 @@ namespace GEETHREE
                 {
                     BackTitle =  getLatestAlias(),
                     BackContent = getLatestMessage(),
-                    Count = 0 + App.ViewModel.ReceivedBroadcastMessages.Count + App.ViewModel.ReceivedPrivateMessages.Count
-                    
+                    //Count = 0 + App.ViewModel.ReceivedBroadcastMessages.Count + App.ViewModel.ReceivedPrivateMessages.Count
+                    Count = getUnreadMessages(),
                 };
 
                 foundTile.Update(liveTile);
             }
-        }  
+        }
+  
+
 
     }
 }

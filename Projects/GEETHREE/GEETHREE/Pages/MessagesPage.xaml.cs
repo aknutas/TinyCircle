@@ -71,7 +71,8 @@ namespace GEETHREE.Pages
             {
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
-               // messageCanvasDateTime = 
+                
+                messageCanvasDateTime.Text = DateTime.Now.ToString();
                 //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
 
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
@@ -113,11 +114,22 @@ namespace GEETHREE.Pages
 
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-
-            (ReceivedPrivateMessages.SelectedItem as Message).IsRead = true;
             selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
+            //ctrl.dm.deleteMessage(selectedMessage);
+            //(ReceivedPrivateMessages.SelectedItem as Message).IsRead = true;
+            
+            if (selectedMessage.IsRead == false)
+                selectedMessage.IsRead = true;
 
-            //ctrl.dm.storeNewMessage(selectedMessage);
+            messageCanvasDateTime.Text = DateTime.Now.ToString();
+            messageCanvasDateTime.Text += selectedMessage.IsRead.ToString();
+
+            //ctrl.dm.updateMessage(selectedMessage);
+            
+            // ** ftw ?!?!?!
+            ctrl.dm.storeObjects();
+
+
             if (selectedMessage != null)
             {
                 receivedimage.Visibility = Visibility.Collapsed;
