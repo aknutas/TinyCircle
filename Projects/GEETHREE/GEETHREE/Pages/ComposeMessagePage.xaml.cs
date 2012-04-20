@@ -208,6 +208,17 @@ namespace GEETHREE.Pages
             }
             else
             {
+                bool tagsFlag = false;
+                string messagecontent = txt_compose_message.Text;
+
+                int n = messagecontent.IndexOf(" #");
+
+                if ((n != -1 && messagecontent.Substring(n + 2, 1) != " ") || (messagecontent.Substring(0, 1) == "#" && messagecontent.Substring(1, 1)!=" "))
+                {
+                    tagsFlag = true; 
+                }
+
+                
 
                 Message msg =new Message();
                 msg.TextContent=txt_compose_message.Text;
