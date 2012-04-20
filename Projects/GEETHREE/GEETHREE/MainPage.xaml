@@ -68,7 +68,7 @@
             <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}">
                 <!--Double line list with text wrapping-->
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
-                <ListBox   ItemsSource="{Binding Path=ReceivedBroadcastMessages}" Margin="0,0,50,0" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                <ListBox   ItemsSource="{Binding Path=ReceivedBroadcastMessages}" Margin="0,0,50,0" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="ListBox_Tap">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Canvas Height="110" Width="400"  Margin="0,0,0,0">
@@ -147,16 +147,13 @@
                     </Grid>
                 </ListBox>     
             </controls:PanoramaItem>
-
-
-
         </controls:Panorama>
         <!-- This canvas is for UserID Creation  -->
         <Canvas Height="797" HorizontalAlignment="Left" Name="UserIDCreateCanvas" VerticalAlignment="Top" Width="480" 
                 Visibility="Collapsed" Opacity="1" Background="Black" Grid.ColumnSpan="2">
-            <TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="CreateUserIDTextBlock" Text="Create UserID" 
+            <TextBlock Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="CreateUserIDTextBlock" Text="Create UserID" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
-            <TextBlock Canvas.Left="11" Canvas.Top="273" Height="280" Name="CreateUserIDContent" Text="TinyCircle wants to create a UserID for this device?" Width="426" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" />
+            <TextBlock Canvas.Left="11" Canvas.Top="273" Height="280" Name="CreateUserIDContent" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}" Text="Allow TinyCircle to create a UserID for this device?" Width="449" TextWrapping="Wrap"  />
             <Button Canvas.Left="41" Canvas.Top="607" Content="Ok" Height="71" Name="btn_CreateUserID_OK" Width="160" Tap="btn_CreateUserID_OK_Tap" />
             <Button Canvas.Left="236" Canvas.Top="607" Content="Cancel" Height="71" Name="btn_CreateUserID_Cancel" Width="160" Tap="btn_CreateUserID_Cancel_Tap" />
             <Button Canvas.Left="139" Canvas.Top="607" Content="Done" Height="71" Name="btn_CreateUserID_Done" Width="160" Tap="btn_CreateUserID_Done_Tap" Visibility="Collapsed" />

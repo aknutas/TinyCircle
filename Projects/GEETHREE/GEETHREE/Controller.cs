@@ -299,7 +299,7 @@ namespace GEETHREE
            
             if (App.ViewModel.ReceivedPrivateMessages.Count != 0)
             {
-                Message m = App.ViewModel.ReceivedPrivateMessages.First();
+                Message m = App.ViewModel.ReceivedPrivateMessages.Last();
                 return m.TextContent.ToString();
             }
             return "";

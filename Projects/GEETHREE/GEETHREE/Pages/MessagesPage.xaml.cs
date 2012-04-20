@@ -38,6 +38,7 @@ namespace GEETHREE.Pages
         // ** When navigated to pivot page, choose which page to display first
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("UI: MESSAGES: ON NAVIGATED TO");
             base.OnNavigatedTo(e);
             try
             {
@@ -65,14 +66,25 @@ namespace GEETHREE.Pages
         private void BroadcastMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)ReveicedBroadcastMessages.SelectedItem;
-            selectedMessage.IsRead = true;
  
             if (selectedMessage != null)
             {
+                
+                if (selectedMessage.IsRead == false)
+                {
+                    selectedMessage.IsRead = true;
+                    // ** ftw ?!?!?!
+                    ctrl.dm.storeObjects();
+
+                }
+                if (selectedMessage.TimeStamp.ToString() != null)
+                    messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
+                //messageCanvasDateTime.Text += selectedMessage.IsRead.ToString();
+
+                //ctrl.dm.updateMessage(selectedMessage);
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
                 
-                messageCanvasDateTime.Text = DateTime.Now.ToString();
                 //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
 
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
@@ -118,20 +130,24 @@ namespace GEETHREE.Pages
             //ctrl.dm.deleteMessage(selectedMessage);
             //(ReceivedPrivateMessages.SelectedItem as Message).IsRead = true;
             
-            if (selectedMessage.IsRead == false)
-                selectedMessage.IsRead = true;
-
-            messageCanvasDateTime.Text = DateTime.Now.ToString();
-            messageCanvasDateTime.Text += selectedMessage.IsRead.ToString();
-
-            //ctrl.dm.updateMessage(selectedMessage);
-            
-            // ** ftw ?!?!?!
-            ctrl.dm.storeObjects();
-
 
             if (selectedMessage != null)
             {
+                
+                if (selectedMessage.IsRead == false)
+                {
+                    selectedMessage.IsRead = true;
+
+                    // ** ftw ?!?!?!
+                    ctrl.dm.storeObjects();
+                }
+
+                if (selectedMessage.TimeStamp.ToString() != null)
+                    messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
+                //messageCanvasDateTime.Text += selectedMessage.IsRead.ToString();
+
+                //ctrl.dm.updateMessage(selectedMessage);
+
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
                 if (messageCanvasSenderTextBlock.Text == "")
@@ -153,7 +169,7 @@ namespace GEETHREE.Pages
                 }
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
                 replyID = selectedMessage.SenderID;
-                replyAlias = selectedMessage.SenderAlias + " " + selectedMessage.IsRead.ToString();
+                replyAlias = selectedMessage.SenderAlias;
                 groupmessageFlag = "0";
                 Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
 
@@ -219,15 +235,15 @@ namespace GEETHREE.Pages
                 ApplicationBar.IsVisible = true;
                 receivedimage.Visibility = Visibility.Collapsed;
 
-                if (imagePreviewCanvas.Visibility == Visibility.Visible)
-                {
-                    imagePreviewCanvas.Visibility = Visibility.Collapsed;
-                    ApplicationBar.IsVisible = true;
-                }
+    
                 return;
             }
-
-
+            if (imagePreviewCanvas.Visibility == Visibility.Visible)
+            {
+                imagePreviewCanvas.Visibility = Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                return;
+            }
             else // ** then, navigate back
             {
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));

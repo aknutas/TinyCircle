@@ -218,11 +218,6 @@ namespace GEETHREE.Pages
                     tagsFlag = true;
                 }
 
-
-                   
-
-                
-
                 Message msg =new Message();
                 msg.TextContent=txt_compose_message.Text;
                 msg.SenderID=Controller.Instance.getCurrentUserID();
@@ -269,7 +264,7 @@ namespace GEETHREE.Pages
                 //App.ViewModel.SentMessages.Add(msg);
                 Controller.Instance.mh.SendMessage(msg);
                 int msgDbID = msg.msgDbId;
-                MessageBox.Show("Message sent.");
+                
                 if (msg.PrivateMessage == false && tagsFlag == true)
                 {
                     //store new tags if any
@@ -319,23 +314,10 @@ namespace GEETHREE.Pages
                 composeReceipientTextBox.IsEnabled = true;
 
 
-                // ** ask the controller, which was the last page
-                string destination = ctrl.tellPreviousPage();
+                MessageBox.Show("Message sent.");
 
-                if (destination == "main_shouts" || destination == "main_alias" || destination == "main_society")
-                    //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
-                    NavigationService.Navigate(new Uri(string.Format("/MainPage.xaml?parameter={0}", destination), UriKind.Relative));
-                else if (destination == "messages_shouts" || destination == "messages_whispers" || destination == "messages_drafts" || destination == "messages_sent")
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", destination), UriKind.Relative));
-                else if (destination == "society_users")
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toPeople"), UriKind.Relative));
-                else if (destination == "society_groups")
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toGroups"), UriKind.Relative));
+                NavigateBack();
             }
-
-            
-          
-
         }
 
         
@@ -344,82 +326,111 @@ namespace GEETHREE.Pages
         //browses for the photos and gets the picture in imagebox after selection
         void photoChooserTask_Completed(object sender, PhotoResult e)
         {
-            if (e.TaskResult == TaskResult.OK)
-            {             
-                this.Dispatcher.BeginInvoke(() =>
+            try
+            {
+                if (e.TaskResult == TaskResult.OK)
                 {
-                    // ...communication with the isolated storage...
+                    this.Dispatcher.BeginInvoke(() =>
+                    {
+                        // ...communication with the isolated storage...
 
-                    BitmapImage bitImage = new BitmapImage();
-                    bitImage.CreateOptions = BitmapCreateOptions.None;
-
-
-                    bitImage.SetSource(e.ChosenPhoto);
-                    WriteableBitmap wb = new WriteableBitmap(bitImage);
-
-                    MemoryStream ms = new MemoryStream();
-                    // width, height, orienteation, quality
-                    wb.SaveJpeg(ms, 400, 240, 0, 50);
-                    bitImage.SetSource(ms);
+                        BitmapImage bitImage = new BitmapImage();
+                        bitImage.CreateOptions = BitmapCreateOptions.None;
 
 
-                    attachmentFlag = "1";
-                    attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
-                    attachmentContent = new byte[ms.Length];
-                    ms.Position = 0;
-                    ms.Read(attachmentContent, 0, attachmentContent.Length);
+                        bitImage.SetSource(e.ChosenPhoto);
+                        WriteableBitmap wb = new WriteableBitmap(bitImage);
 
-                    attachedImage.Source = bitImage;
+                        MemoryStream ms = new MemoryStream();
+                        // width, height, orienteation, quality
+                        if (wb.PixelHeight == wb.PixelWidth)
+                            wb.SaveJpeg(ms, 480, 480, 0, 30);
+                        else if (wb.PixelHeight > wb.PixelWidth)
+                            wb.SaveJpeg(ms, 480, 640, 0, 30);
+                        else
+                            wb.SaveJpeg(ms, 640, 480, 0, 30);
 
-                    attachedImage.Visibility = Visibility.Visible;
-     
-                    // using (MediaLibrary lib = new MediaLibrary())
-                    // lib.SavePicture("Test", ms.ToArray());
-                });
+
+                        bitImage.SetSource(ms);
+                        attachmentFlag = "1";
+                        attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
+                        attachmentContent = new byte[ms.Length];
+                        ms.Position = 0;
+                        ms.Read(attachmentContent, 0, attachmentContent.Length);
+
+                        attachedImage.Source = bitImage;
+
+                        attachedImage.Visibility = Visibility.Visible;
+
+                        // using (MediaLibrary lib = new MediaLibrary())
+                        // lib.SavePicture("Test", ms.ToArray());
+                    });
+                }
             }
+            catch { }
         }
 
         //Captures the picture using the camera and gets the picture in the imagebox 
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
         {
-            if (e.TaskResult == TaskResult.OK)
+            try
             {
-
-                this.Dispatcher.BeginInvoke(() =>
+                if (e.TaskResult == TaskResult.OK)
                 {
-                    // ...communication with the isolated storage...
 
-                    BitmapImage bitImage = new BitmapImage();
-                    bitImage.CreateOptions = BitmapCreateOptions.None;
+                    this.Dispatcher.BeginInvoke(() =>
+                    {
+                        // ...communication with the isolated storage...
 
-
-                    bitImage.SetSource(e.ChosenPhoto);
-                    WriteableBitmap wb = new WriteableBitmap(bitImage);
-
-                    MemoryStream ms = new MemoryStream();
-                    // width, height, orienteation, quality
-                    wb.SaveJpeg(ms, 400, 240, 0, 50);
-                    bitImage.SetSource(ms);
+                        BitmapImage bitImage = new BitmapImage();
+                        bitImage.CreateOptions = BitmapCreateOptions.None;
 
 
-                    attachmentFlag = "1";
-                    attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
-                    attachmentContent = new byte[ms.Length];
-                    ms.Position = 0;
-                    ms.Read(attachmentContent, 0, attachmentContent.Length);
+                        bitImage.SetSource(e.ChosenPhoto);
+                        WriteableBitmap wb = new WriteableBitmap(bitImage);
 
-                    attachedImage.Source = bitImage;
+                        MemoryStream ms = new MemoryStream();
+                        // width, height, orienteation, quality
+                        // width, height, orienteation, quality
+                        // width, height, orienteation, quality
+                        if (wb.PixelHeight == wb.PixelWidth)
+                            wb.SaveJpeg(ms, 480, 480, 0, 30);
+                        else if (wb.PixelHeight > wb.PixelWidth)
+                            wb.SaveJpeg(ms, 480, 640, 0, 30);
+                        else
+                            wb.SaveJpeg(ms, 640, 480, 0, 30);
 
-                    attachedImage.Visibility = Visibility.Visible;
 
-                    // using (MediaLibrary lib = new MediaLibrary())
-                    // lib.SavePicture("Test", ms.ToArray());
-                });
+
+
+
+                        //wb.SaveJpeg(ms, 400, 240, 0, 50);
+                        bitImage.SetSource(ms);
+
+
+                        attachmentFlag = "1";
+                        attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
+                        attachmentContent = new byte[ms.Length];
+                        ms.Position = 0;
+                        ms.Read(attachmentContent, 0, attachmentContent.Length);
+
+                        attachedImage.Source = bitImage;
+
+                        attachedImage.Visibility = Visibility.Visible;
+
+                        // using (MediaLibrary lib = new MediaLibrary())
+                        // lib.SavePicture("Test", ms.ToArray());
+                    });
+                }
+            }
+            catch { 
+            
             }
         }
         // ** when navigated to this page, check the url parameters if they contain some information
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            base.OnNavigatedTo(e);
             try
             {
                 string previousPage = ctrl.tellPreviousPage();
@@ -458,13 +469,19 @@ namespace GEETHREE.Pages
                 }
             }
 
-            base.OnNavigatedTo(e);
+            
+            
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            this.SaveState("RecipientNameKey", composeReceipientTextBox.Text);
-            this.SaveState("MessageDraftKey", txt_compose_message.Text);
+            
+            if (composeReceipientTextBox.Text != null && txt_compose_message.Text != null)
+            {
+                this.SaveState("RecipientNameKey", composeReceipientTextBox.Text);
+                this.SaveState("MessageDraftKey", txt_compose_message.Text);
+            }
+           
         }
 
         // ** some kind of popup needed to announce about the message that is just arrived
@@ -475,6 +492,7 @@ namespace GEETHREE.Pages
 
             if (m == MessageBoxResult.OK)
             {
+                //NavigateBack();
                 if (isPrivate == true) // navigate to Messages - whispers
                     NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
                 else // navigate to messages - shouts
@@ -482,15 +500,26 @@ namespace GEETHREE.Pages
             }
         }
 
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            //messageArrived(true);
+        }
 
-        //private void recipientCanvasExit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        //{
-        //    recipientListCanvas.Visibility = Visibility.Collapsed;
-        //    recipientListBox.Visibility = Visibility.Collapsed;
-        //    PageTitle.Text = "Compose";
+        public void NavigateBack()
+        {
+            // ** ask the controller, which was the last page
+            string destination = ctrl.tellPreviousPage();
 
-        //}
-
-
+            if (destination == "main_shouts" || destination == "main_alias" || destination == "main_society")
+                //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri(string.Format("/MainPage.xaml?parameter={0}", destination), UriKind.Relative));
+            else if (destination == "messages_shouts" || destination == "messages_whispers" || destination == "messages_drafts" || destination == "messages_sent")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", destination), UriKind.Relative));
+            else if (destination == "society_users")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toPeople"), UriKind.Relative));
+            else if (destination == "society_groups")
+                NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", "toGroups"), UriKind.Relative));
+        
+        }
     }
 }

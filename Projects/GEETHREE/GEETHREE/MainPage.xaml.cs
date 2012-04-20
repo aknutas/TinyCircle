@@ -370,5 +370,13 @@ namespace GEETHREE
             NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
         }
 
+        private void ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            // ** Go to shouts page
+
+            string parameter = "messages_shouts";
+            NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter),  UriKind.Relative));
+        }
+
     }
 }
