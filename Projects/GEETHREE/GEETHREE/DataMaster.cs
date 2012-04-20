@@ -40,6 +40,7 @@ namespace GEETHREE
         public Table<GroupInfoResponse> GroupInfoResponses;
         public Table<UserInfoResponse> UserInfoResponses;
         public Table<Tags> Tags;
+        public Table<TagMessage> TagMessages;
     }
 
     public class DataMaster
@@ -104,6 +105,39 @@ namespace GEETHREE
                     db.SubmitChanges();
         }
 
+        public List<TagMessage> getAllTagMessages()
+        {
+            lock (dblock)
+            {
+                var qres = from TagMessage tagMessage in db.TagMessages select tagMessage;
+                List<TagMessage> returnList = new List<TagMessage>(qres);
+                return returnList;
+            }
+        }
+
+        public void storeNewTagMessage(TagMessage tagMessage)
+        {
+            lock (dblock)
+            {
+                db.TagMessages.InsertOnSubmit(tagMessage);
+                db.SubmitChanges();
+            }
+        }
+
+        public void deleteTagMessage(TagMessage tagMessage)
+        {
+            db.TagMessages.DeleteOnSubmit(tagMessage);
+            db.SubmitChanges();
+        }
+
+        public void deleteTagMessagebyTagName(Tags tag)
+        {
+            var qres = from TagMessage tagMessage in db.TagMessages where tagMessage.TagName == tag.TagName select tagMessage;
+            List<TagMessage> returnList = new List<TagMessage>(qres);
+            db.TagMessages.DeleteAllOnSubmit(returnList);
+            db.SubmitChanges();
+        }
+
         public List<User> getAllUsers()
         {
             lock (dblock)
@@ -142,7 +176,15 @@ namespace GEETHREE
             }
         }
 
-        
+        public Message getMessageByMessageID(int msgID)
+        {
+            lock (dblock)
+            {
+                var qres = from Message message in db.Messages where message.msgDbId == msgID select message;
+                Message aMessage = qres.First();
+                return aMessage;
+            }
+        }
 
         public List<GroupInfoResponse> getAllGroupInfoResponses()
         {

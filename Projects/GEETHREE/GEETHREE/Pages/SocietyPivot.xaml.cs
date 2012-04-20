@@ -565,6 +565,10 @@ namespace GEETHREE
                 }
                 //App.ViewModel.Tagss.Remove((Tags)selectedListBoxItem.Content);
                 ctrl.dm.deleteTag((Tags)selectedListBoxItem.Content);
+
+                //delete tags messages
+                ctrl.dm.deleteTagMessagebyTagName((Tags)selectedListBoxItem.Content);
+
                 App.ViewModel.refreshDataAsync();
             }
             else if(socialpivots.SelectedItem == GroupsPivot )
@@ -591,6 +595,11 @@ namespace GEETHREE
             }
     
             
+
+        }
+
+        private void tagsListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
 
         }
 

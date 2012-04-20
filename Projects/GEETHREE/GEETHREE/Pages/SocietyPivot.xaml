@@ -67,7 +67,7 @@
             </controls:PivotItem>
             <!--Pivot item three Tags-->
             <controls:PivotItem Header="My Tags" Name="TagsPivot">
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Tagss}" Name="tagsListBox" >
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Tagss}" Name="tagsListBox" Tap="tagsListBox_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">

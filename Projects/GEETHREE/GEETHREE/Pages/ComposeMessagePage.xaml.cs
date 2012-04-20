@@ -268,7 +268,7 @@ namespace GEETHREE.Pages
                 
                 //App.ViewModel.SentMessages.Add(msg);
                 Controller.Instance.mh.SendMessage(msg);
-                
+                int msgDbID = msg.msgDbId;
                 MessageBox.Show("Message sent.");
                 if (msg.PrivateMessage == false && tagsFlag == true)
                 {
@@ -288,11 +288,16 @@ namespace GEETHREE.Pages
 
 
                             ctrl.dm.storeNewTag(tag);
+                            TagMessage tagMessage = new TagMessage();
+                            tagMessage.tagMessageDbId = msgDbID;
+                            tagMessage.TagName = tagfromMessage;
+
+                            ctrl.dm.storeNewTagMessage(tagMessage);
                         }
                     }
                     
 
-                    //store tags message reference
+                    
 
                 }
 
