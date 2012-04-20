@@ -14,4 +14,11 @@
       <Column Name="UserID" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.MsgToast" Member="MsgToasts">
+    <Type Name="MsgToast">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="ToastAddress" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

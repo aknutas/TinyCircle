@@ -20,6 +20,9 @@ namespace TC_WS
 
         [OperationContract]
         Boolean ping(string appKey);
+
+        [OperationContract]
+        void postToastNotificationAddress(string userId, string toastAddress, string appKey);
     }
 
     [DataContract]
