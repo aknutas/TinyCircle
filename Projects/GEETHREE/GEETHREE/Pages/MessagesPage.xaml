@@ -34,6 +34,7 @@
                         <DataTemplate>
                             <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
+                                <TextBlock TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -58,6 +59,7 @@
                         <DataTemplate>
                             <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
+                                <TextBlock TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -123,7 +125,7 @@
 
         <!-- This canvas is for reading messages  -->
         <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Visible" Opacity="1" Background="Black">
+                Visibility="Collapsed" Opacity="1" Background="Black">
             <TextBlock  Canvas.Left="0" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <!--<TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="11" Canvas.Top="109" Height="374" Name="messageCanvasMessageContent" Text="Content" Width="451" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" FontStretch="Normal" />-->
