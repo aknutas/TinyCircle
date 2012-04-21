@@ -59,7 +59,6 @@ namespace GEETHREE.DataClasses
                 if (value != _dbTimeStamp)
                 {
                     _dbTimeStamp = value;
-                    NotifyPropertyChanged("DbTimeStamp");
                 }
             }
         }

@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Data.Linq.Mapping;
 using System.ComponentModel;
+using System.Data.Linq;
 
 namespace GEETHREE.DataClasses
 {

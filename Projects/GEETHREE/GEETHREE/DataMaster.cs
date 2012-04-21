@@ -79,6 +79,19 @@ namespace GEETHREE
                 db = null;
         }
 
+        //Closing and disposing of the database resource
+        public void closeDbOnExit()
+        {
+            if (db != null)
+            {
+                lock (dblock)
+                {
+                    db.Dispose();
+                    db = null;
+                }
+            }
+        }
+
         public void openDb()
         {
             db = new G3DataContext("Data Source='isostore:/G3DB.sdf'");
