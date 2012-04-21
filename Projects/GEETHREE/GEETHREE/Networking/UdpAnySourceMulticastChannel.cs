@@ -146,7 +146,7 @@ namespace GEETHREE
                 _joinPending = false;
 
                 // We don't want to receive the messages we send.
-                this.Client.MulticastLoopback = false;
+                this.Client.MulticastLoopback = true;
                 Deployment.Current.Dispatcher.BeginInvoke(
                     () =>
                     {
@@ -230,13 +230,23 @@ namespace GEETHREE
                        
                         byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                         this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
-                            
 
+                        StartResendTimer();
                     }
                     else
                     {
+                        if (sendbuffer == null)
+                            sendbuffer = new MessageBuffer();
+
+                        sendbuffer.buffer = message;
+                        sendbuffer.numberofpackages = 1;
+                        sendbuffer.problem = false;
+                        sendbuffer.currentpackage = 0;
+
                         byte[] data = Encoding.UTF8.GetBytes(message);
                         this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+
+                        StartResendTimer();
                     }
                 }
             }
@@ -493,13 +503,23 @@ namespace GEETHREE
             }
             else if (messageParts[0] == Commands.InfoMessage)
             {
+                StopResendTimer();
                 if (messageParts[1] == Commands.RequestPart)
                 {
-                    SendPartTo(source,Convert.ToInt32(messageParts[2]));
+                    SendPartTo(source, Convert.ToInt32(messageParts[2]));
                 }
+                
             }
             else
             {
+                //Send receive ok message to stop resendtimer
+                string tmpmsg;
+
+                tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.Acknowledgement, 0);
+
+                byte[] msgbytes = Encoding.UTF8.GetBytes(tmpmsg);
+                this.Client.BeginSendTo(msgbytes, 0, msgbytes.Length, source, new AsyncCallback(SendToCallback), null);
+
                 EventHandler<UdpPacketReceivedEventArgs> handler = this.PacketReceived;
 
                 if (handler != null)
@@ -533,6 +553,7 @@ namespace GEETHREE
         private bool HandlePartialMessage(string sender, string packetno, string nopackets, string content, IPEndPoint source)
         {
             Debug.WriteLine("got package: " + packetno + " of " + nopackets);
+            StopResendTimer();
             if (receivebuffer == null)
                 receivebuffer = new MessageBuffer();
 
@@ -623,6 +644,44 @@ namespace GEETHREE
             }
         }
 
+        public void ResendMessage()
+        {
+            if (sendbuffer != null)
+            {
+                if (this.IsJoined)
+                {
+                    Debug.WriteLine("Resending a message of size: " + sendbuffer.buffer.Length);
+                    //Is the message too big?
+                    if (sendbuffer.buffer.Length > 256)
+                    {
+                        string tmpmsg;
+                        string[] messageParts = sendbuffer.buffer.Split(Commands.CommandDelimeter.ToCharArray());
+                        int index = 0;
+
+                        int nopackages = sendbuffer.buffer.Length / 256 + (sendbuffer.buffer.Length % 256 > 0 ? 1 : 0);
+
+
+                        if (index + 256 <= sendbuffer.buffer.Length)
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), sendbuffer.buffer.Substring(index, 256));
+                        else
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), sendbuffer.buffer.Substring(index));
+
+
+                        byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                        this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                    }
+                    else
+                    {
+                        byte[] data = Encoding.UTF8.GetBytes(sendbuffer.buffer);
+                        this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                    }
+                }
+
+            }
+
+
+        }
+
         /// <summary>
         /// If a Socketexception occurs, it is possible to handle these exceptions gracefully.
         /// </summary>
@@ -664,13 +723,15 @@ namespace GEETHREE
             }
 
         }
+
+        //Timer for requesting more packages
         DispatcherTimer _dt;
         private void StartKeepAlive()
         {
             if (_dt == null)
             {
                 _dt = new DispatcherTimer();
-                _dt.Interval = new TimeSpan(0, 0, 5);
+                _dt.Interval = new TimeSpan(0, 0, 2);
                 _dt.Tick +=
                             delegate(object s, EventArgs args)
                             {
@@ -687,6 +748,33 @@ namespace GEETHREE
         {
             if (_dt != null)
                 _dt.Stop();
+        }
+
+        //Timer for requesting more packages
+        DispatcherTimer _rstimer;
+        private void StartResendTimer()
+        {
+            if (_rstimer == null)
+            {
+              
+                _rstimer = new DispatcherTimer();
+                _rstimer.Interval = new TimeSpan(0, 0, 2);
+                _rstimer.Tick +=
+                            delegate(object s, EventArgs args)
+                            {
+                                if (IsJoined)
+                                {
+                                    this.ResendMessage();
+                                }
+                            };
+            }
+            _rstimer.Start();
+
+        }
+        private void StopResendTimer()
+        {
+            if (_rstimer != null)
+                _rstimer.Stop();
         }
     }
 

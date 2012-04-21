@@ -34,6 +34,7 @@ namespace GEETHREE
         public const string PartialMessage = "O";
         public const string InfoMessage = "I";
         public const string RequestPart = "R";
+        public const string Acknowledgement = "A";
 
         public const string GroupMessage = "GM";
 
