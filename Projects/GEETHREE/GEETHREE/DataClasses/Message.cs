@@ -146,7 +146,7 @@ namespace GEETHREE.DataClasses
         /// </summary>
         /// <returns></returns>
         [Column]
-        public byte? ColorR
+        private byte? ColorR
         {
             get
             {
@@ -168,7 +168,7 @@ namespace GEETHREE.DataClasses
         /// </summary>
         /// <returns></returns>
         [Column]
-        public byte? ColorG
+        private byte? ColorG
         {
             get
             {
@@ -190,7 +190,7 @@ namespace GEETHREE.DataClasses
         /// </summary>
         /// <returns></returns>
         [Column]
-        public byte? ColorB
+        private byte? ColorB
         {
             get
             {
@@ -212,7 +212,7 @@ namespace GEETHREE.DataClasses
         /// </summary>
         /// <returns></returns>
         [Column]
-        public byte? ColorA
+        private byte? ColorA
         {
             get
             {
