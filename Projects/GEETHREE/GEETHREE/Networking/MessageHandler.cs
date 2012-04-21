@@ -296,8 +296,7 @@ namespace GEETHREE
         {
             byte[] temphash={0,0};
             msg.Hash = temphash;
-            System.Diagnostics.Debug.WriteLine("mh: Asked to send message");
-            dm.storeNewMessage(msg);
+            System.Diagnostics.Debug.WriteLine("mh: Asked to send message");            
             this.cm.SendToAll(msg);
         }
 

@@ -259,11 +259,14 @@ namespace GEETHREE.Pages
                 msg.Attachmentflag = attachmentFlag;
                 msg.Attachmentfilename = attachmentFileName;   
                 msg.Attachment = attachmentContentstring;
-                //ctrl.dm.storeNewMessage(msg);
+                
                 
                 //App.ViewModel.SentMessages.Add(msg);
                 Controller.Instance.mh.SendMessage(msg);
+                msg.SenderAlias = "Me";
+                ctrl.dm.storeNewMessage(msg);
                 int msgDbID = msg.msgDbId;
+                
                 
                 if (msg.PrivateMessage == false && tagsFlag == true)
                 {
@@ -283,19 +286,23 @@ namespace GEETHREE.Pages
 
 
                             ctrl.dm.storeNewTag(tag);
-                            TagMessage tagMessage = new TagMessage();
-                            tagMessage.tagMessageDbId = msgDbID;
-                            tagMessage.TagName = tagfromMessage;
-
-                            ctrl.dm.storeNewTagMessage(tagMessage);
+                            
                         }
+                        TagMessage tagMessage = new TagMessage();
+                        tagMessage.MessageID = msgDbID;
+                        tagMessage.TagName = tagfromMessage;
+
+                        ctrl.dm.storeNewTagMessage(tagMessage);
                     }
                     
 
                     
 
                 }
+                
+                
 
+                
                 App.ViewModel.refreshDataAsync();
                 txt_compose_message.Text = "";
                 txt_compose_error_label.Text = "";
@@ -313,7 +320,7 @@ namespace GEETHREE.Pages
                 image1.Visibility = System.Windows.Visibility.Visible;
                 composeReceipientTextBox.IsEnabled = true;
 
-
+               
                 MessageBox.Show("Message sent.");
 
                 NavigateBack();

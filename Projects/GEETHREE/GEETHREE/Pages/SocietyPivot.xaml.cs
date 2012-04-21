@@ -15,11 +15,14 @@ using Microsoft.Phone.Shell;
 using System.Security.Cryptography;
 using System.Text;
 using System.Collections.ObjectModel;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace GEETHREE
 {
     public partial class SocietyPivot : PhoneApplicationPage
     {
+        private Message selectedMessage = null;
         private Controller ctrl;
         private Group selectedGroup = null;
         private User selectedUser = null;
@@ -27,6 +30,7 @@ namespace GEETHREE
         ObservableCollection<UserInfoResponse> UserInfoResponseslist = new ObservableCollection<UserInfoResponse>();
         List<User> Userslist = new List<User>();
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+       
 
         bool userflag = true;
        
@@ -146,7 +150,27 @@ namespace GEETHREE
                 
                 
             }
+            else if (TagListCanvas.Visibility == Visibility.Visible)
+            {
+                TagListCanvas.Visibility = Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+                App.ViewModel.refreshDataAsync();
+            }
+            else if (imagePreviewCanvas.Visibility == Visibility.Visible)
+            {
+                imagePreviewCanvas.Visibility = Visibility.Collapsed;
+                ApplicationBar.IsVisible = false;
+                messageCanvas.Visibility = Visibility.Visible;
+                
+            }
+            else if (messageCanvas.Visibility == Visibility.Visible)
+            {
+                messageCanvas.Visibility = Visibility.Collapsed;
+                ApplicationBar.IsVisible = false;
+                receivedimage.Visibility = Visibility.Collapsed;
+                TagListCanvas.Visibility = Visibility.Visible;
 
+            }
 
             else // ** then, navigate back
             {
@@ -600,10 +624,82 @@ namespace GEETHREE
 
         private void tagsListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-
+            App.ViewModel.LoadTagMessages((Tags)tagsListBox.SelectedItem);
+            tagCanvasTextBlock.Text = ((Tags)tagsListBox.SelectedItem).TagName;
+            TagListCanvas.Background = backgroundbrush;
+            TagListCanvas.Visibility = Visibility.Visible;
+            ApplicationBar.IsVisible = false;
+            
+            
+            
         }
 
-        
+       
+
+        private void tagMessage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            selectedMessage = (Message)tagMessageListBox.SelectedItem;
+
+            if (selectedMessage != null)
+            {
+                receivedimage.Visibility = Visibility.Collapsed;
+                if (selectedMessage.IsRead == false)
+                {
+                    selectedMessage.IsRead = true;
+                    // ** ftw ?!?!?!
+                    ctrl.dm.storeObjects();
+
+                }
+                if (selectedMessage.TimeStamp.ToString() != null)
+                    messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
+                //messageCanvasDateTime.Text += selectedMessage.IsRead.ToString();
+
+                //ctrl.dm.updateMessage(selectedMessage);
+                
+                messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
+
+                //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+
+                messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                byte[] attachmentContent = null;
+                if (selectedMessage.Attachmentflag == "1")
+                {
+
+                    attachmentContent = Convert.FromBase64String(selectedMessage.Attachment);
+                    BitmapImage bitImage = new BitmapImage();
+                    MemoryStream ms = new MemoryStream(attachmentContent, 0, attachmentContent.Length);
+                    ms.Write(attachmentContent, 0, attachmentContent.Length);
+                    bitImage.SetSource(ms);
+                    receivedimage.Source = bitImage;
+                    receivedimage.Visibility = Visibility.Visible;
+                }
+
+
+
+                
+                messageCanvas.Background = backgroundbrush;
+                TagListCanvas.Visibility = Visibility.Collapsed;
+                messageCanvas.Visibility = System.Windows.Visibility.Visible;
+                
+                ApplicationBar.IsVisible = false;
+            }
+        }
+
+        // ** we have received an image and user taps it
+        private void receivedimage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (receivedimage.Visibility == Visibility.Visible) // ** if there is an image
+            {
+                ApplicationBar.IsVisible = false;
+                //receivedimage.Visibility = Visibility.Collapsed;
+                messageCanvas.Visibility = Visibility.Collapsed;
+
+                imegePreviewCanvasImageBig.Source = receivedimage.Source;
+                //Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+                imagePreviewCanvas.Background = backgroundbrush;
+                imagePreviewCanvas.Visibility = Visibility.Visible;
+            }
+        }
 
        
 
@@ -612,4 +708,5 @@ namespace GEETHREE
           
 
    }
+            
 }

@@ -29,6 +29,7 @@ namespace GEETHREE
         private List<Message> sentMessageList;
         private List<Message> privateMessagesList;
         private List<Message> broadcastMessagesList;
+        private List<Message> tagMessagesList;
 
         private List<GroupInfoResponse> grpInfoResponseList;
         private List<UserInfoResponse> usrInfoResponseList;
@@ -46,6 +47,7 @@ namespace GEETHREE
             usrList = new List<User>();
             grpList = new List<Group>();
             tagList = new List<Tags>();
+            tagMessagesList = new List<Message>();
 
             draftMessageList = new List<Message>();
             privateMessagesList = new List<Message>();
@@ -62,6 +64,7 @@ namespace GEETHREE
             this.SentMessages = new ObservableCollection<Message>();
             this.ReceivedPrivateMessages = new ObservableCollection<Message>();
             this.ReceivedBroadcastMessages = new ObservableCollection<Message>();
+            this.TagMessages = new ObservableCollection<Message>();
 
             this.GroupInfoResponses = new ObservableCollection<GroupInfoResponse>();
             this.UserInfoResponses = new ObservableCollection<UserInfoResponse>();
@@ -83,7 +86,8 @@ namespace GEETHREE
         public ObservableCollection<Message> SentMessages { get; private set; }
         public ObservableCollection<Message> ReceivedPrivateMessages { get; private set; }
         public ObservableCollection<Message> ReceivedBroadcastMessages { get; private set; }
-
+        public ObservableCollection<Message> TagMessages { get; private set; }
+        
         public ObservableCollection<GroupInfoResponse> GroupInfoResponses { get; private set; }
         public ObservableCollection<UserInfoResponse> UserInfoResponses { get; private set; }
 
@@ -155,6 +159,7 @@ namespace GEETHREE
             grpList = c.dm.getAllGroups();
             usrList = c.dm.getAllUsers();
             tagList = c.dm.getAllTags();
+            //TagMessageList = c.dm.getTagMessages();
 
             //broadcastMessagesList.Clear();
             //privateMessagesList.Clear();
@@ -181,9 +186,12 @@ namespace GEETHREE
             LoadGroups();
             LoadFriends();
             LoadTags();
+          
             LoadBroadcastMessages();
             LoadPrivateMessages();
             LoadSentMessages();
+            
+
             System.Diagnostics.Debug.WriteLine("LoadData: Data load thread completed");
 
             //Release "lock"
@@ -267,6 +275,19 @@ namespace GEETHREE
         //    }
         //}
 
+        public void LoadTagMessages(Tags tag)
+        {
+            TagMessages.Clear();
+            tagMessagesList.Clear();
+
+            tagMessagesList = c.dm.getAllTagMessages(tag);
+
+            foreach (Message m in tagMessagesList)
+            {
+                this.TagMessages.Insert(0, m);
+            }
+        }
+        
         public void LoadSentMessages()
         {
             SentMessages.Clear();
@@ -309,7 +330,7 @@ namespace GEETHREE
 
             foreach (Group g in grpList)
             { 
-                this.Groups.Add(g);
+                this.Groups.Insert(0,g);
             }
 
             Tagss.Clear();
@@ -318,7 +339,7 @@ namespace GEETHREE
 
             foreach (Tags g in tagList)
             {
-                this.Tagss.Add(g);
+                this.Tagss.Insert(0, g);
             }
 
             Users.Clear();
@@ -338,7 +359,7 @@ namespace GEETHREE
 
             foreach (Message m in draftMessageList)
             {
-                this.DraftMessages.Add(m);
+                this.DraftMessages.Insert(0, m); 
             }
             SentMessages.Clear();
             //sentMessageList.Clear();
@@ -357,7 +378,7 @@ namespace GEETHREE
 
             foreach (Message m in broadcastMessagesList)
             {
-                this.ReceivedPrivateMessages.Add(m);
+                this.ReceivedPrivateMessages.Insert(0, m); 
             }
 
             ReceivedPrivateMessages.Clear();
@@ -365,7 +386,7 @@ namespace GEETHREE
             privateMessagesList = c.dm.getIncomingPrivateMessages();
             foreach (Message m in privateMessagesList)
             {
-                this.ReceivedPrivateMessages.Add(m);
+                this.ReceivedPrivateMessages.Insert(0, m); 
             }
             // Sample data; replace with real data
             /*

@@ -105,15 +105,7 @@ namespace GEETHREE
                     db.SubmitChanges();
         }
 
-        public List<TagMessage> getAllTagMessages()
-        {
-            lock (dblock)
-            {
-                var qres = from TagMessage tagMessage in db.TagMessages select tagMessage;
-                List<TagMessage> returnList = new List<TagMessage>(qres);
-                return returnList;
-            }
-        }
+       
 
         public void storeNewTagMessage(TagMessage tagMessage)
         {
@@ -166,6 +158,25 @@ namespace GEETHREE
             }
         }
 
+        public List<Message> getAllTagMessages(Tags tag)
+        {
+            lock (dblock)
+            {
+                var qres = from TagMessage tagMessage in db.TagMessages where tagMessage.TagName == tag.TagName select tagMessage;
+                List<TagMessage> TagMessageList = new List<TagMessage>(qres);
+                List<Message> returnList = new List<Message>();
+                returnList.Clear();
+                foreach (TagMessage tagMessage in TagMessageList)
+                {
+                    var qres1 = from Message message in db.Messages where message.msgDbId==tagMessage.MessageID select message;
+                    Message aMessage = qres1.First();
+                    returnList.Add(aMessage);
+                }
+                
+                return returnList;
+            }
+        }
+
         public List<Message> getAllMessages()
         {
             lock (dblock)
@@ -176,6 +187,8 @@ namespace GEETHREE
             }
         }
 
+
+       
         public Message getMessageByMessageID(int msgID)
         {
             lock (dblock)
