@@ -309,21 +309,21 @@ namespace GEETHREE
                 }
             }
 
-            else if (messageParts.Length == 9)
+            else if (messageParts.Length == 10)
             {
                 switch (messageParts[0])
                 {
                     case Commands.PrivateMessage:
-                        OnPrivateMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
+                        OnPrivateMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8], messageParts[9]);
                         break;
                     case Commands.BroadcastMessage:
-                        OnBroadcastMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
+                        OnBroadcastMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8], messageParts[9]);
                         break;
                     case Commands.PrivateFileMessage:
-                        OnFileReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
+                        OnFileReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8], messageParts[9]);
                         break;
                     case Commands.GroupMessage:
-                        OnGroupMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8]);
+                        OnGroupMessageReceived(messageParts[1], messageParts[2], messageParts[3], messageParts[4], messageParts[5], messageParts[6], messageParts[7], messageParts[8], messageParts[9]);
                         break;
                     default:
                         break;
@@ -395,56 +395,89 @@ namespace GEETHREE
                 }
             }
         }
-        private void OnPrivateMessageReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
+        private void OnPrivateMessageReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash, string timestamp)
         {
             //Message msg = new Message(sender, receiver, message, hash, true);
             EventHandler<MessageEventArgs> handler = this.PrivateMessageReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
+            DateTime dt_time;
 
-            //byte[] storedAttachment = UE.GetBytes(attachment);
+            try
+            {
+                dt_time = DateTime.Parse(timestamp);
+            }
+            catch (FormatException e)
+            {
+                dt_time = DateTime.Now;
+            }
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash, dt_time));
             }
             //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
         }
-        private void OnBroadcastMessageReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
+        private void OnBroadcastMessageReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash, string timestamp)
         {
             EventHandler<MessageEventArgs> handler = this.BroadcastMessageReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
+            DateTime dt_time;
 
-            //byte[] storedAttachment = UE.GetBytes(attachment);
+            try
+            {
+                dt_time = DateTime.Parse(timestamp);
+            }
+            catch(FormatException e)
+            {
+                dt_time = DateTime.Now;
+            }
+
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash, dt_time));
             }
         }
-        private void OnFileReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
+        private void OnFileReceived(string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, string message, string hash, string timestamp)
         {
             EventHandler<MessageEventArgs> handler = this.FileReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
+            DateTime dt_time;
 
-            //byte[] storedAttachment = UE.GetBytes(attachment);
+            try
+            {
+                dt_time = DateTime.Parse(timestamp);
+            }
+            catch (FormatException e)
+            {
+                dt_time = DateTime.Now;
+            }
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash));
+                handler(this, new MessageEventArgs(message, sender, senderalias, receiver, attachmentflag, attachment, attachmentfilename, storedHash, dt_time));
             }
         }
 
-        private void OnGroupMessageReceived(string GroupID, string groupname, string grpID, string attachmentflag, string attachment, string attachmentfilename, string message, string hash)
+        private void OnGroupMessageReceived(string GroupID, string groupname, string grpID, string attachmentflag, string attachment, string attachmentfilename, string message, string hash, string timestamp)
         {
             //Message msg = new Message(sender, receiver, message, hash, true);
             EventHandler<MessageEventArgs> handler = this.GroupMessageReceived;
             UnicodeEncoding UE = new UnicodeEncoding();
             byte[] storedHash = UE.GetBytes(hash);
+            DateTime dt_time;
 
-            //byte[] storedAttachment = UE.GetBytes(attachment);
+            try
+            {
+                dt_time = DateTime.Parse(timestamp);
+            }
+            catch (FormatException e)
+            {
+                dt_time = DateTime.Now;
+            }
             if (handler != null)
             {
-                handler(this, new MessageEventArgs(message, GroupID, groupname, grpID, attachmentflag, attachment, attachmentfilename, storedHash));
+                handler(this, new MessageEventArgs(message, GroupID, groupname, grpID, attachmentflag, attachment, attachmentfilename, storedHash, dt_time));
             }
             //DiagnosticsHelper.SafeShow(String.Format("You got a message '{0}'", message));
         }
@@ -498,14 +531,14 @@ namespace GEETHREE
             if (msg.PrivateMessage == false)
             {
                 if (msg.GroupMessage == true)
-                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp));
                 else
-                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp));
             }
             else
             {
 
-                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp));
             }
             //Try also to send to server
             if(msg.GroupMessage || msg.PrivateMessage)
@@ -628,7 +661,7 @@ namespace GEETHREE
 
                 if (handler != null)
                 {
-                    handler(this, new MessageEventArgs(msg.TextContent,msg.SenderID, msg.SenderAlias,msg.ReceiverID,msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.Hash));
+                    handler(this, new MessageEventArgs(msg.TextContent,msg.SenderID, msg.SenderAlias,msg.ReceiverID,msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.Hash, DateTime.Now));
                 }              
             }
         }

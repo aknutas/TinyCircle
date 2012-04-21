@@ -582,8 +582,9 @@ namespace GEETHREE.DataClasses
         public string Receiver { get; set; }
         public string Attachmentflag { get; set; }
         public byte[] Hash { get; set; }
+        public DateTime timestamp { get; set; }
 
-        public MessageEventArgs(string textContent, string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, byte[] hash)
+        public MessageEventArgs(string textContent, string sender, string senderalias, string receiver, string attachmentflag, string attachment, string attachmentfilename, byte[] hash, DateTime tstamp)
         {
             this.TextContent = textContent;
             this.Attachmentflag = attachmentflag;
@@ -593,6 +594,7 @@ namespace GEETHREE.DataClasses
             this.SenderAlias = senderalias;
             this.Receiver = receiver;
             this.Hash = hash;
+            this.timestamp = tstamp;
         }
     }
 }
