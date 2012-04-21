@@ -79,7 +79,7 @@
 
                                 <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                      <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
-                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="230,20,0,0" Text ="Timestamp"/>
+                                <TextBlock Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="230,20,0,0" Text ="{Binding TimeStamp}"/>
                                 <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>

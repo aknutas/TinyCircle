@@ -133,12 +133,21 @@ namespace GEETHREE
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
 
+            Color accentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
+            msg.MessageTextColor = new SolidColorBrush(accentColor);
+
+            var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+            if (v == Visibility.Visible == true) // light theme
+            {
+                msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+            }
+            else
+                msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
 
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
             msg.IsRead = false;
-            msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
             msg.TimeStamp = e.timestamp;
 
             dm.storeNewMessage(msg);
@@ -185,6 +194,7 @@ namespace GEETHREE
                 msg.SenderAlias = e.SenderAlias;
             msg.TextContent = e.TextContent;
             msg.outgoing = true;
+
 
 
             msg.Attachment = e.Attachment;
