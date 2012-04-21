@@ -508,7 +508,8 @@ namespace GEETHREE
                 this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
             }
             //Try also to send to server
-            SendToServer(msg);
+            if(msg.GroupMessage || msg.PrivateMessage)
+                SendToServer(msg);
         }
 
         public void SendFileToAll(Message msg)
