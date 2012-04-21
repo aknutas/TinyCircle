@@ -77,6 +77,7 @@ namespace GEETHREE
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.IsRead = false;
+            msg.TimeStamp = e.timestamp;
             
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
@@ -116,7 +117,7 @@ namespace GEETHREE
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
             msg.IsRead = false;
-
+            msg.TimeStamp = e.timestamp;
 
             dm.storeNewMessage(msg);
             int msgDbID = msg.msgDbId;
@@ -179,6 +180,7 @@ namespace GEETHREE
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
+            msg.TimeStamp = e.timestamp;
             
             msg.IsRead = false;
             //if the groupID is one of my groupID
@@ -247,7 +249,9 @@ namespace GEETHREE
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
+            msg.TimeStamp = e.timestamp;
             dm.storeNewMessage(msg);
+            
             //Where do we add this and who do we tell?
             //App.ViewModel.ReceivedBroadcastMessages.Add(msg);
             if(e.Attachmentflag=="0")
@@ -296,6 +300,7 @@ namespace GEETHREE
         {
             byte[] temphash={0,0};
             msg.Hash = temphash;
+            msg.TimeStamp = DateTime.Now;
             System.Diagnostics.Debug.WriteLine("mh: Asked to send message");            
             this.cm.SendToAll(msg);
         }
@@ -312,6 +317,7 @@ namespace GEETHREE
         {
             byte[] temphash = { 0, 0 };
             msg.Hash = temphash;
+            msg.TimeStamp = DateTime.Now;
             this.cm.SendFileToAll(msg);
         }
 

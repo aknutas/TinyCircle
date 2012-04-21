@@ -231,7 +231,7 @@ namespace GEETHREE
                         byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                         this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
 
-                        StartResendTimer();
+                        //StartResendTimer();
                     }
                     else
                     {
@@ -246,7 +246,7 @@ namespace GEETHREE
                         byte[] data = Encoding.UTF8.GetBytes(message);
                         this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
 
-                        StartResendTimer();
+                        //StartResendTimer();
                     }
                 }
             }
