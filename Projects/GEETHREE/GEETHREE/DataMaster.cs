@@ -605,9 +605,9 @@ namespace GEETHREE
             lock (dblock)
             {
                     openDb();
-                    var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
-                    Message oldmessage = qres.Single();
-                    db.Messages.Attach(message, oldmessage);
+                    //var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
+                    //Message oldmessage = qres.Single();
+                    db.Messages.Attach(message, true);
                     db.SubmitChanges();
                     closeDb();
             }
@@ -716,11 +716,18 @@ namespace GEETHREE
             }
         }
 
-        public void storeObjects()
+        public void storeObjects(Object o)
         {
-            lock (dblock)
+            if (o is Message){
+                updateMessage((Message) o);
+            }
+            else if (o is List<Message>)
             {
-                //db.SubmitChanges();
+                updateMessage((List<Message>)o);
+            }
+            else
+            {
+                throw new NotImplementedException("Updating not implemented: " + o.GetType().ToString());
             }
         }
 

@@ -647,7 +647,7 @@ namespace GEETHREE
                 {
                     selectedMessage.IsRead = true;
                     // ** ftw ?!?!?!
-                    ctrl.dm.storeObjects();
+                    ctrl.dm.storeObjects(selectedMessage);
 
                 }
                 if (selectedMessage.TimeStamp.ToString() != null)

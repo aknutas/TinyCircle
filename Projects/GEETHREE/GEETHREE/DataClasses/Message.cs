@@ -42,31 +42,30 @@ namespace GEETHREE.DataClasses
             }
         }
 
-        ////Database internal timestamp for change management
-        //private DateTime _dbTimeStamp;
+        //Database internal timestamp for change management
+        private Binary _dbTimeStamp;
 
-        //[Column]
-        //public DateTime DbTimeStamp
-        //{
-        //    get
-        //    {
-        //        return _dbTimeStamp;
-        //    }
-        //    set
-        //    {
-        //        if (value != _dbTimeStamp)
-        //        {
-        //            _timeStamp = value;
-        //            NotifyPropertyChanged("DbTimeStamp");
-        //        }
-        //    }
-        //}
+        [Column(IsDbGenerated = true, DbType = "ROWVERSION NOT NULL", CanBeNull = false, AutoSync = AutoSync.OnInsert, IsVersion=true)]
+        public Binary DbTimeStamp
+        {
+            get
+            {
+                return _dbTimeStamp;
+            }
+            set
+            {
+                if (value != _dbTimeStamp)
+                {
+                    _dbTimeStamp = value;
+                    NotifyPropertyChanged("DbTimeStamp");
+                }
+            }
+        }
 
         //Default constructor
 
         public Message()
         {
-            this.user = null;
         }
 
         private string _header;
@@ -90,9 +89,6 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-
-
-
 
         private DateTime? _timeStamp;
         /// <summary>
@@ -528,33 +524,6 @@ namespace GEETHREE.DataClasses
                     _attachmentflag = value;
                     NotifyPropertyChanged("Attachmentflag");
                 }
-            }
-        }
-
-        //Associations with parent (user)
-
-        // Internal column for the associated User ID value
-        [Column]
-        internal int? _userId;
-
-        // Entity reference, to identify the user "storage" table
-        private EntityRef<User> _user;
-
-        // Association, to describe the relationship between this key and that "storage" table
-        [Association(Storage = "_user", ThisKey = "_userId", OtherKey = "userDbId", IsForeignKey = true)]
-        public User user
-        {
-            get { return _user.Entity; }
-            set
-            {
-                _user.Entity = value;
-
-                if (value != null)
-                {
-                    _userId = value.userDbId;
-                }
-
-                NotifyPropertyChanged("user");
             }
         }
 

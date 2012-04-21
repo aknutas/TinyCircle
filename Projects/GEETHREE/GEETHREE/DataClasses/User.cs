@@ -45,25 +45,34 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        //Database internal timestamp for change management
+        private Binary _dbTimeStamp;
+
+        [Column(IsDbGenerated = true, DbType = "ROWVERSION NOT NULL", CanBeNull = false, AutoSync = AutoSync.OnInsert, IsVersion = true)]
+        public Binary DbTimeStamp
+        {
+            get
+            {
+                return _dbTimeStamp;
+            }
+            set
+            {
+                if (value != _dbTimeStamp)
+                {
+                    _dbTimeStamp = value;
+                    NotifyPropertyChanged("DbTimeStamp");
+                }
+            }
+        }
+
         //Constructors
+
         public User()
         {
-            // Assign handlers for the add and remove operations, respectively.
-            _messages = new EntitySet<Message>(
-                new Action<Message>(this.attach_User),
-                new Action<Message>(this.detach_User)
-                );
-
         }
 
         public User(string username, string description)
         {
-            // Assign handlers for the add and remove operations, respectively.
-            _messages = new EntitySet<Message>(
-                new Action<Message>(this.attach_User),
-                new Action<Message>(this.detach_User)
-                );
-
             //Assigments
             UserName = username;
             Description = description;
@@ -131,30 +140,6 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-
-        // Define the entity set for the collection side of the relationship.
-        private EntitySet<Message> _messages;
-
-        [Association(Storage = "_messages", OtherKey = "_userId", ThisKey = "userDbId")]
-        public EntitySet<Message> messages
-        {
-            get { return this._messages; }
-            set { this._messages.Assign(value); }
-        }
-
-        // Called during an add operation
-        private void attach_User(Message msg)
-        {
-            msg.user = this;
-        }
-
-        // Called during a remove operation
-        private void detach_User(Message msg)
-        {
-            msg.user = null;
-        }
-
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

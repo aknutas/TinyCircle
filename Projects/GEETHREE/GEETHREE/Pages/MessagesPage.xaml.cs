@@ -75,7 +75,7 @@ namespace GEETHREE.Pages
                     selectedMessage.IsRead = true;
                     selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
                     // ** ftw ?!?!?!
-                    ctrl.dm.storeObjects();
+                    ctrl.dm.storeObjects(selectedMessage);
 
                 }
                 if (selectedMessage.TimeStamp.ToString() != null)
@@ -133,7 +133,7 @@ namespace GEETHREE.Pages
                     selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
 
                     // ** ftw ?!?!?!
-                    ctrl.dm.storeObjects();
+                    ctrl.dm.storeObjects(selectedMessage);
                 }
 
                 if (selectedMessage.TimeStamp.ToString() != null)
