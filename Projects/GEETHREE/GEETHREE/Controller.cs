@@ -36,6 +36,7 @@ namespace GEETHREE
         public Networking.WebServiceConnector wcc;
         public CommunicationHandler cm;
         private Random r;
+  
 
         //Update view callback list
         private List<AvatarChangeListener> avatarCallbackList;
@@ -64,6 +65,7 @@ namespace GEETHREE
 
             // Elegant callbacks
             avatarCallbackList = new List<AvatarChangeListener>();
+     
         }
 
         //Get us the singleton instance
@@ -297,7 +299,7 @@ namespace GEETHREE
            
             if (App.ViewModel.ReceivedPrivateMessages.Count != 0)
             {
-                Message m = App.ViewModel.ReceivedPrivateMessages.Last();
+                Message m = App.ViewModel.ReceivedPrivateMessages.First();
                 return m.TextContent.ToString();
             }
             return "";
@@ -308,7 +310,7 @@ namespace GEETHREE
             {
                 if (App.ViewModel.ReceivedPrivateMessages.Count != 0)
                 {
-                    Message m = App.ViewModel.ReceivedPrivateMessages.Last();
+                    Message m = App.ViewModel.ReceivedPrivateMessages.First();
                     return m.SenderAlias.ToString();
                 }
             }
@@ -398,7 +400,8 @@ namespace GEETHREE
                 i++;
             }
             return tagsList;
-        } 
+        }
+
   
 
 

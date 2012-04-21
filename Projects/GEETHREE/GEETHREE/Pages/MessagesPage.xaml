@@ -35,12 +35,11 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
-                                <Image Height="50" Margin="370,50,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
-
-                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,20,0,0" Text ="{Binding TimeStamp}"/>
+                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />                              
+                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
+                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <StackPanel Margin="0,0,0,0" Height="100" Width="380">
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="365">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
                                 <toolkit:ContextMenuService.ContextMenu>
@@ -63,10 +62,10 @@
                         <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
-                                <Image Height="50" Margin="350,15,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
-                                <TextBlock Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,20,0,0" Text ="{Binding TimeStamp}"/>
+                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
+                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <StackPanel Margin="0,0,0,0" Height="100" Width="380">
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="350">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
                                 <toolkit:ContextMenuService.ContextMenu>
@@ -83,15 +82,15 @@
 
             <!--Pivot item 3: SENT-->
             <controls:PivotItem Header="Shared" Name="sent" >
-                <ListBox Name="SentMessages" Margin="0,0,50,0" ItemsSource="{Binding SentMessages}" Width="400" HorizontalContentAlignment="Left" HorizontalAlignment="Left" >
+                <ListBox Name="SentMessages" Margin="0,0,50,0" ItemsSource="{Binding SentMessages}" Width="400" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="SentMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />
-                                <Image Height="50" Margin="350,15,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
-                                <TextBlock Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,20,0,0" Text ="{Binding TimeStamp}"/>
+                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
+                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
                                 <TextBlock Margin="60,0,0,0" Text="Me" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <StackPanel Margin="0,0,0,0" Height="100" Width="380">
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="350">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
                                 <toolkit:ContextMenuService.ContextMenu>
@@ -114,7 +113,7 @@
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/Draft.png" Stretch="Fill" Width="50" />
                                 <TextBlock Margin="60,0,0,0" Text="Me" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <StackPanel Margin="0,0,0,0" Height="100" Width="380">
+                                <StackPanel Margin="0,0,0,0" Height="100" Width="350">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
                                 <toolkit:ContextMenuService.ContextMenu>

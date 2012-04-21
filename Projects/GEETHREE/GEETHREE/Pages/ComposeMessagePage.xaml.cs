@@ -345,9 +345,10 @@ namespace GEETHREE.Pages
         //browses for the photos and gets the picture in imagebox after selection
         void photoChooserTask_Completed(object sender, PhotoResult e)
         {
-            try
+
+            if (e.TaskResult == TaskResult.OK)
             {
-                if (e.TaskResult == TaskResult.OK)
+                try
                 {
                     this.Dispatcher.BeginInvoke(() =>
                     {
@@ -355,7 +356,6 @@ namespace GEETHREE.Pages
 
                         BitmapImage bitImage = new BitmapImage();
                         bitImage.CreateOptions = BitmapCreateOptions.None;
-
 
                         bitImage.SetSource(e.ChosenPhoto);
                         WriteableBitmap wb = new WriteableBitmap(bitImage);
@@ -385,66 +385,63 @@ namespace GEETHREE.Pages
                         // lib.SavePicture("Test", ms.ToArray());
                     });
                 }
+                catch
+                {
+                   
+                }
             }
-            catch { }
+
         }
 
         //Captures the picture using the camera and gets the picture in the imagebox 
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
         {
-            try
-            {
                 if (e.TaskResult == TaskResult.OK)
                 {
-
-                    this.Dispatcher.BeginInvoke(() =>
+                    try
                     {
-                        // ...communication with the isolated storage...
+                        this.Dispatcher.BeginInvoke(() =>
+                        {
 
-                        BitmapImage bitImage = new BitmapImage();
-                        bitImage.CreateOptions = BitmapCreateOptions.None;
-
-
-                        bitImage.SetSource(e.ChosenPhoto);
-                        WriteableBitmap wb = new WriteableBitmap(bitImage);
-
-                        MemoryStream ms = new MemoryStream();
-                        // width, height, orienteation, quality
-                        // width, height, orienteation, quality
-                        // width, height, orienteation, quality
-                        if (wb.PixelHeight == wb.PixelWidth)
-                            wb.SaveJpeg(ms, 480, 480, 0, 30);
-                        else if (wb.PixelHeight > wb.PixelWidth)
-                            wb.SaveJpeg(ms, 480, 640, 0, 30);
-                        else
-                            wb.SaveJpeg(ms, 640, 480, 0, 30);
+                            BitmapImage bitImage = new BitmapImage();
+                            bitImage.CreateOptions = BitmapCreateOptions.None;
 
 
+                            bitImage.SetSource(e.ChosenPhoto);
+                            WriteableBitmap wb = new WriteableBitmap(bitImage);
+
+                            MemoryStream ms = new MemoryStream();
+                            // width, height, orienteation, quality
+                            // width, height, orienteation, quality
+                            // width, height, orienteation, quality
+                            if (wb.PixelHeight == wb.PixelWidth)
+                                wb.SaveJpeg(ms, 480, 480, 0, 30);
+                            else if (wb.PixelHeight > wb.PixelWidth)
+                                wb.SaveJpeg(ms, 480, 640, 0, 30);
+                            else
+                                wb.SaveJpeg(ms, 640, 480, 0, 30);
+
+                            //wb.SaveJpeg(ms, 400, 240, 0, 50);
+                            bitImage.SetSource(ms);
 
 
+                            attachmentFlag = "1";
+                            attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
+                            attachmentContent = new byte[ms.Length];
+                            ms.Position = 0;
+                            ms.Read(attachmentContent, 0, attachmentContent.Length);
 
-                        //wb.SaveJpeg(ms, 400, 240, 0, 50);
-                        bitImage.SetSource(ms);
+                            attachedImage.Source = bitImage;
 
+                            attachedImage.Visibility = Visibility.Visible;
 
-                        attachmentFlag = "1";
-                        attachmentFileName = "img" + Controller.Instance.getNextRandomNumName() + ".jpg";
-                        attachmentContent = new byte[ms.Length];
-                        ms.Position = 0;
-                        ms.Read(attachmentContent, 0, attachmentContent.Length);
-
-                        attachedImage.Source = bitImage;
-
-                        attachedImage.Visibility = Visibility.Visible;
-
-                        // using (MediaLibrary lib = new MediaLibrary())
-                        // lib.SavePicture("Test", ms.ToArray());
-                    });
+                            // using (MediaLibrary lib = new MediaLibrary())
+                            // lib.SavePicture("Test", ms.ToArray());
+                        });
+                    }
+                    catch { }
                 }
-            }
-            catch { 
-            
-            }
+       
         }
         // ** when navigated to this page, check the url parameters if they contain some information
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
