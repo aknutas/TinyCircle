@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Data.Linq.Mapping;
 using System.ComponentModel;
+using System.Data.Linq;
 
 namespace GEETHREE.DataClasses
 {
@@ -34,6 +35,26 @@ namespace GEETHREE.DataClasses
                     {
                         _groupInfoResponseDbId = value;
                         NotifyPropertyChanged("groupInfoResponseDbId");
+                    }
+                }
+            }
+
+            //Database internal timestamp for change management
+            private Binary _dbTimeStamp;
+
+            [Column(IsDbGenerated = true, DbType = "ROWVERSION NOT NULL", CanBeNull = false, AutoSync = AutoSync.OnInsert, IsVersion = true)]
+            public Binary DbTimeStamp
+            {
+                get
+                {
+                    return _dbTimeStamp;
+                }
+                set
+                {
+                    if (value != _dbTimeStamp)
+                    {
+                        _dbTimeStamp = value;
+                        NotifyPropertyChanged("DbTimeStamp");
                     }
                 }
             }

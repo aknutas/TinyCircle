@@ -54,15 +54,18 @@ namespace GEETHREE
         public DataMaster(DataClasses.AppSettings settings)
         {
             dblock = new Object();
-            db = new G3DataContext("Data Source='isostore:/G3DB.sdf'");
 
             // Create the database if it does not yet exist.
-
-            if (db.DatabaseExists() == false)
+            openDb();
+            lock (dblock)
             {
-                // Create the database.
-                db.CreateDatabase();
+                if (db.DatabaseExists() == false)
+                {
+                    // Create the database.
+                    db.CreateDatabase();
+                }
             }
+            closeDb();
 
             fm = new FileMaster();
             this.settings = settings;
@@ -72,37 +75,63 @@ namespace GEETHREE
         //Closing and disposing of the database resource
         public void closeDb()
         {
-            lock (dblock)
-            {
-                db.SubmitChanges();
                 db.Dispose();
                 db = null;
+        }
+
+        //Closing and disposing of the database resource
+        public void closeDbOnExit()
+        {
+            if (db != null)
+            {
+                lock (dblock)
+                {
+                    db.Dispose();
+                    db = null;
+                }
             }
+        }
+
+        public void openDb()
+        {
+            db = new G3DataContext("Data Source='isostore:/G3DB.sdf'");
+            db.DeferredLoadingEnabled = false;
         }
 
         public List<Tags> getAllTags()
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Tags tag in db.Tags select tag;
                     List<Tags> returnList = new List<Tags>(qres);
+                    closeDb();
                     return returnList;
             }
+
         }
 
         public void storeNewTag(Tags tag)
         {
             lock (dblock)
             {
+                    openDb();
                     db.Tags.InsertOnSubmit(tag);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
         public void deleteTag(Tags tag)
         {
-                    db.Tags.DeleteOnSubmit(tag);
-                    db.SubmitChanges();
+            lock (dblock)
+            {
+                openDb();
+                db.Tags.Attach(tag, true);
+                db.Tags.DeleteOnSubmit(tag);
+                db.SubmitChanges();
+                closeDb();
+            }
         }
 
        
@@ -111,31 +140,46 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                openDb();
                 db.TagMessages.InsertOnSubmit(tagMessage);
                 db.SubmitChanges();
+                closeDb();
             }
         }
 
         public void deleteTagMessage(TagMessage tagMessage)
         {
-            db.TagMessages.DeleteOnSubmit(tagMessage);
-            db.SubmitChanges();
+            lock (dblock)
+            {
+                openDb();
+                db.TagMessages.Attach(tagMessage, true);
+                db.TagMessages.DeleteOnSubmit(tagMessage);
+                db.SubmitChanges();
+                closeDb();
+            }
         }
 
         public void deleteTagMessagebyTagName(Tags tag)
         {
-            var qres = from TagMessage tagMessage in db.TagMessages where tagMessage.TagName == tag.TagName select tagMessage;
-            List<TagMessage> returnList = new List<TagMessage>(qres);
-            db.TagMessages.DeleteAllOnSubmit(returnList);
-            db.SubmitChanges();
+            lock (dblock)
+            {
+                openDb();
+                var qres = from TagMessage tagMessage in db.TagMessages where tagMessage.TagName == tag.TagName select tagMessage;
+                List<TagMessage> returnList = new List<TagMessage>(qres);
+                db.TagMessages.DeleteAllOnSubmit(returnList);
+                db.SubmitChanges();
+                closeDb();
+            }
         }
 
         public List<User> getAllUsers()
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from User user in db.Users select user;
                     List<User> returnList = new List<User>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -144,8 +188,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     db.Users.InsertOnSubmit(user);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -153,8 +199,11 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
+                    db.Users.Attach(user, true);
                     db.Users.DeleteOnSubmit(user);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -162,6 +211,7 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                openDb();
                 var selectTagMessages = from TagMessage tagMessage in db.TagMessages where tagMessage.TagName == tag.TagName select tagMessage.MessageID;
 
                 var qres = from Message message in db.Messages where selectTagMessages.Contains(message.msgDbId) select message;
@@ -173,7 +223,7 @@ namespace GEETHREE
                 //    Message aMessage = qres1.First();
                 //    returnList.Add(aMessage);
                 //}
-                
+                closeDb();
                 return returnList;
             }
         }
@@ -182,8 +232,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -194,8 +246,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                openDb();
                 var qres = from Message message in db.Messages where message.msgDbId == msgID select message;
                 Message aMessage = qres.First();
+                closeDb();
                 return aMessage;
             }
         }
@@ -204,8 +258,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from GroupInfoResponse grpinforesponses in db.GroupInfoResponses select grpinforesponses;
                     List<GroupInfoResponse> returnresponseList = new List<GroupInfoResponse>(qres);
+                    closeDb();
                     return returnresponseList;
             }
         }
@@ -215,8 +271,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     db.GroupInfoResponses.InsertOnSubmit(groupInfoResponse);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -224,8 +282,11 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
+                    db.GroupInfoResponses.Attach(groupInfoResponse, true);
                     db.GroupInfoResponses.DeleteOnSubmit(groupInfoResponse);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -233,8 +294,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from UserInfoResponse usrinforesponses in db.UserInfoResponses select usrinforesponses;
                     List<UserInfoResponse> returnresponseList = new List<UserInfoResponse>(qres);
+                    closeDb();
                     return returnresponseList;
             }
         }
@@ -244,8 +307,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     db.UserInfoResponses.InsertOnSubmit(userInfoResponse);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -253,8 +318,11 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
+                    db.UserInfoResponses.Attach(userInfoResponse, true);
                     db.UserInfoResponses.DeleteOnSubmit(userInfoResponse);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -263,8 +331,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Group grps in db.Groups select grps;
                     List<Group> returnList = new List<Group>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -273,8 +343,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     db.Groups.InsertOnSubmit(group);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -282,8 +354,11 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
+                    db.Groups.Attach(group, true);
                     db.Groups.DeleteOnSubmit(group);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -291,12 +366,19 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Group grp in db.Groups where grp.GroupID == grpID select grp;
                     List<Group> returnList = new List<Group>(qres);
                     if (returnList.Count() <= 0)
+                    {
+                        closeDb();
                         return false;
+                    }
                     else
+                    {
+                        closeDb();
                         return true;
+                    }
             }
         }
 
@@ -304,11 +386,18 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                openDb();
                     var qres = (from GroupInfoResponse grp in db.GroupInfoResponses where grp.GroupID == grpID select grp).Count();
                     if (qres <= 0)
+                    {
+                        closeDb();
                         return false;
+                    }
                     else
+                    {
+                        closeDb();
                         return true;
+                    }
             }
         }
 
@@ -316,11 +405,19 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = (from UserInfoResponse usr in db.UserInfoResponses where usr.UserID == usrID select usr).Count();
                     if (qres <= 0)
+                    {
+                        closeDb();
                         return false;
+                    }
                     else
+                    {
+                        closeDb();
                         return true;
+                    }
+                        
             }
         }
 
@@ -329,11 +426,18 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = (from User user in db.Users where user.UserID == usrID select user).Count();
                     if (qres <= 0)
+                    {
+                        openDb();
                         return false;
+                    }
                     else
+                    {
+                        closeDb();
                         return true;
+                    }
             }
         }
 
@@ -342,8 +446,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages where message.ReceiverID != settings.UserIDSetting select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -352,8 +458,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages where message.outgoing == true select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -362,8 +470,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages where message.SenderID == settings.UserIDSetting select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -372,8 +482,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages where (message.SenderID == settings.UserIDSetting && message.PrivateMessage != true) select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -382,8 +494,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages where (message.SenderID == settings.UserIDSetting && message.PrivateMessage == true) select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -392,8 +506,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages where (message.ReceiverID == settings.UserIDSetting && message.PrivateMessage == true) select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -402,7 +518,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                openDb();
                 List<Message> returnList = new List<Message>(draftMessages);
+                closeDb();
                 return returnList;
             }
         }
@@ -411,7 +529,9 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                openDb();
                 draftMessages.Add(message);
+                closeDb();
                 return;
             }
         }
@@ -438,8 +558,10 @@ namespace GEETHREE
 
             lock (dblock)
             {
+                    openDb();
                     db.Messages.InsertOnSubmit(message);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -449,8 +571,10 @@ namespace GEETHREE
 
             lock (dblock)
             {
+                    openDb();
                     db.Messages.InsertAllOnSubmit(messages);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -458,8 +582,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     db.Images.InsertOnSubmit(image);
                     db.SubmitChanges();
+                    closeDb();
             }
             image.saveBitmapFromStream();
         }
@@ -468,8 +594,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from DataClasses.Image imgs in db.Images select imgs;
                     List<DataClasses.Image> returnList = new List<DataClasses.Image>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -481,8 +609,11 @@ namespace GEETHREE
 
             lock (dblock)
             {
+                    openDb();
+                    db.Messages.Attach(message, true);
                     db.Messages.DeleteOnSubmit(message);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -493,10 +624,12 @@ namespace GEETHREE
 
             lock (dblock)
             {
-                    var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
-                    Message oldmessage = qres.Single();
-                    db.Messages.Attach(message, oldmessage);
+                    openDb();
+                    //var qres = from DataClasses.Message msgs in db.Messages where message.msgDbId == msgs.msgDbId select msgs;
+                    //Message oldmessage = qres.Single();
+                    db.Messages.Attach(message, true);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -507,8 +640,10 @@ namespace GEETHREE
             
             lock (dblock)
             {
+                    openDb();
                     db.Messages.AttachAll(message, true);
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -516,8 +651,10 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Message message in db.Messages where message.PrivateMessage != true select message;
                     List<Message> returnList = new List<Message>(qres);
+                    closeDb();
                     return returnList;
             }
         }
@@ -526,7 +663,7 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                    db.SubmitChanges();
+                    //db.SubmitChanges();
             }
         }
 
@@ -534,6 +671,7 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                    openDb();
                     var qres = from Group grps in db.Groups select grps;
                     foreach (var grp in qres)
                     {
@@ -565,6 +703,7 @@ namespace GEETHREE
                     }
 
                     db.SubmitChanges();
+                    closeDb();
             }
         }
 
@@ -572,6 +711,7 @@ namespace GEETHREE
         {
             lock (dblock)
             {
+                openDb();
                     try
                     {
 
@@ -592,14 +732,22 @@ namespace GEETHREE
                     {
                         System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
                     }
+                closeDb();
             }
         }
 
-        public void storeObjects()
+        public void storeObjects(Object o)
         {
-            lock (dblock)
+            if (o is Message){
+                updateMessage((Message) o);
+            }
+            else if (o is List<Message>)
             {
-                db.SubmitChanges();
+                updateMessage((List<Message>)o);
+            }
+            else
+            {
+                throw new NotImplementedException("Updating not implemented: " + o.GetType().ToString());
             }
         }
 
