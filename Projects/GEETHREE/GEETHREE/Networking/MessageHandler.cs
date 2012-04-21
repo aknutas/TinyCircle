@@ -158,7 +158,7 @@ namespace GEETHREE
                 {
                     
                     TagMessage tagMessage = new TagMessage();
-                    tagMessage.tagMessageDbId = msgDbID;
+                    tagMessage.MessageID = msgDbID;
                     tagMessage.TagName = tagfromMessage;
 
                     dm.storeNewTagMessage(tagMessage);
