@@ -62,11 +62,6 @@
 
     </Grid>
 
-
-
-
-
-
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">

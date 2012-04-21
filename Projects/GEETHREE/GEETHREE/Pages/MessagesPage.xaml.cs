@@ -80,6 +80,7 @@ namespace GEETHREE.Pages
                 }
                 if (selectedMessage.TimeStamp.ToString() != null)
                     messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
+                
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
@@ -169,6 +170,8 @@ namespace GEETHREE.Pages
                 ApplicationBar.IsVisible = false;
             }
         }
+
+
         private void DraftMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)DraftMessages.SelectedItem;
@@ -360,6 +363,55 @@ namespace GEETHREE.Pages
 
 
 
+        }
+
+        private void SentMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            selectedMessage = (Message)SentMessages.SelectedItem;
+
+            if (selectedMessage != null)
+            {
+
+                if (selectedMessage.TimeStamp.ToString() != null)
+                    messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
+
+                receivedimage.Visibility = Visibility.Collapsed;
+                messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
+                messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                byte[] attachmentContent = null;
+                if (selectedMessage.Attachmentflag == "1")
+                {
+
+                    attachmentContent = Convert.FromBase64String(selectedMessage.Attachment);
+                    BitmapImage bitImage = new BitmapImage();
+                    MemoryStream ms = new MemoryStream(attachmentContent, 0, attachmentContent.Length);
+                    ms.Write(attachmentContent, 0, attachmentContent.Length);
+                    bitImage.SetSource(ms);
+                    receivedimage.Source = bitImage;
+                    receivedimage.Visibility = Visibility.Visible;
+                }
+
+                replyID = selectedMessage.SenderID;
+                replyAlias = selectedMessage.SenderAlias;
+
+                if (selectedMessage.GroupMessage == true)
+                    groupmessageFlag = "1";
+                else
+                    groupmessageFlag = "0";
+
+                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+                messageCanvas.Background = backgroundbrush;
+                messageCanvas.Visibility = System.Windows.Visibility.Visible;
+                if (replyID == Controller.Instance.getCurrentUserID())
+                {
+                    buttonReply.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    buttonReply.Visibility = Visibility.Visible;
+                }
+                ApplicationBar.IsVisible = false;
+            }
         }
     }
 }
