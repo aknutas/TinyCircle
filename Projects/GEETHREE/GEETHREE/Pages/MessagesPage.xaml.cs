@@ -74,21 +74,14 @@ namespace GEETHREE.Pages
                 {
                     selectedMessage.IsRead = true;
                     selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
-                    //selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
                     // ** ftw ?!?!?!
                     ctrl.dm.storeObjects();
 
                 }
                 if (selectedMessage.TimeStamp.ToString() != null)
                     messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
-                //messageCanvasDateTime.Text += selectedMessage.IsRead.ToString();
-
-                //ctrl.dm.updateMessage(selectedMessage);
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
-                
-                //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
-
                 messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
                 byte[] attachmentContent = null;
                 if (selectedMessage.Attachmentflag == "1")
@@ -129,9 +122,6 @@ namespace GEETHREE.Pages
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedMessage = (Message)ReceivedPrivateMessages.SelectedItem;
-            //ctrl.dm.deleteMessage(selectedMessage);
-            //(ReceivedPrivateMessages.SelectedItem as Message).IsRead = true;
-            
 
             if (selectedMessage != null)
             {
@@ -139,11 +129,7 @@ namespace GEETHREE.Pages
                 if (selectedMessage.IsRead == false)
                 {
                     selectedMessage.IsRead = true;
-
-
-
                     selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
-
 
                     // ** ftw ?!?!?!
                     ctrl.dm.storeObjects();
@@ -151,17 +137,14 @@ namespace GEETHREE.Pages
 
                 if (selectedMessage.TimeStamp.ToString() != null)
                     messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
-                //messageCanvasDateTime.Text += selectedMessage.IsRead.ToString();
-
-                //ctrl.dm.updateMessage(selectedMessage);
-
+                
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
                 if (messageCanvasSenderTextBlock.Text == "")
                 {
                     messageCanvasSenderTextBlock.Text = "Anonymous";
                 }
-                //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
+
                 byte[] attachmentContent = null;
                 if (selectedMessage.Attachmentflag == "1")
                 {
