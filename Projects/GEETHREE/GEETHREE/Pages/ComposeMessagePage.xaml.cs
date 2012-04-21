@@ -101,6 +101,9 @@ namespace GEETHREE.Pages
                         msg.TextContent = txt_compose_message.Text;
                         msg.SenderID = Controller.Instance.getCurrentUserID();
                         msg.SenderAlias = Controller.Instance.getCurrentAlias();
+
+                        msg.IsRead = true;
+                        msg.MessageTextColor = new SolidColorBrush(Colors.Gray);
                         //msg.ReceiverID = replyID;
                         //msg.PrivateMessage = true;
                         //msg.outgoing = true;
@@ -225,6 +228,15 @@ namespace GEETHREE.Pages
                 msg.SenderID=Controller.Instance.getCurrentUserID();
                 msg.SenderAlias = Controller.Instance.getCurrentAlias();
                 msg.GroupMessage = false;
+
+                var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+
+                if (v == Visibility.Visible == true) // light theme
+                {
+                    msg.MessageTypeImageURL = "/Resources/appbar.upload.rest_black.png";
+                }
+                else
+                    msg.MessageTypeImageURL = "/Resources/appbar.upload.rest.png";
                 
                 if (composeReceipientTextBox.Text == "" || composeReceipientTextBox.Text == "Shout")
                 {
@@ -261,7 +273,10 @@ namespace GEETHREE.Pages
                 msg.Attachmentflag = attachmentFlag;
                 msg.Attachmentfilename = attachmentFileName;   
                 msg.Attachment = attachmentContentstring;
-                
+
+                msg.IsRead = true;
+                msg.MessageTextColor = new SolidColorBrush(Colors.Gray);
+                //ctrl.dm.storeObjects();
                 
                 //App.ViewModel.SentMessages.Add(msg);
                 Controller.Instance.mh.SendMessage(msg);
@@ -296,10 +311,7 @@ namespace GEETHREE.Pages
 
                         ctrl.dm.storeNewTagMessage(tagMessage);
                     }
-                    
-
-                    
-
+                   
                 }
                 
                 

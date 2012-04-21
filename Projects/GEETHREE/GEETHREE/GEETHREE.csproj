@@ -172,6 +172,9 @@
     </Resource>
     <Resource Include="g3aicon3_173x173.png" />
     <Resource Include="Resources\tags.png" />
+    <Content Include="Resources\appbar.download.rest_black.png" />
+    <Content Include="Resources\appbar.upload.rest_black.png" />
+    <Content Include="Resources\appbar.upload.rest.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Resources\available.png" />
     <Resource Include="Resources\notAvailable.png" />
@@ -238,7 +241,7 @@
     </Content>
     <Content Include="Resources\appbar.feature.camera.rest.png" />
     <Resource Include="Resources\appbar.delete.rest.png" />
-    <Resource Include="Resources\appbar.download.rest.png" />
+    <Content Include="Resources\appbar.download.rest.png" />
     <Content Include="Resources\appbar.edit.rest.png" />
     <Content Include="Resources\appbar.feature.email.rest.png" />
     <Resource Include="Resources\add.png" />
