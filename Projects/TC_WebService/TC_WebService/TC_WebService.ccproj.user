@@ -6,5 +6,6 @@
     <PackageProfile>Cloud</PackageProfile>
     <PackageSolutionConfiguration>Release</PackageSolutionConfiguration>
     <PackageEnableRemoteDesktop>False</PackageEnableRemoteDesktop>
+    <RemoteDesktopMoreOptions>True</RemoteDesktopMoreOptions>
   </PropertyGroup>
 </Project>

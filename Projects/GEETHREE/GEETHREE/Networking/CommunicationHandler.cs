@@ -587,7 +587,7 @@ namespace GEETHREE
             if (wsConnection == null)
                 wsConnection = new WebServiceConnector();
             if(wsConnection.connectionUp)
-                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this);
+                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this, msg.TimeStamp.Value);
         }
 
         public void GetMessagesFromServer(string uid)
