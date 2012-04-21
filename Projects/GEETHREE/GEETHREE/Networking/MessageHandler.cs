@@ -80,7 +80,7 @@ namespace GEETHREE
 
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
-                System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
+                System.Diagnostics.Debug.WriteLine(" Woohoo, I got a message");
                 msg.outgoing = false;
                 dm.storeNewMessage(msg);
                 App.ViewModel.ReceivedPrivateMessages.Insert(0, msg);
@@ -119,6 +119,7 @@ namespace GEETHREE
 
 
             dm.storeNewMessage(msg);
+
             int msgDbID = msg.msgDbId;
             bool tagsFlag = false;
 
@@ -132,25 +133,12 @@ namespace GEETHREE
                 //store new tags if any
                 foreach (string tagfromMessage in Controller.Instance.GetTagsList(e.TextContent))
                 {
-                    bool mytag = false;
-                    foreach (Tags t in dm.getAllTags())
-                    {
-                        if (t.TagName == tagfromMessage)
-                            mytag = true;
-                    }
-                    if (mytag == false)
-                    {
-                        Tags tag = new Tags();
-                        tag.TagName = tagfromMessage;
+                    
+                    TagMessage tagMessage = new TagMessage();
+                    tagMessage.tagMessageDbId = msgDbID;
+                    tagMessage.TagName = tagfromMessage;
 
-
-                        dm.storeNewTag(tag);
-                        TagMessage tagMessage = new TagMessage();
-                        tagMessage.tagMessageDbId = msgDbID;
-                        tagMessage.TagName = tagfromMessage;
-
-                        dm.storeNewTagMessage(tagMessage);
-                    }
+                    dm.storeNewTagMessage(tagMessage);
                 }
             }
             App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
