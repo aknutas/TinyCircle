@@ -216,13 +216,11 @@ namespace GEETHREE.Pages
             else
             {
                 bool tagsFlag = false;
-                
 
                 if (ctrl.GetTagsList(txt_compose_message.Text).Count > 0)
                 {
                     tagsFlag = true;
                 }
-
                 Message msg =new Message();
                 msg.TextContent=txt_compose_message.Text;
                 msg.SenderID=Controller.Instance.getCurrentUserID();
