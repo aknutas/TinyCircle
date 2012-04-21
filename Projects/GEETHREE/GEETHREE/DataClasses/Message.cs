@@ -90,6 +90,9 @@ namespace GEETHREE.DataClasses
             }
         }
 
+
+
+
         private DateTime? _timeStamp;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
@@ -112,6 +115,30 @@ namespace GEETHREE.DataClasses
             }
         }
 
+
+        /*
+        private string _messageTextColor;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        [Column]
+        public SolidColorBrush MessageTextColor
+        {
+            get
+            {
+                return new SolidColorBrush(new Color());
+            }
+            set
+            {
+                //if (value != _messageTextColor)
+                //{
+                //    _messageTextColor = value;
+                //    NotifyPropertyChanged("MessageTextColor");
+                //}
+            }
+        }
+        */
         private string _textContent;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
