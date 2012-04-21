@@ -34,7 +34,7 @@
                         <DataTemplate>
                             <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
-                                <TextBlock TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
+                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -59,7 +59,7 @@
                         <DataTemplate>
                             <Canvas Height="110" Width="400"  Margin="0,0,0,0">
                                 <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
-                                <TextBlock TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
+                                <TextBlock Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="380">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -135,9 +135,9 @@
             <!--<TextBlock  Canvas.Left="266" Canvas.Top="486" Height="113" Name="btn_reply" Text="Reply" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="btn_reply_Tap" Width="171" TextAlignment="Center" />-->
             <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" Tap="receivedimage_Tap" />
             
-                <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="426" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap" FontWeight="ExtraBold" HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" />
+                <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="402" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" FontSize="26" />
             <Button Tap="btn_reply_Tap" Canvas.Left="153" Canvas.Top="644" Content="Reply" Height="120" Name="buttonReply" Width="175" BorderThickness="3" />
-            <TextBlock Canvas.Left="35" Canvas.Top="151" Height="30" Name="messageCanvasDateTime" Text="" Width="242" />
+            <TextBlock Canvas.Left="19" Canvas.Top="151" Height="30" Name="messageCanvasDateTime" Text="" Width="309" />
         </Canvas>
 
         <Canvas RenderTransformOrigin="0,0" Name="imagePreviewCanvas" Visibility="Collapsed" Height="Auto" Width="Auto" Background="Black">

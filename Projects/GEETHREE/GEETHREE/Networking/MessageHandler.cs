@@ -77,7 +77,7 @@ namespace GEETHREE
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.IsRead = false;
-
+            
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");

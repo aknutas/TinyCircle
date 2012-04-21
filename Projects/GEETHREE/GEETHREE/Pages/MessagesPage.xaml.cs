@@ -73,6 +73,7 @@ namespace GEETHREE.Pages
                 if (selectedMessage.IsRead == false)
                 {
                     selectedMessage.IsRead = true;
+                    //selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
                     // ** ftw ?!?!?!
                     ctrl.dm.storeObjects();
 
@@ -137,6 +138,10 @@ namespace GEETHREE.Pages
                 if (selectedMessage.IsRead == false)
                 {
                     selectedMessage.IsRead = true;
+
+                    //selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
+
+                    //Color c = new Color();
 
                     // ** ftw ?!?!?!
                     ctrl.dm.storeObjects();
