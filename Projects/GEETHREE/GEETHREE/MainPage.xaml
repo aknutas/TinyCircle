@@ -75,7 +75,9 @@
                                     <!--Replace rectangle with image-->
 
                                 <Image Height="50" Margin="5,15,0,0" Name="img_shout" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
-                                     <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
+                                <Image Height="50" Margin="300,15,0,0" Name="img_source" Source="/GEETHREE;component/Resources/appbar.download.rest.png" Stretch="Fill" Width="50" />
+
+                                <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                      <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
                                 <TextBlock Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
                                 <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>

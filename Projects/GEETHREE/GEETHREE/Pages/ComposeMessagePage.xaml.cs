@@ -203,6 +203,8 @@ namespace GEETHREE.Pages
         //  send this message
         private void ApplicationBarIconButton_Click_2(object sender, EventArgs e)
         {
+            //img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+
             // ** ... communicate with networker to create a packet and send it ...
             if (txt_compose_message.Text == "" || txt_compose_message.Text == "Type your message here...")
             {

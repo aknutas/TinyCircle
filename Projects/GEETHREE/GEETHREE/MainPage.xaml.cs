@@ -25,9 +25,7 @@ namespace GEETHREE
     {
         Controller ctrl;
         bool createUID = false;
-        //bool serverMessageReceived = false;
-        
-       
+
         // Constructor
         public MainPage()
         {
@@ -36,7 +34,7 @@ namespace GEETHREE
             ctrl = Controller.Instance;
             ctrl.registerAvatarUpdates(this);
             ctrl.registerCurrentPage(this, "main");
-            
+         
 
             refreshAvatar();
 
