@@ -115,30 +115,119 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        private SolidColorBrush _messageTextColor;
+        
+        public SolidColorBrush MessageTextColor
+        {
+            get
+            {
+                if (ColorA == null || ColorR == null || ColorG == null || ColorB == null)
+                    return null;
+                else
+                    return new SolidColorBrush(Color.FromArgb(ColorA.Value, ColorR.Value, ColorG.Value, ColorB.Value));
+            }
+            set
+            {
+                if (value != _messageTextColor)
+                {
+                    _messageTextColor = value;
+                    ColorA = value.Color.A;
+                    ColorR = value.Color.R;
+                    ColorG = value.Color.G;
+                    ColorB = value.Color.B;
+                    NotifyPropertyChanged("MessageTextColor");
+                }
+            }
+        }
 
-        /*
-        private string _messageTextColor;
+        private byte? _colorR;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
         /// </summary>
         /// <returns></returns>
         [Column]
-        public SolidColorBrush MessageTextColor
+        public byte? ColorR
         {
             get
             {
-                return new SolidColorBrush(new Color());
+                return _colorR;
             }
             set
             {
-                //if (value != _messageTextColor)
-                //{
-                //    _messageTextColor = value;
-                //    NotifyPropertyChanged("MessageTextColor");
-                //}
+                if (value != _colorR)
+                {
+                    _colorR = value;
+                    NotifyPropertyChanged("ColorR");
+                }
             }
         }
-        */
+
+        private byte? _colorG;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        [Column]
+        public byte? ColorG
+        {
+            get
+            {
+                return _colorG;
+            }
+            set
+            {
+                if (value != _colorG)
+                {
+                    _colorG = value;
+                    NotifyPropertyChanged("ColorG");
+                }
+            }
+        }
+
+        private byte? _colorB;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        [Column]
+        public byte? ColorB
+        {
+            get
+            {
+                return _colorB;
+            }
+            set
+            {
+                if (value != _colorB)
+                {
+                    _colorB = value;
+                    NotifyPropertyChanged("ColorB");
+                }
+            }
+        }
+
+        private byte? _colorA;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        [Column]
+        public byte? ColorA
+        {
+            get
+            {
+                return _colorA;
+            }
+            set
+            {
+                if (value != _colorA)
+                {
+                    _colorA = value;
+                    NotifyPropertyChanged("ColorA");
+                }
+            }
+        }
+        
         private string _textContent;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
