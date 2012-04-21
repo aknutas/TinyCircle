@@ -15,7 +15,7 @@ namespace TC_WS
     {
         public const string appkey = "abfaxor";
 
-        public Boolean postMessage(string receiverId, string senderId, string messageText, string appKey)
+        public Boolean postMessage(string receiverId, string senderId, string messageText, string appKey, DateTime timeStamp)
         {
             if (receiverId == null || messageText == null || senderId == null)
                 throw new ArgumentNullException();
@@ -30,28 +30,45 @@ namespace TC_WS
                 msgobj.UserID = receiverId;
                 msgobj.Payload = messageText;
                 msgobj.SenderID = senderId;
+                msgobj.TimeStamp = timeStamp;
                 db.Messages.InsertOnSubmit(msgobj);
                 db.SubmitChanges();
 
-                try
-                {
-                    var qres = from MsgToast toast in db.MsgToasts where toast.UserID == receiverId select toast;
-                    if (qres.Count() > 0)
+                var qres = from MsgToast toast in db.MsgToasts where toast.UserID == receiverId select toast;
+                System.Diagnostics.Debug.WriteLine("Sending toast notifications to " + qres.Count() + " users.");
+
+                foreach (MsgToast msgtoast in qres) {
+                    try
                     {
-                        MsgToast msgtoast = qres.Last();
-                        HttpWebRequest sendNotificationRequest = (HttpWebRequest)WebRequest.Create(msgtoast.ToastAddress);
+                        // Get the Uri that the Microsoft Push Notification Service returns to the Push Client when creating a notification channel.
+                        // Normally, a web service would listen for Uri's coming from the web client and maintain a list of Uri's to send
+                        // notifications out to.
+                        string subscriptionUri = msgtoast.ToastAddress;
+
+                        HttpWebRequest sendNotificationRequest = (HttpWebRequest)WebRequest.Create(subscriptionUri);
+
+                        // We will create a HTTPWebRequest that posts the toast notification to the Microsoft Push Notification Service.
+                        // HTTP POST is the only allowed method to send the notification.
                         sendNotificationRequest.Method = "POST";
+
+                        // The optional custom header X-MessageID uniquely identifies a notification message. 
+                        // If it is present, the // same value is returned in the notification response. It must be a string that contains a UUID.
+                        // sendNotificationRequest.Headers.Add("X-MessageID", "<UUID>");
+
+                        // Create the toast message.
                         string toastMessage = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                            "<wp:Notification xmlns:wp=\"WPNotification\">" +
-                            "<wp:Toast>" +
-                            "<wp:Text1>" + "TinyCircle" + "</wp:Text1>" +
-                            "<wp:Text2>" + "You have a new message" + "</wp:Text2>" +
-                            "<wp:Param>/Page2.xaml?NavigatedFrom=Toast Notification</wp:Param>" +
-                            "</wp:Toast> " +
-                            "</wp:Notification>";
+                        "<wp:Notification xmlns:wp=\"WPNotification\">" +
+                           "<wp:Toast>" +
+                                "<wp:Text1>" + "TinyCircle" + "</wp:Text1>" +
+                                "<wp:Text2>" + "You have a new message!" + "</wp:Text2>" +
+                                "<wp:Param>/MainPage.xaml?NavigatedFrom=Toast Notification</wp:Param>" +
+                           "</wp:Toast> " +
+                        "</wp:Notification>";
+
+                        // Sets the notification payload to send.
                         byte[] notificationMessage = Encoding.Default.GetBytes(toastMessage);
 
-                        // Set the web request content length.
+                        // Sets the web request content length.
                         sendNotificationRequest.ContentLength = notificationMessage.Length;
                         sendNotificationRequest.ContentType = "text/xml";
                         sendNotificationRequest.Headers.Add("X-WindowsPhone-Target", "toast");
@@ -68,12 +85,21 @@ namespace TC_WS
                         string notificationStatus = response.Headers["X-NotificationStatus"];
                         string notificationChannelStatus = response.Headers["X-SubscriptionStatus"];
                         string deviceConnectionStatus = response.Headers["X-DeviceConnectionStatus"];
+
+                        System.Diagnostics.Debug.WriteLine("Sent toast notification to " + msgtoast.UserID + " at " + msgtoast.ToastAddress);
+
+                        // Display the response from the Microsoft Push Notification Service.  
+                        // Normally, error handling code would be here.  In the real world, because data connections are not always available,
+                        // notifications may need to be throttled back if the device cannot be reached.
+                        //TextBoxResponse.Text = notificationStatus + " | " + deviceConnectionStatus + " | " + notificationChannelStatus;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Exception caught sending update: " + ex.ToString());
+                        //TextBoxResponse.Text = "Exception caught sending update: " + ex.ToString();
                     }
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine("Exception caught sending update: " + ex.ToString());
-                }
+                
 
                 return true;
             }
@@ -95,20 +121,24 @@ namespace TC_WS
             {
                 DataClassesDataContext db = new DataClassesDataContext();
 
+                //Cleanup for old addresses
                 var qres = from MsgToast toast in db.MsgToasts where toast.UserID == userId select toast;
                 db.MsgToasts.DeleteAllOnSubmit(qres);
+                db.SubmitChanges();
 
+                //Add new address
                 MsgToast toastadd = new MsgToast();
                 toastadd.UserID = userId;
                 toastadd.ToastAddress = toastAddress;
                 db.MsgToasts.InsertOnSubmit(toastadd);
                 db.SubmitChanges();
-                return;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return;
+                System.Diagnostics.Debug.WriteLine("Got exception " + ex.ToString());
             }
+
+            return;
         }
 
         public List<WireMessage> getMyMessages(string receiverId, string appKey)
@@ -131,6 +161,10 @@ namespace TC_WS
                 wmsg.recipientUserId = dbMsg.UserID;
                 wmsg.msgText = dbMsg.Payload;
                 wmsg.senderUserId = dbMsg.SenderID;
+                if (dbMsg.TimeStamp.HasValue)
+                    wmsg.timeStamp = dbMsg.TimeStamp.Value;
+                else
+                    wmsg.timeStamp = DateTime.Now;
                 sendMsg.Add(wmsg);
             }
 
@@ -144,6 +178,7 @@ namespace TC_WS
                 wmsg.recipientUserId = receiverId;
                 wmsg.msgText = "Welcome to the TinyCircle messaging service!";
                 wmsg.senderUserId = "XXXADMINXXX";
+                wmsg.timeStamp = DateTime.Now;
                 sendMsg.Add(wmsg);
 
                 User user = new User();

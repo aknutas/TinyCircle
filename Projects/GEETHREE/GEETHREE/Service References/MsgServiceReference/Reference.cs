@@ -26,6 +26,8 @@ namespace GEETHREE.MsgServiceReference {
         
         private string senderUserIdField;
         
+        private System.DateTime timeStampField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string msgText {
             get {
@@ -65,6 +67,19 @@ namespace GEETHREE.MsgServiceReference {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime timeStamp {
+            get {
+                return this.timeStampField;
+            }
+            set {
+                if ((this.timeStampField.Equals(value) != true)) {
+                    this.timeStampField = value;
+                    this.RaisePropertyChanged("timeStamp");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -80,7 +95,7 @@ namespace GEETHREE.MsgServiceReference {
     public interface IMsgService {
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMsgService/postMessage", ReplyAction="http://tempuri.org/IMsgService/postMessageResponse")]
-        System.IAsyncResult BeginpostMessage(string receiverId, string senderId, string message, string appKey, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginpostMessage(string receiverId, string senderId, string message, string appKey, System.DateTime timeStamp, System.AsyncCallback callback, object asyncState);
         
         bool EndpostMessage(System.IAsyncResult result);
         
@@ -255,8 +270,8 @@ namespace GEETHREE.MsgServiceReference {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult GEETHREE.MsgServiceReference.IMsgService.BeginpostMessage(string receiverId, string senderId, string message, string appKey, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginpostMessage(receiverId, senderId, message, appKey, callback, asyncState);
+        System.IAsyncResult GEETHREE.MsgServiceReference.IMsgService.BeginpostMessage(string receiverId, string senderId, string message, string appKey, System.DateTime timeStamp, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginpostMessage(receiverId, senderId, message, appKey, timeStamp, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -269,7 +284,8 @@ namespace GEETHREE.MsgServiceReference {
             string senderId = ((string)(inValues[1]));
             string message = ((string)(inValues[2]));
             string appKey = ((string)(inValues[3]));
-            return ((GEETHREE.MsgServiceReference.IMsgService)(this)).BeginpostMessage(receiverId, senderId, message, appKey, callback, asyncState);
+            System.DateTime timeStamp = ((System.DateTime)(inValues[4]));
+            return ((GEETHREE.MsgServiceReference.IMsgService)(this)).BeginpostMessage(receiverId, senderId, message, appKey, timeStamp, callback, asyncState);
         }
         
         private object[] OnEndpostMessage(System.IAsyncResult result) {
@@ -285,11 +301,11 @@ namespace GEETHREE.MsgServiceReference {
             }
         }
         
-        public void postMessageAsync(string receiverId, string senderId, string message, string appKey) {
-            this.postMessageAsync(receiverId, senderId, message, appKey, null);
+        public void postMessageAsync(string receiverId, string senderId, string message, string appKey, System.DateTime timeStamp) {
+            this.postMessageAsync(receiverId, senderId, message, appKey, timeStamp, null);
         }
         
-        public void postMessageAsync(string receiverId, string senderId, string message, string appKey, object userState) {
+        public void postMessageAsync(string receiverId, string senderId, string message, string appKey, System.DateTime timeStamp, object userState) {
             if ((this.onBeginpostMessageDelegate == null)) {
                 this.onBeginpostMessageDelegate = new BeginOperationDelegate(this.OnBeginpostMessage);
             }
@@ -303,7 +319,8 @@ namespace GEETHREE.MsgServiceReference {
                         receiverId,
                         senderId,
                         message,
-                        appKey}, this.onEndpostMessageDelegate, this.onpostMessageCompletedDelegate, userState);
+                        appKey,
+                        timeStamp}, this.onEndpostMessageDelegate, this.onpostMessageCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -525,12 +542,13 @@ namespace GEETHREE.MsgServiceReference {
                     base(client) {
             }
             
-            public System.IAsyncResult BeginpostMessage(string receiverId, string senderId, string message, string appKey, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[4];
+            public System.IAsyncResult BeginpostMessage(string receiverId, string senderId, string message, string appKey, System.DateTime timeStamp, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[5];
                 _args[0] = receiverId;
                 _args[1] = senderId;
                 _args[2] = message;
                 _args[3] = appKey;
+                _args[4] = timeStamp;
                 System.IAsyncResult _result = base.BeginInvoke("postMessage", _args, callback, asyncState);
                 return _result;
             }

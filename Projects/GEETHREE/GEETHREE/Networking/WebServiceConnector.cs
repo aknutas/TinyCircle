@@ -36,9 +36,9 @@ namespace GEETHREE.Networking
             new WSRequest(wr, initMs()).handleGetMyMessages(userId);
         }
 
-        public void postMessage(string userId, string recipient, string messageText, WebServiceReceiver wr)
+        public void postMessage(string userId, string recipient, string messageText, WebServiceReceiver wr, DateTime timeStamp)
         {
-            new WSRequest(wr, initMs()).handlePostMessage(userId, recipient, messageText);
+            new WSRequest(wr, initMs()).handlePostMessage(userId, recipient, messageText, timeStamp);
         }
 
         public void testConnection(WebServiceReceiver wr)
@@ -83,12 +83,12 @@ namespace GEETHREE.Networking
                 }
             }
 
-            public void handlePostMessage(string userId, string recipient, string messageText)
+            public void handlePostMessage(string userId, string recipient, string messageText, DateTime timeStamp)
             {
                 msgService.postMessageCompleted += new EventHandler<postMessageCompletedEventArgs>(msgService_postMessageCompleted);
                 try
                 {
-                msgService.postMessageAsync(recipient, userId, messageText, appKey);
+                msgService.postMessageAsync(recipient, userId, messageText, appKey, timeStamp);
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +121,7 @@ namespace GEETHREE.Networking
                         Message msg = new Message();
                         msg.ReceiverID = wmsg.recipientUserId;
                         msg.SenderID = wmsg.senderUserId;
+                        msg.TimeStamp = wmsg.timeStamp;
                     
                         msg.TextContent = wmsg.msgText;
                         msg.PrivateMessage = true;

@@ -13,7 +13,7 @@ namespace TC_WS
     public interface IMsgService
     {
         [OperationContract]
-        Boolean postMessage(string receiverId, string senderId, string message, string appKey);
+        Boolean postMessage(string receiverId, string senderId, string message, string appKey, DateTime timeStamp);
 
         [OperationContract]
         List<WireMessage> getMyMessages(string receiverId, string appKey);
@@ -34,5 +34,7 @@ namespace TC_WS
         public string recipientUserId { get; set; }
         [DataMember]
         public string msgText { get; set; }
+        [DataMember]
+        public DateTime timeStamp { get; set; }
     }
 }

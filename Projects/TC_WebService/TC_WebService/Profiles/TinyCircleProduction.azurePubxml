@@ -5,16 +5,16 @@
     <AzureHostedServiceName>tinycirclews</AzureHostedServiceName>
     <AzureHostedServiceLabel>TinyCircle</AzureHostedServiceLabel>
     <AzureSlot>Production</AzureSlot>
-    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
+    <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
-    <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
+    <AzureEnableWebDeploy>True</AzureEnableWebDeploy>
     <AzureStorageAccountName>tcstore</AzureStorageAccountName>
     <AzureStorageAccountLabel>TCStore</AzureStorageAccountLabel>
     <AzureDeploymentLabel>TC_WebService</AzureDeploymentLabel>
-    <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
+    <AzureSolutionConfiguration>Debug</AzureSolutionConfiguration>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <AzureAllowUpgrade>True</AzureAllowUpgrade>
-    <AzureEnableRemoteDesktop>False</AzureEnableRemoteDesktop>
+    <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
   </PropertyGroup>
 </Project>
