@@ -39,5 +39,25 @@ namespace GEETHREE.DataClasses
             }
         }
 
+        //Database internal timestamp for change management
+        private Binary _dbTimeStamp;
+
+        [Column(IsDbGenerated = true, DbType = "ROWVERSION NOT NULL", CanBeNull = false, AutoSync = AutoSync.OnInsert, IsVersion = true)]
+        public Binary DbTimeStamp
+        {
+            get
+            {
+                return _dbTimeStamp;
+            }
+            set
+            {
+                if (value != _dbTimeStamp)
+                {
+                    _dbTimeStamp = value;
+                    NotifyPropertyChanged("DbTimeStamp");
+                }
+            }
+        }
+
     }
 }
