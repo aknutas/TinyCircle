@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using GEETHREE.DataClasses;
 using GEETHREE.Networking;
 using System.Windows.Media.Imaging;
+using System.Threading;
+
+
 
 
 namespace GEETHREE
@@ -85,17 +88,20 @@ namespace GEETHREE
 
 
             //Color accentColor = c.GetCurrentAccentColor();
-            msg.MessageTextColor = new SolidColorBrush(accentColor);
-            
-            var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
 
-            if (v == Visibility.Visible == true) // light theme
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
-            }
-            else
-                msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
-      
+                msg.MessageTextColor = new SolidColorBrush(accentColor);
+
+                var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+
+                if (v == Visibility.Visible == true) // light theme
+                {
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+                }
+                else
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
+            });
             
             // v== Visibility.Visible == "Dark"
   
@@ -105,8 +111,14 @@ namespace GEETHREE
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I got a message");
                 msg.outgoing = false;
                 dm.storeNewMessage(msg);
-                App.ViewModel.ReceivedPrivateMessages.Insert(0, msg);
-                Controller.Instance.notifyViewAboutMessage(true);
+                
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.ViewModel.ReceivedPrivateMessages.Insert(0, msg);
+                    Controller.Instance.notifyViewAboutMessage(true);
+                });
+
+                
             }
             else
             {
@@ -136,14 +148,17 @@ namespace GEETHREE
             //accentColor = c.GetCurrentAccentColor();
             msg.MessageTextColor = new SolidColorBrush(accentColor);
 
-            var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
-            if (currentPhoneTheme == Visibility.Visible == true) // light theme
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
-            }
-            else
-                msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
-
+                var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+                if (currentPhoneTheme == Visibility.Visible == true) // light theme
+                {
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+                }
+                else
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
+            });
+           
             msg.Attachment = e.Attachment;
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
@@ -173,10 +188,14 @@ namespace GEETHREE
                     dm.storeNewTagMessage(tagMessage);
                 }
             }
-            App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
+                Controller.Instance.notifyViewAboutMessage(false);
+            });
             
             this.TransitMessages.Add(msg);
-            Controller.Instance.notifyViewAboutMessage(false);
+            
         }
         public void GroupMessageReceived(object sender, MessageEventArgs e)
         {
@@ -248,8 +267,11 @@ namespace GEETHREE
                         }
                     }
                 }
-                App.ViewModel.ReceivedBroadcastMessages.Add(msg);
-                Controller.Instance.notifyViewAboutMessage(false);
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
+                    Controller.Instance.notifyViewAboutMessage(false);
+                });
             }
             this.TransitMessages.Add(msg);
             

@@ -25,8 +25,8 @@ namespace GEETHREE.Pages
     public partial class ComposeMessagePage : PhoneApplicationPage
     {
         Controller ctrl;
-        PhotoChooserTask photoChooserTask;
-        CameraCaptureTask cameraCaptureTask;
+        //PhotoChooserTask photoChooserTask;
+        //CameraCaptureTask cameraCaptureTask;
         string receiverID = "";
         string receiverAlias = "";
         string GroupID = "";
@@ -62,12 +62,10 @@ namespace GEETHREE.Pages
             
 
             // Photochoosertask : initializes the task object, and identifies the method to run after the user completes the task
-            photoChooserTask = new PhotoChooserTask();
-            photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
+
 
             //Cameracapturetask : initializes the task object, and identifies the method to run after the user completes the task.
-            cameraCaptureTask = new CameraCaptureTask();
-            cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
+
 
             
 
@@ -193,14 +191,33 @@ namespace GEETHREE.Pages
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
 
-            cameraCaptureTask.Show();
+            var cameraCaptureTask = new CameraCaptureTask();
+            cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
+            try
+            {
+                cameraCaptureTask.Show();
+            }
+            catch (InvalidOperationException ioe)
+            {
+            
+            }
    
         }
 
         // ** start picture browser
         private void ApplicationBarIconButton_Click_1(object sender, EventArgs e)
         {
-            photoChooserTask.Show();
+            var photoChooserTask = new PhotoChooserTask();
+            photoChooserTask.Completed += new EventHandler<PhotoResult>(photoChooserTask_Completed);
+
+            try
+            {
+                photoChooserTask.Show();
+            }
+            catch (InvalidOperationException ioe)
+            {
+            
+            }
         }
 
         //  send this message
@@ -345,13 +362,13 @@ namespace GEETHREE.Pages
         //browses for the photos and gets the picture in imagebox after selection
         void photoChooserTask_Completed(object sender, PhotoResult e)
         {
-
+            System.Diagnostics.Debug.WriteLine("UI: COMPOSE: PHOTO CHOOSER COMPLETED");
             if (e.TaskResult == TaskResult.OK)
             {
                 try
                 {
-                    this.Dispatcher.BeginInvoke(() =>
-                    {
+                    //this.Dispatcher.BeginInvoke(() =>
+                    //{
                         // ...communication with the isolated storage...
 
                         BitmapImage bitImage = new BitmapImage();
@@ -383,7 +400,7 @@ namespace GEETHREE.Pages
 
                         // using (MediaLibrary lib = new MediaLibrary())
                         // lib.SavePicture("Test", ms.ToArray());
-                    });
+                    //});
                 }
                 catch
                 {
@@ -396,12 +413,13 @@ namespace GEETHREE.Pages
         //Captures the picture using the camera and gets the picture in the imagebox 
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
         {
+                System.Diagnostics.Debug.WriteLine("UI: COMPOSE: CAMERA CAPTURE COMPLETED");
                 if (e.TaskResult == TaskResult.OK)
                 {
                     try
                     {
-                        this.Dispatcher.BeginInvoke(() =>
-                        {
+                        //this.Dispatcher.BeginInvoke(() =>
+                        //{
 
                             BitmapImage bitImage = new BitmapImage();
                             bitImage.CreateOptions = BitmapCreateOptions.None;
@@ -437,7 +455,7 @@ namespace GEETHREE.Pages
 
                             // using (MediaLibrary lib = new MediaLibrary())
                             // lib.SavePicture("Test", ms.ToArray());
-                        });
+                        //});
                     }
                     catch { }
                 }
