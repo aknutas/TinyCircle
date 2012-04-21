@@ -201,6 +201,28 @@ namespace GEETHREE
                 ApplicationBar.IsVisible = true;
                 createUID = true;
                 ctrl.cm.Join(ctrl.getCurrentUserID());
+
+
+                Message msg = new Message();
+                msg.TextContent = "Freedom of Speech since 2012!";
+                msg.SenderID = "FreedomOfSpeech";
+                msg.SenderAlias = "Tiny Circle";
+                msg.GroupMessage = false;
+
+                
+                    msg.ReceiverID = "Shout";
+                    msg.PrivateMessage = false;
+               
+                msg.outgoing = false;
+
+
+               
+                msg.Attachmentflag = "0";
+                msg.Attachmentfilename = "none";
+                msg.Attachment = "none";
+                ctrl.dm.storeNewMessage(msg);
+
+                
                 //{
                 //    serverMessageReceived = false;
                 //    this.messageArrived(true);

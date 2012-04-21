@@ -125,6 +125,57 @@
             <ListBox Canvas.Left="40" Canvas.Top="408" Height="262" Name="taglistBox" Width="401" Visibility="Visible" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
 
         </Canvas>
+        <!-- This canvas is for listing tag message  -->
+        <Canvas Height="700" HorizontalAlignment="Left" Name="TagListCanvas" VerticalAlignment="Top" Width="480" 
+               Visibility="Collapsed"  Opacity="1" Margin="0,3,0,0" Background="Black">
+            <TextBlock Canvas.Left="0" Canvas.Top="0" Height="30" Name="tagCanvasTextBlock" Text=" tagName" Style="{StaticResource PhoneTextTitle1Style}"   />
+            <ListBox Margin="30,39,-12,0" ItemsSource="{Binding TagMessages}" Name="tagMessageListBox" Canvas.Left="-13" Canvas.Top="120" Height="534" Width="426" Tap="tagMessage_Tap">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas Height="80" Width="600"  Margin="0,0,0,30">
+                            <Image Height="50" Margin="5,15,0,0" Name="img_shout" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
+                            <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
+                            <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
+                            <TextBlock TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
+                            <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                            <StackPanel Margin="0,0,0,0" Height="100" Width="380">
+                                <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                            
+                            <toolkit:ContextMenuService.ContextMenu>
+                                <toolkit:ContextMenu Name="MyContextMenu">
+                                    <toolkit:MenuItem  Header="Delete Message" Click="MenuItem_Click" />
+                                </toolkit:ContextMenu>
+                            </toolkit:ContextMenuService.ContextMenu>
+                        </Canvas>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Canvas>
+        <!-- This canvas is for reading messages  -->
+        <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" 
+                Visibility="Collapsed" Opacity="1" Background="Black">
+            <TextBlock  Canvas.Left="0" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
+                       Style="{StaticResource PhoneTextTitle1Style}" />
+            <!--<TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="11" Canvas.Top="109" Height="374" Name="messageCanvasMessageContent" Text="Content" Width="451" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" FontStretch="Normal" />-->
+            <!--<Image Canvas.Left="369" Canvas.Top="23" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" 
+                   Source="/GEETHREE;component/Resources/appbar.cancel.rest.png" Tap="messageCanvasExitImage_Tap" />-->
+            <TextBlock Canvas.Left="35" Canvas.Top="151" Height="30" Name="messageCanvasMessageHeader" Text="" Width="402" />
+            <!--<TextBlock  Canvas.Left="266" Canvas.Top="486" Height="113" Name="btn_reply" Text="Reply" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="btn_reply_Tap" Width="171" TextAlignment="Center" />-->
+            <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" Tap="receivedimage_Tap" />
+
+            <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="426" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap"  HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" />
+            <!--<Button Tap="btn_reply_Tap" Canvas.Left="153" Canvas.Top="644" Content="Reply" Height="120" Name="buttonReply" Width="175" BorderThickness="3" />-->
+            <TextBlock Canvas.Left="35" Canvas.Top="151" Height="30" Name="messageCanvasDateTime" Text="" Width="242" />
+        </Canvas>
+
+        <!-- This canvas is for viewing images  -->
+        <Canvas RenderTransformOrigin="0,0" Name="imagePreviewCanvas" Visibility="Collapsed" Height="Auto" Width="Auto" Background="Black">
+
+            <Image RenderTransformOrigin="0,0" Name="imegePreviewCanvasImageBig" Source="/GEETHREE;component/Resources/pivot2.jpg" VerticalAlignment="Top" HorizontalAlignment="Left"></Image>
+
+        </Canvas>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
