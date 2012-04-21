@@ -17,7 +17,7 @@ using GEETHREE.Networking;
 
 namespace GEETHREE
 {
-    public class CommunicationHandler : IDisposable, WebServiceReceiver
+    public class CommunicationHandler : IDisposable, WebServiceReceiver, PushListener
     {
         /// <summary>
         /// All communication takes place using a UdpAnySourceMulticastChannel. 
@@ -598,6 +598,7 @@ namespace GEETHREE
             {
                 //Register for toasts
                 toaster = new ToastProcessor(_userID);
+                toaster.registerPushListener(this);
                 toaster.registerToast();
             }
 
@@ -605,6 +606,12 @@ namespace GEETHREE
             // Temporarily disabled check
             // if (wsConnection.connectionUp)
             wsConnection.getMyMessages(uid, this);
+        }
+
+        //Callback for push notification
+        public void ReceivedServerPush()
+        {
+            GetMessagesFromServer(_userID);
         }
 
         //Web service callbacks

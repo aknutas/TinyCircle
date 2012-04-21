@@ -10,16 +10,24 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Notification;
 using System.Text;
+using System.Collections.Generic;
 
 namespace GEETHREE.Networking
 {
     public class ToastProcessor
     {
         private string userId;
+        private List<PushListener> pushListeners;
 
         public ToastProcessor(string userId)
         {
             this.userId = userId;
+            pushListeners = new List<PushListener>();
+        }
+
+        public void registerPushListener(PushListener ps)
+        {
+            pushListeners.Add(ps);
         }
 
         public void registerToast()
@@ -94,25 +102,32 @@ namespace GEETHREE.Networking
 
         private void PushChannel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
         {
-            StringBuilder message = new StringBuilder();
-            string relativeUri = string.Empty;
+            //StringBuilder message = new StringBuilder();
+            //string relativeUri = string.Empty;
 
-            message.AppendFormat("Received Toast {0}:\n", DateTime.Now.ToShortTimeString());
+            //message.AppendFormat("Received Toast {0}:\n", DateTime.Now.ToShortTimeString());
+            System.Diagnostics.Debug.WriteLine("TP: Received push notification from server");
+            System.Diagnostics.Debug.WriteLine("TP: Notifying " + pushListeners.Count.ToString() + " listeners");
+
+            foreach (PushListener ps in pushListeners)
+            {
+                ps.ReceivedServerPush();
+            }
 
             // Parse out the information that was part of the message.
-            foreach (string key in e.Collection.Keys)
-            {
-                message.AppendFormat("{0}: {1}\n", key, e.Collection[key]);
+            //foreach (string key in e.Collection.Keys)
+            //{
+            //    message.AppendFormat("{0}: {1}\n", key, e.Collection[key]);
 
-                if (string.Compare(
-                    key,
-                    "wp:Param",
-                    System.Globalization.CultureInfo.InvariantCulture,
-                    System.Globalization.CompareOptions.IgnoreCase) == 0)
-                {
-                    relativeUri = e.Collection[key];
-                }
-            }
+            //    if (string.Compare(
+            //        key,
+            //        "wp:Param",
+            //        System.Globalization.CultureInfo.InvariantCulture,
+            //        System.Globalization.CompareOptions.IgnoreCase) == 0)
+            //    {
+            //        relativeUri = e.Collection[key];
+            //    }
+            //}
 
             // Display a dialog of all the fields in the toast.
             //Dispatcher.BeginInvoke(() => MessageBox.Show(message.ToString()));

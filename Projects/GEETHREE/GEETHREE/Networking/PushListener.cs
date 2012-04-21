@@ -5,7 +5,8 @@ using System.Text;
 
 namespace GEETHREE.Networking
 {
-    interface ToastReceiver
+    public interface PushListener
     {
+        void ReceivedServerPush();
     }
 }

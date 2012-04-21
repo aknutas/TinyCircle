@@ -94,7 +94,7 @@
     </Compile>
     <Compile Include="Networking\MessageHandler.cs" />
     <Compile Include="Networking\ToastProcessor.cs" />
-    <Compile Include="Networking\ToastReceiver.cs" />
+    <Compile Include="Networking\PushListener.cs" />
     <Compile Include="Networking\WebServiceConnector.cs" />
     <Compile Include="Networking\WebServiceReceiver.cs" />
     <Compile Include="Pages\ComposeMessagePage.xaml.cs">

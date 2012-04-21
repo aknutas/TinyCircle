@@ -18,7 +18,6 @@ using Microsoft.Phone.Shell;
 using System.Linq;
 using GEETHREE.DataClasses;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
 using GEETHREE.Networking;
 using System.ComponentModel;
 
