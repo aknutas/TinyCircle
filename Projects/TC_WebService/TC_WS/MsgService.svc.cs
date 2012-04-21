@@ -17,7 +17,7 @@ namespace TC_WS
 
         public Boolean postMessage(string receiverId, string senderId, string messageText, string appKey, DateTime timeStamp)
         {
-            if (receiverId == null || messageText == null || senderId == null)
+            if (receiverId == null || messageText == null || senderId == null || timeStamp == null)
                 throw new ArgumentNullException();
 
             if (appKey != appkey)
