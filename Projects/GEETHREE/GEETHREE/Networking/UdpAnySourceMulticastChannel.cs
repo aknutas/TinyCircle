@@ -134,6 +134,10 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("SendToGroupCallback IOE");
+            }
         }
 
         void OpenCallback(IAsyncResult result)
@@ -146,7 +150,7 @@ namespace GEETHREE
                 _joinPending = false;
 
                 // We don't want to receive the messages we send.
-                this.Client.MulticastLoopback = false;
+                this.Client.MulticastLoopback = true;
                 Deployment.Current.Dispatcher.BeginInvoke(
                     () =>
                     {
@@ -158,6 +162,10 @@ namespace GEETHREE
             {
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
+            }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("SendToGroupCallback IOE");
             }
             
         }
@@ -276,6 +284,10 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("SendToGroupCallback IOE");
+            }
         }
 
         /// <summary>
@@ -304,6 +316,10 @@ namespace GEETHREE
             {
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
+            }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("SendToGroupCallback IOE");
             }
         }
 
@@ -357,6 +373,10 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("SendToGroupCallback IOE");
+            }
         }
 
         public void SendPartTo(IPEndPoint endPoint, int nopackage)
@@ -377,9 +397,12 @@ namespace GEETHREE
                                 byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                                 this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                             }
-                            catch (System.ArgumentOutOfRangeException)
+                            catch (Exception ex)
                             {
-                                Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * 256) + " to " + (nopackage * 256 + 256) + "size of buffer: " + sendbuffer.buffer.Length);
+                                if (ex is ArgumentOutOfRangeException)
+                                    Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * 256) + " to " + (nopackage * 256 + 256) + "size of buffer: " + sendbuffer.buffer.Length);
+                                else if (ex is SocketException)
+                                    HandleSocketException((SocketException)ex);
                             }
                         }
                         else if (nopackage * 256 <= sendbuffer.buffer.Length)
@@ -412,6 +435,10 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("SendToGroupCallback IOE");
+            }
         }
 
         void SendToCallback(IAsyncResult result)
@@ -428,6 +455,10 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
+            catch (InvalidOperationException)
+            {
+                Debug.WriteLine("SendToGroupCallback IOE");
+            }
         }
 
         /// <summary>
@@ -438,7 +469,20 @@ namespace GEETHREE
             if (this.IsJoined)
             {
                 Array.Clear(this.ReceiveBuffer, 0, this.ReceiveBuffer.Length);
-                this.Client.BeginReceiveFromGroup(this.ReceiveBuffer, 0, this.ReceiveBuffer.Length, new AsyncCallback(ReceiveFromGroupCallback), null);
+                try
+                {
+
+                    this.Client.BeginReceiveFromGroup(this.ReceiveBuffer, 0, this.ReceiveBuffer.Length, new AsyncCallback(ReceiveFromGroupCallback), null);
+                }
+                catch (SocketException socketEx)
+                {
+                    // See if we can do something when a SocketException occurs.
+                    HandleSocketException(socketEx);
+                }
+                catch (InvalidOperationException)
+                {
+                    Debug.WriteLine("SendToGroupCallback IOE");
+                }
             }
         }
 
@@ -513,12 +557,12 @@ namespace GEETHREE
             else
             {
                 //Send receive ok message to stop resendtimer
-                string tmpmsg;
+               /* string tmpmsg;
 
                 tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.Acknowledgement, 0);
 
                 byte[] msgbytes = Encoding.UTF8.GetBytes(tmpmsg);
-                this.Client.BeginSendTo(msgbytes, 0, msgbytes.Length, source, new AsyncCallback(SendToCallback), null);
+                this.Client.BeginSendTo(msgbytes, 0, msgbytes.Length, source, new AsyncCallback(SendToCallback), null);*/
 
                 EventHandler<UdpPacketReceivedEventArgs> handler = this.PacketReceived;
 
@@ -575,7 +619,14 @@ namespace GEETHREE
                     tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.RequestPart, receivebuffer.currentpackage + 1);
 
                     byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                    this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
+                    try
+                    {
+                        this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        Debug.WriteLine("SendToGroupCallback IOE");
+                    }
                 }
 
                 //Start the timer for request restarting
@@ -597,7 +648,14 @@ namespace GEETHREE
                         tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.RequestPart, receivebuffer.currentpackage + 1);
 
                         byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                        this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
+                        try
+                        {
+                            this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            Debug.WriteLine("SendToGroupCallback IOE");
+                        }
                     }
 
                 }
@@ -640,7 +698,14 @@ namespace GEETHREE
                 tmpmsg = string.Format(Commands.InfoMessageFormat, Commands.RequestPart, receivebuffer.currentpackage + 1);
 
                 byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                this.Client.BeginSendTo(data, 0, data.Length, receivebuffer.source, new AsyncCallback(SendToCallback), null);
+                try
+                {
+                    this.Client.BeginSendTo(data, 0, data.Length, receivebuffer.source, new AsyncCallback(SendToCallback), null);
+                }
+                catch (InvalidOperationException)
+                {
+                    Debug.WriteLine("SendToGroupCallback IOE");
+                }
             }
         }
 
@@ -668,12 +733,26 @@ namespace GEETHREE
 
 
                         byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                        this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                        try
+                        {
+                            this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            Debug.WriteLine("SendToGroupCallback IOE");
+                        }
                     }
                     else
                     {
                         byte[] data = Encoding.UTF8.GetBytes(sendbuffer.buffer);
-                        this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                        try
+                        {
+                            this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            Debug.WriteLine("SendToGroupCallback IOE");
+                        }
                     }
                 }
 
@@ -720,6 +799,8 @@ namespace GEETHREE
             {
                 // Just display the message.
                 Debug.WriteLine(socketEx.Message);
+                this.IsJoined = false;
+                this.Open();
             }
 
         }
