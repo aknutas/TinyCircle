@@ -127,6 +127,7 @@ namespace GEETHREE
             lock (dblock)
             {
                 openDb();
+                db.Tags.Attach(tag, true);
                 db.Tags.DeleteOnSubmit(tag);
                 db.SubmitChanges();
                 closeDb();
@@ -151,6 +152,7 @@ namespace GEETHREE
             lock (dblock)
             {
                 openDb();
+                db.TagMessages.Attach(tagMessage, true);
                 db.TagMessages.DeleteOnSubmit(tagMessage);
                 db.SubmitChanges();
                 closeDb();
@@ -198,6 +200,7 @@ namespace GEETHREE
             lock (dblock)
             {
                     openDb();
+                    db.Users.Attach(user, true);
                     db.Users.DeleteOnSubmit(user);
                     db.SubmitChanges();
                     closeDb();
@@ -280,6 +283,7 @@ namespace GEETHREE
             lock (dblock)
             {
                     openDb();
+                    db.GroupInfoResponses.Attach(groupInfoResponse, true);
                     db.GroupInfoResponses.DeleteOnSubmit(groupInfoResponse);
                     db.SubmitChanges();
                     closeDb();
@@ -315,6 +319,7 @@ namespace GEETHREE
             lock (dblock)
             {
                     openDb();
+                    db.UserInfoResponses.Attach(userInfoResponse, true);
                     db.UserInfoResponses.DeleteOnSubmit(userInfoResponse);
                     db.SubmitChanges();
                     closeDb();
@@ -350,6 +355,7 @@ namespace GEETHREE
             lock (dblock)
             {
                     openDb();
+                    db.Groups.Attach(group, true);
                     db.Groups.DeleteOnSubmit(group);
                     db.SubmitChanges();
                     closeDb();
@@ -604,6 +610,7 @@ namespace GEETHREE
             lock (dblock)
             {
                     openDb();
+                    db.Messages.Attach(message, true);
                     db.Messages.DeleteOnSubmit(message);
                     db.SubmitChanges();
                     closeDb();
