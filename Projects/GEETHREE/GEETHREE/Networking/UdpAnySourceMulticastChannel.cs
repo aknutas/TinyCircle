@@ -150,7 +150,7 @@ namespace GEETHREE
                 _joinPending = false;
 
                 // We don't want to receive the messages we send.
-                this.Client.MulticastLoopback = true;
+                this.Client.MulticastLoopback = false;
                 Deployment.Current.Dispatcher.BeginInvoke(
                     () =>
                     {
