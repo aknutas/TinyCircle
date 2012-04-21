@@ -14,6 +14,7 @@ using System.Data.Linq.Mapping;
 using Microsoft.Phone.Data.Linq;
 using Microsoft.Phone.Data.Linq.Mapping;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 
 namespace GEETHREE.DataClasses
 {
@@ -114,9 +115,53 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
+        
+        private BitmapImage _messageTypeImage;
+
+        public BitmapImage MessageTypeImage
+        {
+            get
+            {
+                if (MessageTypeImageURL == null )
+                    return null;
+                else
+       
+                    return new BitmapImage(new Uri(MessageTypeImageURL, UriKind.Relative));
+            }
+            set
+            {
+                if (value != _messageTypeImage)
+                {
+                    MessageTypeImageURL = value.UriSource.ToString();
+                    NotifyPropertyChanged("MessageTypeImage");
+                }
+            }
+        }
+
+        private string _messageTypeImageURL;
+        /// <summary>
+        /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
+        /// </summary>
+        /// <returns></returns>
+        [Column]
+        public string MessageTypeImageURL
+        {
+            get
+            {
+                return _messageTypeImageURL;
+            }
+            set
+            {
+                if (value != _messageTypeImageURL)
+                {
+                    _messageTypeImageURL = value;
+                    NotifyPropertyChanged("MessageTypeImageURL");
+                }
+            }
+        }
 
         private SolidColorBrush _messageTextColor;
-        
+
         public SolidColorBrush MessageTextColor
         {
             get
@@ -139,6 +184,7 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
+
 
         private byte? _colorR;
         /// <summary>
@@ -227,7 +273,9 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-        
+
+
+
         private string _textContent;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.

@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using GEETHREE.DataClasses;
 using GEETHREE.Networking;
+using System.Windows.Media.Imaging;
 
 
 namespace GEETHREE
@@ -78,6 +79,26 @@ namespace GEETHREE
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.IsRead = false;
             
+            Color accentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
+            msg.MessageTextColor = new SolidColorBrush(accentColor);
+
+            //msg.MessageTypeImage = new BitmapImage(new Uri("/GEETHREE;component/Resources/appbar.download.rest.png")); 
+            
+            //selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
+            
+            var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+
+            if (v == Visibility.Visible == true) // light theme
+            {
+                msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+            }
+            else
+                msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
+      
+            
+            // v== Visibility.Visible == "Dark"
+  
+
             if (e.Receiver == Controller.Instance.getCurrentUserID())
             {
                 System.Diagnostics.Debug.WriteLine(" Woohoo, I gots a message");
@@ -116,7 +137,7 @@ namespace GEETHREE
             msg.Attachmentfilename = e.Attachmentfilename;
             msg.Attachmentflag = e.Attachmentflag;
             msg.IsRead = false;
-
+            msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
 
             dm.storeNewMessage(msg);
             int msgDbID = msg.msgDbId;
