@@ -162,16 +162,17 @@ namespace GEETHREE
         {
             lock (dblock)
             {
-                var qres = from TagMessage tagMessage in db.TagMessages where tagMessage.TagName == tag.TagName select tagMessage;
-                List<TagMessage> TagMessageList = new List<TagMessage>(qres);
-                List<Message> returnList = new List<Message>();
-                returnList.Clear();
-                foreach (TagMessage tagMessage in TagMessageList)
-                {
-                    var qres1 = from Message message in db.Messages where message.msgDbId==tagMessage.MessageID select message;
-                    Message aMessage = qres1.First();
-                    returnList.Add(aMessage);
-                }
+                var selectTagMessages = from TagMessage tagMessage in db.TagMessages where tagMessage.TagName == tag.TagName select tagMessage.MessageID;
+
+                var qres = from Message message in db.Messages where selectTagMessages.Contains(message.msgDbId) select message;
+                List<Message> returnList = new List<Message>(qres);
+
+                //foreach (TagMessage tagMessage in TagMessageList)
+                //{
+                //    var qres1 = from Message message in db.Messages where message.msgDbId==tagMessage.MessageID select message;
+                //    Message aMessage = qres1.First();
+                //    returnList.Add(aMessage);
+                //}
                 
                 return returnList;
             }
