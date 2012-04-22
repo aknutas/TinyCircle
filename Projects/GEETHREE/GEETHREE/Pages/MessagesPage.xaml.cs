@@ -23,8 +23,9 @@ namespace GEETHREE.Pages
         private Controller ctrl;
         string replyID = "";
         string replyAlias = "";
+        string textcontent = "";
         string groupmessageFlag = "0";
-
+        bool messageread = true;
         public MessagesPage()
         {
             InitializeComponent();
@@ -70,9 +71,11 @@ namespace GEETHREE.Pages
  
             if (selectedMessage != null)
             {
+                textcontent = selectedMessage.TextContent;
                 
                 if (selectedMessage.IsRead == false)
                 {
+                    messageread = false;
                     selectedMessage.IsRead = true;
                    
                     // ** ftw ?!?!?!
@@ -85,7 +88,7 @@ namespace GEETHREE.Pages
                 
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
-                messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                messageCanvasMessageContent.Text = textcontent;
                 byte[] attachmentContent = null;
                 if (selectedMessage.Attachmentflag == "1")
                 {
@@ -132,9 +135,10 @@ namespace GEETHREE.Pages
 
             if (selectedMessage != null)
             {
-                
+                textcontent = selectedMessage.TextContent;
                 if (selectedMessage.IsRead == false)
                 {
+                    messageread = false;
                     selectedMessage.IsRead = true;
                     
 
@@ -165,7 +169,7 @@ namespace GEETHREE.Pages
                     receivedimage.Source = bitImage;
                     receivedimage.Visibility = Visibility.Visible;
                 }
-                messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                messageCanvasMessageContent.Text = textcontent;
                 replyID = selectedMessage.SenderID;
                 replyAlias = selectedMessage.SenderAlias;
                 groupmessageFlag = "0";
@@ -236,8 +240,11 @@ namespace GEETHREE.Pages
                 messageCanvas.Visibility = System.Windows.Visibility.Collapsed;
                 ApplicationBar.IsVisible = true;
                 receivedimage.Visibility = Visibility.Collapsed;
-
-                App.ViewModel.refreshDataAsync();
+                if (messageread == false)
+                {
+                    messageread = true;
+                    App.ViewModel.refreshDataAsync();
+                }
                 return;
             }
             if (imagePreviewCanvas.Visibility == Visibility.Visible)
@@ -383,13 +390,13 @@ namespace GEETHREE.Pages
 
             if (selectedMessage != null)
             {
-
+                textcontent = selectedMessage.TextContent;
                 if (selectedMessage.TimeStamp.ToString() != null)
                     messageCanvasDateTime.Text = selectedMessage.TimeStamp.ToString();
 
                 receivedimage.Visibility = Visibility.Collapsed;
                 messageCanvasSenderTextBlock.Text = selectedMessage.SenderAlias;
-                messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                messageCanvasMessageContent.Text = textcontent;
                 byte[] attachmentContent = null;
                 if (selectedMessage.Attachmentflag == "1")
                 {

@@ -146,9 +146,8 @@
             <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" Tap="receivedimage_Tap" />
             
                 
-            <!--<TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="426" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap"  HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" />-->
-            <TextBlock Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="426" />
-            <Button Tap="btn_reply_Tap" Canvas.Left="153" Canvas.Top="644" Content="Reply" Height="120" Name="buttonReply" Width="175" BorderThickness="3" />
+                <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="426" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap"  HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" IsReadOnly="False" IsHitTestVisible="False" />
+           <Button Tap="btn_reply_Tap" Canvas.Left="153" Canvas.Top="644" Content="Reply" Height="120" Name="buttonReply" Width="175" BorderThickness="3" />
             <TextBlock Canvas.Left="19" Canvas.Top="151" Height="30" Name="messageCanvasDateTime" Text="" Width="309" />
         </Canvas>
 
