@@ -616,11 +616,16 @@ namespace GEETHREE
 
         public void SendToServer(Message msg)
         {
+            string msgContent;
+            if(msg.Attachmentflag=="1")
+                msgContent = msg.TextContent + "||" + msg.SenderAlias + "||" + msg.Attachmentflag + "||" + msg.Attachment;
+            else
+                msgContent = msg.TextContent + "||" + msg.SenderAlias + "||0||0" ;
             //wsConnection.testConnection(this);
             if (wsConnection == null)
                 wsConnection = new WebServiceConnector();
             if(wsConnection.connectionUp)
-                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msg.TextContent, this, msg.TimeStamp.Value);
+                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msgContent, this, msg.TimeStamp.Value);
         }
 
         public void GetMessagesFromServer(string uid)
