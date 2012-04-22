@@ -178,6 +178,19 @@ namespace GEETHREE
             }
         }
 
+        public bool checkMessageExist(string senderID, string receiverID, DateTime timestamp)
+        {
+            lock (dblock)
+            {
+                var qres = from Message message in db.Messages where (message.SenderID==senderID && message.ReceiverID==receiverID && message.TimeStamp==timestamp)  select message;
+                List<Message> returnList = new List<Message>(qres);
+                if (returnList.Count > 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
         public List<Message> getAllMessages()
         {
             lock (dblock)
