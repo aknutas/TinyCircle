@@ -128,14 +128,27 @@ namespace GEETHREE.Networking
                         string MessageContent = wmsg.msgText;
                         if (MessageContent.Length > 1)
                         {
-                            int separator = MessageContent.IndexOf("||");
-                            if (separator != -1)
+                            int separator = MessageContent.IndexOf("|");
+                            if (separator != -1 && MessageContent.Substring(separator+1, 1) == "|")
                             {
-                                string[] list = Regex.Split(MessageContent, "||");
-                                msg.TextContent = list[0];
-                                msg.SenderAlias = list[1];
-                                msg.Attachmentflag = list[2];
-                                msg.Attachment = list[3];
+
+                                
+
+                                List<string> partsList = new List<string>();
+                                string[] divider = new string[] { "||" };
+                                string[] list = MessageContent.Split(divider, StringSplitOptions.None);
+
+                                foreach (string line in list)
+                                {
+                                    partsList.Add(line);
+                                }
+
+
+
+                                msg.TextContent = partsList[0];
+                                msg.SenderAlias = partsList[1];
+                                msg.Attachmentflag = partsList[2];
+                                msg.Attachment = partsList[3];
 
                             }
                             else
