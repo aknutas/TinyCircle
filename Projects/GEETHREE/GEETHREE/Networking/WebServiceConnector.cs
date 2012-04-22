@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using GEETHREE.DataClasses;
 using System.Collections.Generic;
 using GEETHREE.MsgServiceReference;
+using System.Text.RegularExpressions;
 
 namespace GEETHREE.Networking
 {
@@ -123,7 +124,48 @@ namespace GEETHREE.Networking
                         msg.SenderID = wmsg.senderUserId;
                         msg.TimeStamp = wmsg.timeStamp;
                     
-                        msg.TextContent = wmsg.msgText;
+                        //split using || for (textcontent||senderalias||attachmentflag||attachment)
+                        string MessageContent = wmsg.msgText;
+                        if (MessageContent.Length > 1)
+                        {
+                            int separator = MessageContent.IndexOf("|");
+                            if (separator != -1 && MessageContent.Substring(separator+1, 1) == "|")
+                            {
+
+                                
+
+                                List<string> partsList = new List<string>();
+                                string[] divider = new string[] { "||" };
+                                string[] list = MessageContent.Split(divider, StringSplitOptions.None);
+
+                                foreach (string line in list)
+                                {
+                                    partsList.Add(line);
+                                }
+
+
+
+                                msg.TextContent = partsList[0];
+                                msg.SenderAlias = partsList[1];
+                                msg.Attachmentflag = partsList[2];
+                                msg.Attachment = partsList[3];
+
+                            }
+                            else
+                            {
+                                msg.TextContent = wmsg.msgText;
+                                msg.SenderAlias = "Anonymous";
+                                msg.Attachmentflag = "0";
+                                msg.Attachment = "0";
+                               
+                            }
+
+
+
+                        }
+
+                       
+                        
                         msg.PrivateMessage = true;
                         returnMsgs.Add(msg);
                     }
@@ -136,6 +178,7 @@ namespace GEETHREE.Networking
                 }
             }
 
+            
             public void handleTestConnection(WebServiceConnector webServiceConnector, WebServiceReceiver wr)
             {
                 parent = webServiceConnector;
