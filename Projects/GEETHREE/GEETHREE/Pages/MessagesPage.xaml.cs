@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using GEETHREE.DataClasses;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Data;
 
 namespace GEETHREE.Pages
 {
@@ -73,9 +74,10 @@ namespace GEETHREE.Pages
                 if (selectedMessage.IsRead == false)
                 {
                     selectedMessage.IsRead = true;
-                    selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
+                   
                     // ** ftw ?!?!?!
                     ctrl.dm.storeObjects(selectedMessage);
+                   
 
                 }
                 if (selectedMessage.TimeStamp.ToString() != null)
@@ -117,8 +119,12 @@ namespace GEETHREE.Pages
                     buttonReply.Visibility = Visibility.Visible;
                 }
                 ApplicationBar.IsVisible = false;
+                
             }
         }
+
+        
+        
 
         private void PrivateMessages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -130,10 +136,11 @@ namespace GEETHREE.Pages
                 if (selectedMessage.IsRead == false)
                 {
                     selectedMessage.IsRead = true;
-                    selectedMessage.MessageTextColor = new SolidColorBrush(Colors.Gray);
+                    
 
                     // ** ftw ?!?!?!
                     ctrl.dm.storeObjects(selectedMessage);
+                    
                 }
 
                 if (selectedMessage.TimeStamp.ToString() != null)
@@ -166,6 +173,8 @@ namespace GEETHREE.Pages
 
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
+
+               
                 buttonReply.Visibility = Visibility.Visible;
                 ApplicationBar.IsVisible = false;
             }
@@ -228,7 +237,7 @@ namespace GEETHREE.Pages
                 ApplicationBar.IsVisible = true;
                 receivedimage.Visibility = Visibility.Collapsed;
 
-    
+                App.ViewModel.refreshDataAsync();
                 return;
             }
             if (imagePreviewCanvas.Visibility == Visibility.Visible)
@@ -271,12 +280,15 @@ namespace GEETHREE.Pages
             if (m == MessageBoxResult.OK)
             {
                 if (isPrivate == true) // ** change the current pivot if needed
+                {
                     if (messagepivots.SelectedItem != whispers)
                         messagepivots.SelectedItem = whispers;
-
-                    else
-                        if (messagepivots.SelectedItem != shouts)
-                            messagepivots.SelectedItem = shouts;
+                }
+                else
+                {
+                    if (messagepivots.SelectedItem != shouts)
+                        messagepivots.SelectedItem = shouts;
+                }
 
             }
         }
@@ -412,6 +424,49 @@ namespace GEETHREE.Pages
                 }
                 ApplicationBar.IsVisible = false;
             }
+        }
+    }
+     public class CodeToForegroundColorConverter : IValueConverter
+    {
+        public CodeToForegroundColorConverter()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            Color c;
+            bool i = true;
+
+            if (value != null && bool.TryParse(value.ToString(), out i))
+            {
+                switch (i)
+                {
+                    case true:
+                        // change to navy blue
+                        c = Colors.Gray;
+                        break;
+                    case false:
+                       
+                        c = (Color)Application.Current.Resources["PhoneAccentColor"];
+                        break;
+                    default:
+                        // change to navy blue
+                        c = Colors.Blue;
+                        break;
+                }
+            }
+            else
+            {
+                // change to navy blue
+                c = Colors.Black;
+            }
+
+            return new SolidColorBrush(c);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

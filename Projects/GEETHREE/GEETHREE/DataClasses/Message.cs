@@ -172,6 +172,7 @@ namespace GEETHREE.DataClasses
                 if (value != _messageTextColor)
                 {
                     _messageTextColor = value;
+
                     ColorA = value.Color.A;
                     ColorR = value.Color.R;
                     ColorG = value.Color.G;

@@ -30,24 +30,51 @@ namespace GEETHREE
         private Controller c;
         private DataMaster dm;
         private CommunicationHandler cm;
-        private Color accentColor;
-
+       
+        private bool themeColor;
+        private bool themeBackground;
         public bool ConnectedToServer { get; private set; }
         public int LocalConnections { get; private set; }
+       
+                
 
         //Public constructor
         public MessageHandler(DataMaster dm, CommunicationHandler cm)
         {
             this.dm = dm;
             this.cm = cm;
-            
+             
+             
             this.TransitMessages = new ObservableCollection<Message>();
             this.ConnectedToServer = false;
             this.LocalConnections = 0;
             RegisterEvents();
             //LoadTransitmessages();
-            SetPhoneAccentColor();
+
+            SetThemeColors();
+            
+            //accentColor = GetAccentColor();
+            //accentColor = accentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
+            //System.Diagnostics.Debug.WriteLine("MH : Current accent color is" + accentColor.ToString());
+            
         }
+
+        public void SetThemeColors()
+        {
+
+            System.Diagnostics.Debug.WriteLine("MH: GETTING ACCENT COLOR");
+           
+            
+        
+            var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+            if (currentPhoneTheme == Visibility.Visible == true) // light theme
+            {
+                themeColor = true;
+            }
+            else
+                themeColor = false;
+        }
+        
 
         private void LoadTransitmessages()
         {
@@ -62,10 +89,10 @@ namespace GEETHREE
         }
         public void PrivateMessageReceived(object sender, MessageEventArgs e)
         {
+           
             if (dm.checkMessageExist(e.Sender, e.Receiver, e.timestamp) == false)
             {
-
-                System.Diagnostics.Debug.WriteLine(" Private message received " + e.TextContent);
+                System.Diagnostics.Debug.WriteLine("MH : Private message received " + e.TextContent);
                 Message msg = new Message();
                 msg.PrivateMessage = true;
                 msg.GroupMessage = false;
@@ -83,27 +110,15 @@ namespace GEETHREE
                 msg.Attachment = e.Attachment;
                 msg.Attachmentfilename = e.Attachmentfilename;
                 msg.IsRead = false;
-                msg.TimeStamp = e.timestamp;
-
-
-                //Color accentColor = c.GetCurrentAccentColor();
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                msg.TimeStamp = e.timestamp;  
+                
+                if (themeBackground == true) // light theme
                 {
-                    msg.MessageTextColor = new SolidColorBrush(accentColor);
-
-                    var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
-
-                    if (v == Visibility.Visible == true) // light theme
-                    {
-                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
-                    }
-                    else
-                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
-                });
-
-                // v== Visibility.Visible == "Dark"
-
-
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+                }
+                else
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
+            
                 if (e.Receiver == Controller.Instance.getCurrentUserID())
                 {
                     System.Diagnostics.Debug.WriteLine(" Woohoo, I got a message");
@@ -149,11 +164,12 @@ namespace GEETHREE
         }
         public void BroadcastMessageReceived(object sender, MessageEventArgs e)
         {
+            if (c == null)
+                c = Controller.Instance;
+
             if (dm.checkMessageExist(e.Sender, e.Receiver, e.timestamp) == false)
             {
-
-
-                System.Diagnostics.Debug.WriteLine("Broadcast message received " + e.TextContent);
+                System.Diagnostics.Debug.WriteLine("MH : Broadcast message received " + e.TextContent);
                 Message msg = new Message();
                 msg.PrivateMessage = false;
                 msg.GroupMessage = false;
@@ -167,19 +183,13 @@ namespace GEETHREE
                 msg.TextContent = e.TextContent;
                 msg.outgoing = true;
 
-                //accentColor = c.GetCurrentAccentColor();
-                msg.MessageTextColor = new SolidColorBrush(accentColor);
-
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+              
+                if (themeBackground == true) // light theme
                 {
-                    var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
-                    if (currentPhoneTheme == Visibility.Visible == true) // light theme
-                    {
-                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
-                    }
-                    else
-                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
-                });
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+                }
+                else
+                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
 
                 msg.Attachment = e.Attachment;
                 msg.Attachmentfilename = e.Attachmentfilename;
@@ -212,7 +222,6 @@ namespace GEETHREE
                 }
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-
                     Controller.Instance.notifyViewAboutMessage(false);
                 });
 
@@ -226,8 +235,6 @@ namespace GEETHREE
         {
             if (dm.checkMessageExist(e.Sender, e.Receiver, e.timestamp) == false)
             {
-
-
                 System.Diagnostics.Debug.WriteLine("Group message received " + e.TextContent);
                 Message msg = new Message();
                 msg.PrivateMessage = false;
@@ -241,14 +248,10 @@ namespace GEETHREE
                     msg.SenderAlias = e.SenderAlias;
                 msg.TextContent = e.TextContent;
                 msg.outgoing = true;
-
-
-
                 msg.Attachment = e.Attachment;
                 msg.Attachmentfilename = e.Attachmentfilename;
                 msg.Attachmentflag = e.Attachmentflag;
                 msg.TimeStamp = e.timestamp;
-
                 msg.IsRead = false;
                 //if the groupID is one of my groupID
                 bool mygroup = false;
@@ -284,7 +287,6 @@ namespace GEETHREE
                     }
                     Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
-
                         Controller.Instance.notifyViewAboutMessage(false);
                     });
                 }
@@ -427,16 +429,7 @@ namespace GEETHREE
                 this.cm.GroupMessageReceived -= new EventHandler<MessageEventArgs>(GroupMessageReceived);
                 this.cm.NewConnection -= new EventHandler<ConnectionEventArgs>(NewConnectionFound);
             }
-        }
-        // ** functions to get accent color
-        public void SetPhoneAccentColor()
-        {
-            accentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
-        }
-        public Color GetCurrentAccentColor()
-        {
-            return accentColor;
-        }
+        }       
         #region IDisposable Implementation
         public void Dispose()
         {

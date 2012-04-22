@@ -2,6 +2,7 @@
     x:Class="GEETHREE.Pages.MessagesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:y="clr-namespace:GEETHREE.Pages"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
@@ -15,6 +16,10 @@
     SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress" OrientationChanged="PhoneApplicationPage_OrientationChanged">
 
+    <phone:PhoneApplicationPage.Resources>
+       
+        <y:CodeToForegroundColorConverter x:Key="foregroundConverter" />
+    </phone:PhoneApplicationPage.Resources>
 
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -32,32 +37,36 @@
             <controls:PivotItem Header="Whispers" Name="whispers" >
                 
                 <ListBox Name="ReceivedPrivateMessages" Margin="0,0,50,0" ItemsSource="{Binding ReceivedPrivateMessages}" Tap="PrivateMessages_Tap" Width="420" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Canvas Height="110" Width="450"  Margin="0,0,0,0">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />                              
-                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
-                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
-                                <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
-                                <StackPanel Margin="0,0,0,0" Height="100" Width="365">
-                                    <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                                <toolkit:ContextMenuService.ContextMenu>
-                                    <toolkit:ContextMenu Name="MyContextMenu" Opened="MyContextMenu_Opened">
-                                        <!--<toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>-->
-                                        <toolkit:MenuItem Header="Delete" Click="contextMenuDelete_Click"/>
-                                    </toolkit:ContextMenu>
-                                </toolkit:ContextMenuService.ContextMenu>
-                            </Canvas>
+                   
+                        <ListBox.ItemTemplate>
 
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Canvas Height="110" Width="450"  Margin="0,0,0,0">
+                                    <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
+                                    <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
+                                    <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
+                                    <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
+                                    <StackPanel Margin="0,0,0,0" Height="100" Width="365">
+                                    <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding IsRead, Converter={StaticResource foregroundConverter}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                    <toolkit:ContextMenuService.ContextMenu>
+                                        <toolkit:ContextMenu Name="MyContextMenu" Opened="MyContextMenu_Opened">
+                                            <!--<toolkit:MenuItem Header="Reply" Click="contextMenuReply_Click"/>-->
+                                            <toolkit:MenuItem Header="Delete" Click="contextMenuDelete_Click"/>
+                                        </toolkit:ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>
+                                </Canvas>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                   
+                   
                 </ListBox>
             </controls:PivotItem>
 
             <!--Pivot item 2: SHOUTS-->
             <controls:PivotItem Header="Shouts" Name="shouts" >
-                <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,50,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
+                <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,50,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap" Width="420" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
@@ -66,7 +75,7 @@
                                 <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="350">
-                                    <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding IsRead, Converter={StaticResource foregroundConverter}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>
                                 <toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu Name="MyContextMenu" Opened="MyContextMenu_Opened">
@@ -82,7 +91,7 @@
 
             <!--Pivot item 3: SENT-->
             <controls:PivotItem Header="Shared" Name="sent" >
-                <ListBox Name="SentMessages" Margin="0,0,50,0" ItemsSource="{Binding SentMessages}" Width="400" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="SentMessages_Tap">
+                <ListBox Name="SentMessages" Margin="0,0,50,0" ItemsSource="{Binding SentMessages}" Width="420" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="SentMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">

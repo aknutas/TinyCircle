@@ -61,7 +61,7 @@
                         <TextBlock Text="WiFi Status" Width="102" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" Margin="58,355,0,0" Height="31" VerticalAlignment="Top" />
                     </Grid>
                 </ListBox>
-            </controls:PanoramaItem>
+          </controls:PanoramaItem>
 
 
             <!--Panorama item one-->
@@ -75,13 +75,13 @@
                                     <!--Replace rectangle with image-->
 
                                 <Image Height="50" Margin="5,15,0,0" Name="img_shout" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
-                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="180,10,0,0" Text ="{Binding TimeStamp}"/>
-                                <Image Height="50" Margin="330,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
+                                <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="170,10,0,0" Text ="{Binding TimeStamp}"/>
+                                <Image Height="50" Margin="320,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
 
                                 <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                      <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
                                 
-                                <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}" MaxWidth="10" />
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="325">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding MessageTextColor}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                                 </StackPanel>

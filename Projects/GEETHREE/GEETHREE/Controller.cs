@@ -36,6 +36,9 @@ namespace GEETHREE
         public Networking.WebServiceConnector wcc;
         public CommunicationHandler cm;
         private Random r;
+
+        private Color accentColor;
+        private bool themeColor;
   
 
         //Update view callback list
@@ -63,6 +66,7 @@ namespace GEETHREE
             //cm.RequestGroupInfo(getCurrentUserID());
             //cm.RequestUserInfo(getCurrentUserID());
 
+            accentColor = new Color();
             // Elegant callbacks
             avatarCallbackList = new List<AvatarChangeListener>();
      
@@ -399,10 +403,11 @@ namespace GEETHREE
                     }
                 }
                 i++;
-            }
+            } 
             return tagsList;
         }
-
+        // ** functions for telling others about the theme colors currently being used
+        
   
 
 

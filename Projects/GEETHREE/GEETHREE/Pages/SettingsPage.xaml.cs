@@ -108,7 +108,7 @@ namespace GEETHREE.Pages
             if (m == MessageBoxResult.OK)
             {
                 if (isPrivate == true) // navigate to Messages - whispers
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
                 else // navigate to messages - shouts
                     NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
             }
