@@ -396,6 +396,7 @@ namespace GEETHREE
                                 tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * 256, 256));
                                 byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                                 this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                                Debug.WriteLine("Sending package number: " + nopackage); 
                             }
                             catch (Exception ex)
                             {
@@ -410,8 +411,9 @@ namespace GEETHREE
                             try
                             {
                                 tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * 256));
-                            byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
-                            this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                                byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
+                                this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
+                                Debug.WriteLine("Sending package number: " + nopackage);
                             }
                             catch (System.ArgumentOutOfRangeException)
                             {
@@ -550,7 +552,14 @@ namespace GEETHREE
                 //StopResendTimer();
                 if (messageParts[1] == Commands.RequestPart)
                 {
-                    SendPartTo(source, Convert.ToInt32(messageParts[2]));
+                    try
+                    {
+                        SendPartTo(source, Convert.ToInt32(messageParts[2]));
+                    }
+                    catch (Exception)
+                    {
+                        Debug.WriteLine("Invalid request");
+                    }
                 }
                 
             }
