@@ -663,10 +663,18 @@ namespace GEETHREE
             for (int i = 0; i < msgList.Count; i++)
             {
                 Message msg = msgList[i];
+                DateTime dt_stamp;
+
+                if(msg.TimeStamp.HasValue)
+                    dt_stamp=msg.TimeStamp.Value;
+                else
+                    dt_stamp=DateTime.Now;
+
+
 
                 if (handler != null)
                 {
-                    handler(this, new MessageEventArgs(msg.TextContent,msg.SenderID, msg.SenderAlias,msg.ReceiverID,msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.Hash, DateTime.Now));
+                    handler(this, new MessageEventArgs(msg.TextContent, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.Hash, dt_stamp));
                 }              
             }
         }

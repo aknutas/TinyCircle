@@ -155,8 +155,9 @@ namespace GEETHREE
                 }
                 else
                 {
-
                     this.TransitMessages.Add(msg);
+                    //Try to send to server
+                    cm.SendToServer(msg);
                 }
             }
             
