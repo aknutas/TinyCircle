@@ -65,174 +65,134 @@ namespace GEETHREE
         }
         public void PrivateMessageReceived(object sender, MessageEventArgs e)
         {
-
-            System.Diagnostics.Debug.WriteLine(" Private message received " + e.TextContent);
-            Message msg = new Message();
-            msg.PrivateMessage = true;
-            msg.GroupMessage = false;
-            msg.Hash = e.Hash;
-            msg.ReceiverID = e.Receiver;
-            msg.SenderID = e.Sender;
-            if (e.SenderAlias == null || e.SenderAlias == "")
-                msg.SenderAlias = "Anonymous";
-            else
-                msg.SenderAlias = e.SenderAlias;
-            msg.TextContent = e.TextContent;
-            
-            msg.outgoing = true;
-            msg.Attachmentflag = e.Attachmentflag;
-            msg.Attachment = e.Attachment;
-            msg.Attachmentfilename = e.Attachmentfilename;
-            msg.IsRead = false;
-            msg.TimeStamp = e.timestamp;
-
-
-            //Color accentColor = c.GetCurrentAccentColor();
-
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            if (dm.checkMessageExist(e.Sender, e.Receiver, e.timestamp) == false)
             {
-                msg.MessageTextColor = new SolidColorBrush(accentColor);
 
-                var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
-
-                if (v == Visibility.Visible == true) // light theme
-                {
-                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
-                }
+                System.Diagnostics.Debug.WriteLine(" Private message received " + e.TextContent);
+                Message msg = new Message();
+                msg.PrivateMessage = true;
+                msg.GroupMessage = false;
+                msg.Hash = e.Hash;
+                msg.ReceiverID = e.Receiver;
+                msg.SenderID = e.Sender;
+                if (e.SenderAlias == null || e.SenderAlias == "")
+                    msg.SenderAlias = "Anonymous";
                 else
-                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
-            });
-            
-            // v== Visibility.Visible == "Dark"
-  
+                    msg.SenderAlias = e.SenderAlias;
+                msg.TextContent = e.TextContent;
 
-            if (e.Receiver == Controller.Instance.getCurrentUserID())
-            {
-                System.Diagnostics.Debug.WriteLine(" Woohoo, I got a message");
-                msg.outgoing = false;
-                dm.storeNewMessage(msg);
-                
+                msg.outgoing = true;
+                msg.Attachmentflag = e.Attachmentflag;
+                msg.Attachment = e.Attachment;
+                msg.Attachmentfilename = e.Attachmentfilename;
+                msg.IsRead = false;
+                msg.TimeStamp = e.timestamp;
+
+
+                //Color accentColor = c.GetCurrentAccentColor();
+
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    App.ViewModel.ReceivedPrivateMessages.Insert(0, msg);
-                    Controller.Instance.notifyViewAboutMessage(true);
+                    msg.MessageTextColor = new SolidColorBrush(accentColor);
+
+                    var v = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+
+                    if (v == Visibility.Visible == true) // light theme
+                    {
+                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+                    }
+                    else
+                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
                 });
 
-                
-            }
-            else
-            {
-               
+                // v== Visibility.Visible == "Dark"
+
+
+                if (e.Receiver == Controller.Instance.getCurrentUserID())
+                {
+                    System.Diagnostics.Debug.WriteLine(" Woohoo, I got a message");
+                    msg.outgoing = false;
+                    dm.storeNewMessage(msg);
+                    int msgDbID = msg.msgDbId;
+                    bool tagsFlag = false;
+
+
+                    if (Controller.Instance.GetTagsList(e.TextContent).Count > 0)
+                    {
+                        tagsFlag = true;
+                    }
+                    if (tagsFlag == true)
+                    {
+                        //store new tags if any
+                        foreach (string tagfromMessage in Controller.Instance.GetTagsList(e.TextContent))
+                        {
+
+                            TagMessage tagMessage = new TagMessage();
+                            tagMessage.MessageID = msgDbID;
+                            tagMessage.TagName = tagfromMessage;
+
+                            dm.storeNewTagMessage(tagMessage);
+                        }
+                    }
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+
+                        Controller.Instance.notifyViewAboutMessage(true);
+                    });
+
+
+                }
+                else
+                {
+
                     this.TransitMessages.Add(msg);
+                }
             }
             
            
         }
         public void BroadcastMessageReceived(object sender, MessageEventArgs e)
         {
-           
-            System.Diagnostics.Debug.WriteLine("Broadcast message received " + e.TextContent);
-            Message msg = new Message();
-            msg.PrivateMessage = false;
-            msg.GroupMessage = false;
-            msg.Hash = e.Hash;
-            msg.ReceiverID = e.Receiver;
-            msg.SenderID = e.Sender;
-            if (e.SenderAlias == null || e.SenderAlias == "")
-                msg.SenderAlias = "Anonymous";
-            else
-                msg.SenderAlias = e.SenderAlias;
-            msg.TextContent = e.TextContent;
-            msg.outgoing = true;
-
-            //accentColor = c.GetCurrentAccentColor();
-            msg.MessageTextColor = new SolidColorBrush(accentColor);
-
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            if (dm.checkMessageExist(e.Sender, e.Receiver, e.timestamp) == false)
             {
-                var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
-                if (currentPhoneTheme == Visibility.Visible == true) // light theme
-                {
-                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
-                }
+
+
+                System.Diagnostics.Debug.WriteLine("Broadcast message received " + e.TextContent);
+                Message msg = new Message();
+                msg.PrivateMessage = false;
+                msg.GroupMessage = false;
+                msg.Hash = e.Hash;
+                msg.ReceiverID = e.Receiver;
+                msg.SenderID = e.Sender;
+                if (e.SenderAlias == null || e.SenderAlias == "")
+                    msg.SenderAlias = "Anonymous";
                 else
-                    msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
-            });
-           
-            msg.Attachment = e.Attachment;
-            msg.Attachmentfilename = e.Attachmentfilename;
-            msg.Attachmentflag = e.Attachmentflag;
-            msg.IsRead = false;
-            msg.TimeStamp = e.timestamp;
+                    msg.SenderAlias = e.SenderAlias;
+                msg.TextContent = e.TextContent;
+                msg.outgoing = true;
 
-            dm.storeNewMessage(msg);
+                //accentColor = c.GetCurrentAccentColor();
+                msg.MessageTextColor = new SolidColorBrush(accentColor);
 
-            int msgDbID = msg.msgDbId;
-            bool tagsFlag = false;
-
-
-            if (Controller.Instance.GetTagsList(e.TextContent).Count > 0)
-            {
-                tagsFlag = true;
-            }
-            if (tagsFlag == true)
-            {
-                //store new tags if any
-                foreach (string tagfromMessage in Controller.Instance.GetTagsList(e.TextContent))
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    
-                    TagMessage tagMessage = new TagMessage();
-                    tagMessage.MessageID = msgDbID;
-                    tagMessage.TagName = tagfromMessage;
+                    var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+                    if (currentPhoneTheme == Visibility.Visible == true) // light theme
+                    {
+                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
+                    }
+                    else
+                        msg.MessageTypeImageURL = "/Resources/appbar.download.rest.png";
+                });
 
-                    dm.storeNewTagMessage(tagMessage);
-                }
-            }
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
-                Controller.Instance.notifyViewAboutMessage(false);
-            });
-            
-            this.TransitMessages.Add(msg);
-            
-        }
-        public void GroupMessageReceived(object sender, MessageEventArgs e)
-        {
+                msg.Attachment = e.Attachment;
+                msg.Attachmentfilename = e.Attachmentfilename;
+                msg.Attachmentflag = e.Attachmentflag;
+                msg.IsRead = false;
+                msg.TimeStamp = e.timestamp;
 
-            System.Diagnostics.Debug.WriteLine("Group message received " + e.TextContent);
-            Message msg = new Message();
-            msg.PrivateMessage = false;
-            msg.GroupMessage = true;
-            msg.Hash = e.Hash;
-            msg.ReceiverID = e.Receiver;
-            msg.SenderID = e.Sender;
-            if (e.SenderAlias == null || e.SenderAlias == "")
-                msg.SenderAlias = "Anonymous";
-            else
-                msg.SenderAlias = e.SenderAlias;
-            msg.TextContent = e.TextContent;
-            msg.outgoing = true;
-
-
-
-            msg.Attachment = e.Attachment;
-            msg.Attachmentfilename = e.Attachmentfilename;
-            msg.Attachmentflag = e.Attachmentflag;
-            msg.TimeStamp = e.timestamp;
-            
-            msg.IsRead = false;
-            //if the groupID is one of my groupID
-            bool mygroup = false;
-            foreach ( Group g in App.ViewModel.Groups)
-            {
-                if(g.GroupID==e.Sender)
-                    mygroup=true;
-            }
-           
-            if (mygroup == true)
-            {
                 dm.storeNewMessage(msg);
+
                 int msgDbID = msg.msgDbId;
                 bool tagsFlag = false;
 
@@ -246,34 +206,93 @@ namespace GEETHREE
                     //store new tags if any
                     foreach (string tagfromMessage in Controller.Instance.GetTagsList(e.TextContent))
                     {
-                        bool mytag = false;
-                        foreach (Tags t in dm.getAllTags())
-                        {
-                            if (t.TagName == tagfromMessage)
-                                mytag = true;
-                        }
-                        if (mytag == false)
-                        {
-                            Tags tag = new Tags();
-                            tag.TagName = tagfromMessage;
 
+                        TagMessage tagMessage = new TagMessage();
+                        tagMessage.MessageID = msgDbID;
+                        tagMessage.TagName = tagfromMessage;
 
-                            dm.storeNewTag(tag);
-                            TagMessage tagMessage = new TagMessage();
-                            tagMessage.tagMessageDbId = msgDbID;
-                            tagMessage.TagName = tagfromMessage;
-
-                            dm.storeNewTagMessage(tagMessage);
-                        }
+                        dm.storeNewTagMessage(tagMessage);
                     }
                 }
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    App.ViewModel.ReceivedBroadcastMessages.Insert(0, msg);
+
                     Controller.Instance.notifyViewAboutMessage(false);
                 });
+
+                this.TransitMessages.Add(msg);
             }
-            this.TransitMessages.Add(msg);
+            
+        }
+        public void GroupMessageReceived(object sender, MessageEventArgs e)
+        {
+            if (dm.checkMessageExist(e.Sender, e.Receiver, e.timestamp) == false)
+            {
+
+
+                System.Diagnostics.Debug.WriteLine("Group message received " + e.TextContent);
+                Message msg = new Message();
+                msg.PrivateMessage = false;
+                msg.GroupMessage = true;
+                msg.Hash = e.Hash;
+                msg.ReceiverID = e.Receiver;
+                msg.SenderID = e.Sender;
+                if (e.SenderAlias == null || e.SenderAlias == "")
+                    msg.SenderAlias = "Anonymous";
+                else
+                    msg.SenderAlias = e.SenderAlias;
+                msg.TextContent = e.TextContent;
+                msg.outgoing = true;
+
+
+
+                msg.Attachment = e.Attachment;
+                msg.Attachmentfilename = e.Attachmentfilename;
+                msg.Attachmentflag = e.Attachmentflag;
+                msg.TimeStamp = e.timestamp;
+
+                msg.IsRead = false;
+                //if the groupID is one of my groupID
+                bool mygroup = false;
+                foreach (Group g in App.ViewModel.Groups)
+                {
+                    if (g.GroupID == e.Sender)
+                        mygroup = true;
+                }
+
+                if (mygroup == true)
+                {
+                    dm.storeNewMessage(msg);
+                    int msgDbID = msg.msgDbId;
+                    bool tagsFlag = false;
+
+
+                    if (Controller.Instance.GetTagsList(e.TextContent).Count > 0)
+                    {
+                        tagsFlag = true;
+                    }
+                    if (tagsFlag == true)
+                    {
+                        //store new tags if any
+                        foreach (string tagfromMessage in Controller.Instance.GetTagsList(e.TextContent))
+                        {
+
+                            TagMessage tagMessage = new TagMessage();
+                            tagMessage.MessageID = msgDbID;
+                            tagMessage.TagName = tagfromMessage;
+
+                            dm.storeNewTagMessage(tagMessage);
+
+                        }
+                    }
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+
+                        Controller.Instance.notifyViewAboutMessage(false);
+                    });
+                }
+                this.TransitMessages.Add(msg);
+            }
             
         }
         public void FileReceived(object sender, MessageEventArgs e)
