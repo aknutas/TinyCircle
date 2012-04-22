@@ -101,7 +101,7 @@ namespace GEETHREE.Pages
                         msg.SenderAlias = Controller.Instance.getCurrentAlias();
 
                         msg.IsRead = true;
-                        msg.MessageTextColor = new SolidColorBrush(Colors.Gray);
+                        //msg.MessageTextColor = new SolidColorBrush(Colors.Gray);
                         //msg.ReceiverID = replyID;
                         //msg.PrivateMessage = true;
                         //msg.outgoing = true;
@@ -290,7 +290,7 @@ namespace GEETHREE.Pages
                 msg.Attachment = attachmentContentstring;
 
                 msg.IsRead = true;
-                msg.MessageTextColor = new SolidColorBrush(Colors.Gray);
+                //msg.MessageTextColor = new SolidColorBrush(Colors.Gray);
                 //ctrl.dm.storeObjects();
                 
                 //App.ViewModel.SentMessages.Add(msg);

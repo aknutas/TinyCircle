@@ -60,8 +60,6 @@ namespace GEETHREE.Networking
 
                 // Bind this new channel for toast events.
                 pushChannel.BindToShellToast();
-
-
             }
             else
             {
@@ -72,14 +70,20 @@ namespace GEETHREE.Networking
                 // Register for this notification only if you need to receive the notifications while your application is running.
                 pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
 
-                //Display the URI for testing purposes
-                System.Diagnostics.Debug.WriteLine(pushChannel.ChannelUri.ToString());
+                try
+                {
+                    //Display the URI for testing purposes
+                    System.Diagnostics.Debug.WriteLine(pushChannel.ChannelUri.ToString());
 
-                //Registering the URI in the web service
-                ws.registerToast(pushChannel.ChannelUri.ToString(), userId);
+                    //Registering the URI in the web service
+                    ws.registerToast(pushChannel.ChannelUri.ToString(), userId);
+                }
+                catch (Exception ex)
+                {
+
+                    System.Diagnostics.Debug.WriteLine("TP: Failed to register toast in web service " + ex.ToString());
+                }
             }
-
-
         }
 
         private void PushChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
@@ -87,12 +91,21 @@ namespace GEETHREE.Networking
             //Open web service for notifications
             WebServiceConnector ws = new WebServiceConnector();
 
-            string ChannelUri = e.ChannelUri.ToString();
-            //Display the URI for testing purposes
-            System.Diagnostics.Debug.WriteLine(ChannelUri);
+            try
+            {
+                //Getting channel URI
+                string ChannelUri = e.ChannelUri.ToString();
 
-            //Registering the URI in the web service
-            ws.registerToast(ChannelUri, userId);
+                //Display the URI for testing purposes
+                System.Diagnostics.Debug.WriteLine(ChannelUri);
+
+                //Registering the URI in the web service
+                ws.registerToast(ChannelUri, userId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("TP: Failed to register toast in web service " + ex.ToString());
+            }
         }
 
         private void PushChannel_ErrorOccurred(object sender, NotificationChannelErrorEventArgs e)

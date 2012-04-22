@@ -35,11 +35,15 @@ namespace GEETHREE
         private List<UserInfoResponse> usrInfoResponseList;
 
         private System.ComponentModel.BackgroundWorker loaderBackgroundWorker;
-        private bool threadRunning = false;
-   
+        private bool threadRunning;
+        private Object threadLock;
 
         public MainViewModel()
         {
+            //Thread checks
+            threadRunning = false;
+            threadLock = new Object();
+
             //Create and get reference to the main controller instance
             c = Controller.Instance;
 
@@ -114,13 +118,16 @@ namespace GEETHREE
 
         public void refreshDataAsync(){
             //Start async start data loading
-            if (!threadRunning)
+            lock (threadLock)
             {
-                System.Diagnostics.Debug.WriteLine("MVM: Starting async data load worker");
-                loaderBackgroundWorker = new BackgroundWorker();
-                InitializeBackgroundWorker();
-                loaderBackgroundWorker.RunWorkerAsync();
-                System.Diagnostics.Debug.WriteLine("MVM: Exiting constructor");
+                if (!threadRunning)
+                {
+                    System.Diagnostics.Debug.WriteLine("MVM: Starting async data load worker");
+                    loaderBackgroundWorker = new BackgroundWorker();
+                    InitializeBackgroundWorker();
+                    loaderBackgroundWorker.RunWorkerAsync();
+                    System.Diagnostics.Debug.WriteLine("MVM: Exiting constructor");
+                }
             }
         }
 
@@ -195,7 +202,10 @@ namespace GEETHREE
             System.Diagnostics.Debug.WriteLine("LoadData: Data load thread completed");
 
             //Release "lock"
-            threadRunning = false;
+            lock (threadLock)
+            {
+                threadRunning = false;
+            }
         }
 
         //Async thread made new progress and triggered progress update
