@@ -207,6 +207,7 @@ namespace GEETHREE
         // ** when message arrives, notify an active views about it
         public void notifyViewAboutMessage(bool isPrivate)
         {
+            App.ViewModel.refreshDataAsync();
             if (currentPageName == "main")
             {
                 MainPage mp = (MainPage)currentPage;
