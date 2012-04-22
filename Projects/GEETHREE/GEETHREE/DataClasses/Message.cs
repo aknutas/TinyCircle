@@ -155,7 +155,7 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-
+        /*
         private SolidColorBrush _messageTextColor;
 
         public SolidColorBrush MessageTextColor
@@ -270,7 +270,7 @@ namespace GEETHREE.DataClasses
                 }
             }
         }
-
+        */
 
 
         private string _textContent;

@@ -26,45 +26,32 @@ namespace GEETHREE
         /// <summary>
         /// List of other messages to be sent forward
         /// </summary>
+
         public ObservableCollection<Message> TransitMessages { get; private set; }
         private Controller c;
         private DataMaster dm;
         private CommunicationHandler cm;
        
         private bool themeColor;
-        private bool themeBackground;
         public bool ConnectedToServer { get; private set; }
         public int LocalConnections { get; private set; }
-       
-                
 
         //Public constructor
         public MessageHandler(DataMaster dm, CommunicationHandler cm)
         {
             this.dm = dm;
-            this.cm = cm;
-             
-             
+            this.cm = cm;   
             this.TransitMessages = new ObservableCollection<Message>();
             this.ConnectedToServer = false;
             this.LocalConnections = 0;
             RegisterEvents();
-            //LoadTransitmessages();
-
-            SetThemeColors();
-            
-            //accentColor = GetAccentColor();
-            //accentColor = accentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
-            //System.Diagnostics.Debug.WriteLine("MH : Current accent color is" + accentColor.ToString());
-            
+            SetThemeColors();          
         }
 
         public void SetThemeColors()
         {
 
-            System.Diagnostics.Debug.WriteLine("MH: GETTING ACCENT COLOR");
-           
-            
+            System.Diagnostics.Debug.WriteLine("MH: GETTING PHONE THEME");          
         
             var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
             if (currentPhoneTheme == Visibility.Visible == true) // light theme
@@ -112,7 +99,7 @@ namespace GEETHREE
                 msg.IsRead = false;
                 msg.TimeStamp = e.timestamp;  
                 
-                if (themeBackground == true) // light theme
+                if (themeColor == true) // light theme
                 {
                     msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
                 }
@@ -184,7 +171,7 @@ namespace GEETHREE
                 msg.outgoing = true;
 
               
-                if (themeBackground == true) // light theme
+                if (themeColor == true) // light theme
                 {
                     msg.MessageTypeImageURL = "/Resources/appbar.download.rest_black.png";
                 }
