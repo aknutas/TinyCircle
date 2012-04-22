@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using GEETHREE.DataClasses;
 using GEETHREE.Networking;
 using System.Windows.Media.Imaging;
+using System.Threading;
+
+
 
 
 namespace GEETHREE
@@ -87,6 +90,7 @@ namespace GEETHREE
 
 
                 //Color accentColor = c.GetCurrentAccentColor();
+
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
                     msg.MessageTextColor = new SolidColorBrush(accentColor);
@@ -136,7 +140,7 @@ namespace GEETHREE
                         Controller.Instance.notifyViewAboutMessage(true);
                     });
 
-                    
+
                 }
                 else
                 {
@@ -218,9 +222,7 @@ namespace GEETHREE
 
                 this.TransitMessages.Add(msg);
             }
-
-               
-           
+            
         }
         public void GroupMessageReceived(object sender, MessageEventArgs e)
         {
@@ -252,7 +254,7 @@ namespace GEETHREE
                 msg.IsRead = false;
                 //if the groupID is one of my groupID
                 bool mygroup = false;
-                foreach (Group g in dm.getAllGroups())
+                foreach (Group g in App.ViewModel.Groups)
                 {
                     if (g.GroupID == e.Sender)
                         mygroup = true;
@@ -274,6 +276,7 @@ namespace GEETHREE
                         //store new tags if any
                         foreach (string tagfromMessage in Controller.Instance.GetTagsList(e.TextContent))
                         {
+
                             TagMessage tagMessage = new TagMessage();
                             tagMessage.MessageID = msgDbID;
                             tagMessage.TagName = tagfromMessage;
@@ -290,6 +293,7 @@ namespace GEETHREE
                 }
                 this.TransitMessages.Add(msg);
             }
+            
         }
         public void FileReceived(object sender, MessageEventArgs e)
         {
