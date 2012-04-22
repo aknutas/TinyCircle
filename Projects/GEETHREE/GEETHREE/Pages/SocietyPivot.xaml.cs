@@ -326,7 +326,7 @@ namespace GEETHREE
 
 
                     //list allnearbygroups in a new canvas
-                    groupCanvasTextBlock.Text = "Add Friend : ";
+                    groupCanvasTextBlock.Text = "Add Friend";
                     groupListCanvas.Background = backgroundbrush;
                     userflag = true;
                     groupListCanvas.Visibility = Visibility.Visible;
@@ -436,7 +436,7 @@ namespace GEETHREE
 
             //list allnearbygroups in a new canvas
             groupListCanvas.Background = backgroundbrush;
-            groupCanvasTextBlock.Text = "Join Group : ";
+            groupCanvasTextBlock.Text = "Join Group";
             userflag = false;
             groupListCanvas.Visibility = Visibility.Visible;
 
@@ -624,11 +624,14 @@ namespace GEETHREE
 
         private void tagsListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            App.ViewModel.LoadTagMessages((Tags)tagsListBox.SelectedItem);
-            tagCanvasTextBlock.Text = ((Tags)tagsListBox.SelectedItem).TagName;
-            TagListCanvas.Background = backgroundbrush;
-            TagListCanvas.Visibility = Visibility.Visible;
-            ApplicationBar.IsVisible = false;
+            if ((Tags)tagsListBox.SelectedItem != null)
+            {
+                App.ViewModel.LoadTagMessages((Tags)tagsListBox.SelectedItem);
+                tagCanvasTextBlock.Text = ((Tags)tagsListBox.SelectedItem).TagName;
+                TagListCanvas.Background = backgroundbrush;
+                TagListCanvas.Visibility = Visibility.Visible;
+                ApplicationBar.IsVisible = false;
+            }
             
             
             
