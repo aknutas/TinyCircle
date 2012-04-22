@@ -380,11 +380,11 @@ namespace GEETHREE.Pages
                         MemoryStream ms = new MemoryStream();
                         // width, height, orienteation, quality
                         if (wb.PixelHeight == wb.PixelWidth)
-                            wb.SaveJpeg(ms, 480, 480, 0, 30);
+                            wb.SaveJpeg(ms, 480, 480, 0, 10);
                         else if (wb.PixelHeight > wb.PixelWidth)
-                            wb.SaveJpeg(ms, 480, 640, 0, 30);
+                            wb.SaveJpeg(ms, 480, 800, 0, 10);
                         else
-                            wb.SaveJpeg(ms, 640, 480, 0, 30);
+                            wb.SaveJpeg(ms, 800, 480, 0, 10);
 
 
                         bitImage.SetSource(ms);
@@ -429,15 +429,14 @@ namespace GEETHREE.Pages
                             WriteableBitmap wb = new WriteableBitmap(bitImage);
 
                             MemoryStream ms = new MemoryStream();
-                            // width, height, orienteation, quality
-                            // width, height, orienteation, quality
+
                             // width, height, orienteation, quality
                             if (wb.PixelHeight == wb.PixelWidth)
-                                wb.SaveJpeg(ms, 480, 480, 0, 30);
+                                wb.SaveJpeg(ms, 480, 480, 0, 10);
                             else if (wb.PixelHeight > wb.PixelWidth)
-                                wb.SaveJpeg(ms, 480, 640, 0, 30);
+                                wb.SaveJpeg(ms, 480, 800, 0, 10);
                             else
-                                wb.SaveJpeg(ms, 640, 480, 0, 30);
+                                wb.SaveJpeg(ms, 800, 480, 0, 10);
 
                             //wb.SaveJpeg(ms, 400, 240, 0, 50);
                             bitImage.SetSource(ms);
