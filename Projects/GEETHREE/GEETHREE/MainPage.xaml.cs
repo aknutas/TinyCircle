@@ -55,6 +55,8 @@ namespace GEETHREE
             }
             else
                 ctrl.cm.Join(ctrl.getCurrentUserID());
+
+            //ctrl.SetThemeColors();
             System.Diagnostics.Debug.WriteLine("Mainpage constructed");
         }
 
@@ -69,10 +71,11 @@ namespace GEETHREE
 
             updateWifiAndServerStatuses();
 
+            
 
             System.Diagnostics.Debug.WriteLine("Mainpage loaded");
 
-            
+
 
         }
 
@@ -268,8 +271,8 @@ namespace GEETHREE
                 {
                     if (isPrivate == true) // navigate to Messages - whispers
                         //NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
-                        //NavigationService.Navigate(new Uri("/Pages/MessagePage.xaml?parameter=messages_whispers", UriKind.Relative));
-                        NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+                        NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
+                        //NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
                     else // navigate to messages - shouts
                         NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
                 }
@@ -397,6 +400,5 @@ namespace GEETHREE
             string parameter = "messages_shouts";
             NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter),  UriKind.Relative));
         }
-
     }
 }
