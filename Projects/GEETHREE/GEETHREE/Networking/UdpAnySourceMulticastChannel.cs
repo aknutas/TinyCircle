@@ -134,9 +134,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("SendToGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -163,9 +163,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("SendToGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
             
         }
@@ -201,9 +201,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("BeginSendToGroup IOE");
+                HandleInvalidOperationException(e);
             }
         }
         public void Send(string message)
@@ -264,9 +264,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("BeginSendToGroup IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -284,9 +284,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("SendToGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -317,9 +317,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("SendToGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -373,9 +373,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("SendToGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -435,9 +435,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("SendToGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -455,9 +455,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("SendToGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -479,9 +479,9 @@ namespace GEETHREE
                     // See if we can do something when a SocketException occurs.
                     HandleSocketException(socketEx);
                 }
-                catch (InvalidOperationException)
+                catch (InvalidOperationException e)
                 {
-                    Debug.WriteLine("SendToGroupCallback IOE");
+                    HandleInvalidOperationException(e);
                 }
             }
         }
@@ -511,9 +511,9 @@ namespace GEETHREE
                 // See if we can do something when a SocketException occurs.
                 HandleSocketException(socketEx);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
-                Debug.WriteLine("ReceiveFromGroupCallback IOE");
+                HandleInvalidOperationException(e);
             }
         }
 
@@ -547,7 +547,7 @@ namespace GEETHREE
             }
             else if (messageParts[0] == Commands.InfoMessage)
             {
-                StopResendTimer();
+                //StopResendTimer();
                 if (messageParts[1] == Commands.RequestPart)
                 {
                     SendPartTo(source, Convert.ToInt32(messageParts[2]));
@@ -597,7 +597,7 @@ namespace GEETHREE
         private bool HandlePartialMessage(string sender, string packetno, string nopackets, string content, IPEndPoint source)
         {
             Debug.WriteLine("got package: " + packetno + " of " + nopackets);
-            StopResendTimer();
+            //StopResendTimer();
             if (receivebuffer == null)
                 receivebuffer = new MessageBuffer();
 
@@ -623,9 +623,9 @@ namespace GEETHREE
                     {
                         this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
                     }
-                    catch (InvalidOperationException)
+                    catch (InvalidOperationException e)
                     {
-                        Debug.WriteLine("SendToGroupCallback IOE");
+                        HandleInvalidOperationException(e);
                     }
                 }
 
@@ -652,9 +652,9 @@ namespace GEETHREE
                         {
                             this.Client.BeginSendTo(data, 0, data.Length, source, new AsyncCallback(SendToCallback), null);
                         }
-                        catch (InvalidOperationException)
+                        catch (InvalidOperationException e)
                         {
-                            Debug.WriteLine("SendToGroupCallback IOE");
+                            HandleInvalidOperationException(e);
                         }
                     }
 
@@ -702,9 +702,9 @@ namespace GEETHREE
                 {
                     this.Client.BeginSendTo(data, 0, data.Length, receivebuffer.source, new AsyncCallback(SendToCallback), null);
                 }
-                catch (InvalidOperationException)
+                catch (InvalidOperationException e)
                 {
-                    Debug.WriteLine("SendToGroupCallback IOE");
+                    HandleInvalidOperationException(e);
                 }
             }
         }
@@ -737,9 +737,9 @@ namespace GEETHREE
                         {
                             this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                         }
-                        catch (InvalidOperationException)
+                        catch (InvalidOperationException e)
                         {
-                            Debug.WriteLine("SendToGroupCallback IOE");
+                            HandleInvalidOperationException(e);
                         }
                     }
                     else
@@ -749,9 +749,9 @@ namespace GEETHREE
                         {
                             this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                         }
-                        catch (InvalidOperationException)
+                        catch (InvalidOperationException e)
                         {
-                            Debug.WriteLine("SendToGroupCallback IOE");
+                            HandleInvalidOperationException(e);
                         }
                     }
                 }
@@ -799,10 +799,17 @@ namespace GEETHREE
             {
                 // Just display the message.
                 Debug.WriteLine(socketEx.Message);
-                this.IsJoined = false;
-                this.Open();
+                //this.IsJoined = false;
+                //this.Open();
             }
 
+        }
+
+        private void HandleInvalidOperationException(InvalidOperationException Ex)
+        {
+            Debug.WriteLine("HandleInvalidOperationException, resetting communication");
+            this.IsJoined = false;
+            this.Open();
         }
 
         //Timer for requesting more packages
@@ -831,8 +838,8 @@ namespace GEETHREE
                 _dt.Stop();
         }
 
-        //Timer for requesting more packages
-        DispatcherTimer _rstimer;
+        //Timer for resending a package
+        /*DispatcherTimer _rstimer;
         private void StartResendTimer()
         {
             if (_rstimer == null)
@@ -856,7 +863,7 @@ namespace GEETHREE
         {
             if (_rstimer != null)
                 _rstimer.Stop();
-        }
+        }*/
     }
 
 
