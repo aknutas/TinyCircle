@@ -40,6 +40,8 @@ namespace GEETHREE
             DataContext = App.ViewModel;
             ctrl = Controller.Instance;
             ctrl.registerCurrentPage(this, "society");
+            ctrl.dm.resetTableGroupAndUserInfoResponse();
+            
             ctrl.cm.RequestUserInfo(ctrl.getCurrentUserID());
             ctrl.cm.RequestGroupInfo(ctrl.getCurrentUserID());
 

@@ -144,6 +144,8 @@ namespace GEETHREE
             c.notifyViewAboutMessage(true);
         }
 
+        
+
         private void InitializeBackgroundWorker()
         {
             loaderBackgroundWorker.DoWork +=
@@ -333,6 +335,8 @@ namespace GEETHREE
         // clear and load data from database to observable collections
         public void LoadData()
         {
+
+            
 
             Groups.Clear();
             grpList.Clear();     

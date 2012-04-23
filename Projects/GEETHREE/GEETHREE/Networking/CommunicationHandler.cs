@@ -111,7 +111,7 @@ namespace GEETHREE
             //this.Join(cm.getCurrentUserID());
 
             grpList.Clear();
-            //grpList = cm.dm.getAllGroups();
+            grpList = cm.dm.getAllGroups();
            
         }
 
