@@ -347,7 +347,7 @@ namespace GEETHREE
         {
             byte[] temphash={0,0};
             msg.Hash = temphash;
-            msg.TimeStamp = DateTime.Now;
+            
             System.Diagnostics.Debug.WriteLine("mh: Asked to send message");            
             this.cm.SendToAll(msg);
         }
@@ -364,7 +364,7 @@ namespace GEETHREE
         {
             byte[] temphash = { 0, 0 };
             msg.Hash = temphash;
-            msg.TimeStamp = DateTime.Now;
+            
             this.cm.SendFileToAll(msg);
         }
 

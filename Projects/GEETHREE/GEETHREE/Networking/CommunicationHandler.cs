@@ -54,6 +54,8 @@ namespace GEETHREE
         /// The id of this user.
         /// </summary>
         private string _userID;
+        private IFormatProvider culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+
         public ObservableCollection<Connection> Connections { get; private set; }
 
         /// <summary>
@@ -405,7 +407,7 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp);
+                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
             }
             catch (FormatException e)
             {
@@ -426,7 +428,8 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp);
+                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
+            
             }
             catch(FormatException e)
             {
@@ -447,7 +450,8 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp);
+                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
+            
             }
             catch (FormatException e)
             {
@@ -469,7 +473,8 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp);
+                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
+            
             }
             catch (FormatException e)
             {
@@ -625,7 +630,7 @@ namespace GEETHREE
             if (wsConnection == null)
                 wsConnection = new WebServiceConnector();
             if(wsConnection.connectionUp)
-                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msgContent, this, msg.TimeStamp.Value);
+                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msgContent, this, DateTime.Parse(msg.TimeStamp.ToString(), culture, System.Globalization.DateTimeStyles.AssumeLocal));
         }
 
         public void GetMessagesFromServer(string uid)
@@ -666,7 +671,8 @@ namespace GEETHREE
                 DateTime dt_stamp;
 
                 if(msg.TimeStamp.HasValue)
-                    dt_stamp=msg.TimeStamp.Value;
+
+                    dt_stamp = DateTime.Parse(msg.TimeStamp.ToString(), culture, System.Globalization.DateTimeStyles.AssumeLocal);
                 else
                     dt_stamp=DateTime.Now;
 

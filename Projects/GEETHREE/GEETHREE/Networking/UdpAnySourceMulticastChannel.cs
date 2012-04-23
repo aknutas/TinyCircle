@@ -67,6 +67,7 @@ namespace GEETHREE
 
         private MessageBuffer sendbuffer;
         private MessageBuffer receivebuffer;
+        private int messagePartsSize = 40960;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UdpAnySourceMulticastChannel"/> class.
@@ -74,7 +75,7 @@ namespace GEETHREE
         /// <param name="address">The address.</param>
         /// <param name="port">The port.</param>
         public UdpAnySourceMulticastChannel(string address, int port)
-            : this(IPAddress.Parse(address), port, 1024)
+            : this(IPAddress.Parse(address), port, 81920)
         { }
 
         /// <summary>
@@ -214,13 +215,13 @@ namespace GEETHREE
                 {
                     Debug.WriteLine("Sending a message of size: " + message.Length);
                     //Is the message too big?
-                    if (message.Length > 256)
+                    if (message.Length > messagePartsSize)
                     {
                         string tmpmsg;
                         string[] messageParts = message.Split(Commands.CommandDelimeter.ToCharArray());
                         int index=0;
 
-                        int nopackages = message.Length / 256 + (message.Length % 256 > 0 ? 1 : 0);
+                        int nopackages = message.Length / messagePartsSize + (message.Length % messagePartsSize > 0 ? 1 : 0);
                         if (sendbuffer == null)
                             sendbuffer = new MessageBuffer();
 
@@ -230,8 +231,8 @@ namespace GEETHREE
                         sendbuffer.problem = false;
                         sendbuffer.currentpackage = 0;
 
-                        if(index+256<=message.Length)
-                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index, 256));
+                        if(index+messagePartsSize<=message.Length)
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index, messagePartsSize));
                         else
                             tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index));
 
@@ -337,13 +338,13 @@ namespace GEETHREE
                 {
                     Debug.WriteLine("Sending a message of size: " + message.Length);
                     //Is the message too big?
-                    if (message.Length > 256)
+                    if (message.Length > messagePartsSize)
                     {
                         string tmpmsg;
                         string[] messageParts = message.Split(Commands.CommandDelimeter.ToCharArray());
                         int index = 0;
 
-                        int nopackages = message.Length / 256 + (message.Length % 256 > 0 ? 1 : 0);
+                        int nopackages = message.Length / messagePartsSize + (message.Length % messagePartsSize > 0 ? 1 : 0);
                         if (sendbuffer == null)
                             sendbuffer = new MessageBuffer();
 
@@ -353,8 +354,8 @@ namespace GEETHREE
                         sendbuffer.problem = false;
                         sendbuffer.currentpackage = 0;
 
-                        if (index + 256 <= message.Length)
-                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index, 256));
+                        if (index + messagePartsSize <= message.Length)
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index, messagePartsSize));
                         else
                             tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), message.Substring(index));
 
@@ -389,11 +390,11 @@ namespace GEETHREE
                     //sendbuffer.currentpackage += 1;
                     if (sendbuffer != null && sendbuffer.buffer != null && sendbuffer.sender != null && nopackage < sendbuffer.numberofpackages)
                     {
-                        if (nopackage * 256 + 256 <= sendbuffer.buffer.Length)
+                        if (nopackage * messagePartsSize + messagePartsSize <= sendbuffer.buffer.Length)
                         {
                             try
                             {
-                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * 256, 256));
+                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * messagePartsSize, messagePartsSize));
                                 byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                                 this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                                 Debug.WriteLine("Sending package number: " + nopackage); 
@@ -401,23 +402,23 @@ namespace GEETHREE
                             catch (Exception ex)
                             {
                                 if (ex is ArgumentOutOfRangeException)
-                                    Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * 256) + " to " + (nopackage * 256 + 256) + "size of buffer: " + sendbuffer.buffer.Length);
+                                    Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * messagePartsSize) + " to " + (nopackage * messagePartsSize + messagePartsSize) + "size of buffer: " + sendbuffer.buffer.Length);
                                 else if (ex is SocketException)
                                     HandleSocketException((SocketException)ex);
                             }
                         }
-                        else if (nopackage * 256 <= sendbuffer.buffer.Length)
+                        else if (nopackage * messagePartsSize <= sendbuffer.buffer.Length)
                         {
                             try
                             {
-                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * 256));
+                                tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, nopackage.ToString(), sendbuffer.numberofpackages.ToString(), sendbuffer.buffer.Substring(nopackage * messagePartsSize));
                                 byte[] data = Encoding.UTF8.GetBytes(tmpmsg);
                                 this.Client.BeginSendToGroup(data, 0, data.Length, new AsyncCallback(SendToGroupCallback), null);
                                 Debug.WriteLine("Sending package number: " + nopackage);
                             }
                             catch (System.ArgumentOutOfRangeException)
                             {
-                                Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * 256) + " to " + (nopackage * 256 + 256) + "size of buffer: " + sendbuffer.buffer.Length);
+                                Debug.WriteLine("Problem with sendbuffer, aborting send: Requesting part from " + (nopackage * messagePartsSize) + " to " + (nopackage * messagePartsSize + messagePartsSize) + "size of buffer: " + sendbuffer.buffer.Length);
                             }
                         }
                         else
@@ -726,17 +727,17 @@ namespace GEETHREE
                 {
                     Debug.WriteLine("Resending a message of size: " + sendbuffer.buffer.Length);
                     //Is the message too big?
-                    if (sendbuffer.buffer.Length > 256)
+                    if (sendbuffer.buffer.Length > messagePartsSize)
                     {
                         string tmpmsg;
                         string[] messageParts = sendbuffer.buffer.Split(Commands.CommandDelimeter.ToCharArray());
                         int index = 0;
 
-                        int nopackages = sendbuffer.buffer.Length / 256 + (sendbuffer.buffer.Length % 256 > 0 ? 1 : 0);
+                        int nopackages = sendbuffer.buffer.Length / messagePartsSize + (sendbuffer.buffer.Length % messagePartsSize > 0 ? 1 : 0);
 
 
-                        if (index + 256 <= sendbuffer.buffer.Length)
-                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), sendbuffer.buffer.Substring(index, 256));
+                        if (index + messagePartsSize <= sendbuffer.buffer.Length)
+                            tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), sendbuffer.buffer.Substring(index, messagePartsSize));
                         else
                             tmpmsg = string.Format(Commands.PartialMessageFormat, sendbuffer.sender, sendbuffer.currentpackage.ToString(), nopackages.ToString(), sendbuffer.buffer.Substring(index));
 

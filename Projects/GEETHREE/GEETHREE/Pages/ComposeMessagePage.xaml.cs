@@ -288,6 +288,7 @@ namespace GEETHREE.Pages
                 msg.Attachmentflag = attachmentFlag;
                 msg.Attachmentfilename = attachmentFileName;   
                 msg.Attachment = attachmentContentstring;
+                msg.TimeStamp = DateTime.Now;
 
                 msg.IsRead = true;
                 //msg.MessageTextColor = new SolidColorBrush(Colors.Gray);
@@ -380,11 +381,11 @@ namespace GEETHREE.Pages
                         MemoryStream ms = new MemoryStream();
                         // width, height, orienteation, quality
                         if (wb.PixelHeight == wb.PixelWidth)
-                            wb.SaveJpeg(ms, 480, 480, 0, 10);
+                            wb.SaveJpeg(ms, 480, 480, 0, 50);
                         else if (wb.PixelHeight > wb.PixelWidth)
-                            wb.SaveJpeg(ms, 480, 800, 0, 10);
+                            wb.SaveJpeg(ms, 480, 800, 0, 50);
                         else
-                            wb.SaveJpeg(ms, 800, 480, 0, 10);
+                            wb.SaveJpeg(ms, 800, 480, 0, 50);
 
 
                         bitImage.SetSource(ms);
@@ -432,11 +433,11 @@ namespace GEETHREE.Pages
 
                             // width, height, orienteation, quality
                             if (wb.PixelHeight == wb.PixelWidth)
-                                wb.SaveJpeg(ms, 480, 480, 0, 10);
+                                wb.SaveJpeg(ms, 480, 480, 0, 50);
                             else if (wb.PixelHeight > wb.PixelWidth)
-                                wb.SaveJpeg(ms, 480, 800, 0, 10);
+                                wb.SaveJpeg(ms, 480, 800, 0, 50);
                             else
-                                wb.SaveJpeg(ms, 800, 480, 0, 10);
+                                wb.SaveJpeg(ms, 800, 480, 0, 50);
 
                             //wb.SaveJpeg(ms, 400, 240, 0, 50);
                             bitImage.SetSource(ms);
