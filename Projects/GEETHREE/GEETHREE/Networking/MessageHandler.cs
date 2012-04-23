@@ -91,8 +91,8 @@ namespace GEETHREE
                 else
                     msg.SenderAlias = e.SenderAlias;
                 msg.TextContent = e.TextContent;
-
-                msg.outgoing = true;
+                msg.outgoing = false;
+                
                 msg.Attachmentflag = e.Attachmentflag;
                 msg.Attachment = e.Attachment;
                 msg.Attachmentfilename = e.Attachmentfilename;
@@ -142,6 +142,7 @@ namespace GEETHREE
                 }
                 else
                 {
+                    msg.outgoing = true;
                     this.TransitMessages.Add(msg);
                     //Try to send to server
                     cm.SendToServer(msg);
@@ -169,7 +170,7 @@ namespace GEETHREE
                 else
                     msg.SenderAlias = e.SenderAlias;
                 msg.TextContent = e.TextContent;
-                msg.outgoing = true;
+                msg.outgoing = false;
 
               
                 if (themeColor == true) // light theme
@@ -212,6 +213,7 @@ namespace GEETHREE
                 {
                     Controller.Instance.notifyViewAboutMessage(false);
                 });
+                msg.outgoing = true;
 
                 this.TransitMessages.Add(msg);
             }
@@ -235,7 +237,7 @@ namespace GEETHREE
                 else
                     msg.SenderAlias = e.SenderAlias;
                 msg.TextContent = e.TextContent;
-                msg.outgoing = true;
+                msg.outgoing = false;
                 msg.Attachment = e.Attachment;
                 msg.Attachmentfilename = e.Attachmentfilename;
                 msg.Attachmentflag = e.Attachmentflag;
@@ -278,6 +280,7 @@ namespace GEETHREE
                         Controller.Instance.notifyViewAboutMessage(false);
                     });
                 }
+                msg.outgoing = true;
                 this.TransitMessages.Add(msg);
             }
         }
