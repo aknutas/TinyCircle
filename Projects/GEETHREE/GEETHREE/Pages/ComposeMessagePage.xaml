@@ -48,8 +48,8 @@
                 </Grid>
             </StackPanel>
             <!-- This canvas is for selecting recepient  -->
-            <Canvas Height="694" HorizontalAlignment="Left" Name="recipientListCanvas" VerticalAlignment="Top" Width="480" 
-               Visibility="Collapsed"  Opacity="1" Margin="0,3,0,0" Background="Black">
+            <Canvas HorizontalAlignment="Left" Name="recipientListCanvas" VerticalAlignment="Top" Height="800" Width="800" 
+               Visibility="Collapsed" Margin="0,3,0,0" Background="Black">
                 <TextBlock Canvas.Left="23" Canvas.Top="79" Height="30" Name="recipientCanvasTextBlock" Text="" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                 <!--
             <toolkit:ListPicker  Name="receiverListPicker" Visibility="Visible" SelectionChanged="receiverListPicker_SelectionChanged" Width="356" Canvas.Left="53" Canvas.Top="593" Height="73">

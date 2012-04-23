@@ -69,13 +69,14 @@ namespace GEETHREE
             }
 
 
+            updateMySocietyNumbers();
             updateWifiAndServerStatuses();
 
             
 
             System.Diagnostics.Debug.WriteLine("Mainpage loaded");
 
-
+            
 
         }
 
@@ -249,6 +250,9 @@ namespace GEETHREE
                 }
                 else if (newparameter.Equals("main_society"))
                 {
+                    updateMySocietyNumbers();
+
+
                     mainpanorama.DefaultItem = society;
                 }
 
@@ -257,6 +261,20 @@ namespace GEETHREE
             {
 
             }
+        }
+
+        public void updateMySocietyNumbers()
+        {
+            int iNumOfFriends = App.ViewModel.Users.Count;
+            int iNumOfGroups = App.ViewModel.Groups.Count;
+            int iNumofTags = App.ViewModel.Tagss.Count;
+
+            if (iNumOfFriends > 0)
+                numOfFriends.Text = iNumOfFriends.ToString();
+            if (iNumOfGroups > 0)
+                numOfGroups.Text = iNumOfGroups.ToString();
+            if (iNumofTags > 0)
+                numofTags.Text = iNumofTags.ToString(); ;
         }
 
         // ** some kind of popup needed to announce about the message that is just arrived

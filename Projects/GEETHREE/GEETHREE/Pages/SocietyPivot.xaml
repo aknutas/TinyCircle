@@ -100,9 +100,9 @@
             </controls:PivotItem>
         </controls:Pivot>
 
-        <!-- This canvas is for adding friends and joining groups --> 
-        <Canvas Height="700" HorizontalAlignment="Left" Name="addOrJoinCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1" Background="Black">
+        <!-- This canvas is for adding friends and joining groups -->
+        <Canvas  HorizontalAlignment="Left" Name="addOrJoinCanvas" VerticalAlignment="Top" Height="800" Width="800" 
+                Visibility="Collapsed" Background="Black">
 
             <TextBlock Canvas.Left="0" Canvas.Top="0" Height="30" Name="addOrJoinCanvasTextBlock" Text="Create Group" Style="{StaticResource PhoneTextTitle1Style}"  />
             <TextBlock Canvas.Left="35" Canvas.Top="147" Height="40"  Text="Group Name :" Width="332" FontWeight="Medium" FontSize="28" Foreground="{StaticResource PhoneAccentBrush}" />
@@ -115,7 +115,7 @@
         </Canvas>
         
         <!-- This canvas is for selecting Groups  -->
-        <Canvas Height="700" HorizontalAlignment="Left" Name="groupListCanvas" VerticalAlignment="Top" Width="480" 
+        <Canvas HorizontalAlignment="Left" Name="groupListCanvas" VerticalAlignment="Top" Height="800" Width="800" 
                Visibility="Collapsed"  Opacity="1" Margin="0,3,0,0" Background="Black">
             <TextBlock Canvas.Left="0" Canvas.Top="0" Height="30" Name="groupCanvasTextBlock" Text="Join Group"  Style="{StaticResource PhoneTextTitle1Style}"/>
             <ListBox Canvas.Left="35" Canvas.Top="236" Height="344" Name="grplistBox1" Width="403" Visibility="Collapsed" FontSize="{StaticResource PhoneFontSizeExtraLarge}" SelectionChanged="grouptListBox_SelectionChanged"/>
@@ -123,8 +123,8 @@
         </Canvas>
 
         <!-- This canvas is for adding tags -->
-        <Canvas Height="700" HorizontalAlignment="Left" Name="addtagsCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1"  Background="Black" >
+        <Canvas HorizontalAlignment="Left" Name="addtagsCanvas" VerticalAlignment="Top" Height="800" Width="800" 
+                Visibility="Collapsed" Background="Black" >
 
             <TextBlock Canvas.Left="0" Canvas.Top="0" Height="30" Name="addtagsTextBlock" Text="Add new #Tag" Style="{StaticResource PhoneTextTitle1Style}"   />
             <TextBlock Canvas.Left="35" Canvas.Top="147" Height="40"  Text="#Tag :" Width="332" FontWeight="Medium" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}"/>
@@ -137,8 +137,8 @@
 
         </Canvas>
         <!-- This canvas is for listing tag message  -->
-        <Canvas Height="700" HorizontalAlignment="Left" Name="TagListCanvas" VerticalAlignment="Top" Width="480" 
-               Visibility="Collapsed"  Opacity="1" Margin="0,3,0,0" Background="Black">
+        <Canvas HorizontalAlignment="Left" Name="TagListCanvas" VerticalAlignment="Top" Height="800" Width="800" 
+               Visibility="Collapsed" Margin="0,3,0,0" Background="Black">
             <TextBlock Canvas.Left="0" Canvas.Top="0" Height="30" Name="tagCanvasTextBlock" Text=" tagName" Style="{StaticResource PhoneTextTitle1Style}"   />
             <ListBox Margin="30,39,-12,0" ItemsSource="{Binding TagMessages}" Name="tagMessageListBox" Canvas.Left="-13" Canvas.Top="120" Height="534" Width="426" Tap="tagMessage_Tap">
                 <ListBox.ItemTemplate>
@@ -163,9 +163,10 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Canvas>
+        
         <!-- This canvas is for reading messages  -->
-        <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1" Background="Black">
+        <Canvas  HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Height="800" Width="800" 
+                Visibility="Collapsed" Background="Black">
             <TextBlock  Canvas.Left="0" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <!--<TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="11" Canvas.Top="109" Height="374" Name="messageCanvasMessageContent" Text="Content" Width="451" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" FontStretch="Normal" />-->

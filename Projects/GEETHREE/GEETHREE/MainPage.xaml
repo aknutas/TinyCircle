@@ -65,8 +65,6 @@
                     </Grid>
                 </ListBox>
           </controls:PanoramaItem>
-
-
             <!--Panorama item one-->
             <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}" Tap="ListBox_Tap">
                 <!--Double line list with text wrapping-->
@@ -101,74 +99,50 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="My Society" Name="society" Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_Tags_Tap">
+            <controls:PanoramaItem Header="My Society" Name="society" Foreground="{StaticResource PhoneAccentBrush}" >
+                
+                
+                    <!--Double line list with image placeholder and text wrapping-->
                 <ListBox Margin="0,0,0,0">
+
+                    
+                    <!--<TextBlock  Name="txt_Base_Alias" Text="Alias" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0" />
-                            <RowDefinition Height="71" />
-                            <RowDefinition Height="250" />
-                            <RowDefinition Height="71" />
-                            <RowDefinition Height="264" />
-                            <RowDefinition Height="71" />
-                            <RowDefinition Height="264" />
-                            <RowDefinition Height="55" />
-                            
-                        </Grid.RowDefinitions>
-                        <TextBlock Name="txt_mySociety_Tags" Grid.Row="1"  Text="Subscribed Tags" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}"  Margin="5,3,19,261" Grid.RowSpan="2" Tap="txt_mySociety_Tags_Tap" />
-                        <ListBox Grid.Row="2" Margin="0,0,0,0" ItemsSource="{Binding Tagss}" Width="412" Tap="txt_mySociety_Tags_Tap">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Canvas Height="110" Width="400"  Margin="0,0,0,0">
-                                        <Image Margin="5,42,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/tags_black.png" />
-                                        <Image Margin="5,42,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/tags_white.png" />
 
-                                        <!--<Image Margin="5,42,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/tags.png" Stretch="Fill" Width="50" />-->
-                                        <!--<TextBlock Margin="5,0,0,0" Text="{Binding TagName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>-->
-                                        <TextBlock Margin="60,42,0,0" Text="{Binding TagName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                                    </Canvas>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <TextBlock  Grid.Row="5" Name="txt_mySociety_People" Text="People" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}"  Tap="txt_mySociety_People_Tap" Margin="1,5,23,15" Height="56" />
-                        <ListBox Grid.Row="6" ItemsSource="{Binding Users}" Width="412" Tap="txt_mySociety_People_Tap" Height="242" Margin="0,2,0,6">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Canvas Height="110" Width="400"  Margin="0,0,0,0">
-                                        <Image Margin="5,42,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/people_black.png" />
-                                        <Image Margin="5,42,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/people_white.png" />
-
-                                        <!--<Image Margin="5,42,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />-->
-                                        <TextBlock Margin="60,42,0,0" Text="{Binding UserName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <!--<TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>-->
-                                    </Canvas>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        <Rectangle  Tap="txt_mySociety_People_Tap"  Height="173" HorizontalAlignment="Left" Margin="24,218,0,0" Name="friendsRectangle" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" Fill="{StaticResource PhoneAccentBrush}"/>
+                        <Image Tap="txt_mySociety_People_Tap" Height="104" HorizontalAlignment="Left" Margin="61,238,0,220" Name="image1" Source="/GEETHREE;component/Resources/people.png" Stretch="Fill" VerticalAlignment="Top" Width="104" />
+                        <TextBlock Tap="txt_mySociety_People_Tap" Name="friendsRectImageText" Text="My Friends" Style="{StaticResource PhoneTextNormalStyle}" Margin="30,352,0,0" VerticalAlignment="Top" Height="37" HorizontalAlignment="Left" Width="147" />
+                        <TextBlock Tap="txt_mySociety_People_Tap" Name="numOfFriends" Text="" Style="{StaticResource PhoneTextNormalStyle}" Margin="161,217,0,0" VerticalAlignment="Top" Height="35" HorizontalAlignment="Left" Width="35" FontWeight="Bold" TextAlignment="Center" FontSize="25" />
                         
-                        <TextBlock Name="txt_mySociety_Groups" Grid.Row="3" Text="Groups" Style="{StaticResource PhoneTextExtraLargeStyle}"  Foreground="{StaticResource PhoneSubtleBrush}" Tap="txt_mySociety_Groups_Tap" Margin="5,3,19,261" Grid.RowSpan="2" />
-                        <ListBox Grid.Row="4" Margin="0,0,0,0" ItemsSource="{Binding Groups}" Width="412" Tap="txt_mySociety_Groups_Tap">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Canvas Height="110" Width="400"  Margin="0,0,0,0">
-                                        <Image Margin="5,42,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/messanger_black.png" />
-                                        <Image Margin="5,42,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/messanger_white.png" />
+                        
+                        <Rectangle Tap="txt_mySociety_Groups_Tap"  Fill="{StaticResource PhoneAccentBrush}" Height="173" HorizontalAlignment="Left" Margin="214,26,0,0" Name="froupsrRectangle2" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
+                        <Image Tap="txt_mySociety_Groups_Tap" Height="104" Name="GroupsRectImage" Stretch="Fill" Width="104" HorizontalAlignment="Left" Margin="248,44,0,0" Source="/GEETHREE;component/Resources/messanger_white.png" VerticalAlignment="Top" />
+                        <TextBlock Tap="txt_mySociety_Groups_Tap" Name="GroupsRectImageText" Text="My Groups" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,157,60,0" VerticalAlignment="Top" Height="34" TextWrapping="Wrap" HorizontalAlignment="Right" Width="108" />
+                        <TextBlock Tap="txt_mySociety_Groups_Tap" FontSize="25" FontWeight="Bold" Height="35" HorizontalAlignment="Left" Margin="353,26,0,0" Name="numOfGroups" Style="{StaticResource PhoneTextNormalStyle}" Text="" TextAlignment="Center" VerticalAlignment="Top" Width="35" />
 
-                                        <!--<Image Margin="5,42,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />-->
-                                        <TextBlock Margin="60,30,0,0" Text="{Binding GroupName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Margin="60,75,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </Canvas>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <!--<TextBlock Name="txt_mySociety_morePeopleGroups" Grid.Row="7" Text="more people and groups" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="txt_mySociety_morePeopleGroups_Tap" />-->                   
+
+                        <Rectangle Tap="txt_mySociety_Tags_Tap" Fill="{StaticResource PhoneAccentBrush}" Height="173" HorizontalAlignment="Left" Margin="24,26,0,0" Name="tagsRectangle" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
+                        <Image  Tap="txt_mySociety_Tags_Tap" Height="95" Name="tagsRectangleImage" Stretch="Fill" Width="96" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/tags_white.png" Margin="66,46,0,420" />
+                        <TextBlock Tap="txt_mySociety_Tags_Tap" Text="My #Tags" Width="102" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" Margin="30,157,0,0" Height="31" VerticalAlignment="Top" />
+                        <TextBlock Tap="txt_mySociety_Tags_Tap" FontSize="25" FontWeight="Bold" Height="35" HorizontalAlignment="Left" Margin="162,27,0,0" Name="numofTags" Style="{StaticResource PhoneTextNormalStyle}" Text="" TextAlignment="Center" VerticalAlignment="Top" Width="35" />
+
+     
+   
+
+                        <!--<Image Height="110" Name="img_Base_Server" Stretch="Fill" Width="111" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/server.red.png" Tap="img_Base_Server_Tap" Margin="246,234,0,218" />-->
+                        <!--<TextBlock Text="Server Status" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,355,50,0" Height="38" HorizontalAlignment="Right" Width="115" VerticalAlignment="Top" />-->
+                        
                     </Grid>
-                </ListBox>     
+                </ListBox>
+                    
+                
+  
             </controls:PanoramaItem>
         </controls:Panorama>
+        
         <!-- This canvas is for UserID Creation  -->
-        <Canvas Height="797" HorizontalAlignment="Left" Name="UserIDCreateCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1" Background="Black" Grid.ColumnSpan="2">
+        <Canvas  Height="800" Width="800"  HorizontalAlignment="Left" Name="UserIDCreateCanvas" VerticalAlignment="Top"
+                Visibility="Collapsed" Background="Black" Grid.ColumnSpan="2">
             <TextBlock Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="CreateUserIDTextBlock" Text="Create UserID" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <TextBlock Canvas.Left="11" Canvas.Top="273" Height="280" Name="CreateUserIDContent" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}" Text="Allow TinyCircle to create a UserID for this device?" Width="449" TextWrapping="Wrap"  />
