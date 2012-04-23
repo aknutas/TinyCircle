@@ -18,6 +18,11 @@
 
     <phone:PhoneApplicationPage.Resources>
         <y:CodeToForegroundColorConverter x:Key="foregroundConverter" />
+        <y:CodeToOutgoingIncomingImageConverter x:Key="incomingOutgoingConverter" />
+        <y:CodeToChangeIconsBlackorWhite x:Key="blackOrWhiteConverter" />
+        
+        
+
     </phone:PhoneApplicationPage.Resources>
 
 
@@ -37,9 +42,17 @@
 
                             <DataTemplate>
                                 <Canvas Height="110" Width="450"  Margin="0,0,0,0">
-                                    <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
+
+
+
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/whisper_black.png" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/whisper_white.png" />
+
+
+
+                                <!--<Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Stretch="Fill" Width="50" />-->
                                     <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
-                                    <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
+                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding outgoing, Converter={StaticResource incomingOutgoingConverter}}" Stretch="Fill" Width="50" />
                                     <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
                                     <StackPanel Margin="0,0,0,0" Height="100" Width="365">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding IsRead, Converter={StaticResource foregroundConverter}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -65,9 +78,12 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/shout_black.png" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/shout_white.png" />
+
+                                <!--<Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />-->
                                 <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
-                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
+                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding outgoing, Converter={StaticResource incomingOutgoingConverter}}" Stretch="Fill" Width="50" />
                                 <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="350">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding IsRead, Converter={StaticResource foregroundConverter}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -90,9 +106,12 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/sent_black.png" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/sent_white.png" />
+
+                                <!--<Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/sent.png" Stretch="Fill" Width="50" />-->
                                 <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
-                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding MessageTypeImageURL}" Stretch="Fill" Width="50" />
+                                <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding outgoing, Converter={StaticResource incomingOutgoingConverter}}" Stretch="Fill" Width="50" />
                                 <TextBlock Margin="60,0,0,0" Text="Me" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="350">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding IsRead, Converter={StaticResource foregroundConverter}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -115,7 +134,10 @@
                     <ListBox.ItemTemplate>
                             <DataTemplate>
                             <Canvas Height="110" Width="450"  Margin="0,0,0,0">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/Draft.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/Draft_black.png" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/Draft_white.png" />
+
+                                <!--<Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/Draft.png" Stretch="Fill" Width="50" />-->
                                 <TextBlock Margin="60,0,0,0" Text="Me" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <StackPanel Margin="0,0,0,0" Height="100" Width="350">
                                     <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding IsRead, Converter={StaticResource foregroundConverter}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>

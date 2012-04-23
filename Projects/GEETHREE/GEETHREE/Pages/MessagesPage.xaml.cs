@@ -14,6 +14,7 @@ using GEETHREE.DataClasses;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace GEETHREE.Pages
 {
@@ -430,6 +431,8 @@ namespace GEETHREE.Pages
                     buttonReply.Visibility = Visibility.Visible;
                 }
                 ApplicationBar.IsVisible = false;
+
+               
             }
         }
     }
@@ -476,4 +479,134 @@ namespace GEETHREE.Pages
             throw new NotImplementedException();
         }
     }
+
+     public class CodeToOutgoingIncomingImageConverter : IValueConverter
+     {
+         public CodeToOutgoingIncomingImageConverter()
+         {
+         }
+
+         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+         {
+             var currentPhoneTheme = (Visibility)Application.Current.Resources["PhoneLightThemeVisibility"];
+             string source;
+             bool i = true;
+
+             if (value != null && bool.TryParse(value.ToString(), out i))
+             {
+                 if (currentPhoneTheme == Visibility.Visible == true) // light theme
+                 {
+                     switch (i)
+                     {
+                         case true:                            
+                             source = "/Resources/appbar.upload.rest_black.png";
+                             break;
+                         case false:
+
+                             source = "/Resources/appbar.download.rest_black.png";
+                             break;
+                         default:
+                             
+                             source = "/Resources/appbar.download.rest_black.png";
+                             break;
+                     }
+                 }
+                 else
+                 {
+                     switch (i)
+                     {
+                         case true:
+                             source = "/Resources/appbar.upload.rest.png";
+                             break;
+                         case false:
+
+                             source = "/Resources/appbar.download.rest.png";
+                             break;
+                         default:
+
+                             source = "/Resources/appbar.download.rest.png";
+                             break;
+                     }
+                 }
+
+             }
+             else
+             {
+                 if (currentPhoneTheme == Visibility.Visible == true) // light theme
+                 {
+
+                     source = "/Resources/appbar.download.rest_black.png";
+                 }
+                 else
+                 {
+                     source = "/Resources/appbar.download.rest.png";
+                 }
+             }
+             
+             
+             
+
+             return source;
+         }
+
+         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+         {
+             throw new NotImplementedException();
+         }
+     }
+
+     public class CodeToChangeIconsBlackorWhite : IValueConverter
+     {
+
+         public CodeToChangeIconsBlackorWhite()
+         {
+         }
+
+         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+         {
+            
+
+             string source;
+             bool i = true;
+
+             if (value != null && bool.TryParse(value.ToString(), out i))
+             {
+                 switch (i)
+                     {
+                         case true:
+                             source = "_white.png";
+                             break;
+                         case false:
+
+                             source = "_black.png";
+                             break;
+                         default:
+
+                             source = "_black.png";
+                             break;
+                     }
+                 
+
+             }
+             else
+             {
+                
+                     source = "_black.png";
+                 
+             }
+
+
+
+
+             return source;
+         }
+
+         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+         {
+             throw new NotImplementedException();
+         }
+     }
+
+     
+
 }

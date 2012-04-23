@@ -2,6 +2,7 @@
     x:Class="GEETHREE.SocietyPivot"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:y="clr-namespace:GEETHREE.Pages"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
@@ -15,7 +16,10 @@
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded" BackKeyPress="PhoneApplicationPage_BackKeyPress">
-    
+    <phone:PhoneApplicationPage.Resources>
+        <y:CodeToForegroundColorConverter x:Key="foregroundConverter" />
+        <y:CodeToOutgoingIncomingImageConverter x:Key="incomingOutgoingConverter" />
+    </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
@@ -27,7 +31,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/people_black.png" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/people_white.png" />
+
+                                <!--<Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/people_grey.png" Stretch="Fill" Width="50" />-->
                                 <!--Here should be UserName and Description-->
                                 <TextBlock  Margin="60,15,0,0" Text="{Binding UserName}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <!--<TextBlock Margin="60,50,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
@@ -49,7 +56,9 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/messanger_black.png" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/messanger_white.png" />
+                                <!--<Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/messanger_grey.png" Stretch="Fill" Width="50" />-->
                                 <!--Here should be UserName and Description-->
                                 <TextBlock Margin="60,0,0,0" Text="{Binding GroupName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
                                 <TextBlock Margin="60,45,0,0" Text="{Binding Description}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -71,7 +80,9 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                                <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/tags.png" Stretch="Fill" Width="50" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneLightThemeVisibility}" Source="/GEETHREE;component/Resources/tags_black.png" />
+                                <Image Margin="5,15,0,0" Height="50"  Stretch="Fill" Width="50" Visibility="{StaticResource PhoneDarkThemeVisibility}" Source="/GEETHREE;component/Resources/tags_white.png" />
+                                <!--<Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/tags.png" Stretch="Fill" Width="50" />-->
                                 <!--Here should be TagName and Description-->
                                 <!--<TextBlock Margin="5,0,0,0" Text="{Binding TagName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>-->
                                 <TextBlock Margin="60,15,0,0" Text="{Binding TagName}"  TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
@@ -133,15 +144,14 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Canvas Height="80" Width="600"  Margin="0,0,0,30">
-                            <Image Height="50" Margin="5,15,0,0" Name="img_shout" Source="/GEETHREE;component/Resources/shout.png" Stretch="Fill" Width="50" />
-                            <!-- <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>-->
-                            <!--<TextBlock Text="{Binding TextContext}" TextWrapping="Wrap" Margin="0,55,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
-                            <TextBlock TextWrapping="Wrap" Margin="250,20,0,0" Text ="Timestamp"/>
-                            <TextBlock Text="{Binding SenderAlias}" TextWrapping="Wrap" Margin="60,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-                            <StackPanel Margin="0,0,0,0" Height="100" Width="380">
-                                <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{StaticResource PhoneAccentBrush}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            <Image Margin="5,15,0,0" Height="50" Name="img_Base_Avatar" Source="/GEETHREE;component/Resources/whisper.png" Stretch="Fill" Width="50" />
+                            <TextBlock  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap" Margin="250,10,0,0" Text ="{Binding TimeStamp}"/>
+                            <Image Height="50" Margin="350,40,0,0" Name="img_source" Source="{Binding outgoing, Converter={StaticResource incomingOutgoingConverter}}" Stretch="Fill" Width="50" />
+                            <TextBlock Margin="60,0,0,0" Text="{Binding SenderAlias}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextLargeStyle}"/>
+                            <StackPanel Margin="0,0,0,0" Height="100" Width="365">
+                                <TextBlock Margin="60,45,0,0" Text="{Binding TextContent}" Foreground="{Binding IsRead, Converter={StaticResource foregroundConverter}}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextSubtleStyle}"/>
                             </StackPanel>
-                            
+
                             <toolkit:ContextMenuService.ContextMenu>
                                 <toolkit:ContextMenu Name="MyContextMenu">
                                     <toolkit:MenuItem  Header="Delete Message" Click="MenuItem_Click" />
@@ -165,9 +175,9 @@
             <!--<TextBlock  Canvas.Left="266" Canvas.Top="486" Height="113" Name="btn_reply" Text="Reply" Style="{StaticResource PhoneTextLargeStyle}" Foreground="{StaticResource PhoneAccentBrush}" Tap="btn_reply_Tap" Width="171" TextAlignment="Center" />-->
             <Image Canvas.Left="262" Canvas.Top="472" Height="150" Name="receivedimage" Stretch="Fill" Width="200" Visibility="Collapsed" Tap="receivedimage_Tap" />
 
-            <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="426" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap"  HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" />
-            <!--<Button Tap="btn_reply_Tap" Canvas.Left="153" Canvas.Top="644" Content="Reply" Height="120" Name="buttonReply" Width="175" BorderThickness="3" />-->
-            <TextBlock Canvas.Left="35" Canvas.Top="151" Height="30" Name="messageCanvasDateTime" Text="" Width="242" />
+
+            <TextBox Background="{StaticResource PhoneAccentBrush}"  Canvas.Left="35" Canvas.Top="246" Height="Auto" Name="messageCanvasMessageContent" Text="" Width="426" AcceptsReturn="True" BorderThickness="0" Opacity="50" TextWrapping="Wrap"  HorizontalScrollBarVisibility="Auto" OpacityMask="White" Foreground="White" IsReadOnly="False" IsHitTestVisible="False" />
+            <TextBlock Canvas.Left="19" Canvas.Top="151" Height="30" Name="messageCanvasDateTime" Text="" Width="309" />
         </Canvas>
 
         <!-- This canvas is for viewing images  -->
