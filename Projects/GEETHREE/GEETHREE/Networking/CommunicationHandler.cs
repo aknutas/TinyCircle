@@ -407,7 +407,7 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
+                dt_time = DateTime.ParseExact(timestamp, "MM/dd/yyyy HH:mm:ss", null);
             }
             catch (FormatException e)
             {
@@ -428,7 +428,7 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
+                dt_time = DateTime.ParseExact(timestamp, "MM/dd/yyyy HH:mm:ss", null);
             
             }
             catch(FormatException e)
@@ -450,7 +450,7 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
+                dt_time = DateTime.ParseExact(timestamp, "MM/dd/yyyy HH:mm:ss", null);
             
             }
             catch (FormatException e)
@@ -473,7 +473,7 @@ namespace GEETHREE
 
             try
             {
-                dt_time = DateTime.Parse(timestamp, culture, System.Globalization.DateTimeStyles.AssumeLocal);
+                dt_time = DateTime.ParseExact(timestamp, "MM/dd/yyyy HH:mm:ss", null);
             
             }
             catch (FormatException e)
@@ -536,14 +536,14 @@ namespace GEETHREE
             if (msg.PrivateMessage == false)
             {
                 if (msg.GroupMessage == true)
-                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp));
+                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp.Value.ToString("MM/dd/yyyy HH:mm:ss")));
                 else
-                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp));
+                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp.Value.ToString("MM/dd/yyyy HH:mm:ss")));
             }
             else
             {
 
-                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp));
+                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp.Value.ToString("MM/dd/yyyy HH:mm:ss")));
             }
             //Try also to send to server
             if(msg.GroupMessage || msg.PrivateMessage)
@@ -555,12 +555,12 @@ namespace GEETHREE
             if (msg.PrivateMessage == false)
             {
                 if (msg.GroupMessage == true)
-                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                    this.Channel.Send(string.Format(Commands.GroupMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp.Value.ToString("MM/dd/yyyy HH:mm:ss")));
                 else
-                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                    this.Channel.Send(string.Format(Commands.BroadcastMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp.Value.ToString("MM/dd/yyyy HH:mm:ss")));
             }
             else
-                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash));
+                this.Channel.Send(string.Format(Commands.PrivateMessageFormat, msg.SenderID, msg.SenderAlias, msg.ReceiverID, msg.Attachmentflag, msg.Attachment, msg.Attachmentfilename, msg.TextContent, msg.Hash, msg.TimeStamp.Value.ToString("MM/dd/yyyy HH:mm:ss")));
         }
 
         public void ResponseWithGroupInfo(string ReceiverID)
@@ -630,7 +630,7 @@ namespace GEETHREE
             if (wsConnection == null)
                 wsConnection = new WebServiceConnector();
             if(wsConnection.connectionUp)
-                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msgContent, this, DateTime.Parse(msg.TimeStamp.ToString(), culture, System.Globalization.DateTimeStyles.AssumeLocal));
+                wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msgContent, this, msg.TimeStamp.Value);
         }
 
         public void GetMessagesFromServer(string uid)
@@ -670,11 +670,11 @@ namespace GEETHREE
                 Message msg = msgList[i];
                 DateTime dt_stamp;
 
-                if(msg.TimeStamp.HasValue)
+                if (msg.TimeStamp.HasValue)
 
-                    dt_stamp = DateTime.Parse(msg.TimeStamp.ToString(), culture, System.Globalization.DateTimeStyles.AssumeLocal);
+                    dt_stamp = msg.TimeStamp.Value;
                 else
-                    dt_stamp=DateTime.Now;
+                    dt_stamp = DateTime.Now;
 
 
 
