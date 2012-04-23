@@ -30,8 +30,8 @@ namespace GEETHREE
         ObservableCollection<UserInfoResponse> UserInfoResponseslist = new ObservableCollection<UserInfoResponse>();
         List<User> Userslist = new List<User>();
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
-       
-
+        bool messageread = true;
+        string textcontent = "";
         bool userflag = true;
        
         public SocietyPivot()
@@ -169,6 +169,11 @@ namespace GEETHREE
                 ApplicationBar.IsVisible = false;
                 receivedimage.Visibility = Visibility.Collapsed;
                 TagListCanvas.Visibility = Visibility.Visible;
+                if (messageread == false)
+                {
+                    messageread = true;
+                    App.ViewModel.refreshDataAsync();
+                }
 
             }
 
@@ -645,9 +650,11 @@ namespace GEETHREE
 
             if (selectedMessage != null)
             {
+                textcontent = selectedMessage.TextContent;
                 receivedimage.Visibility = Visibility.Collapsed;
                 if (selectedMessage.IsRead == false)
                 {
+                    messageread = false;
                     selectedMessage.IsRead = true;
                     // ** ftw ?!?!?!
                     ctrl.dm.storeObjects(selectedMessage);
@@ -663,7 +670,7 @@ namespace GEETHREE
 
                 //messageCanvasMessageHeader.Text = selectedMessage.Header.ToString();
 
-                messageCanvasMessageContent.Text = selectedMessage.TextContent.ToString();
+                messageCanvasMessageContent.Text = textcontent;
                 byte[] attachmentContent = null;
                 if (selectedMessage.Attachmentflag == "1")
                 {
