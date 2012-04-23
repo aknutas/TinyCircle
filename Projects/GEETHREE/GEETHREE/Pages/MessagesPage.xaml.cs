@@ -27,6 +27,7 @@ namespace GEETHREE.Pages
         string textcontent = "";
         string groupmessageFlag = "0";
         bool messageread = true;
+        Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
         public MessagesPage()
         {
             InitializeComponent();
@@ -111,7 +112,7 @@ namespace GEETHREE.Pages
                 else
                     groupmessageFlag = "0";
                 
-                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+                
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;
                 if (replyID == Controller.Instance.getCurrentUserID())
@@ -174,7 +175,7 @@ namespace GEETHREE.Pages
                 replyID = selectedMessage.SenderID;
                 replyAlias = selectedMessage.SenderAlias;
                 groupmessageFlag = "0";
-                Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+                
 
                 messageCanvas.Background = backgroundbrush;
                 messageCanvas.Visibility = System.Windows.Visibility.Visible;

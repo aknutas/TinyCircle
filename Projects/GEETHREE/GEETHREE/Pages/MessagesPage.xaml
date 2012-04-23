@@ -148,17 +148,17 @@
                                         <toolkit:MenuItem Header="Delete" Click="contextMenuDelete_Click"/>
                                     </toolkit:ContextMenu>
                                 </toolkit:ContextMenuService.ContextMenu>
-                            </Canvas>
+                            </Canvas>                                                             
                             </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
         </controls:Pivot>
-
         <!-- This canvas is for reading messages  -->
-        <Canvas Height="700" HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Width="480" 
-                Visibility="Collapsed" Opacity="1" Background="Black">
-            <TextBlock  Canvas.Left="0" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
+        <Canvas HorizontalAlignment="Left" Name="messageCanvas" VerticalAlignment="Top" Height="800" Width="800" 
+                Visibility="Collapsed"  Background= "{StaticResource PhoneBackgroundBrush}">
+          
+                <TextBlock  Canvas.Left="0" Canvas.Top="0"  Height="29" Name="messageCanvasSenderTextBlock" Text="Sender" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <!--<TextBlock Foreground="{StaticResource PhoneAccentBrush}" Canvas.Left="11" Canvas.Top="109" Height="374" Name="messageCanvasMessageContent" Text="Content" Width="451" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" FontStretch="Normal" />-->
             <!--<Image Canvas.Left="369" Canvas.Top="23" Height="80" Name="messageCanvasExitImage" Stretch="Fill" Width="80" 

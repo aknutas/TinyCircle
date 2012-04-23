@@ -179,7 +179,9 @@ namespace GEETHREE
 
             else // ** then, navigate back
             {
-                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                string parameter = "main_society";
+                NavigationService.Navigate(new Uri(string.Format("/MainPage.xaml?parameter={0}", parameter), UriKind.Relative));
             }       
         }
         // ** When navigated to pivot page, choose which page to display first
