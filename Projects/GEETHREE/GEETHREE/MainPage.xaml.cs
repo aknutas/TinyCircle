@@ -292,12 +292,24 @@ namespace GEETHREE
                 ConnectionSettingsTask connectionSettingsTask = new ConnectionSettingsTask();
                 connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.WiFi;
                 connectionSettingsTask.Show();
+               
+                Color accentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
+
                 // ** check the wifi status
                 if (DeviceNetworkInformation.IsWiFiEnabled)
-                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+                {
+                    if (accentColor.ToString() == "#FF339933" || accentColor.ToString() == "#FFA2C139")//green{#FF339933} or lime{#FFA2C139}
+                        img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.white.png", UriKind.Relative));
+                    else
+                        img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+                }
                 else
-                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
-
+                {
+                    if (accentColor.ToString() == "#FFE51400" || accentColor.ToString() == "#FFD80073" || accentColor.ToString() == "#FFA05000")//red{#FFE51400} or magenta{#FFD80073} or brown{#FFA05000}
+                        img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.black.png", UriKind.Relative));
+                    else
+                        img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+                }
         }
 
         private void img_Base_Server_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -344,32 +356,75 @@ namespace GEETHREE
         public void updateWifiAndServerStatuses()
 
         {
+            Color accentColor = (Color)Application.Current.Resources["PhoneAccentColor"];
 
             // ** check the wifi status
             if (DeviceNetworkInformation.IsWiFiEnabled)
-                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+            {
+                if (accentColor.ToString() == "#FF339933" || accentColor.ToString() == "#FFA2C139")//green{#FF339933} or lime{#FFA2C139}
+                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.white.png", UriKind.Relative));
+                else
+                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+            }
             else
-                img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
-
+            {
+                if (accentColor.ToString() == "#FFE51400" || accentColor.ToString() == "#FFD80073" || accentColor.ToString() == "#FFA05000")//red{#FFE51400} or magenta{#FFD80073} or brown{#FFA05000}
+                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.black.png", UriKind.Relative));
+                else
+                    img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+            }
             if (ctrl.mh.ConnectedToServer == true)
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
+            {
+                if (accentColor.ToString() == "#FF339933" || accentColor.ToString() == "#FFA2C139")//green{#FF339933} or lime{#FFA2C139}
+                    img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.white.png", UriKind.Relative));
+                else
+                    img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
+            }
             else
-                img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
-
+            {
+                if (accentColor.ToString() == "#FFE51400" || accentColor.ToString() == "#FFD80073" || accentColor.ToString() == "#FFA05000")//red{#FFE51400} or magenta{#FFD80073} or brown{#FFA05000}
+                    img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.black.png", UriKind.Relative));            
+                else
+                    img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
+            }
             if (ctrl.mh.LocalConnections == 0)
             {
-                img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/Empty.png", UriKind.Relative));
-                txt_connection.Text = "         No   People Nearby";
+                if (accentColor.ToString() == "#FFE51400" || accentColor.ToString() == "#FFD80073" || accentColor.ToString() == "#FFA05000")//red{#FFE51400} or magenta{#FFD80073} or brown{#FFA05000}
+                {
+                    img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/Empty.black.png", UriKind.Relative));
+                    txt_connection.Text = "         No   People Nearby";
+                }
+                else
+                {
+                    img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/Empty.png", UriKind.Relative));
+                    txt_connection.Text = "         No   People Nearby";
+                }
             }
             else if (ctrl.mh.LocalConnections > 0 && ctrl.mh.LocalConnections <= 1)
             {
-                img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/few.png", UriKind.Relative));
-                txt_connection.Text = "         Few   People Nearby";
+                //if (accentColor.ToString() == "#FFF09609")//mango {#FFF09609}
+                //{
+                //    img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/few.gray.png", UriKind.Relative));
+                //    txt_connection.Text = "         Few   People Nearby";
+                //}
+                //else
+                //{
+                    img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/few.png", UriKind.Relative));
+                    txt_connection.Text = "         Few   People Nearby";
+                //}
             }
             else if (ctrl.mh.LocalConnections >= 2)
             {
-                img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/many.png", UriKind.Relative));
-                txt_connection.Text = "        Many   People Nearby";
+                if (accentColor.ToString() == "#FF339933" || accentColor.ToString() == "#FFA2C139")//green{#FF339933} or lime{#FFA2C139}
+                {
+                    img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/many.white.png", UriKind.Relative));
+                    txt_connection.Text = "        Many   People Nearby";
+                }
+                else
+                {
+                    img_Base_ConnectionStatus.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/many.png", UriKind.Relative));
+                    txt_connection.Text = "        Many   People Nearby";
+                }
             }
 
         }
