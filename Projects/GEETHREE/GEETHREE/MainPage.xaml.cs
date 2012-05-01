@@ -16,6 +16,7 @@ using System.IO.IsolatedStorage;
 using GEETHREE.DataClasses;
 using Microsoft.Phone.Net.NetworkInformation;
 using Microsoft.Phone.Shell;
+using Coding4Fun.Phone.Controls;
 
 
 
@@ -24,6 +25,7 @@ namespace GEETHREE
     public partial class MainPage : PhoneApplicationPage, GEETHREE.Pages.AvatarChangeListener
     {
         Controller ctrl;
+        private bool arrivedMessageIsPrivate = false;
         bool createUID = false;
 
         // Constructor
@@ -76,7 +78,7 @@ namespace GEETHREE
 
             System.Diagnostics.Debug.WriteLine("Mainpage loaded");
 
-            
+
 
         }
 
@@ -277,26 +279,6 @@ namespace GEETHREE
                 numofTags.Text = iNumofTags.ToString(); ;
         }
 
-        // ** some kind of popup needed to announce about the message that is just arrived
-        public void messageArrived(bool isPrivate)
-        {
-
-            System.Diagnostics.Debug.WriteLine("MEssage arrived");
-            
-                var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
-
-                if (m == MessageBoxResult.OK)
-                {
-                    if (isPrivate == true) // navigate to Messages - whispers
-                        //NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
-                        NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
-                        //NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
-                    else // navigate to messages - shouts
-                        NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
-                }
-            
-        }
-
         private void menuItem3_Click(object sender, EventArgs e)
         {
             
@@ -418,5 +400,41 @@ namespace GEETHREE
             string parameter = "messages_shouts";
             NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter),  UriKind.Relative));
         }
+
+        // ** toast announces about the message that is just arrived
+        public void messageArrived(bool isPrivate)
+        {
+            ToastPrompt tp = new ToastPrompt();
+
+            if (isPrivate)
+            {
+                arrivedMessageIsPrivate = true;
+                tp.Title = "You have a new whisper.";
+            }
+            else
+            {
+                arrivedMessageIsPrivate = false;
+                tp.Title = "You have a new  shout.";
+            }
+            tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+            tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+            tp.Tap += toast_Tap;
+            tp.Show();
+        }
+        void toast_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (arrivedMessageIsPrivate)
+            {
+                string parameter = "messages_whispers";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
+            }
+            else
+            {
+                string parameter = "messages_shouts";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
+            }
+        }
+
+
     }
 }

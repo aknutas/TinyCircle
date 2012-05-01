@@ -15,12 +15,14 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Data;
 using System.Windows.Markup;
+using Coding4Fun.Phone.Controls;
 
 namespace GEETHREE.Pages
 {
     public partial class MessagesPage : PhoneApplicationPage
     {
         private Message selectedMessage = null;
+        private bool arrivedMessageIsPrivate = false;
         private Controller ctrl;
         string replyID = "";
         string replyAlias = "";
@@ -280,27 +282,8 @@ namespace GEETHREE.Pages
             NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
-        // ** a popup message to announce about the message that is just arrived
-        public void messageArrived(bool isPrivate)
-        {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
-            if (m == MessageBoxResult.OK)
-            {
-                if (isPrivate == true) // ** change the current pivot if needed
-                {
-                    if (messagepivots.SelectedItem != whispers)
-                        messagepivots.SelectedItem = whispers;
-                }
-                else
-                {
-                    if (messagepivots.SelectedItem != shouts)
-                        messagepivots.SelectedItem = shouts;
-                }
 
-            }
-        }
         // ** we have received an image and user taps it
         private void receivedimage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -436,6 +419,46 @@ namespace GEETHREE.Pages
                
             }
         }
+
+        // ** toast announces about the message that is just arrived
+        public void messageArrived(bool isPrivate)
+        {
+            ToastPrompt tp = new ToastPrompt();
+
+            if (isPrivate)
+            {
+                arrivedMessageIsPrivate = true;
+                tp.Title = "You have a new whisper.";
+            }
+            else
+            {
+                arrivedMessageIsPrivate = false;
+                tp.Title = "You have a new  shout.";
+            }
+            tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+            tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+            tp.Tap += toast_Tap;
+            tp.Show();
+        }
+
+        void toast_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (arrivedMessageIsPrivate)
+            {
+                if (messagepivots.SelectedItem != whispers)
+                    messagepivots.SelectedItem = whispers;
+            }
+            else
+            {
+                if (messagepivots.SelectedItem != shouts)
+                    messagepivots.SelectedItem = shouts;
+            }
+        }
+
+
+
+
+
     }
      public class CodeToForegroundColorConverter : IValueConverter
     {

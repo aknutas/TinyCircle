@@ -150,7 +150,7 @@
             <Button Canvas.Left="236" Canvas.Top="607" Content="Cancel" Height="71" Name="btn_CreateUserID_Cancel" Width="160" Tap="btn_CreateUserID_Cancel_Tap" />
             <Button Canvas.Left="139" Canvas.Top="607" Content="Done" Height="71" Name="btn_CreateUserID_Done" Width="160" Tap="btn_CreateUserID_Done_Tap" Visibility="Collapsed" />
         </Canvas>
-       
+
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Opacity="1" BackgroundColor="{StaticResource PhoneBackgroundColor}" Mode="Default">

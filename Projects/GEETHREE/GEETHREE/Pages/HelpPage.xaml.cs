@@ -10,12 +10,15 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Coding4Fun.Phone.Controls;
+using System.Windows.Media.Imaging;
 
 namespace GEETHREE.Pages
 {
     public partial class HelpPage : PhoneApplicationPage
     {
         private Controller ctrl;
+        private bool arrivedMessageIsPrivate = false;
         public HelpPage()
         {
             InitializeComponent();
@@ -28,18 +31,37 @@ namespace GEETHREE.Pages
 
         }
 
-        // ** some kind of popup needed to announce about the message that is just arrived
+        // ** toast announces about the message that is just arrived
         public void messageArrived(bool isPrivate)
         {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
+            ToastPrompt tp = new ToastPrompt();
 
-            if (m == MessageBoxResult.OK)
+            if (isPrivate)
             {
-                if (isPrivate == true) // navigate to Messages - whispers
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagePage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
-                else // navigate to messages - shouts
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
+                arrivedMessageIsPrivate = true;
+                tp.Title = "You have a new whisper.";
+            }
+            else
+            {
+                arrivedMessageIsPrivate = false;
+                tp.Title = "You have a new  shout.";
+            }
+            tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+            tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+            tp.Tap += toast_Tap;
+            tp.Show();
+        }
+        void toast_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (arrivedMessageIsPrivate)
+            {
+                string parameter = "messages_whispers";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
+            }
+            else
+            {
+                string parameter = "messages_shouts";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
             }
         }
 

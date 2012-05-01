@@ -18,6 +18,7 @@ using System.Threading;
 using System.Windows.Navigation;
 using Microsoft.Phone.Shell;
 using System.Text.RegularExpressions;
+using Coding4Fun.Phone.Controls;
 
 
 namespace GEETHREE.Pages
@@ -27,6 +28,7 @@ namespace GEETHREE.Pages
         Controller ctrl;
         //PhotoChooserTask photoChooserTask;
         //CameraCaptureTask cameraCaptureTask;
+        private bool arrivedMessageIsPrivate = false;
         string receiverID = "";
         string receiverAlias = "";
         string GroupID = "";
@@ -350,16 +352,22 @@ namespace GEETHREE.Pages
                 image1.Visibility = System.Windows.Visibility.Visible;
                 composeReceipientTextBox.IsEnabled = true;
 
-               
-                MessageBox.Show("Message sent.");
-
-                NavigateBack();
+                //** display toast
+                ToastPrompt tp = new ToastPrompt();
+                tp.Title = "Message Sent.";
+                tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+                tp.MillisecondsUntilHidden = 2000;
+                tp.Completed += toast_Completed;
+                tp.Show();
             }
         }
 
+        void toast_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        {
+            NavigateBack();
+        }
         
-
-
         //browses for the photos and gets the picture in imagebox after selection
         void photoChooserTask_Completed(object sender, PhotoResult e)
         {
@@ -518,19 +526,37 @@ namespace GEETHREE.Pages
            
         }
 
-        // ** some kind of popup needed to announce about the message that is just arrived
+        // ** toast announces about the message that is just arrived
         public void messageArrived(bool isPrivate)
         {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
+            ToastPrompt tp = new ToastPrompt();
 
-            if (m == MessageBoxResult.OK)
+            if (isPrivate)
             {
-                //NavigateBack();
-                if (isPrivate == true) // navigate to Messages - whispers
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
-                else // navigate to messages - shouts
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
+                arrivedMessageIsPrivate = true;
+                tp.Title = "You have a new whisper.";
+            }
+            else
+            {
+                arrivedMessageIsPrivate = false;
+                tp.Title = "You have a new  shout.";
+            }
+            tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+            tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+            tp.Tap += toast_Tap;
+            tp.Show();
+        }
+        void toast_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (arrivedMessageIsPrivate)
+            {
+                string parameter = "messages_whispers";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
+            }
+            else
+            {
+                string parameter = "messages_shouts";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
             }
         }
 

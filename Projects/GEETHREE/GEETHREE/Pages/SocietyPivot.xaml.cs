@@ -17,6 +17,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
 using System.IO;
+using Coding4Fun.Phone.Controls;
 
 namespace GEETHREE
 {
@@ -33,6 +34,7 @@ namespace GEETHREE
         bool messageread = true;
         string textcontent = "";
         bool userflag = true;
+        private bool arrivedMessageIsPrivate = false;
        
         public SocietyPivot()
         {
@@ -297,20 +299,7 @@ namespace GEETHREE
             }
         }
 
-        // ** some kind of popup needed to announce about the message that is just arrived
-        public void messageArrived(bool isPrivate)
-        {
-            // **  ...get the message from datamaster and display it in canvas.
-            var m = MessageBox.Show("Read it?", "You have received a message.", MessageBoxButton.OKCancel);
 
-            if (m == MessageBoxResult.OK)
-            {
-                if (isPrivate == true) // navigate to Messages - whispers
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_whispers"), UriKind.Relative));
-                else // navigate to messages - shouts
-                    NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", "messages_shouts"), UriKind.Relative));
-            }
-        }
 
         public bool checkOnline(string userid, List<User> userlist)
         {
@@ -715,7 +704,42 @@ namespace GEETHREE
             }
         }
 
+        // ** toast announces about the message that is just arrived
+        public void messageArrived(bool isPrivate)
+        {
+            ToastPrompt tp = new ToastPrompt();
+
+            if (isPrivate)
+            {
+                arrivedMessageIsPrivate = true;
+                tp.Title = "You have a new whisper.";
+            }
+            else
+            {
+                arrivedMessageIsPrivate = false;
+                tp.Title = "You have a new  shout.";
+            }
+            tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+            tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+            tp.Tap += toast_Tap;
+            tp.Show();
+        }
+
+        void toast_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (arrivedMessageIsPrivate)
+            {
+                string parameter = "messages_whispers";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
+            }
+            else
+            {
+                string parameter = "messages_shouts";
+                NavigationService.Navigate(new Uri(string.Format("/Pages/MessagesPage.xaml?parameter={0}", parameter), UriKind.Relative));
+            }
+        }
        
+
 
         
 
