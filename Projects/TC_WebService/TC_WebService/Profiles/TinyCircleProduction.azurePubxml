@@ -5,7 +5,7 @@
     <AzureHostedServiceName>tinycirclews</AzureHostedServiceName>
     <AzureHostedServiceLabel>TinyCircle</AzureHostedServiceLabel>
     <AzureSlot>Production</AzureSlot>
-    <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
+    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureEnableWebDeploy>True</AzureEnableWebDeploy>
     <AzureStorageAccountName>tcstore</AzureStorageAccountName>

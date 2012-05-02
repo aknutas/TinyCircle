@@ -233,8 +233,22 @@ namespace TC_WS
 
         public List<WireHandShake> discoverHandShakes(string userAlias, string password, string appKey)
         {
-            throw new NotImplementedException();
-            return null;
+            DataClassesDataContext db = new DataClassesDataContext();
+
+            //Cleanup for old addresses
+            var qres = from Handshake hs in db.Handshakes where (hs.Alias == userAlias && hs.Password == password) select hs;
+
+            List<WireHandShake> returnList = new List<WireHandShake>();
+
+            foreach(Handshake hs in qres){
+                WireHandShake whs = new WireHandShake();
+                whs.Alias = hs.Alias;
+                whs.Password = hs.Password;
+                whs.UserId = hs.UserID;
+                returnList.Add(whs);
+            }
+
+            return returnList;
         }
     }
 }
