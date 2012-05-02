@@ -172,7 +172,7 @@ namespace GEETHREE
         {
             
             ctrl.changeCurrentUserID(ctrl.CreateNewUserID());
-            CreateUserIDTextBlock.Text = "UserID : ";
+            CreateUserIDTextBlock.Text = "user id";
             CreateUserIDContent.Text = ctrl.getCurrentUserID();
             btn_CreateUserID_OK.Visibility = Visibility.Collapsed;
             btn_CreateUserID_Cancel.Visibility = Visibility.Collapsed;
@@ -293,10 +293,14 @@ namespace GEETHREE
                 connectionSettingsTask.ConnectionSettingsType = ConnectionSettingsType.WiFi;
                 connectionSettingsTask.Show();
                 // ** check the wifi status
+
+                updateWifiAndServerStatuses();
+                /*
                 if (DeviceNetworkInformation.IsWiFiEnabled)
                     img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
                 else
                     img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+             */
 
         }
 
@@ -347,14 +351,27 @@ namespace GEETHREE
 
             // ** check the wifi status
             if (DeviceNetworkInformation.IsWiFiEnabled)
+            {
                 img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.green.png", UriKind.Relative));
+                wifiStatusTextBlock.Text = "Wifi status: ON";
+            }
             else
+            {
                 img_Base_Wifi.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/wifi.red.png", UriKind.Relative));
+                wifiStatusTextBlock.Text = "Wifi status: OFF";
+            }
 
             if (ctrl.mh.ConnectedToServer == true)
+            {
                 img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.green.png", UriKind.Relative));
+                serverStatusTextBlock.Text = "Server status: ON";
+            }
+
             else
+            {
                 img_Base_Server.Source = new BitmapImage(new Uri("/GEETHREE;component/Resources/server.red.png", UriKind.Relative));
+                serverStatusTextBlock.Text = "Server status: OFF";
+            }
 
             if (ctrl.mh.LocalConnections == 0)
             {

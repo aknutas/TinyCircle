@@ -34,14 +34,14 @@
     		<ColumnDefinition Width="0.008*"/>
     	</Grid.ColumnDefinitions>
         <!--Panorama control-->
-        <controls:Panorama Title="TinyCircle" Name="mainpanorama" SelectionChanged="mainpanorama_SelectionChanged">
+        <controls:Panorama Title="tinycircle" Name="mainpanorama" SelectionChanged="mainpanorama_SelectionChanged">
             <!--
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Resources/panorama.jpg"/>
             </controls:Panorama.Background>-->
 
             <!--controls:PanoramaItem Name="PanoramaItemAlias" Header="{Binding Path=AliasSetting, Mode=TwoWay, Source={StaticResource appSettings}}" Foreground="{StaticResource PhoneAccentBrush}">-->
-                <controls:PanoramaItem Name="PanoramaItemAlias" Header="My Circle" Foreground="{StaticResource PhoneAccentBrush}">
+                <controls:PanoramaItem Name="PanoramaItemAlias" Header="my circle" Foreground="{StaticResource PhoneAccentBrush}">
 
                     <!--Double line list with image placeholder and text wrapping-->
                 <ListBox Margin="0,0,0,0">
@@ -54,19 +54,19 @@
                         <Rectangle Fill="#3BA9A9A9" Height="173" HorizontalAlignment="Left" Margin="24,218,0,0" Name="rectangle3" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
                         <Rectangle Fill="#3BA9A9A9" Height="173" HorizontalAlignment="Left" Margin="214,218,0,0" Name="rectangle4" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
 
-                        <Image Height="132" Name="img_Base_Avatar" Stretch="Fill" Width="124" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" Margin="47,31,0,0" VerticalAlignment="Top" />
+                        <Image Height="166" Name="img_Base_Avatar" Stretch="UniformToFill" Width="169" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" Margin="26,30,0,0" VerticalAlignment="Top" />
                         <TextBlock Name="txt_alias_Name" Text="Bishal" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,165,217,0" VerticalAlignment="Top" Height="37" HorizontalAlignment="Right" Width="147" />
                         <Image Height="104" Name="img_Base_ConnectionStatus" Stretch="Fill" Width="104" HorizontalAlignment="Left" Margin="251,40,0,0" Source="/GEETHREE;component/Resources/few.png" VerticalAlignment="Top" />
                         <TextBlock Name="txt_connection" Text="        Many   people nearby" Style="{StaticResource PhoneTextNormalStyle}" Margin="235,143,44,0" VerticalAlignment="Top" Height="67" TextWrapping="Wrap" />
                         <Image Height="104" Name="img_Base_Wifi" Stretch="Fill" Width="104" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/wifi.red.png" Tap="img_Base_Wifi_Tap" Margin="61,238,0,220" />
                         <Image Height="110" Name="img_Base_Server" Stretch="Fill" Width="111" HorizontalAlignment="Left" Source="/GEETHREE;component/Resources/server.red.png" Tap="img_Base_Server_Tap" Margin="246,234,0,218" />
-                        <TextBlock Text="Server Status" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,355,50,0" Height="38" HorizontalAlignment="Right" Width="115" VerticalAlignment="Top" />
-                        <TextBlock Text="WiFi Status" Width="102" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" Margin="58,355,0,0" Height="31" VerticalAlignment="Top" />
+                        <TextBlock Text="Server Status:" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,352,32,0" Height="38" HorizontalAlignment="Right" Width="152" VerticalAlignment="Top" Name="serverStatusTextBlock" />
+                        <TextBlock Text="WiFi Status:" Width="155" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" Margin="35,354,0,0" Height="31" VerticalAlignment="Top" Name="wifiStatusTextBlock" />
                     </Grid>
                 </ListBox>
           </controls:PanoramaItem>
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="Shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}" Tap="ListBox_Tap">
+            <controls:PanoramaItem Header="shouts" Name="shouts" Foreground="{StaticResource PhoneAccentBrush}" Tap="ListBox_Tap">
                 <!--Double line list with text wrapping-->
                     <!--<TextBlock  Text="Shouts" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
                 <ListBox   ItemsSource="{Binding Path=ReceivedBroadcastMessages}" Margin="0,0,50,0" Width="420" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="ListBox_Tap">
@@ -99,7 +99,7 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="My Society" Name="society" Foreground="{StaticResource PhoneAccentBrush}" >
+            <controls:PanoramaItem Header="my society" Name="society" Foreground="{StaticResource PhoneAccentBrush}" >
                 
                 
                     <!--Double line list with image placeholder and text wrapping-->
@@ -143,7 +143,7 @@
         <!-- This canvas is for UserID Creation  -->
         <Canvas  Height="800" Width="800"  HorizontalAlignment="Left" Name="UserIDCreateCanvas" VerticalAlignment="Top"
                 Visibility="Collapsed" Background="Black" Grid.ColumnSpan="2">
-            <TextBlock Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="CreateUserIDTextBlock" Text="Create UserID" 
+            <TextBlock Canvas.Left="-6" Canvas.Top="0"  Height="29" Name="CreateUserIDTextBlock" Text="create user id" 
                        Style="{StaticResource PhoneTextTitle1Style}" />
             <TextBlock Canvas.Left="11" Canvas.Top="273" Height="280" Name="CreateUserIDContent" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}" Text="Allow TinyCircle to create a UserID for this device?" Width="449" TextWrapping="Wrap"  />
             <Button Canvas.Left="41" Canvas.Top="607" Content="Ok" Height="71" Name="btn_CreateUserID_OK" Width="160" Tap="btn_CreateUserID_OK_Tap" />

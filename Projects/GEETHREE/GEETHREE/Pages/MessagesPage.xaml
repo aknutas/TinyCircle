@@ -30,11 +30,11 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <!-- Name  is important!-->
-        <controls:Pivot Title="TinyCircle" Name="messagepivots" Foreground="{StaticResource PhoneAccentBrush}" HorizontalContentAlignment="Left">
+        <controls:Pivot Title="TINYCIRCLE" Name="messagepivots" Foreground="{StaticResource PhoneAccentBrush}" HorizontalContentAlignment="Left">
         
             
             <!--Pivot item 1: WHISPERS-->
-            <controls:PivotItem Header="Whispers" Name="whispers" >
+            <controls:PivotItem Header="whispers" Name="whispers" >
                 
                 <ListBox Name="ReceivedPrivateMessages" Margin="0,0,50,0" ItemsSource="{Binding ReceivedPrivateMessages}" Tap="PrivateMessages_Tap" Width="420" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                    
@@ -73,7 +73,7 @@
             </controls:PivotItem>
 
             <!--Pivot item 2: SHOUTS-->
-            <controls:PivotItem Header="Shouts" Name="shouts" >
+            <controls:PivotItem Header="shouts" Name="shouts" >
                 <ListBox Name="ReveicedBroadcastMessages" Margin="0,0,50,0" ItemsSource="{Binding ReceivedBroadcastMessages}" Tap="BroadcastMessages_Tap" Width="420" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -101,7 +101,7 @@
             </controls:PivotItem>
 
             <!--Pivot item 3: SENT-->
-            <controls:PivotItem Header="Shared" Name="sent" >
+            <controls:PivotItem Header="shared" Name="sent" >
                 <ListBox Name="SentMessages" Margin="0,0,50,0" ItemsSource="{Binding SentMessages}" Width="420" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Tap="SentMessages_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -129,7 +129,7 @@
             </controls:PivotItem>
             
             <!--Pivot item 4: DRAFTS-->
-            <controls:PivotItem Header="Outlines" Name="drafts">
+            <controls:PivotItem Header="drafts" Name="drafts">
                 <ListBox Name="DraftMessages" Margin="0,0,50,0" ItemsSource="{Binding DraftMessages}" Tap="DraftMessages_Tap" Width="390" HorizontalContentAlignment="Left" HorizontalAlignment="Left">
                     <ListBox.ItemTemplate>
                             <DataTemplate>

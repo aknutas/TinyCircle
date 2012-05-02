@@ -28,13 +28,13 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="HELP" Foreground="{StaticResource PhoneAccentBrush}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="TINYCIRCLE" Foreground="{StaticResource PhoneAccentBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ListBox Margin="0,0,0,0">
-                <TextBlock   Text="My Circle:"  Style="{StaticResource PhoneTextLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}"  />
+                <TextBlock   Text="instruction to use"  Style="{StaticResource PhoneTextLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}"  />
                 <Grid>
                     <TextBlock    Text="" TextWrapping="Wrap" Width="424" Margin="14,62,0,-691" HorizontalAlignment="Left" FontStretch="Normal" Name="mainpageHelpTextBlock" />
                 </Grid>
