@@ -13,3 +13,5 @@ Projects/WS_TestApp/WS_TestApp/obj/x86/Debug/**
 ExamplesAndTests/sdkToast/SendToast/SendToast/bin/**
 ExamplesAndTests/sdkToast/SendToast/SendToast/obj/Debug/**
 Projects/TC_WebService/TC_WebService.suo
+Projects/GEETHREE/GEETHREE/PerformanceLogs/**
+Projects/GEETHREE/GEETHREE/*.sap
