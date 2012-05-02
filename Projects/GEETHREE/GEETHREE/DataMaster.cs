@@ -674,6 +674,18 @@ namespace GEETHREE
             }
         }
 
+        public List<Message> getTenMostRecentIncomingMessages()
+        {
+            lock (dblock)
+            {
+                openDb();
+                var qres = (from Message message in db.Messages where (message.PrivateMessage != true || message.ReceiverID == settings.UserIDSetting) orderby message.TimeStamp descending select message).Take(10);
+                List<Message> returnList = new List<Message>(qres);
+                closeDb();
+                return returnList;
+            }
+        }
+
         public void updateChanges()
         {
             lock (dblock)
