@@ -20,5 +20,11 @@
         <elementListCompartment Id="adf7e359-58ba-46cf-9cc4-35353f4533b3" absoluteBounds="6.015, 2.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="f30aad70-8f08-4a9f-96cc-eec25ee4cf5a" absoluteBounds="3.125, 2.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DataClassesDataContext/Handshake" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6ab4bd7d-ce02-4be7-9849-d3f68f959ef3" absoluteBounds="3.14, 2.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

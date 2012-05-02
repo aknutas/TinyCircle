@@ -197,5 +197,44 @@ namespace TC_WS
 
             return true;
         }
+
+        public void postHandShake(string userId, string userAlias, string password, string appKey)
+        {
+            if (userId == null || userAlias == null || password == null)
+                throw new ArgumentNullException();
+
+            if (appKey != appkey)
+                throw new InvalidOperationException();
+
+            try
+            {
+                DataClassesDataContext db = new DataClassesDataContext();
+
+                //Cleanup for old addresses
+                var qres = from Handshake hs in db.Handshakes where hs.UserID == userId select hs;
+                db.Handshakes.DeleteAllOnSubmit(qres);
+                db.SubmitChanges();
+
+                //Add new address
+                Handshake newhs = new Handshake();
+                newhs.Alias = userAlias;
+                newhs.Password = password;
+                newhs.UserID = userId;
+                db.Handshakes.InsertOnSubmit(newhs);
+                db.SubmitChanges();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Got exception " + ex.ToString());
+            }
+
+            return;
+        }
+
+        public List<WireHandShake> discoverHandShakes(string userAlias, string password, string appKey)
+        {
+            throw new NotImplementedException();
+            return null;
+        }
     }
 }
