@@ -50,6 +50,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Coding4Fun.Phone.Controls, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Coding4Fun.Phone.Controls.Toolkit">
+      <HintPath>..\..\..\..\Users\Tommi Kähkönen\Desktop\Coding4Fun.Phone.Controls\Coding4Fun.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Coding4Fun.Phone.Site.Controls">
+      <HintPath>..\..\..\..\Users\Tommi Kähkönen\Desktop\Coding4Fun.Phone.Controls\Coding4Fun.Phone.Site.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
@@ -189,6 +196,7 @@
     <Resource Include="Resources\tags_white.png" />
     <Resource Include="Resources\whisper_black.png" />
     <Resource Include="Resources\whisper_white.png" />
+    <Resource Include="Resources\avatar.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Resources\available.png" />
     <Resource Include="Resources\notAvailable.png" />
@@ -197,6 +205,9 @@
     <Resource Include="Resources\circle_grey.png" />
     <Resource Include="Resources\messanger_grey.png" />
     <Resource Include="Resources\people_grey.png" />
+    <None Include="GEETHREE_2012_05_02_11_02_58.sap" />
+    <None Include="GEETHREE_2012_05_02_11_11_47.sap" />
+    <None Include="GEETHREE_2012_05_02_11_12_09.sap" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
     <None Include="Service References\MsgServiceReference\GEETHREE.MsgServiceReference.WireMessage.datasource">
