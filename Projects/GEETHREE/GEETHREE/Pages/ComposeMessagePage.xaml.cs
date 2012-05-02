@@ -290,7 +290,7 @@ namespace GEETHREE.Pages
                 msg.Attachmentflag = attachmentFlag;
                 msg.Attachmentfilename = attachmentFileName;   
                 msg.Attachment = attachmentContentstring;
-                msg.TimeStamp = DateTime.Now;
+                msg.TimeStamp = DateTime.UtcNow;
 
                 msg.IsRead = true;
                 //msg.MessageTextColor = new SolidColorBrush(Colors.Gray);

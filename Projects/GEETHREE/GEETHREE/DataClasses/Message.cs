@@ -100,7 +100,15 @@ namespace GEETHREE.DataClasses
         {
             get
             {
-                return _timeStamp;
+                if (_timeStamp.HasValue)
+                {
+
+                    DateTime? returnValue = null;
+                    returnValue = _timeStamp.Value.ToLocalTime();
+                    return returnValue;
+                }
+                else
+                    return _timeStamp;
             }
             set
             {
@@ -108,6 +116,7 @@ namespace GEETHREE.DataClasses
                 {
                     _timeStamp = value;
                     NotifyPropertyChanged("Timestamp");
+                    System.Diagnostics.Debug.WriteLine("Setting timestamp " + value.ToString());
                 }
             }
         }

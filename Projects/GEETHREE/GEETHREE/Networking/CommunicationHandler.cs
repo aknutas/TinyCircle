@@ -411,7 +411,7 @@ namespace GEETHREE
             }
             catch (FormatException e)
             {
-                dt_time = DateTime.Now;
+                dt_time = DateTime.UtcNow;
             }
             if (handler != null)
             {
@@ -433,7 +433,7 @@ namespace GEETHREE
             }
             catch(FormatException e)
             {
-                dt_time = DateTime.Now;
+                dt_time = DateTime.UtcNow;
             }
 
             if (handler != null)
@@ -455,7 +455,7 @@ namespace GEETHREE
             }
             catch (FormatException e)
             {
-                dt_time = DateTime.Now;
+                dt_time = DateTime.UtcNow;
             }
             if (handler != null)
             {
@@ -478,7 +478,7 @@ namespace GEETHREE
             }
             catch (FormatException e)
             {
-                dt_time = DateTime.Now;
+                dt_time = DateTime.UtcNow;
             }
             if (handler != null)
             {
@@ -674,7 +674,7 @@ namespace GEETHREE
 
                     dt_stamp = msg.TimeStamp.Value;
                 else
-                    dt_stamp = DateTime.Now;
+                    dt_stamp = DateTime.UtcNow;
 
 
 
