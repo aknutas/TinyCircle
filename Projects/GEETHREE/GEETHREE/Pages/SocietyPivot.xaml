@@ -23,10 +23,10 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
-        <controls:Pivot Title="TinyCircle" Name="socialpivots" Foreground="{StaticResource PhoneAccentBrush}" SelectionChanged="socialpivots_SelectionChanged">
+        <controls:Pivot Title="TINYCIRCLE" Name="socialpivots" Foreground="{StaticResource PhoneAccentBrush}" SelectionChanged="socialpivots_SelectionChanged">
 
             <!--Pivot item one FRIENDS-->
-            <controls:PivotItem Header="My Friends" Name="PeoplePivot">
+            <controls:PivotItem Header="my friends" Name="PeoplePivot">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Users}" Tap="Users_ListBox_Tap" Name="usersListBox">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -51,7 +51,7 @@
             </controls:PivotItem>
 
             <!--Pivot item two GROUPS-->
-            <controls:PivotItem Header="My Groups" Name="GroupsPivot">
+            <controls:PivotItem Header="my groups" Name="GroupsPivot">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Groups}" Tap="Groups_ListBox_Tap" Name="groupsListBox" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -75,7 +75,7 @@
                 </ListBox>
             </controls:PivotItem>
             <!--Pivot item three Tags-->
-            <controls:PivotItem Header="My Tags" Name="TagsPivot">
+            <controls:PivotItem Header="my tags" Name="TagsPivot">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Tagss}" Name="tagsListBox" Tap="tagsListBox_Tap">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
