@@ -23,6 +23,12 @@ namespace TC_WS
 
         [OperationContract]
         void postToastNotificationAddress(string userId, string toastAddress, string appKey);
+
+        [OperationContract]
+        void postHandShake(string userId, string userAlias, string password, string appKey);
+
+        [OperationContract]
+        List<WireHandShake> discoverHandShakes(string userAlias, string password, string appKey);
     }
 
     [DataContract]
@@ -36,5 +42,16 @@ namespace TC_WS
         public string msgText { get; set; }
         [DataMember]
         public DateTime timeStamp { get; set; }
+    }
+
+    [DataContract]
+    public class WireHandShake
+    {
+        [DataMember]
+        public string UserId { get; set; }
+        [DataMember]
+        public string Alias { get; set; }
+        [DataMember]
+        public string Password { get; set; }
     }
 }
