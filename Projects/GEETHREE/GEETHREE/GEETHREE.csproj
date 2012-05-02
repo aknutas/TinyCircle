@@ -198,13 +198,6 @@
     <Resource Include="Resources\tags_white.png" />
     <Resource Include="Resources\whisper_black.png" />
     <Resource Include="Resources\whisper_white.png" />
-    <Resource Include="Resources\Empty.black.png" />
-    <Resource Include="Resources\few.gray.png" />
-    <Resource Include="Resources\many.white.png" />
-    <Resource Include="Resources\server.black.png" />
-    <Resource Include="Resources\server.white.png" />
-    <Resource Include="Resources\wifi.black.png" />
-    <Resource Include="Resources\wifi.white.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Resources\available.png" />
     <Resource Include="Resources\notAvailable.png" />

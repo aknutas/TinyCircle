@@ -49,11 +49,10 @@
                     
                     <!--<TextBlock  Name="txt_Base_Alias" Text="Alias" Style="{StaticResource PhoneTextTitle1Style}"  Foreground="#FF9BC0D3"  />-->
                     <Grid>
-
-                        <Rectangle Height="173" HorizontalAlignment="Left" Margin="24,26,0,0" Name="rectangle1" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" Fill="{StaticResource PhoneAccentBrush}" />
-                        <Rectangle Fill="{StaticResource PhoneAccentBrush}" Height="173" HorizontalAlignment="Left" Margin="214,26,0,0" Name="rectangle2" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
-                        <Rectangle Fill="{StaticResource PhoneAccentBrush}" Height="173" HorizontalAlignment="Left" Margin="24,218,0,0" Name="rectangle3" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
-                        <Rectangle Fill="{StaticResource PhoneAccentBrush}" Height="173" HorizontalAlignment="Left" Margin="214,218,0,0" Name="rectangle4" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
+                        <Rectangle Height="173" HorizontalAlignment="Left" Margin="24,26,0,0" Name="rectangle1" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" Fill="#3BA9A9A9" />
+                        <Rectangle Fill="#3BA9A9A9" Height="173" HorizontalAlignment="Left" Margin="214,26,0,0" Name="rectangle2" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
+                        <Rectangle Fill="#3BA9A9A9" Height="173" HorizontalAlignment="Left" Margin="24,218,0,0" Name="rectangle3" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
+                        <Rectangle Fill="#3BA9A9A9" Height="173" HorizontalAlignment="Left" Margin="214,218,0,0" Name="rectangle4" Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="0" VerticalAlignment="Top" Width="173" />
 
                         <Image Height="132" Name="img_Base_Avatar" Stretch="Fill" Width="124" HorizontalAlignment="Left" Tap="img_Base_Avatar_Tap" Margin="47,31,0,0" VerticalAlignment="Top" />
                         <TextBlock Name="txt_alias_Name" Text="Bishal" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,165,217,0" VerticalAlignment="Top" Height="37" HorizontalAlignment="Right" Width="147" />
