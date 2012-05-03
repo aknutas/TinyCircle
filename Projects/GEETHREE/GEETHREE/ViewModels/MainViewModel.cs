@@ -30,6 +30,7 @@ namespace GEETHREE
         private List<Message> privateMessagesList;
         private List<Message> broadcastMessagesList;
         private List<Message> tagMessagesList;
+        private List<Message> recentMessagesList;
 
         private List<GroupInfoResponse> grpInfoResponseList;
         private List<UserInfoResponse> usrInfoResponseList;
@@ -56,6 +57,7 @@ namespace GEETHREE
             draftMessageList = new List<Message>();
             privateMessagesList = new List<Message>();
             broadcastMessagesList = new List<Message>();
+            recentMessagesList = new List<Message>();
             grpInfoResponseList = new List<GroupInfoResponse>();
             usrInfoResponseList = new List<UserInfoResponse>();
 
@@ -69,6 +71,7 @@ namespace GEETHREE
             this.ReceivedPrivateMessages = new ObservableCollection<Message>();
             this.ReceivedBroadcastMessages = new ObservableCollection<Message>();
             this.TagMessages = new ObservableCollection<Message>();
+            this.RecentMessages = new ObservableCollection<Message>();
 
             this.GroupInfoResponses = new ObservableCollection<GroupInfoResponse>();
             this.UserInfoResponses = new ObservableCollection<UserInfoResponse>();
@@ -91,6 +94,7 @@ namespace GEETHREE
         public ObservableCollection<Message> ReceivedPrivateMessages { get; private set; }
         public ObservableCollection<Message> ReceivedBroadcastMessages { get; private set; }
         public ObservableCollection<Message> TagMessages { get; private set; }
+        public ObservableCollection<Message> RecentMessages { get; private set; }
         
         public ObservableCollection<GroupInfoResponse> GroupInfoResponses { get; private set; }
         public ObservableCollection<UserInfoResponse> UserInfoResponses { get; private set; }
@@ -179,6 +183,7 @@ namespace GEETHREE
             sentMessageList = c.dm.getMySentMessages();
             broadcastMessagesList = c.dm.getBroadcastMessages();
             privateMessagesList = c.dm.getIncomingPrivateMessages();
+            recentMessagesList = c.dm.getTenMostRecentIncomingMessages();
 
             //Debug
             System.Diagnostics.Debug.WriteLine("LoadData: Got " + sentMessageList.Count.ToString() + " sent messages");
@@ -199,6 +204,7 @@ namespace GEETHREE
             LoadBroadcastMessages();
             LoadPrivateMessages();
             LoadSentMessages();
+            LoadRecentMessages();
             
 
             System.Diagnostics.Debug.WriteLine("LoadData: Data load thread completed");
@@ -332,6 +338,16 @@ namespace GEETHREE
             }
         }
 
+        public void LoadRecentMessages()
+        {
+            RecentMessages.Clear();
+            foreach (Message m in recentMessagesList)
+            {
+                //this.ReceivedBroadcastMessages.Add(m);
+                this.RecentMessages.Insert(0, m);
+            }
+        }
+
         // clear and load data from database to observable collections
         public void LoadData()
         {
@@ -402,6 +418,13 @@ namespace GEETHREE
             {
                 this.ReceivedPrivateMessages.Insert(0, m); 
             }
+            RecentMessages.Clear();
+            recentMessagesList = c.dm.getTenMostRecentIncomingMessages();
+            foreach (Message m in recentMessagesList)
+            {
+                this.RecentMessages.Insert(0, m);
+            }
+
             // Sample data; replace with real data
             /*
             this.Items.Add(new ItemViewModel() { LineOne = "runtime one", LineTwo = "How are you doing?", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
