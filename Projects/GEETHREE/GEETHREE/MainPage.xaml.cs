@@ -52,7 +52,7 @@ namespace GEETHREE
 
                 UserIDCreateCanvas.Background= backgroundbrush;
                 UserIDCreateCanvas.Visibility = Visibility.Visible;
-                ApplicationBar.IsVisible = false;
+                //ApplicationBar.IsVisible = false;
                 createUID = true;
             }
             else
@@ -97,28 +97,38 @@ namespace GEETHREE
 
         private void appbar_settings_Click(object sender, EventArgs e)
         {
-            // ** Go to settings
-            NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
+            if (UserIDCreateCanvas.Visibility == Visibility.Collapsed)
+            {
+                // ** Go to settings
+                NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.Relative));
+            }
         }
 
         private void appbar_messages_Click(object sender, EventArgs e)
         {
-            // ** go to messages      
-            NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+            if (UserIDCreateCanvas.Visibility == Visibility.Collapsed)
+            {
+                // ** go to messages   
+                App.ViewModel.refreshDataAsync();
+                NavigationService.Navigate(new Uri("/Pages/MessagesPage.xaml", UriKind.Relative));
+            }
         }
 
         private void appbar_compose_Click(object sender, EventArgs e)
-        { 
-            // ** ask the controller to register this page as a previous page before going to compose page
-            // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
-            if (mainpanorama.SelectedItem == shouts)
-                ctrl.registerPreviousPage(this, "main_shouts");
-            else if (mainpanorama.SelectedItem == PanoramaItemAlias)
-                ctrl.registerPreviousPage(this, "main_alias");
-            else if (mainpanorama.SelectedItem == society)
-                ctrl.registerPreviousPage(this, "main_society");
-            // ** go to compose page
-            NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
+        {
+            if (UserIDCreateCanvas.Visibility == Visibility.Collapsed)
+            {
+                // ** ask the controller to register this page as a previous page before going to compose page
+                // ** also provide the name of current pivont as a string, so we can navigate back to the same pivot
+                if (mainpanorama.SelectedItem == shouts)
+                    ctrl.registerPreviousPage(this, "main_shouts");
+                else if (mainpanorama.SelectedItem == PanoramaItemAlias)
+                    ctrl.registerPreviousPage(this, "main_alias");
+                else if (mainpanorama.SelectedItem == society)
+                    ctrl.registerPreviousPage(this, "main_society");
+                // ** go to compose page
+                NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
+            }
         }
 
         //private void txt_Base_Messages_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -128,7 +138,8 @@ namespace GEETHREE
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
+           
+                NavigationService.Navigate(new Uri("/Pages/ComposeMessagePage.xaml", UriKind.Relative));
         }
 
 
@@ -170,68 +181,47 @@ namespace GEETHREE
 
         private void btn_CreateUserID_OK_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
-            ctrl.changeCurrentUserID(ctrl.CreateNewUserID());
-            CreateUserIDTextBlock.Text = "user id";
-            CreateUserIDContent.Text = ctrl.getCurrentUserID();
-            btn_CreateUserID_OK.Visibility = Visibility.Collapsed;
-            btn_CreateUserID_Cancel.Visibility = Visibility.Collapsed;
-            btn_CreateUserID_Done.Content = "Done";            
-            btn_CreateUserID_Done.Visibility = Visibility.Visible;
 
-            
+            ctrl.changeCurrentUserID(ctrl.CreateNewUserID());
+            AboutPrompt p = new AboutPrompt();
+            p.Title = "TinyCircle!!";
+            p.Body = new UserIDCreateBodyOKCancel(createUID);
+            p.Completed += about_Completed;
+            p.VersionNumber = "v1.5";
+            p.Show();
         }
 
         private void btn_CreateUserID_Cancel_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            CreateUserIDTextBlock.Text = "Exiting!!!";
-            CreateUserIDContent.Text ="UserID not created! \nTinyCircle Exits now. You can always come back and create UserID! \n\nThank You!!!";
-            btn_CreateUserID_OK.Visibility = Visibility.Collapsed;
-            btn_CreateUserID_Cancel.Visibility = Visibility.Collapsed;
-            btn_CreateUserID_Done.Content = "Ok";
             createUID = false;
-            btn_CreateUserID_Done.Visibility = Visibility.Visible;
+            AboutPrompt p = new AboutPrompt();
+            p.Title = "TinyCircle Exiting!!!";
+            p.Body = new UserIDCreateBodyOKCancel(createUID);
+            p.Completed += about_Completed;
+            p.VersionNumber = "v1.5";
+            p.Show(); 
         }
 
+
+        void about_Completed(object sender, EventArgs e)
+        {
+             
+             UserIDCreateCanvas.Visibility = Visibility.Collapsed;
+             if (createUID == false)
+             {
+                 NavigationService.GoBack();
+             }
+             else
+             {
+                 
+                 
+                 ctrl.cm.Join(ctrl.getCurrentUserID());
+                
+             }
+        }
         private void btn_CreateUserID_Done_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            UserIDCreateCanvas.Visibility = Visibility.Collapsed;
-            if (createUID == false)
-            {
-                NavigationService.GoBack();
-            }
-            else
-            {
-                ApplicationBar.IsVisible = true;
-                createUID = true;
-                ctrl.cm.Join(ctrl.getCurrentUserID());
-
-
-                //Message msg = new Message();
-                //msg.TextContent = "Freedom of Speech since 2012!";
-                //msg.SenderID = "FreedomOfSpeech";
-                //msg.SenderAlias = "Tiny Circle";
-                //msg.GroupMessage = false;
-
-                
-                //    msg.ReceiverID = "Shout";
-                //    msg.PrivateMessage = false;
-               
-                //msg.outgoing = false;
-
-
-               
-                //msg.Attachmentflag = "0";
-                //msg.Attachmentfilename = "none";
-                //msg.Attachment = "none";
-                //ctrl.dm.storeNewMessage(msg);
-
-                
-                //{
-                //    serverMessageReceived = false;
-                //    this.messageArrived(true);
-                //}
-            }
+           
         }
         // ** When navigated back to main page
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -281,8 +271,10 @@ namespace GEETHREE
 
         private void menuItem3_Click(object sender, EventArgs e)
         {
-            
-            NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
+            if (UserIDCreateCanvas.Visibility == Visibility.Collapsed)
+            {
+                NavigationService.Navigate(new Uri("/Pages/HelpPage.xaml", UriKind.Relative));
+            }
         }
 
         private void img_Base_Wifi_Tap(object sender, System.Windows.Input.GestureEventArgs e)

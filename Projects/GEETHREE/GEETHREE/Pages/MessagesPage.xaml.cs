@@ -28,6 +28,8 @@ namespace GEETHREE.Pages
         string replyAlias = "";
         string textcontent = "";
         string groupmessageFlag = "0";
+        string FriendAlias = "";
+        string FriendID = "";
         bool messageread = true;
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
         public MessagesPage()
@@ -309,10 +311,119 @@ namespace GEETHREE.Pages
         {
             
 
-            // ask Viewmodel and database delete this message
+            // check if the user is me or if user has already been friend
+            
+        }
+        private void contextMenuAddFriend_Click(object sender, RoutedEventArgs e)
+        {
+            if (messagepivots.SelectedItem == whispers )
+            {
+                ListBoxItem selectedListBoxItem = this.ReceivedPrivateMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+                //Add Friend
+                Message m = (Message)selectedListBoxItem.Content;
+                if (m.SenderID == ctrl.getCurrentUserID())
+                {
+                    ToastPrompt tp = new ToastPrompt();
+                    tp.Title = "Cannot add yourself as friend!";
+
+                    tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                    tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+                   
+                    tp.Show();
+                }
+                else
+                {
+
+                    replaceAlias(m.SenderAlias, m.SenderID);
+                    
+                    
+                }
+            }
+            else if(messagepivots.SelectedItem == shouts)
+            {
+                ListBoxItem selectedListBoxItem = this.ReveicedBroadcastMessages.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+                if (selectedListBoxItem == null)
+                {
+                    return;
+                }
+                //Add Friend
+                Message m = (Message)selectedListBoxItem.Content;
+                if (m.SenderID == ctrl.getCurrentUserID())
+                {
+                    ToastPrompt tp = new ToastPrompt();
+                    tp.Title = "Cannot add yourself as friend!";
+
+                    tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                    tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+
+                    tp.Show();
+                }
+                else
+                {
+                    replaceAlias(m.SenderAlias, m.SenderID);
+                   
+
+                }
+            }
         }
 
-        
+        void replaceAlias(string SenderAlias, string senderID)
+        {
+            FriendID = senderID;
+            if (SenderAlias == "Anonymous" || SenderAlias == "anonymous" || SenderAlias == "")
+            {
+                var input = new InputPrompt();
+
+                input.Title = "Friends Alias";
+                input.Message = "Enter new alias for your friend!";
+                SolidColorBrush x = (SolidColorBrush)Resources["PhoneAccentBrush"];
+                input.Background = x;
+                input.Completed += input_Completed;
+
+                input.Show();
+            }
+            else
+            {
+                ctrl.notifyViewAboutFriend(FriendID, SenderAlias);
+            }
+        }
+
+        void input_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        {
+            
+            if (e.Result == null || e.Result.ToString() == "")
+            {
+                FriendAlias = "Anonymous";
+                
+               
+
+       
+            }
+            else
+            {
+                FriendAlias = e.Result;
+
+
+                
+            }
+            if (FriendAlias == "Anonymous")
+            {
+                ToastPrompt tp = new ToastPrompt();
+                tp.Title = "Friend not added. Alias cannot be Anonymous!\nReplace the alias and try adding again!";
+                tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+                tp.Show();
+            }
+            else
+            {
+                ctrl.notifyViewAboutFriend(FriendID, FriendAlias);
+            }
+        }
+
         private void contextMenuDelete_Click(object sender, RoutedEventArgs e)
         {
 
