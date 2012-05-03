@@ -258,6 +258,7 @@ namespace GEETHREE
                     u.UserID = uid;
                     u.UserName = alias;
                     dm.storeNewUser(u);
+                    App.ViewModel.refreshDataAsync();
                 }
             }
 
