@@ -141,7 +141,7 @@ namespace GEETHREE.Pages
             ToastPrompt tp = new ToastPrompt();
             if (alias != "0")
             {
-                title = "You have recieved profile of " + alias;
+                title = "Friend information saved ";
             }
             else
             {
