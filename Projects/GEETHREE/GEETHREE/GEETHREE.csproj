@@ -207,9 +207,6 @@
     <Resource Include="Resources\circle_grey.png" />
     <Resource Include="Resources\messanger_grey.png" />
     <Resource Include="Resources\people_grey.png" />
-    <None Include="GEETHREE_2012_05_02_11_02_58.sap" />
-    <None Include="GEETHREE_2012_05_02_11_11_47.sap" />
-    <None Include="GEETHREE_2012_05_02_11_12_09.sap" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
     <None Include="Service References\MsgServiceReference\GEETHREE.MsgServiceReference.WireMessage.datasource">
