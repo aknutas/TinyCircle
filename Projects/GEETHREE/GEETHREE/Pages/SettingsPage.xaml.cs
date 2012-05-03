@@ -145,7 +145,7 @@ namespace GEETHREE.Pages
             }
             else
             {
-                title = "Friend information not found. Check used id and password";
+                title = "Friend information not found.\n Check used id and password";
             }
             tp.Title = title;
 
