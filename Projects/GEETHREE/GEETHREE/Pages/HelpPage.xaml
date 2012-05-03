@@ -34,10 +34,18 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ListBox Margin="0,0,0,0">
-                <TextBlock   Text="instruction to use"  Style="{StaticResource PhoneTextLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}"  />
+                <TextBlock   Text="TinyCircle howto"  Style="{StaticResource PhoneTextLargeStyle}"  Foreground="{StaticResource PhoneAccentBrush}"  />
                 <Grid>
-                    <TextBlock    Text="" TextWrapping="Wrap" Width="424" Margin="14,62,0,-691" HorizontalAlignment="Left" FontStretch="Normal" Name="mainpageHelpTextBlock" />
-                </Grid>
+                    <TextBlock    TextWrapping="Wrap" Width="424" Margin="14,62,0,-691" HorizontalAlignment="Left" FontStretch="Normal" Name="mainpageHelpTextBlock">When TinyCircle is started for the first time, it will create a random user identifier for the user. To send a private message to a user you need to know the id of that user. This user identifier can be seen in user settings (top left icon in my circle). In settings you can select an alias and an avatar for you and you can share your user information through the Azure server. <LineBreak/><LineBreak/>
+Sharing user information. <LineBreak/> To share user information click 'share alias' switch. TinyCircle will then ask for a password to use when sharing the information. Give password and you user id and alias are sent to server. When another user wants to get you user information, he can get them from the server with the alias and password information. <LineBreak/><LineBreak/>
+Retrieving user information.<LineBreak/>
+To get the user information of a friend from the server, you need to go to friends list under my society. There click the + sign and give your friends alias and a password protecting his information. After you click 'Send request' button a message is sent to server and if user information matching the alias and password given is found, the friend is added to your friend list.<LineBreak/><LineBreak/>
+Messages<LineBreak/>
+The messages sent and received can be found by clicking the envelope sign in the bottom of the screen. There are several types of messages. Whispers are messages directed to me. They can be either private messages or group messages. Shouts are broadcast messages - messages sent to all people in local network. Shared contains all messages sent by me and drafts are message drafts saved but not sent.<LineBreak/><LineBreak/>
+Sending messages.<LineBreak/>
+Message can be sent by pressing the little pen icon in the bottom of the screen (or by responding to a message). If the recipient is shout, then the message will be sent to all TinyCircle users in the same local network. If the recipient is a group name, then only the people part of that group will receive it and if recipient is a user, then the message will be a private message directed at that user. You can add pictures to a message from camera by pressing the camera logo in the bottom left of the screen or by selecting them from saved images by clicking the icon in the middle. The message is sent by pressing the logo in the bottom right." 
+                    </TextBlock>
+                    </Grid>
                 
 
 
