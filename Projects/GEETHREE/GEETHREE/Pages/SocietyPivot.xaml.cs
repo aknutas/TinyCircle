@@ -154,6 +154,17 @@ namespace GEETHREE
                 
                 
             }
+            else if (addFriendsCanvas.Visibility == System.Windows.Visibility.Visible)
+            {
+                addFriendsCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+
+                addFriendsTextBoxAlias.Text = "";
+                addFriendsTextBoxAliasPassword.Text = "";
+                txt_addfriends_errorMessage.Text = "";
+
+
+            }
             else if (TagListCanvas.Visibility == Visibility.Visible)
             {
                 TagListCanvas.Visibility = Visibility.Collapsed;
@@ -319,6 +330,73 @@ namespace GEETHREE
         {
             if (socialpivots.SelectedItem == PeoplePivot)
                 {
+                    txt_addfriends_errorMessage.Text = "";
+                    addFriendsTextBoxAlias.Text = "";
+                    addFriendsTextBoxAliasPassword.Text = "";
+                    addFriendsCanvas.Background = backgroundbrush;
+                    addFriendsCanvas.Visibility = System.Windows.Visibility.Visible;                    
+                    ApplicationBar.IsVisible = false; 
+                }
+            else if (socialpivots.SelectedItem == TagsPivot)
+            {
+                txt_addtag_errorMessage.Text = "";
+                addtagTextBox.Text = "";
+                addtagsCanvas.Background = backgroundbrush;
+                addtagsCanvas.Visibility = System.Windows.Visibility.Visible;
+                ApplicationBar.IsVisible = false;
+            }
+            else
+                {
+                    txt_addorjoin_errorMessage.Text = "";
+                    addOrJoinCanvasTextBox.Text = "";
+                    addOrJoinCanvas.Background = backgroundbrush;
+                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
+                    
+                    ApplicationBar.IsVisible = false;
+                }
+
+
+
+        }
+
+        private void socialpivots_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (socialpivots.SelectedItem == GroupsPivot)
+            {
+                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Create", true, appbar_addButton_Click);
+                UpdateAppbarButton(1, "/Resources/appbar.favs.addto.rest.png", "Join", true, appbar_joingroup_Button_Click);
+
+            }
+            else if (socialpivots.SelectedItem == TagsPivot)
+            {
+                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
+                UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
+               
+            }
+            else if (socialpivots.SelectedItem == PeoplePivot)
+            {
+                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
+                UpdateAppbarButton(1, "/Resources/appbar.favs.addto.rest.png", "Add frm List", true, appbar_joingroup_Button_Click);
+
+            }
+            else 
+            {
+                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
+                UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
+
+            }
+            
+
+        }
+
+
+
+        
+        private void appbar_joingroup_Button_Click(object sender, EventArgs e)
+        {
+            if (socialpivots.SelectedItem == PeoplePivot)
+                {
                     //send for getNearbyGroupInfoRequest()
                     ctrl.cm.RequestUserInfo(ctrl.getCurrentUserID());
 
@@ -376,101 +454,51 @@ namespace GEETHREE
                     grplistBox1.Visibility = Visibility.Visible;
                     ApplicationBar.IsVisible = false;
                 }
-            else if (socialpivots.SelectedItem == TagsPivot)
-            {
-                txt_addtag_errorMessage.Text = "";
-                addtagTextBox.Text = "";
-                addtagsCanvas.Background = backgroundbrush;
-                addtagsCanvas.Visibility = System.Windows.Visibility.Visible;
-                ApplicationBar.IsVisible = false;
-            }
-            else
-                {
-                    txt_addorjoin_errorMessage.Text = "";
-                    addOrJoinCanvasTextBox.Text = "";
-                    addOrJoinCanvas.Background = backgroundbrush;
-                    addOrJoinCanvas.Visibility = System.Windows.Visibility.Visible;
-                    
-                    ApplicationBar.IsVisible = false;
-                }
-
-
-
-        }
-
-        private void socialpivots_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
             if (socialpivots.SelectedItem == GroupsPivot)
             {
-                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Create", true, appbar_addButton_Click);
-                UpdateAppbarButton(1, "/Resources/appbar.favs.addto.rest.png", "Join", true, appbar_joingroup_Button_Click);
-
-            }
-            else if (socialpivots.SelectedItem == TagsPivot)
-            {
-                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
-                UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
-               
-            }
-            else 
-            {
-                UpdateAppbarButton(0, "/Resources/appbar.add.rest.png", "Add", true, appbar_addButton_Click);
-                UpdateAppbarButton(1, "/Resources/appbar.add.rest.png", "remove", false, appbar_joingroup_Button_Click);
-
-            }
-            
-
-        }
+                //send for getNearbyGroupInfoRequest()
+                ctrl.cm.RequestGroupInfo(ctrl.getCurrentUserID());
 
 
+                //list allnearbygroups in a new canvas
+                groupListCanvas.Background = backgroundbrush;
+                groupCanvasTextBlock.Text = "Join Group";
+                userflag = false;
+                groupListCanvas.Visibility = Visibility.Visible;
 
-        
-        private void appbar_joingroup_Button_Click(object sender, EventArgs e)
-        {
-            //send for getNearbyGroupInfoRequest()
-            ctrl.cm.RequestGroupInfo(ctrl.getCurrentUserID());
-           
-
-            //list allnearbygroups in a new canvas
-            groupListCanvas.Background = backgroundbrush;
-            groupCanvasTextBlock.Text = "Join Group";
-            userflag = false;
-            groupListCanvas.Visibility = Visibility.Visible;
-
-            txt_groupList_message.Text = "";
-            grplistBox1.Items.Clear();
-            GroupInfoResponseslist.Clear();
-                App.ViewModel.LoadGroupInfoResponses();
-                
-            
-            foreach (GroupInfoResponse u in App.ViewModel.GroupInfoResponses)
-            {
-                if (ctrl.dm.checkGroupID(u.GroupID) == false)
-                {
-                    bool exists = false;
-                    foreach (GroupInfoResponse resp in GroupInfoResponseslist)
-                    {
-                        if (resp.GroupID == u.GroupID)
-                            exists = true;
-                    }
-                    if (exists == false)
-                    {
-                        grplistBox1.Items.Add(u.GroupName);
-                        GroupInfoResponseslist.Add(u);
-                    }
-                }
-                
-            }
-            if (grplistBox1.Items.Count() <= 0)
-                txt_groupList_message.Text = "There are no available nearby groups! \nPlease check again later!";
-            else
                 txt_groupList_message.Text = "";
-            grplistBox1.Visibility = Visibility.Visible;
-            ApplicationBar.IsVisible = false;
+                grplistBox1.Items.Clear();
+                GroupInfoResponseslist.Clear();
+                App.ViewModel.LoadGroupInfoResponses();
 
-            
 
+                foreach (GroupInfoResponse u in App.ViewModel.GroupInfoResponses)
+                {
+                    if (ctrl.dm.checkGroupID(u.GroupID) == false)
+                    {
+                        bool exists = false;
+                        foreach (GroupInfoResponse resp in GroupInfoResponseslist)
+                        {
+                            if (resp.GroupID == u.GroupID)
+                                exists = true;
+                        }
+                        if (exists == false)
+                        {
+                            grplistBox1.Items.Add(u.GroupName);
+                            GroupInfoResponseslist.Add(u);
+                        }
+                    }
+
+                }
+                if (grplistBox1.Items.Count() <= 0)
+                    txt_groupList_message.Text = "There are no available nearby groups! \nPlease check again later!";
+                else
+                    txt_groupList_message.Text = "";
+                grplistBox1.Visibility = Visibility.Visible;
+                ApplicationBar.IsVisible = false;
+
+
+            }
 
         }
 
@@ -757,6 +785,31 @@ namespace GEETHREE
             string parameter = "PeoplePivot";
             NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
         }
+
+        private void SendRequestButton_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (addFriendsTextBoxAlias.Text == "")
+            {
+                txt_addfriends_errorMessage.Text = "Please provide an alias!";
+            }
+            else if (addFriendsTextBoxAliasPassword.Text == "")
+            {
+                txt_addfriends_errorMessage.Text = "Please provide a alias password!";
+            }
+            else
+            {
+                ctrl.cm.FindFriend(addFriendsTextBoxAlias.Text, addFriendsTextBoxAliasPassword.Text);              
+
+                addFriendsTextBoxAlias.Text = "";
+                addFriendsTextBoxAliasPassword.Text = "";
+                txt_addfriends_errorMessage.Text = "";
+                addFriendsCanvas.Visibility = System.Windows.Visibility.Collapsed;
+                ApplicationBar.IsVisible = true;
+
+            }
+        }
+
+       
        
 
 

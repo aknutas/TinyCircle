@@ -236,6 +236,10 @@ namespace GEETHREE.Pages
             else
             {
                 aliasPassword = e.Result;
+
+
+                ctrl.cm.ShareUserInfo(ctrl.getCurrentUserID(), txt_Settings_alias.Text, aliasPassword);
+
                 tp.Title = "Alias Shared!";
 
                 tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
