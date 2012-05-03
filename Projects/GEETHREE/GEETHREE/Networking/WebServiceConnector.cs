@@ -283,12 +283,14 @@ namespace GEETHREE.Networking
                         uid = e.Result[0].UserId;
                         alias = e.Result[0].Alias;
                         wr.webServiceFriendEvent(uid, alias);
+
                     }
                     else
                     {
                         uid ="0";
                         alias ="0";
                         wr.webServiceFriendEvent(uid, alias);
+
                     }
                 }
                 else
