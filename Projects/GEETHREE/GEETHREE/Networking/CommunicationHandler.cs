@@ -549,6 +549,7 @@ namespace GEETHREE
             if(msg.GroupMessage || msg.PrivateMessage)
                 SendToServer(msg);
 
+           //FindFriend("TestUser", "PassWD");
         }
 
         public void SendFileToAll(Message msg)
@@ -731,7 +732,13 @@ namespace GEETHREE
         void WebServiceReceiver.webServiceFriendEvent(string uid, string alias)
         {
             System.Diagnostics.Debug.WriteLine("Received an id for " + alias);
-            //How to save friend info?
+
+            //Inform controller and view about the event
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+
+                Controller.Instance.notifyViewAboutFriend(uid, alias);
+            });
 
 
         }

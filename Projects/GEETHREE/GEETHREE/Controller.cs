@@ -240,6 +240,39 @@ namespace GEETHREE
 
         }
 
+        public void notifyViewAboutFriend(string uid, string alias)
+        {
+            //First save friend info
+
+
+            //Then notify
+            if (currentPageName == "main")
+            {
+                MainPage mp = (MainPage)currentPage;
+                mp.friendInfoArrived(alias);
+            }
+            else if (currentPageName == "compose")
+            {
+                ComposeMessagePage cmp = (ComposeMessagePage)currentPage;
+                cmp.friendInfoArrived(alias);
+            }
+            else if (currentPageName == "messages")
+            {
+                MessagesPage msgp = (MessagesPage)currentPage;
+                msgp.friendInfoArrived(alias);
+            }
+            else if (currentPageName == "society")
+            {
+                SocietyPivot sp = (SocietyPivot)currentPage;
+                sp.friendInfoArrived(alias);
+            }
+            else if (currentPageName == "settings")
+            {
+                SettingsPage settp = (SettingsPage)currentPage;
+                settp.friendInfoArrived(alias);
+            }
+        }
+
 
         public string CreateNewUserID()
         {

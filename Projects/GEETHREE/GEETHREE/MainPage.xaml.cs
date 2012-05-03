@@ -452,6 +452,26 @@ namespace GEETHREE
             }
         }
 
+        // ** toast announces about user info that arrived
+        public void friendInfoArrived(string alias)
+        {
+            ToastPrompt tp = new ToastPrompt();
+
+            string title = "You have recieved profile of " + alias;
+            tp.Title = title;
+
+            tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+            tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+            tp.Tap += friend_Toast_Tap;
+            tp.Show();
+        }
+        void friend_Toast_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            //What to do now? Navigate to friendlist?
+            string parameter = "PeoplePivot";
+            NavigationService.Navigate(new Uri(string.Format("/Pages/SocietyPivot.xaml?parameter={0}", parameter), UriKind.Relative));
+        }
+
 
     }
 }
