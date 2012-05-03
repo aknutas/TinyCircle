@@ -26,6 +26,7 @@ namespace GEETHREE.Pages
         private bool arrivedMessageIsPrivate = false; 
         DataClasses.AppSettings appSettings;
         Brush backgroundbrush = (Brush)Application.Current.Resources["PhoneBackgroundBrush"];
+        string aliasPassword = "";
         public SettingsPage()
         {
 
@@ -167,6 +168,83 @@ namespace GEETHREE.Pages
             }
         }
 
+      
+
+        private void tgs_Settings_shareProfileInfo_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (tgs_Settings_shareProfileInfo.IsChecked == true)
+            {
+                ToastPrompt tp = new ToastPrompt();
+                if (ctrl.mh.ConnectedToServer == true)
+                {
+                    if (txt_Settings_alias.Text == "" || txt_Settings_alias.Text == "Anonymous" || txt_Settings_alias.Text == "anonymous")
+                    {
+                        tp.Title = "Alias cannot be empty or Anonymous.\nChange your alias and share again!";
+
+                        tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                        tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+                        tp.Show();
+                        tgs_Settings_shareProfileInfo.IsChecked = false;
+
+                        System.Diagnostics.Debug.WriteLine("Alias not Shared due to no alias error!");
+                    }
+                    else
+                    {
+                        var input = new InputPrompt(); 
+                        
+                        input.Title = "Alias Password"; 
+                        input.Message = "Enter new password to share your alias!";
+                        SolidColorBrush x = (SolidColorBrush)Resources["PhoneAccentBrush"];
+                        input.Background = x;
+                        input.Completed += input_Completed;
+                            
+                        input.Show();
+                        
+                        
+                        //System.Diagnostics.Debug.WriteLine("Alias Shared");
+                    }
+                }
+                else
+                {
+                    
+                    tp.Title = "No Server Connection! \nYou cannot Share your Alias.";
+
+                    tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                    tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+                    tp.Show();
+                    tgs_Settings_shareProfileInfo.IsChecked = false;
+
+                    System.Diagnostics.Debug.WriteLine("Alias not Shared due to no server connection");
+                }
+            }
+            
+        }
+        void input_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        {
+            ToastPrompt tp = new ToastPrompt();
+            if (e.Result == null || e.Result.ToString() == "")
+            {
+                tp.Title = "Password cannot be empty.\nProvide a password and share again!";
+
+                tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+                tp.Show();
+                tgs_Settings_shareProfileInfo.IsChecked = false;
+
+                System.Diagnostics.Debug.WriteLine("Alias not Shared due to password empty!");
+            }
+            else
+            {
+                aliasPassword = e.Result;
+                tp.Title = "Alias Shared!";
+
+                tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
+                tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
+                tp.Show();
+                System.Diagnostics.Debug.WriteLine("Alias Shared : " + aliasPassword);
+            }
+            //add some code here    
+        }
 
     }
 }

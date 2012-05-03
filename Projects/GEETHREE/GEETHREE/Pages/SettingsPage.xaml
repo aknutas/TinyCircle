@@ -56,7 +56,7 @@
                     
                 </Grid>
 
-                <toolkit:ToggleSwitch   Header="Share Alias" Height="114" Name="tgs_Settings_shareProfileInfo" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowProfileInfoSetting, Mode=TwoWay}"  />
+                <toolkit:ToggleSwitch   Header="Share Alias" Height="114" Name="tgs_Settings_shareProfileInfo" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowProfileInfoSetting, Mode=TwoWay}" Tap="tgs_Settings_shareProfileInfo_Tap" />
                 <toolkit:ToggleSwitch  Header="Server Connection" Height="114" Name="tgs_Settings_shareUploads" Width="456" IsChecked="{Binding Source={StaticResource appSettings}, Path=ShowSharedUploadsSetting, Mode=TwoWay}" />
 
             </StackPanel>
