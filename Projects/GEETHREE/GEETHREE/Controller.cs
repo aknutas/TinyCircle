@@ -260,6 +260,8 @@ namespace GEETHREE
                     dm.storeNewUser(u);
                     App.ViewModel.refreshDataAsync();
                 }
+                else
+                    return;
             }
 
             //Then notify
