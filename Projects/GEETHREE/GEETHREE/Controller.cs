@@ -261,7 +261,9 @@ namespace GEETHREE
                     App.ViewModel.refreshDataAsync();
                 }
                 else
+                
                     return;
+               
             }
 
             //Then notify
