@@ -34,7 +34,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Height="675" HorizontalAlignment="Left" Margin="9,6,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="441" >
-                <TextBlock  Margin="10,0,0,0"  Height="47" Name="recipientTextBlock" Text="Recepient: " Width="434" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}"  />
+                <TextBlock  Margin="10,0,0,0"  Height="47" Name="recipientTextBlock" Text="Recipient: " Width="434" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextLargeStyle}"  />
                 <Grid >
                     <TextBox Height="70" Name="composeReceipientTextBox" Text="" Width="363" HorizontalAlignment="Left"  Margin="1,0,0,0" IsEnabled="True" />
                     <Image Height="70" HorizontalAlignment="Right" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="70" Source="/GEETHREE;component/Resources/addround.png" Tap="image1_Tap" />
