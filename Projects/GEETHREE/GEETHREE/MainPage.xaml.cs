@@ -187,7 +187,7 @@ namespace GEETHREE
             p.Title = "TinyCircle!!";
             p.Body = new UserIDCreateBodyOKCancel(createUID);
             p.Completed += about_Completed;
-            p.VersionNumber = "v1.5";
+            p.VersionNumber = "v1.6";
             p.Show();
         }
 
@@ -198,7 +198,7 @@ namespace GEETHREE
             p.Title = "TinyCircle Exiting!!!";
             p.Body = new UserIDCreateBodyOKCancel(createUID);
             p.Completed += about_Completed;
-            p.VersionNumber = "v1.5";
+            p.VersionNumber = "v1.6";
             p.Show(); 
         }
 
