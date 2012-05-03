@@ -62,4 +62,35 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="postHandShake">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="userAlias" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="appKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="postHandShakeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="discoverHandShakes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userAlias" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="appKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="discoverHandShakesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TC_WS" minOccurs="0" name="discoverHandShakesResult" nillable="true" type="q2:ArrayOfWireHandShake" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

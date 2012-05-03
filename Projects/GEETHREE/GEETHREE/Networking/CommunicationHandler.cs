@@ -548,6 +548,7 @@ namespace GEETHREE
             //Try also to send to server
             if(msg.GroupMessage || msg.PrivateMessage)
                 SendToServer(msg);
+
         }
 
         public void SendFileToAll(Message msg)
@@ -633,6 +634,23 @@ namespace GEETHREE
                 wsConnection.postMessage(msg.SenderID, msg.ReceiverID, msgContent, this, msg.TimeStamp.Value);
         }
 
+        public void ShareUserInfo(string uid, string alias, string password)
+        {
+            if (wsConnection == null)
+                wsConnection = new WebServiceConnector();
+            if (wsConnection.connectionUp)
+                wsConnection.ShareAlias(uid, alias, password);
+        }
+
+        public void FindFriend(string alias, string password)
+        {
+            if (wsConnection == null)
+                wsConnection = new WebServiceConnector();
+            if (wsConnection.connectionUp)
+                wsConnection.FindFriend(alias, password,this);
+        }
+
+
         public void GetMessagesFromServer(string uid)
         {
             if (wsConnection == null)
@@ -709,6 +727,13 @@ namespace GEETHREE
                 handler(this, new ServerConnectionEventArgs(status));
             }
             
+        }
+        void WebServiceReceiver.webServiceFriendEvent(string uid, string alias)
+        {
+            System.Diagnostics.Debug.WriteLine("Received an id for " + alias);
+            //How to save friend info?
+
+
         }
 
         DispatcherTimer _dt;

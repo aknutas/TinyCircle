@@ -15,4 +15,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="WireMessage" nillable="true" type="tns:WireMessage" />
+  <xs:complexType name="ArrayOfWireHandShake">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WireHandShake" nillable="true" type="tns:WireHandShake" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWireHandShake" nillable="true" type="tns:ArrayOfWireHandShake" />
+  <xs:complexType name="WireHandShake">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Alias" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WireHandShake" nillable="true" type="tns:WireHandShake" />
 </xs:schema>

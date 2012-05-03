@@ -12,5 +12,7 @@ namespace GEETHREE.Networking
         void webServiceMessageSent(Boolean status);
 
         void pingFinished(Boolean status);
+
+        void webServiceFriendEvent(string uid, string alias);
     }
 }

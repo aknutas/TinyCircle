@@ -52,6 +52,15 @@ namespace GEETHREE.Networking
             new WSRequest(initMs()).handleRegisterToast(subscriptionUri, userId);
         }
 
+        public void ShareAlias(string uid, string alias, string passwd)
+        {
+            new WSRequest(initMs()).handleShareAlias(uid, alias, passwd);
+        }
+        public void FindFriend(string alias, string passwd, WebServiceReceiver wr)
+        {
+            new WSRequest(wr, initMs()).handleFindFriend(wr, alias, passwd);
+        }
+
         private class WSRequest
         {
             private WebServiceReceiver wr;
@@ -219,6 +228,64 @@ namespace GEETHREE.Networking
                 //Send toast registration to server
                 msgService.postToastNotificationAddressAsync(userId, subscriptionUri, appKey);
                 System.Diagnostics.Debug.WriteLine("WSC: Registered " + userId + " with address " + subscriptionUri);
+            }
+
+            public void handleShareAlias(string uid, string alias, string passwd)
+            {
+
+                msgService.postHandShakeCompleted +=new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(msgService_postHandShakeCompleted);
+                try
+                {
+                    msgService.postHandShakeAsync(uid, alias, passwd, appKey);
+                    
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+                }
+            }
+
+            private void msgService_postHandShakeCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+            {
+                if (e.Error == null)
+                {
+                    ;
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Error.Message.ToString());
+                }
+            }
+
+            public void handleFindFriend(WebServiceReceiver wr, string alias, string passwd)
+            {
+                msgService.discoverHandShakesCompleted +=new EventHandler<discoverHandShakesCompletedEventArgs>(msgService_discoverHandShakesCompleted);
+                try
+                {
+                    msgService.discoverHandShakesAsync(alias, passwd, appKey);
+
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+                }
+            }
+
+            private void msgService_discoverHandShakesCompleted(object sender, discoverHandShakesCompletedEventArgs e)
+            {
+                string uid;
+                string alias;
+
+                if (e.Error == null && e.Result.Count>0)
+                {
+                    uid = e.Result[0].UserId;
+                    alias = e.Result[0].Alias;
+                    wr.webServiceFriendEvent(uid, alias);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Error.Message.ToString());
+                }
             }
 
         }

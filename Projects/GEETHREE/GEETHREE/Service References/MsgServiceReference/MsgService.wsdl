@@ -31,6 +31,18 @@
   <wsdl:message name="IMsgService_postToastNotificationAddress_OutputMessage">
     <wsdl:part name="parameters" element="tns:postToastNotificationAddressResponse" />
   </wsdl:message>
+  <wsdl:message name="IMsgService_postHandShake_InputMessage">
+    <wsdl:part name="parameters" element="tns:postHandShake" />
+  </wsdl:message>
+  <wsdl:message name="IMsgService_postHandShake_OutputMessage">
+    <wsdl:part name="parameters" element="tns:postHandShakeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMsgService_discoverHandShakes_InputMessage">
+    <wsdl:part name="parameters" element="tns:discoverHandShakes" />
+  </wsdl:message>
+  <wsdl:message name="IMsgService_discoverHandShakes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:discoverHandShakesResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMsgService">
     <wsdl:operation name="postMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IMsgService/postMessage" message="tns:IMsgService_postMessage_InputMessage" />
@@ -47,6 +59,14 @@
     <wsdl:operation name="postToastNotificationAddress">
       <wsdl:input wsaw:Action="http://tempuri.org/IMsgService/postToastNotificationAddress" message="tns:IMsgService_postToastNotificationAddress_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMsgService/postToastNotificationAddressResponse" message="tns:IMsgService_postToastNotificationAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="postHandShake">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMsgService/postHandShake" message="tns:IMsgService_postHandShake_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMsgService/postHandShakeResponse" message="tns:IMsgService_postHandShake_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="discoverHandShakes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMsgService/discoverHandShakes" message="tns:IMsgService_discoverHandShakes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMsgService/discoverHandShakesResponse" message="tns:IMsgService_discoverHandShakes_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMsgService" type="tns:IMsgService">
@@ -80,6 +100,24 @@
     </wsdl:operation>
     <wsdl:operation name="postToastNotificationAddress">
       <soap:operation soapAction="http://tempuri.org/IMsgService/postToastNotificationAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="postHandShake">
+      <soap:operation soapAction="http://tempuri.org/IMsgService/postHandShake" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="discoverHandShakes">
+      <soap:operation soapAction="http://tempuri.org/IMsgService/discoverHandShakes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

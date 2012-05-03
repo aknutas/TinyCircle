@@ -212,6 +212,9 @@
     <None Include="GEETHREE_2012_05_02_11_12_09.sap" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
+    <None Include="Service References\MsgServiceReference\GEETHREE.MsgServiceReference.WireHandShake.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\MsgServiceReference\GEETHREE.MsgServiceReference.WireMessage.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
