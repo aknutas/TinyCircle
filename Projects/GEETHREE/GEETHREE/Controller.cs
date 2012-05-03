@@ -243,19 +243,22 @@ namespace GEETHREE
         public void notifyViewAboutFriend(string uid, string alias)
         {
             //First save friend info
-            bool exists = false;
-            foreach(User usr in dm.getAllUsers())
+            if (uid != "0")
             {
-                if (usr.UserID == uid)
-                    exists = true;
+                bool exists = false;
+                foreach (User usr in dm.getAllUsers())
+                {
+                    if (usr.UserID == uid)
+                        exists = true;
 
-            }
-            if (!exists)
-            {
-                User u = new User();
-                u.UserID = uid;
-                u.UserName = alias;
-                dm.storeNewUser(u);
+                }
+                if (!exists)
+                {
+                    User u = new User();
+                    u.UserID = uid;
+                    u.UserName = alias;
+                    dm.storeNewUser(u);
+                }
             }
 
             //Then notify

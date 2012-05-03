@@ -137,10 +137,17 @@ namespace GEETHREE.Pages
         // ** toast announces about user info that arrived
         public void friendInfoArrived(string alias)
         {
+            string title;
             ToastPrompt tp = new ToastPrompt();
-
-            string title = "You have recieved profile of " + alias;
-            tp.Title =title;
+            if (alias != "0")
+            {
+                title = "You have recieved profile of " + alias;
+            }
+            else
+            {
+                title = "Friend information not found. Check used id and password";
+            }
+            tp.Title = title;
 
             tp.ImageSource = new BitmapImage(new Uri("/GEETHREE;component/g3aicon2_62x62.png", UriKind.Relative));
             tp.TextOrientation = System.Windows.Controls.Orientation.Vertical;
